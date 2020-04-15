@@ -11,20 +11,53 @@
     <form class = "box">
       <label class ="Title" id = "Title">Intro Survey</label><br>
       
-      <label class ="Subtitle" id = "Name">Name <span class="Subsubtitle"> (Required)</span></label>
-      <input type="text" class = "Textbox">
+      <label class ="Subtitle" id = "Name">Name<span class="Subsubtitle"> (Required)</span></label>
+      <input type="text" class = "Textbox" required>
       <br>
 
-      <label class = "Subtitle" id = "Email">Email <span class="Subsubtitle"> (Required)</span></label>
-      <input type = "text" class ="Textbox" value>
+      <label class = "Subtitle" id = "Email">Email<span class="Subsubtitle"> (Required)</span></label>
+      <input type = "text" class ="Textbox" required>
       <br>
 
-      <label class = "Subtitle"id ="Registration" >Registration Status</label><br>
-      <label class = "Subtitle" id = "ClassSelect">Class Selection</label><br>
+      <label class = "Subtitle"id ="Registration" >Registration Status</label>
+      <select id="Dropoptions">
+        <option value="Registered">Registered</option>
+        <option value="Not Registered">Not Registerd</option>
+        <option value="Auditing">Auditing</option>
+        <option value="unknown">Can't Make Up Mind</option>
+      </select><br>
+
+      <label class = "Subtitle" id = "ClassSelect" >Class Selection</label>
+      <div class = "RadioClassSelection">
+        <input type="radio" id="CS410P" name = "class" required>
+        <label for = "CS410P">CS410P</label>
+        <input type="radio" id="CS510" name = "class" required>
+        <label for="CS510">CS510</label><br>
+      </div>
+      <br>
+      
+      <div id="checkBoxes">
       <label class = "Subtitle" id = "CourseCheck">Have you taken any of thse following classes?</label><br>
-      <label class = "Subtitle"id = "else">Anything Else?</label><br>
+      <input type="checkbox" id="CS">
+      <label for="CS"> Computer Science</label><br>
+      <input type="checkbox" id="OS">
+      <label for="OS"> Operating  Systems</label><br>
+      <input type="checkbox" id="Web">
+      <label for="Web"> Full Stack Web Devleopment</label><br><br>
+      </div>
+
+      <label class = "Subtitle"id = "else">Anything Else?</label>
+      <textarea id="addition" rows="4" cols="50"></textarea>
+
+      <button type="Submit" id = "submit" onclick="check();">Submit</button>
+      <button type="Reset" id = "reset">Reset</button>
     </form>
     <!-- add your code below -->
     <p>exercise #5 - creating a form</p>
   </body>
+  <script>
+      function check(){
+        alert("form submitted");
+  }
+  </script>
 </html>
