@@ -1,1 +1,133 @@
-/* Add your code here */
+* {
+box-sizing: border-box;
+font-family: sans-serif;
+font-size: 1.3em;
+}
+.grid-item {
+background-color: grey;
+color: black;
+text-align: center;
+margin: 1px;
+}
+
+.grid-container{
+display:grid;
+align-items: stretch;
+grid-template-areas: 
+"b1 b2 b3 1 2 3 4"
+"5 6 7 8 9 10 11"
+"12 13 14 15 16 17 18"
+"19 20 21 22 23 24 25"
+"26 27 28 29 30 31 b4";
+}
+.blank-item {
+    background-color: white;
+    border: 1px solid grey;
+    text-align: center;
+    margin: 1px;
+}
+.b1{
+    grid-area: b1;
+}
+.b2{
+    grid-area: b2;
+}
+.b3{
+    grid-area: b3;
+}
+.b4{
+    grid-area: b4;
+}
+.day1{
+    grid-area:1 ;
+}
+.day2{
+    grid-area:2 ;
+}
+.day3{
+    grid-area:3 ;
+}
+.day4{
+    grid-area:4 ;
+}
+.day5{
+    grid-area:5 ;
+}
+.day6{
+    grid-area:6 ;
+}
+.day7{
+    grid-area:7 ;
+}
+.day8{
+    grid-area:8 ;
+}
+.day9{
+    grid-area:9 ;
+}
+.day10{
+    grid-area:10 ;
+}
+.day11{
+    grid-area:11 ;
+}
+.day12{
+    grid-area:12 ;
+}
+.day13{
+    grid-area:13 ;
+}
+.day14{
+    grid-area:14 ;
+}
+.day15{
+    grid-area:15 ;
+}
+.day16{
+    grid-area:16 ;
+}
+.day17{
+    grid-area:17 ;
+}
+.day18{
+    grid-area:18 ;
+}
+.day19{
+    grid-area:19 ;
+}
+.day20{
+    grid-area:20 ;
+}
+.day21{
+    grid-area:21 ;
+}
+.day22{
+    grid-area:22 ;
+}
+.day23{
+    grid-area:23 ;
+}
+.day24{
+    grid-area:24 ;
+}
+.day25{
+    grid-area:25 ;
+}
+.day26{
+    grid-area:26 ;
+}
+.day27{
+    grid-area:27 ;
+}
+.day28{
+    grid-area:28 ;
+}
+.day29{
+    grid-area:29 ;
+}
+.day30{
+    grid-area:30 ;
+}
+.day31{
+    grid-area:31;
+}
