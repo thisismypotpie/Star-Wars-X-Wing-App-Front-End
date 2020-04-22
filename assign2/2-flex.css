@@ -16,6 +16,50 @@
 
 .flex-container {
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 /* Add your code here */
+
+.item1{
+ order:3;
+}
+
+.item2{
+  order:4;
+}
+
+.item3{
+  order:5;
+}
+
+.item4{
+  order:6;
+}
+
+.item5{
+  order:2;
+}
+
+.item6{
+  order:7;
+}
+
+.item7{
+  order:8;
+}
+
+.item8{
+  order:1;
+}
+
+.item9{
+  order:9;
+}
+
+.item10{
+  order:10;
+}
