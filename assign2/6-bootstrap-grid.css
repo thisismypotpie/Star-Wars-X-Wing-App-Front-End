@@ -7,6 +7,24 @@
   padding: 10px;
   border: 1px solid white;
   color: white;
+  background-color: blue;
+
 }
 
 /* Add your code here */
+
+.one >div[class^='col'] {
+  background-color:purple ;
+}
+
+.two>div[class^='col']{
+  background-color: green;
+}
+
+.three>div[class^='col']{
+  background-color: orange;
+}
+
+.four>div[class^='col']{
+  background-color: darkcyan;
+}
