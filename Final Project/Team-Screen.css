@@ -1,9 +1,13 @@
 body{
     background: url("https://i.imgur.com/nIM4P1r.jpg");
 }
+
+*:focus {
+    outline: none;
+}
 .title{
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 5.0em;
+    font-size: 7vw;
     color: white;
     justify-content: center;
     width: 100%;
@@ -26,11 +30,13 @@ body{
     align-self: center;
     margin-left: 3%;
     margin-right:3%;
+    background-color: black;
+    border: 2px solid white;
 }
 
 .list-box-title{
     color: white;
-    font-size: 3.0em;
+    font-size: 3vw;
     font-family: Impact, Charcoal, sans-serif;
     width:20%;
     text-align: center;
@@ -43,7 +49,6 @@ body{
 }
 
 .team-names{
-    background-color: red;
     Width: 20%;
 }
 
@@ -54,16 +59,34 @@ body{
 }
 
 .team-cost{
-    background-color: blue;
     width: 15%;
 }
 
 .number-of-ships-title{
     margin-right: 3%;
-    margin-left: 0.3%;
+    margin-left: 1%;
 }
 
 .team-size{
-    background-color: green;
     width: 15%;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    height: 65vh;
+    margin-left: 10%;
+}
+
+.button{
+margin:5%;
+height: 30vh;
+background-image: url("https://i.imgur.com/RkyE0Xv.png");
+background-repeat: no-repeat;
+background-size: 100% 20vh;
+background-color: transparent;
+font-family: Impact, Charcoal, sans-serif;
+font-size: 1.2vw;
+border:none;
 }
