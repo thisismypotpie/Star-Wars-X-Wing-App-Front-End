@@ -1,0 +1,72 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+.list-box-title{
+    color: white;
+
+}
+
+.list-box{
+    background-color: black;
+    border: 2px solid white;
+    width: 40%;
+    height: 50vh;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.subtitles{
+    display: flex;
+    justify-content: space-evenly;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+}
+
+.list-box-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.list-box-items{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.title{
+    color:white;
+    width: 100%;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 5vw;
+}
+
+.back{
+    position:absolute;
+    bottom:0;
+    margin-bottom: 3%;
+    width: 25%;
+    height: 15vh;
+    margin-left: 3%;
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-size: 100% 15vh;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+}
+
+.Faction{
+    margin-left:-2%;
+    margin-right:8%
+}
+
+.Ship-Size{
+    margin-left:0%;
+    margin-right:10%
+}
+
+.Ship{
+
+}
