@@ -1,0 +1,43 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+/**:focus {
+    outline: none;
+}*/
+
+.flex-container{
+    display: flex;
+    justify-content: center;
+}
+
+.TitleImage{
+    display: block;
+    width: 60%;
+    height:50vh;
+}
+
+.NewGame{
+    top: 55%;
+}
+
+.LoadGame{
+    top: 75%;  
+}
+
+.button{
+    width: 25%;
+    height:20vh;
+    position: absolute;
+    left: center;
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-repeat: no-repeat;
+    /*background-size: contain;*/
+    background-size: contain;
+    background-position: center;
+    background-color: transparent;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: xx-large;
+    
+}
