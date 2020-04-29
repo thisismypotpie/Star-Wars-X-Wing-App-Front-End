@@ -41,3 +41,22 @@ body{
     font-size: xx-large;
     
 }
+
+@media screen and (max-width: 576px) and (min-width: 1px)
+{
+    .button{
+        width: 60%;
+    }
+}
+@media screen and (max-width: 768px) and (min-width: 577px)
+{
+
+}
+@media screen and (max-width: 992px) and (min-width: 769px)
+{
+
+}
+@media screen and (max-width: 1200px) and (min-width: 993px)
+{
+
+}
