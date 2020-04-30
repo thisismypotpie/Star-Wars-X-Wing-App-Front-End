@@ -1,0 +1,38 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 5em;
+}
+
+.subtitle{
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+}
+
+.grid-container{
+    display:grid;
+    align-items: stretch;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(80vh/12));
+  }
+
+.container{
+    border: 1px solid white;
+}
+
+.pilot-image{
+    grid-column: 1/4;
+    grid-row: 1/11;
+}
+
+.subtitle{
+    grid-column: 6/10;
+    grid-row: 2;
+}
