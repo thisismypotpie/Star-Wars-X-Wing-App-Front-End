@@ -1,0 +1,35 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 5vw;
+}
+
+.grid-container{
+    display:grid;
+    align-items: stretch;
+    grid-template-columns: repeat(4,calc(100%/4));
+    grid-template-rows: repeat(3,calc(80vh/3));
+    margin-left: 2%;
+    width:100%;
+  }
+
+  .pilot-picture{
+      width: 35%;
+      height: 60vh;
+      border: 1px solid white;
+  }
+
+  .flex-container{
+      display: flex;
+      flex-direction: row;
+  }

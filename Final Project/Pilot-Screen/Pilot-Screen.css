@@ -20,7 +20,6 @@ body{
     font-size: 4vw;
     padding-left: 5%;
 }
-
 .grid-container{
     display:grid;
     align-items: stretch;
