@@ -1,3 +1,3 @@
-document.getElementsByClassName("NewGame").addEventListener("click", function(){
-    alert("ding ding ding!");
+document.getElementById("new-game-button").addEventListener("click", function(){
+    window.location.href = "../Team-Screen/Team-Screen.html";
   });
