@@ -11,15 +11,16 @@ body{
     text-align: center;
     color: white;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 5vw;
+    font-size: 4vw;
+    height: 10vh;
 }
 
 .grid-container{
     display:grid;
     align-items: stretch;
-    grid-template-columns: repeat(4,calc(100%/4));
-    grid-template-rows: repeat(3,calc(80vh/3));
-    margin-left: 2%;
+    grid-template-columns: repeat(4,calc(75%/4));
+    grid-template-rows: repeat(3,calc(90vh/3));
+    margin-left: 10%;
     width:100%;
   }
 
@@ -33,3 +34,86 @@ body{
       display: flex;
       flex-direction: row;
   }
+
+  .plus{
+      margin-left: 2%;
+  }
+
+  .grid-item{
+      border: 1px solid white;
+      margin-bottom: 3%;
+      margin-left: 20%;
+  }
+
+  .button{
+      position: absolute;
+      bottom: 0;
+      margin-left: 1%;
+      background-image: url("https://i.imgur.com/RkyE0Xv.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      border: none;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;
+  }
+
+  .back{
+width: 10%;
+height: 20vh;
+  }
+
+  .done{
+    width: 10%;
+    height: 20vh;
+    left:12%;
+  }
+
+  .one{
+      grid-column: 1;
+      grid-row: 1;
+  }
+  .two{
+    grid-column: 2;
+    grid-row: 1;
+}
+.three{
+    grid-column: 3;
+    grid-row: 1;
+}
+.four{
+    grid-column: 4;
+    grid-row: 1;
+}
+.five{
+    grid-column: 1;
+    grid-row: 2;
+}
+.six{
+    grid-column: 2;
+    grid-row: 2;
+}
+.seven{
+    grid-column: 3;
+    grid-row: 2;
+}
+.eight{
+    grid-column: 4;
+    grid-row: 2;
+}
+.nine{
+    grid-column: 1;
+    grid-row: 3;
+}
+.ten{
+    grid-column: 2;
+    grid-row: 3;
+}
+.eleven{
+    grid-column: 3;
+    grid-row: 3;
+}
+.twelve{
+    grid-column: 4;
+    grid-row: 3;
+}
