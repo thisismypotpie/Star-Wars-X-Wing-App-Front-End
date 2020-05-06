@@ -23,7 +23,7 @@ document.getElementById("submit-btn").addEventListener("click", function(){
      {
         first_pass[i] = first_pass[i].split('?')[0];
         first_pass[i] = first_pass[i].split('&')[0];
-        first_pass[i].replace("%40","@");
+        first_pass[i] = first_pass[i].replace("%40","@");
      }
      console.log(first_pass);
 
@@ -45,6 +45,22 @@ document.getElementById("submit-btn").addEventListener("click", function(){
      var subtitle2 = document.createElement('H3');
      subtitle2.textContent= "Query Parameters";
      results.appendChild(subtitle2);
+     var result_flex_box = document.createElement("DIV");
+     result_flex_box.style.display = "flex";
+     result_flex_box.style.flexDirection = "column";
+     var name_result = document.createElement('SPAN');
+     name_result.textContent ="name: "+ first_pass[1];
+     result_flex_box.appendChild(name_result);
+     //results.appendChild(name_result);
+     var email_result = document.createElement('SPAN');
+     email_result.textContent ="email: "+first_pass[2];
+     result_flex_box.appendChild(email_result);
+     //results.appendChild(email_result);
+     var human_result = document.createElement('SPAN');
+     human_result.textContent ="human: "+ first_pass[3];
+     result_flex_box.appendChild(human_result);
+     //results.appendChild(human_result);
+     results.appendChild(result_flex_box);
      document.getElementById("body").appendChild(results);
 
   });
