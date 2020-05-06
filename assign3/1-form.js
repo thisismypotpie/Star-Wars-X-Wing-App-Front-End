@@ -53,4 +53,7 @@ document.getElementById("submit").addEventListener("click", function(){
         classesTaken += "Full Stack Web Development";
     }
     console.log(classesTaken);
+
+    console.log("Class Goals: "+ goals);
+    event.preventDefault();
   });
