@@ -1,26 +1,32 @@
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var dbExists = fs.existsSync('./GameDB');
+var dbExists = fs.existsSync('../GameDB.db');
 if(dbExists)
 {
-/*let db = new sqlite3.Database('./GameDB', (err)=> {
-    if(err) {
-        console.log("Not able to connect to database.");
-    }
-    else
+//open the database connection
+ let db = new sqlite3.Database('../GameDB.db', sqlite3,(err)=>{
+    if(err != null)
     {
-        console.log("Connection established");
+        console.log(err);    
+        return;  
     }
-});*/
- let db = new sqlite3.Database('./GameDB', sqlite3.OPEN_READONLY);
- db.serialize(function(){
-     db.all("SELECT * FROM ShipTable", function(err, allRows){
+ });
+ console.log("Connection Established");
 
-        if(err != null){
-            console.log("There was an error retrieving ship data.");
-        }
-     })
- }
- 
- )
+db.all("SELECT * FROM ShipTable", function(err, tables){
+console.log(tables);
+});
+
+ // close the database connection
+db.close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Closing the database connection.');
+  });
+
+}
+else
+{
+    console.log("Cannot find GameDB.db");
 }
