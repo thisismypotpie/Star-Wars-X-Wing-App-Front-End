@@ -2,14 +2,14 @@
 //Requires
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var ship = require('./Ship-Variants.js');
-var maneuver = require('./Maneuvers.js');
+const ship_page = require('./Ship-Variants.js');
+const maneuver_page = require('./Maneuvers.js');
 
 //Data
-let ship_list = [];
-let maneuver_holder = [];
+let ship_list = []; //list of all ships.
+let all_maneuvers = [];//list of all possible maneuvers.
 
-
+//confirm that the database exists or exit out of the db queries.
 var dbExists = fs.existsSync('../GameDB.db');
 if(dbExists)
 {
@@ -23,15 +23,32 @@ if(dbExists)
  });
  console.log("Connection Established");
 
-//Ship query
+ //Get all maneuvers and place them in all_maneuvers in the data section.
+ db.all("SELECT * FROM ManeuverTable", function(err, tables){
+      tables.forEach(element => {
+        all_maneuvers.push(new maneuver_page.Maneuver(element.ID,element.Maneuver,element.Color,element.Range, element.RangePath, element.ManeuverPath));
+      })
+ })
+
+//Ship query will go through each entry and populate a list of all ships.
 db.all("SELECT * FROM ShipTable", function(err, tables){
-console.log(tables[0]);
 tables.forEach(element => {
-let maneuver_array = element.Manuevers.split('\n');
-console.log(maneuver_array);
+var maneuvers_for_this_ship = [];//A list of maneuvers for this ship, starts empty but maneuvers belonging to this ship will be added.
 
-//ship_list.push(new ship(element.ShipType, element.Name, element.Attack, element.Agility, element.Shields, element.Hull, ));
+//get maneuver numbers and split each number.
+let maneuver_array = element.Manuevers.split('*');
 
+//Go through all of the maneuvers and add any that are a part of this ship to maneuvers_for_this_ship.
+maneuver_array.forEach(maneuver_id_of_ship =>{
+  all_maneuvers.forEach(maneuvers_from_entire_list =>{
+    if(maneuver_id_of_ship == maneuvers_from_entire_list.id)
+    {
+      maneuvers_for_this_ship.push(maneuvers_from_entire_list);
+    }
+  })
+})
+//Add everything from database and maneuver list to create a new ship.
+ship_list.push(new ship_page.ship(element.ShipType, element.Name, element.Attack, element.Agility, element.Shields, element.Hull,maneuvers_for_this_ship));
 });//foreach loop
 });//ship query
 
@@ -48,3 +65,4 @@ else
 {
     console.log("Cannot find GameDB.db");
 }
+

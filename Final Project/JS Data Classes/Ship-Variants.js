@@ -19,6 +19,8 @@ class ship{
     }
 }
 
+module.exports.ship = ship;
+
 class Large_Ship_One_Card extends ship{
     constructor(ship_type, ship_name, attack, agility, shields, hull, maneuvers, energy)
     {
@@ -26,6 +28,8 @@ class Large_Ship_One_Card extends ship{
         this.energy = energy;
     }
 }
+
+module.exports.Large_Ship_One_Card = Large_Ship_One_Card;
 
 class Large_Ship_Two_Cards extends Large_Ship_One_Card{
     constructor(ship_type, ship_name, attack, agility, shields, hull, maneuvers, energy, aft_agility, aft_hull, aft_shields, crippled_attack, crippled_energy)
@@ -39,3 +43,4 @@ class Large_Ship_Two_Cards extends Large_Ship_One_Card{
         this.crippled_energy = crippled_energy;
     }
 }
+module.exports.Large_Ship_Two_Cards = Large_Ship_Two_Cards;
