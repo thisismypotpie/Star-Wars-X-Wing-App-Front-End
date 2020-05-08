@@ -12,3 +12,15 @@ class pilot{
     
 }
 module.exports.pilot = pilot;
+
+class largeShipTwoCardPilot extends pilot{
+    constructor(pilot_name, faction, pilot_skill, cost, upgrade_types, ship_name, image_path, uniquePilot,
+         aft_card_path, fore_crippled_path, aft_crippled_path)
+    {
+        super(pilot_name, faction, pilot_skill, cost, upgrade_types, ship_name, image_path, uniquePilot);
+        this.aft_card_path = aft_card_path;
+        this.fore_crippled_path = fore_crippled_path;
+        this.aft_crippled_path = aft_crippled_path;
+    }
+}
+module.exports.largeShipTwoCardPilot = largeShipTwoCardPilot;
