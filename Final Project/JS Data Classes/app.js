@@ -4,10 +4,12 @@ var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
 const ship_page = require('./Ship-Variants.js');
 const maneuver_page = require('./Maneuvers.js');
+const pilot_page = require('./Pilot-Variants');
 
 //Data
 let ship_list = []; //list of all ships.
 let all_maneuvers = [];//list of all possible maneuvers.
+let all_pilots = [];
 
 //confirm that the database exists or exit out of the db queries.
 var dbExists = fs.existsSync('../GameDB.db');
@@ -51,6 +53,25 @@ maneuver_array.forEach(maneuver_id_of_ship =>{
 ship_list.push(new ship_page.ship(element.ShipType, element.Name, element.Attack, element.Agility, element.Shields, element.Hull,maneuvers_for_this_ship));
 });//foreach loop
 });//ship query
+
+//Get all small/medium sized ship pilots.
+db.all("SELECT * FROM PilotTable", function(err, tables){
+tables.forEach(element =>{
+
+  //Determine if the pilot is unique or not.
+  var unique_pilot = false;
+  if(element.unique_pilot == 1)
+  {
+    unique_pilot = true;
+  }
+  else
+  {
+    unique_pilot = false;
+  }
+  all_pilots.push(new pilot_page.pilot(element.Name, element.Faction, element.PilotSkill, element.Cost,element.UpgradeTypes.split('*'),element.ShipName, element.ImagePath,unique_pilot));
+  console.log(all_pilots[all_pilots.length-1]);
+})
+})
 
  // close the database connection
 db.close((err) => {
