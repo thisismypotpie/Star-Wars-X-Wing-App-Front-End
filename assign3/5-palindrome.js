@@ -13,8 +13,6 @@ document.getElementById("number").addEventListener("keyup", function(){
     {
         document.getElementById("result").innerHTML = "Error in palindrome checking.";
     }
-    console.log(number);
-    console.log(reverseNumber);
     var palindrome = true;
     for(var i=0; i < number.length;i++)
     {
