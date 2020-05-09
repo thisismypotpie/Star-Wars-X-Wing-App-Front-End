@@ -36,6 +36,15 @@ if(dbExists)
       })
  })
 
+ //Get all large maneuvers.
+ db.all("SELECT * FROM LargeManeuverTable", function(err, tables){
+  tables.forEach(element => {
+    all_maneuvers.push(new maneuver_page.Maneuver(element.ID,element.Maneuver,element.Color,element.Range, element.RangePath, element.ManeuverPath, element.EnergyPath,element.EnergyGained));
+    console.log(all_maneuvers[all_maneuvers.length-1]);
+  })
+})
+
+
 //Ship query will go through each entry and populate a list of all ships.
 db.all("SELECT * FROM ShipTable", function(err, tables){
 tables.forEach(element => {
@@ -107,18 +116,15 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
     var upgrade_types = [];
     //get maneuver numbers and split each number.
     let maneuver_array = element.Maneuvers.split('*');
-
     //Go through all of the maneuvers and add any that are a part of this ship to maneuvers_for_this_ship.
-    maneuver_array.forEach(maneuver_id_and_energy_of_ship =>{
+    maneuver_array.forEach(maneuver_id =>{
   all_maneuvers.forEach(maneuvers_from_entire_list =>{
-    var energy_split = maneuver_id_and_energy_of_ship.split('/');
-    if(energy_split[0] == maneuvers_from_entire_list.id)
+    if(maneuver_id == maneuvers_from_entire_list.id)
     {
-      maneuvers_for_this_ship.push(new maneuver_page.Large_Maneuver());
+      maneuvers_for_this_ship.push(maneuvers_from_entire_list);
     }
   })
 })
-
     //Get the aft and fore critical hit cards for each ship.
     var foreList = element.FrontCritImages.split('\n');
     var aftList = element.RearCritImages.split('\n');
@@ -137,14 +143,14 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
       ship_list.push(new ship_page.Large_Ship_Two_Cards(element.LargeShipType,element.Name,element.Attack,0,element.ForeShields, 
         element.ForeHull, maneuvers_for_this_ship, element.Energy,0,element.AftHull, element.AftShields,element.CrippledAttack,
         element.CrippledEnergy, fore_crit_cards, aft_crit_cards));
+        console.log(ship_list[ship_list.length-1]);
         all_pilots.push(new pilot_page.largeShipTwoCardPilot(element.Name+" Pilot", element.Faction,element.PilotSkill, element.Cost, 
         element.UpgradeTypes.split('*'), element.Name,element.ForeImage,false, element.AftImage, element.CrippledForeImage, element.CrippledAftImage));
-        console.log(all_pilots[all_pilots.length-1]);
       }
     else if(element.LargeShipType == "largeOneCard")
     {
         ship_list.push(new ship_page.Large_Ship_One_Card(element.LargeShipType,element.Name,0,0,element.ForeShields, 
-        element.ForeHull, maneuvers_for_this_ship, element.Energy, fore_crit_cards, aft_crit_cards));
+        element.ForeHull, maneuvers_for_this_ship, element.Energy, fore_crit_cards, aft_crit_cards))
         all_pilots.push(new pilot_page.pilot(element.Name+" Pilot", element.Faction,element.PilotSkill, element.Cost, element.UpgradeTypes.split('*'), element.Name,element.ForeImage,false));
     }
     else

@@ -17,10 +17,6 @@ class Large_Maneuver extends Maneuver{
         this.energy_symbol_path = energy_symbol_path;
         this.energy_gained = energy_gained;
     }
-    constructor()
-    {
-        
-    }
 }
 //allows other files to use this class.
 module.exports.Large_Maneuver = Large_Maneuver;
