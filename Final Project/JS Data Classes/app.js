@@ -109,11 +109,12 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
     let maneuver_array = element.Maneuvers.split('*');
 
     //Go through all of the maneuvers and add any that are a part of this ship to maneuvers_for_this_ship.
-    maneuver_array.forEach(maneuver_id_of_ship =>{
+    maneuver_array.forEach(maneuver_id_and_energy_of_ship =>{
   all_maneuvers.forEach(maneuvers_from_entire_list =>{
-    if(maneuver_id_of_ship == maneuvers_from_entire_list.id)
+    var energy_split = maneuver_id_and_energy_of_ship.split('/');
+    if(energy_split[0] == maneuvers_from_entire_list.id)
     {
-      maneuvers_for_this_ship.push(maneuvers_from_entire_list);
+      maneuvers_for_this_ship.push(new maneuver_page.Large_Maneuver());
     }
   })
 })
