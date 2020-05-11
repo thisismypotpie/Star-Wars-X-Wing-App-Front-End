@@ -15,11 +15,12 @@ const http = require('http');
   res.end('Hello, World!');
 }*/
 const server = http.createServer(function(request, response){
-  response.writeHead(200);
-  response.write(JSON.stringify(data));
-  response.end();
+  //response.writeHead("Access-Control-Allow-Origin: null");
+  response.setHeader('Content-Type', 'application/json');
+  response.setHeader("Access-Control-Allow-Origin","null");
+  response.end(JSON.stringify(game_data));
 });
-server.listen(8080);
+server.listen(3000);
 
 
 
