@@ -31,6 +31,10 @@ for(var i =0; i < faction_options.length;i++)
       ShipElementSet.style.visibility = "visible";
       //Add focus event to the ship size box to get the correct colors for the selected items.
       ship_size_options[j].addEventListener("focus",function(){
+        //Remove old list items from ship box if there are any.
+        while (ship_box.lastElementChild) {
+          ship_box.removeChild(ship_box.lastElementChild);
+        }
         chosenShipElement = ShipElementSet;
         if(chosenFactionElement.id == "imperial")
         {
@@ -53,7 +57,7 @@ for(var i =0; i < faction_options.length;i++)
         }
         //When the user clicks on a ship size, then the ship options will show up.
         ShipElementSet.addEventListener("click",function(){
-          //Remmove all children from the ship box by removing each last child until there are none left.
+                  //Remove old list items from ship box if there are any.
           while (ship_box.lastElementChild) {
             ship_box.removeChild(ship_box.lastElementChild);
           }
@@ -82,7 +86,10 @@ for(var i =0; i < faction_options.length;i++)
   faction_options[i].addEventListener("focus", function(){ //I needed to add focus and blur events here befcause in the css page, blur is automatic and I do not want that default. 
         chosenFactionElement = FactionElementSet;
         chosenShipElement = undefined;//Added this to make sure that there is not selected ship size of the player wants to change factions.
-       
+               //Remove old list items from ship box if there are any.
+        while (ship_box.lastElementChild) {
+          ship_box.removeChild(ship_box.lastElementChild);
+        }
        //When you click back from a ship to a faction, I want to reset all of the background colors so the old selection color is taken away.
         for(var p = 0; p < faction_options.length;p++)
         {
@@ -118,14 +125,16 @@ function getShipsToDisplay()
     var pilots = game_data.all_pilots;
     var display_list = [];
 
-
+    var count = 0;
     pilots.forEach(pilot => {
+          console.log("count: "+count);
           if(pilot.faction.toLowerCase() == faction.toLowerCase() && 
              pilot.ship_name.ship_type.toLowerCase() == ship_size.toLowerCase() &&
-             !display_list.includes(pilot.ship_name))
+             !display_list.includes(pilot.ship_name.ship_name))
              {
-                display_list.push(pilot.ship_of_pilot.ship_name);
+                display_list.push(pilot.ship_name.ship_name);
              }
+             count++;
     });
     return display_list;
 }
