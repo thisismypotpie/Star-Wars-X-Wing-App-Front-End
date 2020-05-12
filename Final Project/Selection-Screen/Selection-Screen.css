@@ -31,6 +31,8 @@ body{
 .list-box-items{
     margin-left: 3%;
     margin-right: 3%;
+    max-height: 45vh;
+    overflow: auto;
 }
 
 .title{
@@ -69,4 +71,30 @@ body{
 
 .Ship{
 
+}
+
+.list_options{
+    color:white;
+    display: block;
+    margin:3%;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    padding: 1%;
+}
+
+/*
+#rebels:focus{
+    background: maroon;
+}
+
+#empire:focus{
+    background: darkgray;
+}
+
+#scum:focus{
+    background: saddlebrown;
+}*/
+
+.ship-size-option{
+    visibility: hidden;
 }
