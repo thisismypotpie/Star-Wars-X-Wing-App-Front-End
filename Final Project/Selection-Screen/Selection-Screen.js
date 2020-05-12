@@ -1,8 +1,8 @@
 document.getElementById("back-button").addEventListener("click", function(){
     window.location.href = "../Team-Screen/Team-Screen.html";
   });
-  /*var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-  console.log(game_data.all_crit_cards);*/
+  var game_data= JSON.parse(sessionStorage.getItem("game_data"));
+  console.log(game_data.all_pilots);
 
 
   let faction_options = document.getElementsByClassName("faction-option");
@@ -32,7 +32,7 @@ for(var i =0; i < faction_options.length;i++)
       //Add focus event to the ship size box to get the correct colors for the selected items.
       ship_size_options[j].addEventListener("focus",function(){
         chosenShipElement = ShipElementSet;
-        if(chosenFactionElement.id == "empire")
+        if(chosenFactionElement.id == "imperial")
         {
           ShipElementSet.style.backgroundColor = "darkgray";
           chosenFactionElement.style.backgroundColor = "darkgray";
@@ -57,17 +57,18 @@ for(var i =0; i < faction_options.length;i++)
           while (ship_box.lastElementChild) {
             ship_box.removeChild(ship_box.lastElementChild);
           }
-          //A test to add ten items to the list.  
-          for(var q = 0; q < 10; q++)
-          {
+          current_index_tab = 6;//reset tab index.
+          let display_names = getShipsToDisplay();
+          //get the name of each ship to display and then add them to the list of ships to choose from.
+          display_names.forEach(name =>{
             var new_item = document.createElement('li');
-            new_item.id = "new item "+q.toString();
-            new_item.className = "list_options faction-option";
+            new_item.id = name;
+            new_item.className = "list_options ship-option";
             new_item.tabIndex = current_index_tab;
             current_index_tab++;
-            new_item.textContent = "new item"+q.toString();
+            new_item.textContent = name;
             ship_box.appendChild(new_item);
-          }
+          });
         })
       });
       //Add blur event to the ship size box.
@@ -87,7 +88,7 @@ for(var i =0; i < faction_options.length;i++)
         {
             faction_options[p].style.backgroundColor = "";
         }
-        if(FactionElementSet.id == "empire")
+        if(FactionElementSet.id == "imperial")
         {
           FactionElementSet.style.backgroundColor = "darkgray";
         }
@@ -107,4 +108,24 @@ for(var i =0; i < faction_options.length;i++)
   faction_options[i].addEventListener("blur", function(){
         FactionElementSet.style.backgroundColor = ""; 
   });
+}
+
+//When the user clicks on the ship size, this function will determine which ships will be displayed.
+function getShipsToDisplay()
+{
+    var faction = chosenFactionElement.id;
+    var ship_size = chosenShipElement.id;
+    var pilots = game_data.all_pilots;
+    var display_list = [];
+
+
+    pilots.forEach(pilot => {
+          if(pilot.faction.toLowerCase() == faction.toLowerCase() && 
+             pilot.ship_name.ship_type.toLowerCase() == ship_size.toLowerCase() &&
+             !display_list.includes(pilot.ship_name))
+             {
+                display_list.push(pilot.ship_of_pilot.ship_name);
+             }
+    });
+    return display_list;
 }

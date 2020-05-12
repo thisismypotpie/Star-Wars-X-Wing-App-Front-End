@@ -91,6 +91,7 @@ tables.forEach(element =>{
 
   //Determine if the pilot is unique or not.
   var unique_pilot = false;
+  var ship_object = undefined;
   if(element.unique_pilot == 1)
   {
     unique_pilot = true;
@@ -99,7 +100,18 @@ tables.forEach(element =>{
   {
     unique_pilot = false;
   }
-  game_data.all_pilots.push(new pilot_page.pilot(element.Name, element.Faction, element.PilotSkill, element.Cost,element.UpgradeTypes.split('*'),element.ShipName, element.ImagePath,unique_pilot));
+  //Add ship object to the pilot. I needed to use a while loop here because you cannot break a foreach loop in js.
+  let iteration = 0;
+  while(iteration < data.ship_list.length)
+  {
+    if(data.ship_list[iteration].ship_name == element.ShipName)
+    {
+      ship_object = data.ship_list[iteration];
+      break;
+    }
+    iteration ++;
+  }
+  game_data.all_pilots.push(new pilot_page.pilot(element.Name, element.Faction, element.PilotSkill, element.Cost,element.UpgradeTypes.split('*'),ship_object, element.ImagePath,unique_pilot));
 })
 })
 
