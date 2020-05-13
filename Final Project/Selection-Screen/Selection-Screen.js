@@ -35,6 +35,11 @@ for(var i =0; i < faction_options.length;i++)
         while (ship_box.lastElementChild) {
           ship_box.removeChild(ship_box.lastElementChild);
         }
+        //When I click from individual ship back to the ship size, the old color stays so I added this to make sure that the color is reset before a new color is added.
+        if(chosenShipElement != undefined)
+        {
+          chosenShipElement.style.backgroundColor = "";
+        }
         chosenShipElement = ShipElementSet;
         if(chosenFactionElement.id == "imperial")
         {
@@ -72,10 +77,37 @@ for(var i =0; i < faction_options.length;i++)
             current_index_tab++;
             new_item.textContent = name;
             //When a ship item is clicked, move to the next form.
-            new_item.addEventListener("click",function(){
+            new_item.addEventListener("dblclick",function(){
               window.location.href = "../Pilot-Screen/Pilot-Screen.html";
               sessionStorage.setItem("chosenShip",[new_item.id,chosenFactionElement.id]);
             })
+            new_item.addEventListener("focus",function(){
+              if(chosenFactionElement.id == "imperial")
+              {
+                ShipElementSet.style.backgroundColor = "darkgray";
+                chosenFactionElement.style.backgroundColor = "darkgray";
+                new_item.style.backgroundColor = "darkgray";
+              }
+              else if(chosenFactionElement.id == "rebels")
+              {
+                ShipElementSet.style.backgroundColor = "maroon";
+                chosenFactionElement.style.backgroundColor ="maroon";
+                new_item.style.backgroundColor = "maroon";
+              }
+              else if(chosenFactionElement.id == "scum")
+              {
+                ShipElementSet.style.backgroundColor = "saddlebrown";
+                chosenFactionElement.style.backgroundColor ="saddlebrown";
+                new_item.style.backgroundColor = "saddlebrown";
+              }
+              else
+              {
+                console.log("none");
+              }  
+            });
+            new_item.addEventListener("blur", function(){
+              new_item.style.backgroundColor="";
+            });
             ship_box.appendChild(new_item);
           });
         })
@@ -89,6 +121,12 @@ for(var i =0; i < faction_options.length;i++)
   })
   //Add focus event color background change to each item in faction box.
   faction_options[i].addEventListener("focus", function(){ //I needed to add focus and blur events here befcause in the css page, blur is automatic and I do not want that default. 
+        
+        //When I click from ship to change faction, the color stays to the old color on the ship size selection so I added this if statement to reset the background color.
+        if(chosenShipElement!= undefined)
+        {
+          chosenShipElement.style.backgroundColor = "";
+        }
         chosenFactionElement = FactionElementSet;
         chosenShipElement = undefined;//Added this to make sure that there is not selected ship size of the player wants to change factions.
                //Remove old list items from ship box if there are any.
@@ -133,12 +171,20 @@ function getShipsToDisplay()
     var count = 0;
     pilots.forEach(pilot => {
           console.log("count: "+count);
+          //These are the criteria for small and medium ship to add to the list of ships to display.
           if(pilot.faction.toLowerCase() == faction.toLowerCase() && 
              pilot.ship_name.ship_type.toLowerCase() == ship_size.toLowerCase() &&
              !display_list.includes(pilot.ship_name.ship_name))
              {
                 display_list.push(pilot.ship_name.ship_name);
              }
+          //These are the criteria for large ships to add to the display list.
+          if(pilot.faction.toLowerCase() == faction.toLowerCase() && 
+          pilot.ship_name.ship_type.toLowerCase().includes(ship_size.toLowerCase()) &&
+          !display_list.includes(pilot.ship_name.ship_name))
+            {
+              display_list.push(pilot.ship_name.ship_name);
+            }
              count++;
     });
     return display_list;

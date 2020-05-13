@@ -81,7 +81,7 @@ maneuver_array.forEach(maneuver_id_of_ship =>{
   })
 })
 //Add everything from database and maneuver list to create a new ship.
-game_data.ship_list.push(new ship_page.ship(element.ShipType, element.Name, element.Attack, element.Agility, element.Shields, element.Hull,maneuvers_for_this_ship));
+game_data.ship_list.push(new ship_page.ship(element.ShipType, element.Name, element.Attack, element.Agility, element.Shields, element.Hull,maneuvers_for_this_ship,element.ManeuverCard));
 });
 });
 
@@ -172,7 +172,7 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
     {
       let ship_to_push = new ship_page.Large_Ship_Two_Cards(element.LargeShipType,element.Name,element.Attack,0,element.ForeShields, 
         element.ForeHull, maneuvers_for_this_ship, element.Energy,0,element.AftHull, element.AftShields,element.CrippledAttack,
-        element.CrippledEnergy, fore_crit_cards, aft_crit_cards)
+        element.CrippledEnergy, fore_crit_cards, aft_crit_cards, element.ManeuverCard)
       game_data.ship_list.push(ship_to_push);
         game_data.all_pilots.push(new pilot_page.largeShipTwoCardPilot(element.Name+" Pilot", element.Faction,element.PilotSkill, element.Cost, 
         element.UpgradeTypes.split('*'), ship_to_push,element.ForeImage,false, element.AftImage, element.CrippledForeImage, element.CrippledAftImage));
@@ -180,7 +180,7 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
     else if(element.LargeShipType == "largeOneCard")
     {
       let ship_to_push = new ship_page.Large_Ship_One_Card(element.LargeShipType,element.Name,0,0,element.ForeShields, 
-        element.ForeHull, maneuvers_for_this_ship, element.Energy, fore_crit_cards, aft_crit_cards);
+        element.ForeHull, maneuvers_for_this_ship, element.Energy, fore_crit_cards, aft_crit_cards, element.ManeuverCard);
       game_data.ship_list.push(ship_to_push);
       game_data.all_pilots.push(new pilot_page.pilot(element.Name+" Pilot", element.Faction,element.PilotSkill, element.Cost, element.UpgradeTypes.split('*'), ship_to_push,element.ForeImage,false));
     }
