@@ -77,7 +77,7 @@ for(var i =0; i < faction_options.length;i++)
             current_index_tab++;
             new_item.textContent = name;
             //When a ship item is clicked, move to the next form.
-            new_item.addEventListener("dblclick",function(){
+            new_item.addEventListener("click",function(){
               window.location.href = "../Pilot-Screen/Pilot-Screen.html";
               sessionStorage.setItem("chosenShip",[new_item.id,chosenFactionElement.id]);
             })
