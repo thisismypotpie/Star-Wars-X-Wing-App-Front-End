@@ -3,6 +3,7 @@ document.getElementById("back-button").addEventListener("click", function(){
   });
   document.getElementById("select-button").addEventListener("click", function(){
     window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
+    sessionStorage.setItem("chosen_pilot",display_pilots[selection_index].pilot_name);
   });
 
   //Get the chosen ship and game data from the session storage.
