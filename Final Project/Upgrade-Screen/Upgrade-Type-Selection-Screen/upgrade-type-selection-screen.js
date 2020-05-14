@@ -16,6 +16,8 @@ let type_clickers = document.getElementsByClassName("type-clicker");
 for(var i = 0; i < type_clickers.length;i++)
 {
     type_clickers[i].addEventListener("click",function(){
+        sessionStorage.setItem("upgrade-type-chosen",this.id);
+        window.location.href = "../Upgrade-Selection-Screen/Upgrade-Selection-Screen.html"
         console.log(this.id);
     });
 }
