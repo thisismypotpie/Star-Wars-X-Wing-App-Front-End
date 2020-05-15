@@ -47,7 +47,7 @@ document.getElementById("next-btn").addEventListener("click", function(){
 //creat functionality for the previous button
 document.getElementById("previous-btn").addEventListener("click", function(){
   selection_index --;
-  if(selection_index <= 0)
+  if(selection_index < 0)
   {
     selection_index = display_pilots.length-1;
   }
