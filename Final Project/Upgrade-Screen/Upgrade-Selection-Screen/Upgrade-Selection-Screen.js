@@ -36,6 +36,4 @@
     });
     grid_container.appendChild(back_button);
 
-  document.getElementById("grid-container").style.gridTemplateColumns="repeat(6,calc(100%/6))";
-//document.getElementById("grid-container").style.gridTemplateRows="repeat(4,calc(100vh/4))";
-  
+  document.getElementById("grid-container").style.gridTemplateColumns="repeat(6,calc(100%/6))";  

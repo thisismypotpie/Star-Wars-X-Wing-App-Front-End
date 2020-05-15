@@ -13,14 +13,14 @@ class target_lock{
     }
 }
 
-class ship_status{
+class in_game_ship_status{
     //This constructor will set a default state based on the pilot sent to it.
     constructor(incoming_pilot)
     {
 
     }
-    constructor(target_locks, )
-    {
+}
 
-    }
+class team{
+    
 }
