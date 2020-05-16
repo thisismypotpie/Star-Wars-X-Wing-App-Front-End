@@ -1,8 +1,17 @@
 
 document.getElementById("back-button").addEventListener("click", function(){
+    sessionStorage.removeItem("chosen_pilot");
     window.location.href = "../Pilot-Screen/Pilot-Screen.html";
   });
   document.getElementById("done-button").addEventListener("click", function(){
+    sessionStorage.removeItem("chosenShip");
+    /*
+
+
+    //Add chosen pilot to the team an do back to team screen
+    
+    
+    */
     window.location.href = "../Team-Screen/Team-Screen.html";
   });
 

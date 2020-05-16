@@ -33,11 +33,11 @@ class in_game_ship_status{
         this.tractor_beam_tokens = 0;
         this.reinforce_tokens = 0;
         this.cloak_tokens = 0;
-        this.current_attack = chosen_pilot.ship_name.attack;
-        this.current_agility = chosen_pilot.ship_name.agility;
-        this.current_sheilds = chosen_pilot.ship_name.shields;
-        this.current_hull = chosen_pilot.ship_name.hull;
-        this.current_pilot_skill = chosen_pilot.pilot_skill;
+        this.current_attack = this.chosen_pilot.ship_name.attack;
+        this.current_agility = this.chosen_pilot.ship_name.agility;
+        this.current_sheilds = this.chosen_pilot.ship_name.shields;
+        this.current_hull = this.chosen_pilot.ship_name.hull;
+        this.current_pilot_skill = this.chosen_pilot.pilot_skill;
     }
 }
 

@@ -1,13 +1,35 @@
 document.getElementById("back-button").addEventListener("click", function(){
+    sessionStorage.removeItem("chosen_ship");
     window.location.href = "../Selection-Screen/Selection-Screen.html";
   });
   document.getElementById("select-button").addEventListener("click", function(){
+    //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
+
+    if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
+    {
+      sessionStorage.setItem("chosen_pilot",JSON.stringify(new in_game_ship_status(display_pilots[selection_index])));
+    }
+    else// if the ship is large, delacre the correct type of large in-game ship.
+    {
+      if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largeonecard")//large ship one card.
+      {
+        sessionStorage.setItem("chosen_pilot",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index])));
+      }
+      else if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")//large ship two card.
+      {
+        sessionStorage.setItem("chosen_pilot",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index])));
+      }
+      else
+      {
+        console.log("ERROR: The ship size of the selected ship is not valid.");
+      }
+    }
+    sessionStorage.setItem("chosen_pilot",display_pilots[selection_index]);
     window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
-    sessionStorage.setItem("chosen_pilot",display_pilots[selection_index].pilot_name);
   });
 
   //Get the chosen ship and game data from the session storage.
-  let chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[shipName, faction]
+  let chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[shipName, faction, size]
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   console.log(chosen_ship);
   var display_pilots = [];
