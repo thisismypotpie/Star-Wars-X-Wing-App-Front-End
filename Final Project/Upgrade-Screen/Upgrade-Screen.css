@@ -162,6 +162,7 @@ height: 20vh;
     background-color: transparent;
     font-family: Impact, Charcoal, sans-serif;
     font-size: 1.2vw;
+    border:none;
 }
 
 #pop-up-button-container{

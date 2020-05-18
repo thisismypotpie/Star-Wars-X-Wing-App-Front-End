@@ -21,7 +21,7 @@ class in_game_ship_status{
         this.target_locks = [];
         this.critical_hit_cards = [];
         this.chosen_pilot = incoming_pilot;
-        this.team_roster_number = 0;
+        this.roster_number = 0;
         this.chosen_maneuver = undefined;
         this.team_name = "";
         this.conditions = [];

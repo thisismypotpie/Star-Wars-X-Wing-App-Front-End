@@ -1,17 +1,30 @@
-
+//Back to previous form.
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("ship_in_progress");
     window.location.href = "../Pilot-Screen/Pilot-Screen.html";
   });
+  //Make roster number form show up.
   document.getElementById("done-button").addEventListener("click", function(){
     let overlay = document.getElementById("overlay");
     let roster_number_box = document.getElementById("roster-number-box");
     overlay.style.opacity = 1;
     roster_number_box.style.visibility = "visible";
     overlay.style.pointerEvents = "all";
+    document.getElementById("roster-number-input").focus();
   });
-  /*
+  //Add roster number to ship and add new team to all teams.
   document.getElementById("ok-button").addEventListener("click", function(){
+       //Validate input and then add roster number to ship in progress.
+       if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
+       {
+          alert("Please only input positive numbers. No other input will be accepted.");
+          document.getElementById("roster-number-input").value = "";
+          return;
+       }
+       else
+       {
+          ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
+       }
        // Add ship to the new team, then add the new team to all teams.
        let new_team = JSON.parse(sessionStorage.getItem("new_team"));
        new_team.ship_list.push(ship_in_progress);
@@ -22,11 +35,17 @@ document.getElementById("back-button").addEventListener("click", function(){
        sessionStorage.removeItem("chosenShip");
        window.location.href = "../Team-Screen/Team-Screen.html";
 
-  })
-
+  });
+//close the roster number pop up.
 document.getElementById("close-button").addEventListener("click", function(){
+    let overlay = document.getElementById("overlay");
+    let roster_number_box = document.getElementById("roster-number-box");
+    document.getElementById("roster-number-input").value = "";
+    overlay.style.opacity = 0;
+    roster_number_box.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
 
-})*/
+});
 
 
   //Get data objects needed for this page.
