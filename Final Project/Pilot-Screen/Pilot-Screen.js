@@ -7,24 +7,23 @@ document.getElementById("back-button").addEventListener("click", function(){
 
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
-      sessionStorage.setItem("chosen_pilot",JSON.stringify(new in_game_ship_status(display_pilots[selection_index])));
+      sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index])));
     }
     else// if the ship is large, delacre the correct type of large in-game ship.
     {
       if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largeonecard")//large ship one card.
       {
-        sessionStorage.setItem("chosen_pilot",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index])));
+        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index])));
       }
       else if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")//large ship two card.
       {
-        sessionStorage.setItem("chosen_pilot",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index])));
+        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index])));
       }
       else
       {
         console.log("ERROR: The ship size of the selected ship is not valid.");
       }
     }
-    sessionStorage.setItem("chosen_pilot",display_pilots[selection_index]);
     window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
   });
 

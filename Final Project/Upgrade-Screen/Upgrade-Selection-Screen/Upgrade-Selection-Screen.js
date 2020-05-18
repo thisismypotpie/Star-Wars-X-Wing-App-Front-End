@@ -7,6 +7,7 @@
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   let selected_upgrades = [];
   var grid_container = document.getElementById("grid-container");
+  let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
 
   //Get the list of upgrades of the correct upgrade type.
   game_data.all_upgrades.forEach(upgrade => {
@@ -75,6 +76,14 @@
   //I made a function here because the same click code is being used twice when a dual upgrade is being displayed. I wanted to make sure I did not copy the code twice.
   function upgrade_item_click(id)
   {
+      //Loop through selected upgrades and find the one with the right name, then push that to the ship in progress upgrades.
       console.log(id);
+      selected_upgrades.forEach(upgrade =>{
+        if(upgrade.name == id)
+        {
+          ship_in_progress.upgrades.push(upgrade);
+        }
+      })
+      sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
       window.location.href = "../Upgrade-Screen.html";
   }

@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="Team-Screen.css" />
     <title>Star Wars X-Wing</title>
-
+  </head>
+  <body>
     <section class="flex-container">
         <div class = "flex-item title">Teams</div>
        
@@ -41,11 +42,17 @@
             <button type="button" class = "button Back" id = "back-button">Back</button>
         </div>
     </section>
-
-  </head>
+    <div class = "team-name-container" id = "team-name-box">
+        <div class = team-name-header>What is your Team Name?</div>
+        <input type = "text"
+        id = "team-name-input" />
+        <div id = "pop-up-button-container">
+        <button type = "button" class = "button pop-up close" id = "close-button">Close</button>
+        <button type = "button" class = "button pop-up ok" id="ok-button">OK</button>
+        </div>
+    </div>
+    <div id = "overlay"></div>
+  </body>
   <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>
   <script type="text/javascript" src="Team-Screen.js"></script>
-  <body>
-
-  </body>
 </html>

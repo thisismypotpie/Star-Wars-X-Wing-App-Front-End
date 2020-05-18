@@ -1,0 +1,4 @@
+- Display teams on team screen now that all teams has some teams in it.
+- Display dual upgrades in upgrade slots.
+- Finish roster number pop-up.
+- 

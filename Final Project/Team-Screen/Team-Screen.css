@@ -90,3 +90,60 @@ font-family: Impact, Charcoal, sans-serif;
 font-size: 1.2vw;
 border:none;
 }
+
+
+/*Overlay and popup styling.*/
+/*Credit to: https://www.youtube.com/watch?v=MBaw_6cPmAw
+for helping me make this popup.
+*/
+.team-name-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 25%;
+    visibility: hidden;
+}
+
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+.button.pop-up{
+    width: 50%;
+    height: 20vh;
+}
+
+#pop-up-button-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.team-name-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+}
+
+#team-name-input{
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color:white;
+    background-color: black;
+    text-align: center;
+}

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="Upgrade-Screen.css" />
     <title>Star Wars X-Wing</title>
 
+  </head>
+  <body>
     <div class = "title">Upgrade Selection</div>
 
     <section class = "flex-container">
@@ -29,10 +31,17 @@
       <button type="button" class = "button done" id = "done-button">Done</button>
     </section>
 
-
-
-  </head>
+  <div class = "roster-number-container" id = "roster-number-box">
+    <div class = roster-number-header>Roster Number</div>
+    <input type = "text"
+    id = "roster-number-input" />
+    <div id = "pop-up-button-container">
+      <button type = "button" class = "btn pop-up close" id = "close-button">Close</button>
+      <button type = "button" class = "btn pop-up ok" id="ok-button">OK</button>
+    </div>
+  </div>
+  <div id = "overlay"></div>
+  </body>
   <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>
   <script type="text/javascript" src="Upgrade-Screen.js"></script>
-  </body>
 </html>
