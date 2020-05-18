@@ -195,3 +195,48 @@ height: 20vh;
     text-align: center;
 
 }
+
+/*CSS for the upgrade removal popup*/
+.upgrade-removal-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width:  60%;
+    height: 65vh;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.upgrade-removal-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.no{
+    font-size: 3vw; 
+}
+.yes{
+    font-size: 3vw; 
+}
+
+.upgrade-photo{
+    display: block;
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: 35vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+}

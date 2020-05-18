@@ -1,4 +1,4 @@
 - Display teams on team screen now that all teams has some teams in it.
 - Display dual upgrades in upgrade slots.
-- Finish roster number pop-up.
-- 
+- Make sure that when you go to team screen that all teams is not being overwritten if it already exists.
+- Make a flip button for large ships with two cards or dual sided upgrades.
