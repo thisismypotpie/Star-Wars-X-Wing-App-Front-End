@@ -85,7 +85,7 @@ ship_in_progress.upgrades.forEach(upgrade =>{
       {
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path+"')";
       }
-
+      document.getElementById("upgrade-photo").setAttribute('name', upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.
    })
    element.id = "taken";
 })
@@ -96,6 +96,7 @@ if(ship_in_progress.upgrades.length <=12)
 
 let next_upgrade_slot = document.getElementById("next-selection");
 //click event for the next selection for upgrade slot with plus button on it.
+
 next_upgrade_slot.addEventListener("click",function(){
   window.location.href = "./upgrade-type-selection-screen/upgrade-type-selection-screen.html";
 })
@@ -103,10 +104,30 @@ next_upgrade_slot.addEventListener("click",function(){
 
 //If you press the no button when asked if you want to delete an upgrade.
 document.getElementById("no-button").addEventListener("click",function(){
-
+  let overlay = document.getElementById("overlay");
+  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+  overlay.style.opacity = 0;
+  upgrade_removal_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
 })
 //If you press the yes button when asked if you want to delete an upgrade.
 document.getElementById("yes-button").addEventListener("click",function(){
-
+  let overlay = document.getElementById("overlay");
+  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+  overlay.style.opacity = 0;
+  upgrade_removal_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+  //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
+  let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
+  for(var i =0; i < ship_in_progress.upgrades.length;i++)
+  {
+    if(ship_in_progress.upgrades[i].name == upgrade_name)
+    {
+     ship_in_progress.upgrades.splice(i,1);
+    }
+  }
+    console.log(ship_in_progress.upgrades);
+    sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
+window.location.reload();
 })
 
