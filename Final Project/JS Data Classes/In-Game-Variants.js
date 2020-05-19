@@ -55,7 +55,7 @@ class large_two_card_in_game_ship_status extends in_game_ship_status{
         super(incoming_pilot);
         this.current_energy = incoming_pilot.ship_name.energy;
         this.current_aft_agility = incoming_pilot.ship_name.aft_agility;
-        this.current_aft_shields = imcoming_pilot.ship_name.aft_shields;
+        this.current_aft_shields = incoming_pilot.ship_name.aft_shields;
         this.current_aft_hull = incoming_pilot.ship_name.aft_hull;
         this.fore_crippled = false;
         this.aft_crippled = false;

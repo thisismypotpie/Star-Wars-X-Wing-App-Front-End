@@ -34,6 +34,7 @@ body{
     border: 2px solid white;
     list-style: none;
     justify-content: center;
+    overflow: auto;
 }
 
 .list-box-title{
@@ -100,7 +101,7 @@ border:none;
     text-align: center;
     overflow: auto;
 }
-
+/*This was created to remove padding of each list box item.*/
 .list-box-items{
     padding: 0;
 }

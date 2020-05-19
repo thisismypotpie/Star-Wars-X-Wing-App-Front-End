@@ -72,6 +72,48 @@ document.getElementById("new-team-button").addEventListener("click", function(){
     overlay.style.pointerEvents = "none";
   });
 
+  //Click event to make sure all of the correct items are highlighted.
+  let box_items = document.getElementsByClassName("list-box-item");
+  console.log("List box items: "+box_items.length);
+  //Need to use tradictional loop since this is technically not an array.
+  for(var i =0; i < box_items.length;i++)
+  {
+     box_items[i].addEventListener("click",function(){
+       uniform_highlight(this.id.split('-')[0], box_items);
+     })
+     box_items[i].addEventListener("mouseout",function(){
+      uniform_unhilight(this.id.split('-')[0], box_items);
+    })
+  }
+
+  //This function will taken in an id and highlight each li item that has the same team name. This is done to uniform hight a teams name, size, and cost.
+  function uniform_highlight(name, items)
+  {
+    //Must use tradiational for loop becase items is a collection instead of an array.
+    for(var i =0; i < items.length;i++)
+    {
+       console.log("name: "+name);
+       if(items[i].id.split('-')[0] == (name))
+       {
+         items[i].style.backgroundColor = "purple";
+         items[i].style.border = "1px solid white";
+       }
+    }
+  }
+  //When you click away from an element, remove the background from all of the highlighted elements.
+  function uniform_unhilight(name, items)
+  {
+          //Must use tradiational for loop becase items is a collection instead of an array.
+    for(var i =0; i < items.length;i++)
+    {
+       console.log("name: "+name);
+       if(items[i].id.includes(name))
+       {
+         items[i].style.backgroundColor = "";
+         items[i].style.border = "none";
+       }
+    }
+  }
 
   //This is a function to create a test team.
   function create_test_team()
