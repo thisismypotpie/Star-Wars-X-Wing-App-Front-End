@@ -71,4 +71,33 @@ document.getElementById("new-team-button").addEventListener("click", function(){
     team_name_box.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
   });
+
+
+  //This is a function to create a test team.
+  function create_test_team()
+  {
+    let teams = JSON.parse(sessionStorage.getItem("all_teams"));
+      var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+      console.log(game_data);
+      let new_team = new team("Test Team "+(teams.length+1));
+      for(var i =0; i < 10;i++)
+      {
+        var pilot_index = Math.floor(Math.random() * game_data.all_pilots.length);
+        if(pilot_index ==0 || pilot_index == 2)//large ship two cards.
+        {
+          new_team.ship_list.push(new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index]));
+        }
+        else if(pilot_index == 1 || pilot_index == 3 || pilot_index == 4)//large ship one card
+        {
+          new_team.ship_list.push(new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index]));
+        }
+        else//regular ship
+        {
+          new_team.ship_list.push(new in_game_ship_status(game_data.all_pilots[pilot_index]));
+        }
+      }
+      teams.push(new_team);
+      sessionStorage.setItem("all_teams",JSON.stringify(teams));
+      window.location.reload();
+  }
   
