@@ -59,6 +59,12 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       alert("team name is empty.");
       return;
     }
+    else if(name_exists_check(input) == false)
+    {
+      alert("That name is already taken, please choose another name.");
+      document.getElementById("team-name-input").value = "";
+      return;
+    }
     sessionStorage.setItem("new_team",JSON.stringify(new team(input)));
     window.location.href = "../Selection-Screen/Selection-Screen.html";
   });
@@ -113,6 +119,20 @@ document.getElementById("new-team-button").addEventListener("click", function(){
          items[i].style.border = "none";
        }
     }
+  }
+
+  //When the player enters a new name, this function will check to makes sure that the name has not already been taken.
+  function name_exists_check(input)
+  {
+    let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+    var name_available = true;
+    all_teams.forEach(team=>{
+        if(team.team_name == input)
+        {
+          name_available = false;
+        }
+    })
+    return name_available;
   }
 
   //This is a function to create a test team.
