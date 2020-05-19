@@ -32,6 +32,8 @@ body{
     margin-right:3%;
     background-color: black;
     border: 2px solid white;
+    list-style: none;
+    justify-content: center;
 }
 
 .list-box-title{
@@ -91,6 +93,17 @@ font-size: 1.2vw;
 border:none;
 }
 
+.list-box-item{
+    font-size: 3vw;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: center;
+    overflow: auto;
+}
+
+.list-box-items{
+    padding: 0;
+}
 
 /*Overlay and popup styling.*/
 /*Credit to: https://www.youtube.com/watch?v=MBaw_6cPmAw

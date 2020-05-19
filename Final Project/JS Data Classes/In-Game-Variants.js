@@ -71,23 +71,27 @@ class team{
     }
 }
 
+//Calculate cost of a single ship. input: ship.
 function Calculate_cost_of_ship(to_calculate)
 {
     var cost = 0;
     //add cost of pilot.
-    cost += chosen_pilot.cost;
+    cost += to_calculate.chosen_pilot.cost;
     //Add cost of each upgrade.
     to_calculate.upgrades.forEach(upgrade =>{
-    cost+= upgradde.cost;
+    cost+= upgrade.cost;
     })
     return cost;
 }
-
+//Calculate cost of a team input: team.
 function Calculate_cost_of_team(to_calculate)
 {
     var cost = 0;
-    to_calculate.ship_list.foreach(ship =>{
-        cost += Calculate_cost_of_ship(ship);
-    })
+    if(to_calculate.ship_list != undefined && to_calculate.ship_list != null)
+    {
+        to_calculate.ship_list.forEach(ship =>{
+            cost += Calculate_cost_of_ship(ship);
+        })
+    }
     return cost;
 }

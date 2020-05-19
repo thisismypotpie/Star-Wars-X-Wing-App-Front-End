@@ -126,7 +126,6 @@ document.getElementById("yes-button").addEventListener("click",function(){
      ship_in_progress.upgrades.splice(i,1);
     }
   }
-    console.log(ship_in_progress.upgrades);
     sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
 window.location.reload();
 })

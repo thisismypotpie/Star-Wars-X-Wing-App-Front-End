@@ -5,7 +5,30 @@ if(sessionStorage.getItem("all_teams") == null)
 }
 else//populate the board with the name of each team, the size and total cost.
 {
-
+   let teams = JSON.parse(sessionStorage.getItem("all_teams"));
+   //I need to use a traditional loop since a collection has no "foreach" method.
+   for(var i=0; i < teams.length;i++)
+   {
+     //Set item for the team name
+      var new_team_name_item = document.createElement('li');
+      new_team_name_item.id = teams[i].team_name;
+      new_team_name_item.className = "list-box-item";
+      new_team_name_item.textContent = teams[i].team_name;
+      //Set item for the cost box.
+      var new_cost_item = document.createElement('li');
+      new_cost_item.id = teams[i].team_name + "-cost";
+      new_cost_item.className = "list-box-item";
+      new_cost_item.textContent = Calculate_cost_of_team(teams[i]);
+      //Set item for number of ships.
+      var new_ship_number_item = document.createElement('li');
+      new_ship_number_item.id = teams[i].team_name + "-size";
+      new_ship_number_item.className = "list-box-item";
+      new_ship_number_item.textContent = teams[i].ship_list.length;
+      
+      document.getElementById("list-box-team-names").append(new_team_name_item);
+      document.getElementById("list-box-team-cost").append(new_cost_item);
+      document.getElementById("list-box-team-size").append(new_ship_number_item);
+   }
 }
 //Sets the overlay and have the team name pop-up appear.
 document.getElementById("new-team-button").addEventListener("click", function(){
