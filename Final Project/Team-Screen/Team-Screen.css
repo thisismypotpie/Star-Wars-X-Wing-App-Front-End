@@ -161,3 +161,37 @@ for helping me make this popup.
     background-color: black;
     text-align: center;
 }
+
+/*This is the css for the options panel*/
+.team-options-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 40%;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.team-options-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color:white;
+}
+
+.long-button{
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin:1%;
+    height: 12vh;
+    background-color: transparent;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+}

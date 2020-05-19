@@ -32,7 +32,11 @@ document.getElementById("back-button").addEventListener("click", function(){
        all_teams.push(new_team);
        console.log(all_teams);
        sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
+
+       //remove all items that are no longer being used.
        sessionStorage.removeItem("chosenShip");
+       sessionStorage.removeItem("new_team");
+       sessionStorage.removeItem("ship_in_progress");
        window.location.href = "../Team-Screen/Team-Screen.html";
 
   });

@@ -101,10 +101,18 @@ document.getElementById("new-team-button").addEventListener("click", function(){
        console.log("name: "+name);
        if(items[i].id.split('-')[0] == (name))
        {
+         //Set background and color and then open the team options.
          items[i].style.backgroundColor = "purple";
          items[i].style.border = "1px solid white";
+         //Open the options menu
+         let overlay = document.getElementById("overlay");
+         let team_options_box = document.getElementById("team-options-box");
+         overlay.style.opacity = 1;
+         team_options_box.style.visibility = "visible";
+         overlay.style.pointerEvents = "all";
        }
     }
+    document.getElementById("team-options-header").textContent = name + " Options";
   }
   //When you click away from an element, remove the background from all of the highlighted elements.
   function uniform_unhilight(name, items)
@@ -162,4 +170,23 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       sessionStorage.setItem("all_teams",JSON.stringify(teams));
       window.location.reload();
   }
+
+
+  /*
+  Buttons functions for the team options screen.
+  */
+
+function closeOption()
+{
+  let overlay = document.getElementById("overlay");
+  let team_options_box = document.getElementById("team-options-box");
+  overlay.style.opacity = 0;
+  team_options_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+}
+
+function addNewShip()
+{
+  window.location.href ='../Add-New-Ship-Screens/Selection-Screen/New-Ship-Selection-Screen.html';
+}
   

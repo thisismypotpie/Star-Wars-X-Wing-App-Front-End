@@ -47,6 +47,7 @@
             <button type="button" class = "button Back" id = "back-button">Back</button>
         </div>
     </section>
+    <!--This is the html for the team name container-->
     <div class = "team-name-container" id = "team-name-box">
         <div class = team-name-header>What is your Team Name?</div>
         <input type = "text"
@@ -57,6 +58,17 @@
         </div>
     </div>
     <div id = "overlay"></div>
+
+    <!--This is the html for the options container-->
+    <div class = "team-options-container" id = "team-options-box">
+      <div class = "team-options-header" id = "team-options-header">Options</div>
+      <button type = "button" class = "long-button pop-up add" id = "add-button" onclick="addNewShip()">Add New Ship</button>
+      <button type = "button" class = "long-button pop-up remove" id = "remove-button">Remove Ship</button>
+      <button type = "button" class = "long-button pop-up view" id = "view-button">View Team</button>
+      <button type = "button" class = "long-button pop-up stats" id = "stats-button">Statistics</button>
+      <button type = "button" class = "long-button pop-up remove-all" id = "remove-all-button">Remove Entire Team</button>
+      <button type = "button" class = "long-button pop-up close" id = "close-button" onclick = "closeOption()">Close</button>
+    </div>
   </body>
   <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>
   <script type="text/javascript" src="Team-Screen.js"></script>
