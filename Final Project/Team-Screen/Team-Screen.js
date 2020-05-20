@@ -1,3 +1,6 @@
+//This global variable is to get the name of a team you want to edit when that team has already been established.
+var selected_team_edit_name = undefined;
+
 //This if statement is here so that all teams is not overwritten with null as soon as you come back to this form from the upgrade form.
 if(sessionStorage.getItem("all_teams") == null)
 {
@@ -98,7 +101,6 @@ document.getElementById("new-team-button").addEventListener("click", function(){
     //Must use tradiational for loop becase items is a collection instead of an array.
     for(var i =0; i < items.length;i++)
     {
-       console.log("name: "+name);
        if(items[i].id.split('-')[0] == (name))
        {
          //Set background and color and then open the team options.
@@ -113,6 +115,7 @@ document.getElementById("new-team-button").addEventListener("click", function(){
        }
     }
     document.getElementById("team-options-header").textContent = name + " Options";
+    selected_team_edit_name = name;
   }
   //When you click away from an element, remove the background from all of the highlighted elements.
   function uniform_unhilight(name, items)
@@ -187,6 +190,17 @@ function closeOption()
 
 function addNewShip()
 {
+  sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
   window.location.href ='../Add-New-Ship-Screens/Selection-Screen/New-Ship-Selection-Screen.html';
+}
+
+function removeTeam()
+{
+  var results = confirm("Remove ENTIRE team from the team list?");
+  if(results == true)
+  {
+
+  }
+  
 }
   

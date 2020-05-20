@@ -1,0 +1,120 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 5vw;
+}
+
+.subtitle{
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+    padding-left: 5%;
+}
+.grid-container{
+    display:grid;
+    align-items: stretch;
+    grid-template-columns: repeat(12,calc(90%/12));
+    grid-template-rows: repeat(12,calc(85vh/12));
+  }
+
+.container{
+    border: 1px solid white;
+}
+
+.pilot-image{
+    grid-column: 1/4;
+    grid-row: 1/10;
+    /*background-image: url("https://i.imgur.com/IUWPLPU.png");*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.subtitle{
+    grid-column: 6/10;
+    grid-row: 2;
+}
+
+.maneuver-image{
+    grid-row: 4/8;
+    grid-column: 6/9;
+    text-align: center;
+    /*background-image: url("https://i.imgur.com/cb8PEuX.png");*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.previous{
+    grid-row: 9/12;
+    grid-column:5/7;
+    background-image: url("https://i.imgur.com/2rT47Ge.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+.next{
+    grid-row: 9/12;
+    grid-column: 8/10;
+    background-image: url("https://i.imgur.com/KyBOJ3s.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+.back {
+    grid-column: 11/13;
+    grid-row: 9/12;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+}
+
+.select {
+    grid-row:5/7;
+    grid-column: 10/13;
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 851px)
+{
+    .grid-container{
+        grid-template-columns: repeat(12,calc(100%/12));
+      }
+      .pilot-image{
+        grid-column: 1/5;
+        grid-row: 1/9;
+    }
+}
+
+@media screen and (max-width: 850px) and (min-width: 1px)
+{
+    .grid-container{
+        grid-template-columns: repeat(12,calc(100%/12));
+      }
+      .pilot-image{
+        grid-column: 1/5;
+        grid-row: 2/9;
+    }
+}

@@ -1,9 +1,8 @@
 document.getElementById("back-button").addEventListener("click", function(){
-  window.location.href = "../Team-Screen/Team-Screen.html";
+  sessionStorage.removeItem("chosen_team_name");
+  window.location.href = "../../Team-Screen/Team-Screen.html";
 });
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-console.log(game_data.all_pilots);
-
 
 let faction_options = document.getElementsByClassName("faction-option");
 let ship_size_options = document.getElementsByClassName("ship-size-option");
@@ -78,7 +77,7 @@ faction_options[i].addEventListener("click",function(){
           new_item.textContent = name;
           //When a ship item is clicked, move to the next form.
           new_item.addEventListener("click",function(){
-            window.location.href = "../Pilot-Screen/Pilot-Screen.html";
+            window.location.href = "../Pilot-Screen/New-Ship-Pilot-Screen.html";
             sessionStorage.setItem("chosenShip",[new_item.id,chosenFactionElement.id]);//Sending a ship name and faction
           })
           new_item.addEventListener("focus",function(){
