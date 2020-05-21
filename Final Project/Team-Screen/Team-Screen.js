@@ -199,7 +199,16 @@ function removeTeam()
   var results = confirm("Remove ENTIRE team from the team list?");
   if(results == true)
   {
-
+     let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+     //I need to use a traditional for loop as it is the easier way to remove elements from an array.
+       for(var i =0; i < all_teams.length;i++){
+       if(all_teams[i].team_name == selected_team_edit_name)
+       {
+          all_teams.splice(i,1);
+       }
+     }  
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    window.location.reload(); 
   }
   
 }
