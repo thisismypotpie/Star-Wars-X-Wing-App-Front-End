@@ -112,6 +112,7 @@ document.getElementById("new-team-button").addEventListener("click", function(){
          overlay.style.opacity = 1;
          team_options_box.style.visibility = "visible";
          overlay.style.pointerEvents = "all";
+         sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
        }
     }
     document.getElementById("team-options-header").textContent = name + " Options";
@@ -190,7 +191,6 @@ function closeOption()
 
 function addNewShip()
 {
-  sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
   window.location.href ='../Add-New-Ship-Screens/Selection-Screen/New-Ship-Selection-Screen.html';
 }
 

@@ -170,6 +170,7 @@ db.all("SELECT * FROM LargeShipTable", function(err, tables){
 
     if(element.LargeShipType == "largeTwoCard")
     {
+      console.log("card: "+element.ManeuverCard);
       let ship_to_push = new ship_page.Large_Ship_Two_Cards(element.LargeShipType,element.Name,element.Attack,0,element.ForeShields, 
         element.ForeHull, maneuvers_for_this_ship, element.Energy,0,element.AftHull, element.AftShields,element.CrippledAttack,
         element.CrippledEnergy, fore_crit_cards, aft_crit_cards, element.ManeuverCard)

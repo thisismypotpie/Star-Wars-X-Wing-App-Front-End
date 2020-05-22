@@ -56,7 +56,7 @@ body{
 .previous{
     grid-row: 9/12;
     grid-column:5/7;
-    background-image: url("https://i.imgur.com/2rT47Ge.png");
+    background-image: url("https://i.imgur.com/IWOoJwp.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: transparent;
@@ -66,7 +66,7 @@ body{
 .next{
     grid-row: 9/12;
     grid-column: 8/10;
-    background-image: url("https://i.imgur.com/KyBOJ3s.png");
+    background-image: url("https://i.imgur.com/I7pRm3g.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: transparent;

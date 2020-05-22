@@ -8,6 +8,7 @@ const ship_types = {
 class ship{
     constructor(ship_type, ship_name, attack, agility, shields, hull, maneuvers, card)
     {
+        console.log("card: "+card);
         //constant ship info
         this.ship_type = ship_type;
         this.ship_name = ship_name;
@@ -38,15 +39,15 @@ class Large_Ship_Two_Cards extends Large_Ship_One_Card{
     constructor(ship_type, ship_name, attack, agility, shields, hull, maneuvers, 
         energy, aft_agility, aft_hull, aft_shields, crippled_attack, crippled_energy,crit_hit_cards_fore, crit_hit_cards_aft, card)
     {
-        super(ship_type, ship_name, attack, agility, shields, hull, maneuvers, card);
-        this.energy = energy;
+        super(ship_type, ship_name, attack, agility, shields, hull, maneuvers,energy,crit_hit_cards_fore,crit_hit_cards_aft,card);
+        //this.energy = energy;
         this.aft_agility = aft_agility;
         this.aft_hull = aft_hull;
         this.aft_shields = aft_shields;
         this.crippled_attack = crippled_attack;
         this.crippled_energy = crippled_energy;
-        this.crit_hit_cards_fore = crit_hit_cards_fore;
-        this.crit_hit_cards_aft = crit_hit_cards_aft;
+        //this.crit_hit_cards_fore = crit_hit_cards_fore;
+        //this.crit_hit_cards_aft = crit_hit_cards_aft;
     }
 }
 module.exports.Large_Ship_Two_Cards = Large_Ship_Two_Cards;
