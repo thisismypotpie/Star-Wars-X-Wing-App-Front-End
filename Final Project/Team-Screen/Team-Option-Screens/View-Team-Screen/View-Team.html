@@ -13,12 +13,12 @@
     <div id = "left-container">
         <div id = "pilot-card"></div>
         <div id = "button-container">
-        <button type="button" class = "btn"id="prev-button"></button>
-        <button type="button" class = "btn"id="next-button"></button>
+        <button type="button" class = "btn"id="prev-button" onclick="previous_button()"></button>
+        <button type="button" class = "btn"id="next-button" onclick="next_button()"></button>
         </div>    
     </div>
     <section class = "grid-container">
-        <button type="button" id = "back-button">Back</button>
+        <button type="button" id = "back-button" onclick="back_button()">Back</button>
         <div class = "icon" id = "pilot-skill">:-1</div>
         <div class = "icon" id = "attack">:-1</div>
         <div class = "icon" id = "agility">:-1</div>
@@ -38,6 +38,7 @@
         aria-labelledby="upgrades-title"></ul>
         <span class="maneuvers-title">Maneuvers</span>
         <div id="maneuver-box"></div>
+        <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Change</button>>
     </section>
 </div>
   </body>

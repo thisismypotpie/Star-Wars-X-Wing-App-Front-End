@@ -89,6 +89,19 @@ body{
     text-align: center;
 }
 
+#upgrade-button{
+    grid-row: 8/10;
+    grid-column: 8/10;
+    background-color: transparent;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+}
+
 .icon{
     background-color: transparent;
     grid-column: 1;
@@ -118,14 +131,17 @@ body{
 #energy{
     grid-row:7;
     background-image: url("https://i.imgur.com/21ZF1eI.png");
+    visibility: hidden;
 }
 
 .stat{
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 2.5vw;
+    font-size: 3vw;
     color: white;
     grid-column: 2;
     text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
     /* border: 1px solid purple; */
 }
 #pilot-skill-stat{
@@ -145,6 +161,7 @@ body{
 }
 #energy-stat{
     grid-row:7;
+    visibility: hidden;
 }
 
 .upgrades-title{
@@ -175,4 +192,6 @@ body{
     grid-row: 4/7;
     grid-column: 9/12;
     border: 1px solid white;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }

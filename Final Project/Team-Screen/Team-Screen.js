@@ -112,11 +112,11 @@ document.getElementById("new-team-button").addEventListener("click", function(){
          overlay.style.opacity = 1;
          team_options_box.style.visibility = "visible";
          overlay.style.pointerEvents = "all";
-         sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
        }
     }
     document.getElementById("team-options-header").textContent = name + " Options";
     selected_team_edit_name = name;
+    sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
   }
   //When you click away from an element, remove the background from all of the highlighted elements.
   function uniform_unhilight(name, items)
