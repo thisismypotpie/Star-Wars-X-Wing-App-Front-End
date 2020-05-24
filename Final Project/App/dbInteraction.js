@@ -2,10 +2,10 @@
 //Requires
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-const ship_page = require('./Ship-Variants.js');
-const maneuver_page = require('./Maneuvers.js');
-const pilot_page = require('./Pilot-Variants');
-const card_page = require('./card-Variants');
+const ship_page = require('../JS Data Classes/Ship-Variants.js');
+const maneuver_page = require('../JS Data Classes/Maneuvers.js');
+const pilot_page = require('../JS Data Classes/Pilot-Variants');
+const card_page = require('../JS Data Classes/card-Variants');
 const http = require('http');
 
 
@@ -35,11 +35,11 @@ let data = {
 }
 let game_data = data;
 //confirm that the database exists or exit out of the db queries.
-var dbExists = fs.existsSync('../GameDB.db');
+var dbExists = fs.existsSync('./GameDB.db');
 if(dbExists)
 {
 //open the database connection
- let db = new sqlite3.Database('../GameDB.db', sqlite3,(err)=>{
+ let db = new sqlite3.Database('./GameDB.db', sqlite3,(err)=>{
     if(err != null)
     {
         console.log(err);    

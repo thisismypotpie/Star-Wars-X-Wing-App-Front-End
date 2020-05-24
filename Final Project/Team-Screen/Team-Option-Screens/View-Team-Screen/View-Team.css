@@ -186,6 +186,9 @@ body{
     grid-row: 2/12;
     border: 1px solid white;
     background-color: black;
+    padding-inline-start: 0px;
+    display: inline-block;
+    overflow: scroll;
 }
 
 #maneuver-box{

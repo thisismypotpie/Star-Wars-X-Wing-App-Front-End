@@ -33,6 +33,7 @@ function change_upgrades_button()
 //This will be the section for getting vari that we will manipulate.
 let pilot_picture = document.getElementById("pilot-card");
 let game_data = JSON.parse(sessionStorage.getItem("game_data"));
+let upgrade_box = document.getElementById("upgrade-box");
 let maneuver_box = document.getElementById("maneuver-box");
 let pilot_skill = document.getElementById("pilot-skill-stat");
 let attack = document.getElementById("attack-stat");
@@ -76,4 +77,21 @@ function set_all_items()
     agility.textContent = " : "+chosen_team.ship_list[selection_index].current_agility;
     hull.textContent = " : "+chosen_team.ship_list[selection_index].current_hull;
     shields.textContent = " : "+chosen_team.ship_list[selection_index].current_sheilds;
+
+    //Set the upgrade images of each upgrade.
+    upgrade_box.innerHTML="";
+    chosen_team.ship_list[selection_index].upgrades.forEach(upgrade=>{
+        console.log(upgrade);
+        console.log("path: "+upgrade.image_path);
+        var upgrade_image = document.createElement("div");
+        upgrade_image.style.border = "1px solid white";
+        upgrade_image.style.width = "95%";
+        upgrade_image.style.height = "45vh";
+        upgrade_image.style.margin = "3%";
+        upgrade_image.style.backgroundImage = "url('"+upgrade.image_path+"')";
+        upgrade_image.style.backgroundRepeat = "no-repeat";
+        upgrade_image.style.backgroundSize = "100% 100%";
+        upgrade_box.appendChild(upgrade_image);
+
+    })
 }
