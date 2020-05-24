@@ -154,21 +154,32 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       var game_data = JSON.parse(sessionStorage.getItem("game_data"));
       console.log(game_data);
       let new_team = new team("Test Team "+(teams.length+1));
-      for(var i =0; i < 10;i++)
+      let team_size = Math.floor(Math.random() * 50)+1;
+      var current_ship = undefined;
+      for(var i =0; i < team_size;i++)
       {
         var pilot_index = Math.floor(Math.random() * game_data.all_pilots.length);
+        //Create a new ship
         if(pilot_index ==0 || pilot_index == 2)//large ship two cards.
         {
-          new_team.ship_list.push(new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
+          current_ship = new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name);
         }
         else if(pilot_index == 1 || pilot_index == 3 || pilot_index == 4)//large ship one card
         {
-          new_team.ship_list.push(new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
+          current_ship = new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name);
         }
         else//regular ship
         {
-          new_team.ship_list.push(new in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
+          current_ship = new in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name);
         }
+        //Add random upgrades to new ship.
+        var number_of_upgrades = Math.floor(Math.random() * 12);
+        for(var j =0; j < number_of_upgrades;j++)
+        {
+          var upgrade_index = Math.floor(Math.random()*game_data.all_upgrades.length);
+          current_ship.upgrades.push(game_data.all_upgrades[upgrade_index]);
+        }
+        new_team.ship_list.push(current_ship);
       }
       teams.push(new_team);
       sessionStorage.setItem("all_teams",JSON.stringify(teams));
@@ -194,6 +205,7 @@ function addNewShip()
   window.location.href ='../Add-New-Ship-Screens/Selection-Screen/New-Ship-Selection-Screen.html';
 }
 
+//Removes an entire team from the list of teams.
 function removeTeam()
 {
   var results = confirm("Remove ENTIRE team from the team list?");
@@ -211,5 +223,11 @@ function removeTeam()
     window.location.reload(); 
   }
   
+}
+
+function ViewStatistics()
+{
+  sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
+  window.location.href = "./Team-Option-Screens/View-Team-Stats-Screen/Stats-Screen.html";
 }
   
