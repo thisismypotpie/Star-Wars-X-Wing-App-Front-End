@@ -8,6 +8,7 @@ Create and establish graphs section
 */
     create_upgrade_to_ship_cost_graph();
     create_pilot_skill_breakdown_graph();
+    create_team_cost_comparison_graph();
 
 /*
 End create and establish graphs section
@@ -67,55 +68,73 @@ function get_total_upgrade_Cost()
 //Returns an array of pilots skills from all ships.
 function get_pilot_skill_array()
 {
-    var pilot_skills = [0,0,0,0,0,0,0,0,0,0,0];
+    var pilot_skills = [0,0,0,0,0,0,0,0,0];
     team_chosen.ship_list.forEach(ship =>{
-        if(ship.current_pilot_skill < 1)
+        if(ship.current_pilot_skill <= 1)
         {
-            pilot_skills[0]+=1 ;
-        }
-        else if(ship.current_pilot_skill == 1)
-        {
-            pilot_skills[1]+=1;
+            pilot_skills[0]+=1;
         }
         else if(ship.current_pilot_skill == 2)
         {
-            pilot_skills[2]+=1;
+            pilot_skills[1]+=1;
         }
         else if(ship.current_pilot_skill == 3)
         {
-            pilot_skills[3]+=1;
+            pilot_skills[2]+=1;
         }
         else if(ship.current_pilot_skill == 4)
         {
-            pilot_skills[4]+=1;
+            pilot_skills[3]+=1;
         }
         else if(ship.current_pilot_skill == 5)
         {
-            pilot_skills[5]+=1;
+            pilot_skills[4]+=1;
         }
         else if(ship.current_pilot_skill == 6)
         {
-            pilot_skills[6]+=1;
+            pilot_skills[5]+=1;
         }
         else if(ship.current_pilot_skill == 7)
         {
-            pilot_skills[7]+=1;
+            pilot_skills[6]+=1;
         }
         else if(ship.current_pilot_skill == 8)
         {
+            pilot_skills[7]+=1;
+        }
+        else if(ship.current_pilot_skill >= 9)
+        {
             pilot_skills[8]+=1;
-        }
-        else if(ship.current_pilot_skill == 9)
-        {
-            pilot_skills[9]+=1;
-        }
-        else if(ship.current_pilot_skill > 9 )
-        {
-            pilot_skills[10]+=1;
         }
         
     })
     return pilot_skills;
+}
+//Retruns a comma seperated list of labels for label generation of team comparison graph.
+function get_team_name_labels()
+{
+    var labels = [];
+    all_teams.forEach(team=>{
+        if(labels.length <= 10)//I am limiting this chart to ten teams total.
+        {
+            labels.push(team.team_name+"("+Calculate_cost_of_team(team)+")");
+        }
+    })
+    return labels;
+}
+
+
+//This will get the cost of eah team for the team comparison graph.
+function get_costs_of_all_teams()
+{
+    var costs = [];
+    all_teams.forEach(team=>{
+        if(costs.length <= 10)//I am limiting this chart to ten team total.
+        {
+            costs.push(Calculate_cost_of_team(team));
+        }
+    })
+    return costs;
 }
 /*
 End misc. function section.
@@ -165,9 +184,9 @@ function create_pilot_skill_breakdown_graph()
     let donutChart = new Chart(document.getElementById("pilot-skill-breakdown"),{
         type: 'doughnut',
         data: {
-        labels:["Less Than One ("+pilot_skill_array[0]+")","One("+pilot_skill_array[1]+")","Two("+pilot_skill_array[2]+")",
-        "Three("+pilot_skill_array[3]+")","Four("+pilot_skill_array[4]+")","Five("+pilot_skill_array[5]+")","Six("+pilot_skill_array[6]+")",
-        "Seven("+pilot_skill_array[7]+")","Eight("+pilot_skill_array[8]+")","Nine("+pilot_skill_array[9]+")","More Than Nine("+pilot_skill_array[10]+")"],
+        labels:["One("+pilot_skill_array[0]+")","Two("+pilot_skill_array[1]+")",
+        "Three("+pilot_skill_array[2]+")","Four("+pilot_skill_array[3]+")","Five("+pilot_skill_array[4]+")","Six("+pilot_skill_array[5]+")",
+        "Seven("+pilot_skill_array[6]+")","Eight("+pilot_skill_array[7]+")","Nine or more("+pilot_skill_array[8]+")"],
         datasets: [
           {
         backgroundColor: [
@@ -195,7 +214,7 @@ function create_pilot_skill_breakdown_graph()
             'rgba(45, 87, 44, 1)',
             'rgba(223, 240, 226, 1)'],
          data:[pilot_skill_array[0],pilot_skill_array[1],pilot_skill_array[2],pilot_skill_array[3],pilot_skill_array[4],pilot_skill_array[5],
-        pilot_skill_array[6],pilot_skill_array[7],pilot_skill_array[8],pilot_skill_array[9],pilot_skill_array[10]]  
+        pilot_skill_array[6],pilot_skill_array[7],pilot_skill_array[8]]  
         }]
       },
       options: {
@@ -208,6 +227,48 @@ function create_pilot_skill_breakdown_graph()
                 fontColor: "white"
             }
         }
+      }
+      });
+}
+
+function create_team_cost_comparison_graph()
+{
+      let barChart = new Chart(document.getElementById("team-cost-comparison"),{
+        type: 'bar',
+        data: {
+        labels:get_team_name_labels(),
+        datasets: [
+          {
+        backgroundColor: [
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(199, 199, 199, 0.8)',
+            'rgba(102,51,0,0.8)',
+            'rgba(255,69,0,0.8)',
+            'rgba(45,87,44,0.8)',
+            'rgba(223,240,226,0.8)'],
+         borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(159, 159, 159, 1)',
+            'rgba(102, 51,  0,   1)',
+            'rgba(255, 69, 0, 1)',
+            'rgba(45, 87, 44, 1)',
+            'rgba(223, 240, 226, 1)'],
+         data: get_costs_of_all_teams() 
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: { display: false}
       }
       });
 }
