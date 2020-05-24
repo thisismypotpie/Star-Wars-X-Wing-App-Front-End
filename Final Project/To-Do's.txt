@@ -1,3 +1,5 @@
 - Make a flip button for large ships with two cards or dual sided upgrades.
 - Raider class corvette maneuvers are now showing up.
 - Create a instance of the database using hiroku or google cloud.
+
+First: Fix the error where new ship are not being assigned a team name.

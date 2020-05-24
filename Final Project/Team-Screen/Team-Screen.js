@@ -159,15 +159,15 @@ document.getElementById("new-team-button").addEventListener("click", function(){
         var pilot_index = Math.floor(Math.random() * game_data.all_pilots.length);
         if(pilot_index ==0 || pilot_index == 2)//large ship two cards.
         {
-          new_team.ship_list.push(new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index]));
+          new_team.ship_list.push(new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
         }
         else if(pilot_index == 1 || pilot_index == 3 || pilot_index == 4)//large ship one card
         {
-          new_team.ship_list.push(new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index]));
+          new_team.ship_list.push(new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
         }
         else//regular ship
         {
-          new_team.ship_list.push(new in_game_ship_status(game_data.all_pilots[pilot_index]));
+          new_team.ship_list.push(new in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name));
         }
       }
       teams.push(new_team);

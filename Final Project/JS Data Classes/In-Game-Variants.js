@@ -15,7 +15,7 @@ class target_lock{
 
 class in_game_ship_status{
     //This constructor will set a default state based on the pilot sent to it.
-    constructor(incoming_pilot)
+    constructor(incoming_pilot, team_name)
     {
         this.upgrades = [];
         this.target_locks = [];
@@ -23,7 +23,7 @@ class in_game_ship_status{
         this.chosen_pilot = incoming_pilot;
         this.roster_number = 0;
         this.chosen_maneuver = undefined;
-        this.team_name = "";
+        this.team_name = team_name;
         this.conditions = [];
         this.stress_tokens = 0;
         this.ion_tokens = 0;
@@ -42,17 +42,17 @@ class in_game_ship_status{
 }
 
 class large_one_card_in_game_ship_status extends in_game_ship_status{
-        constructor(incoming_pilot)
+        constructor(incoming_pilot,team_name)
         {
-            super(incoming_pilot);
+            super(incoming_pilot, team_name);
             this.current_energy = incoming_pilot.ship_name.energy;
         }
 }
 
 class large_two_card_in_game_ship_status extends in_game_ship_status{
-    constructor(incoming_pilot)
+    constructor(incoming_pilot, team_name)
     {
-        super(incoming_pilot);
+        super(incoming_pilot, team_name);
         this.current_energy = incoming_pilot.ship_name.energy;
         this.current_aft_agility = incoming_pilot.ship_name.aft_agility;
         this.current_aft_shields = incoming_pilot.ship_name.aft_shields;

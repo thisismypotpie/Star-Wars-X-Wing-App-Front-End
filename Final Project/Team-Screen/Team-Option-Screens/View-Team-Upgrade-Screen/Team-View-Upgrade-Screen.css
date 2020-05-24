@@ -1,0 +1,242 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+    height: 10vh;
+}
+
+.grid-container{
+    display:grid;
+    align-items: stretch;
+    grid-template-columns: repeat(4,calc(75%/4));
+    grid-template-rows: repeat(3,calc(90vh/3));
+    margin-left: 10%;
+    width:100%;
+    outline: none;
+  }
+
+  .pilot-picture{
+      width: 35%;
+      height: 60vh;
+      border: 1px solid white;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+  }
+
+  .flex-container{
+      display: flex;
+      flex-direction: row;
+  }
+
+  .plus{
+      margin-left: 2%;
+  }
+
+  .grid-item{
+      border: 1px solid white;
+      margin-bottom: 3%;
+      margin-left: 20%;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+  }
+
+  .button{
+      position: absolute;
+      bottom: 0;
+      margin-left: 1%;
+      background-image: url("https://i.imgur.com/RkyE0Xv.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      border: none;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;
+  }
+
+  .back{
+width: 10%;
+height: 20vh;
+  }
+
+  .done{
+    width: 10%;
+    height: 20vh;
+    left:12%;
+  }
+
+  #next-selection{
+    background-image: url(https://i.imgur.com/oNRxf0v.png);
+  }
+
+  .one{
+      grid-column: 1;
+      grid-row: 1;
+  }
+  .two{
+    grid-column: 2;
+    grid-row: 1;
+}
+.three{
+    grid-column: 3;
+    grid-row: 1;
+}
+.four{
+    grid-column: 4;
+    grid-row: 1;
+}
+.five{
+    grid-column: 1;
+    grid-row: 2;
+}
+.six{
+    grid-column: 2;
+    grid-row: 2;
+}
+.seven{
+    grid-column: 3;
+    grid-row: 2;
+}
+.eight{
+    grid-column: 4;
+    grid-row: 2;
+}
+.nine{
+    grid-column: 1;
+    grid-row: 3;
+}
+.ten{
+    grid-column: 2;
+    grid-row: 3;
+}
+.eleven{
+    grid-column: 3;
+    grid-row: 3;
+}
+.twelve{
+    grid-column: 4;
+    grid-row: 3;
+}
+
+/*css for roster number pop-up*/
+.roster-number-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width:  30%;
+    height: 37vh;
+    visibility: hidden;
+}
+
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+.btn{
+    width: 30%;
+    height: 20vh;
+    margin: 5%;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-repeat: no-repeat;
+    background-size: 100% 20vh;
+    background-color: transparent;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 1.2vw;
+    border:none;
+}
+
+#pop-up-button-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+
+.roster-number-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+#roster-number-input{
+    display: block;
+    width: 20%;
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color:white;
+    background-color: black;
+    text-align: center;
+
+}
+
+/*CSS for the upgrade removal popup*/
+.upgrade-removal-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width:  60%;
+    height: 65vh;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.upgrade-removal-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.no{
+    font-size: 3vw; 
+}
+.yes{
+    font-size: 3vw; 
+}
+
+.upgrade-photo{
+    display: block;
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: 35vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+}

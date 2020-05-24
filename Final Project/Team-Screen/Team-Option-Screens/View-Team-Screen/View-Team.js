@@ -95,3 +95,10 @@ function set_all_items()
 
     })
 }
+
+//This function will take you to the upgrade screen to add/remove upgrades. 
+function change_upgrades_button()
+{
+    sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_team.ship_list[selection_index]));
+    window.location.href ="../View-Team-Upgrade-Screen/Team-View-Upgrade-Screen.html";
+}

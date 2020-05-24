@@ -17,7 +17,8 @@ const http = require('http');
 const server = http.createServer(function(request, response){
   //response.writeHead("Access-Control-Allow-Origin: null");
   response.setHeader('Content-Type', 'application/json');
-  response.setHeader("Access-Control-Allow-Origin","null");
+  response.setHeader("Access-Control-Allow-Origin","*");
+  //response.setHeader("Access-Control-Allow-Origin","null");
   response.end(JSON.stringify(game_data));
 });
 server.listen(3000);
