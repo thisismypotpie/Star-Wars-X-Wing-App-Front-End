@@ -261,4 +261,10 @@ function ViewStatistics()
   sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
   window.location.href = "./Team-Option-Screens/View-Team-Stats-Screen/Stats-Screen.html";
 }
+
+function removeShipScreen()
+{
+  sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
+  window.location.href = "./Team-Option-Screens/View-Team-Remove-Ship-Screen/Remove-Ship.html";
+}
   
