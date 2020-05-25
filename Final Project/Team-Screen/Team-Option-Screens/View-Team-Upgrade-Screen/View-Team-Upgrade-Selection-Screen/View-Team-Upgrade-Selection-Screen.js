@@ -1,13 +1,11 @@
-/*document.getElementById("back-button").addEventListener("click", function(){
-    window.location.href = "../Upgrade-Type-Selection-Screen/Upgrade-Type-Selection-Screen.html";
-  });*/
+
 
   //Get data to show correct cards.
   var upgrade_type = sessionStorage.getItem("upgrade-type-chosen");
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   let selected_upgrades = [];
   var grid_container = document.getElementById("grid-container");
-  let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
+  let Chosen_Team_Ship = JSON.parse(sessionStorage.getItem("Chosen_Team_Ship"));
 
   //Get the list of upgrades of the correct upgrade type.
   game_data.all_upgrades.forEach(upgrade => {
@@ -67,7 +65,7 @@
     back_button.style.border = "none";
     back_button.addEventListener("click", function(){
     sessionStorage.removeItem("upgrade-type-chosen");
-    window.location.href = "../Upgrade-Type-Selection-Screen/Upgrade-Type-Selection-Screen.html";
+    window.location.href = "../View-Team-Upgrade-Type-Selection-Screen/View-Team-Upgrade-Type-Selection-Screen.html";
     });
     grid_container.appendChild(back_button);
 
@@ -81,9 +79,9 @@
       selected_upgrades.forEach(upgrade =>{
         if(upgrade.name == id)
         {
-          ship_in_progress.upgrades.push(upgrade);
+          Chosen_Team_Ship.upgrades.push(upgrade);
         }
       })
-      sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-      window.location.href = "../Upgrade-Screen.html";
+      sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(Chosen_Team_Ship));
+      window.location.href = "../Team-View-Upgrade-Screen.html";
   }

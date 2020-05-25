@@ -127,20 +127,6 @@ height: 20vh;
     grid-row: 3;
 }
 
-/*css for roster number pop-up*/
-.roster-number-container{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border: 1px solid white;
-    z-index: 100;
-    background: url("https://i.imgur.com/nIM4P1r.jpg");
-    width:  30%;
-    height: 37vh;
-    visibility: hidden;
-}
-
 #overlay{
     position: fixed;
     opacity: 0;
@@ -170,16 +156,6 @@ height: 20vh;
     flex-direction: row;
     width: 100%;
     justify-content: space-evenly;
-}
-
-
-.roster-number-header{
-    font-family: Impact, Charcoal, sans-serif;
-    font-size: 3vw;
-    color: white;
-    justify-content: center;
-    width: 100%;
-    text-align: center;
 }
 
 #roster-number-input{

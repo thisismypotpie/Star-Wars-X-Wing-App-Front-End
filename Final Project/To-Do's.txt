@@ -1,5 +1,8 @@
 - Make a flip button for large ships with two cards or dual sided upgrades.
 - Raider class corvette maneuvers are now showing up.
 - Create a instance of the database using hiroku or google cloud.
+-In team view, have a button to change roster numbers.
+-Add functionality for unique pilots and unique upgrades.
 
-First: Fix the error where new ship are not being assigned a team name.
+First: Remember to set team name of each ship when you are adding new ships and creating new teams.
+

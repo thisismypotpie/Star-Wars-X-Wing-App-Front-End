@@ -1,88 +1,102 @@
-let chosen_ship = JSON.parse(sessionStorage.getItem("Chosen_Team_Ship"));
 
+/**
+ * Section for setting up global variables and form elements.
+ */
+let chosen_ship = JSON.parse(sessionStorage.getItem("Chosen_Team_Ship"));
+let game_data= JSON.parse(sessionStorage.getItem("game_data"));
+console.log(chosen_ship);
+document.getElementById("pilot-picture").style.backgroundImage = "url('"+chosen_ship.chosen_pilot.image_path+"')";
+set_upgrade_images();//Need to set upgrade images before accessing id's associated with that function so in order to keep this document clear, I made a function that will do all of that up here.
+/**
+ * End Section for setting up global variables and form elements.
+ */
+
+
+
+ /**
+  * Section or Button Functions
+  */
 //Back to previous form.
-document.getElementById("back-button").addEventListener("click", function(){
+function back_button_click()
+{
     sessionStorage.removeItem("Chosen_Team_Ship");
     window.location.href = "../View-Team-Screen/View-Team.html";
-  });
-  //Make roster number form show up.
-  document.getElementById("done-button").addEventListener("click", function(){
-    /*
-    Went to go add team name to each ship, it is needed for this section.
-    */ 
-    var team_name = chosen_ship.team_name;
-    console.log(team_name);
-    //window.location.href = "../View-Team-Screen/View-Team.html";
-  });
+}
+//Get all teams, get the team the ship is on, get the ship of that team, replace it with this updated ship.
+function done_button_click()
+{
+   let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+   let team_name = chosen_ship.team_name;
+   var chosen_team = undefined;
+   all_teams.forEach(team=>{
+      if(team.team_name == team_name)
+      {
+        chosen_team = team;
+      }
+   })
+   //I'll need to use a traditional for loop here to get the index of the ship I need to replace.
+   for(var i=0; i< chosen_team.ship_list.length;i++)
+   {
+      if(chosen_team.ship_list[i].roster_number == chosen_ship.roster_number)
+      {
+        console.log("removing");
+        chosen_team.ship_list[i] = chosen_ship;
+      }
+   }
+   //Now that the ship has been changed, I need to replace the team wtih the updated one using a traditional forloop.
+   for(var i=0;i<all_teams.length;i++)
+   {
+      if(all_teams[i].team_name == chosen_team.team_name)
+      {
+        all_teams[i] == chosen_team;
+      }
+   }
+   sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+   window.location.href = "../View-Team-Screen/View-Team.html";
+}
 
-  //I am having an error where I cannot set the team name of each ship for some reason. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*Everything below eeds revision! */
-  //Add roster number to ship and add new team to all teams.
-  document.getElementById("ok-button").addEventListener("click", function(){
-       //Validate input and then add roster number to ship in progress.
-       if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
-       {
-          alert("Please only input positive numbers. No other input will be accepted.");
-          document.getElementById("roster-number-input").value = "";
-          return;
-       }
-       else
-       {
-          ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
-       }
-       // Add ship to the new team, then add the new team to all teams.
-       let new_team = JSON.parse(sessionStorage.getItem("new_team"));
-       new_team.ship_list.push(ship_in_progress);
-       let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-       all_teams.push(new_team);
-       console.log(all_teams);
-       sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
-
-       //remove all items that are no longer being used.
-       sessionStorage.removeItem("chosenShip");
-       sessionStorage.removeItem("new_team");
-       sessionStorage.removeItem("ship_in_progress");
-       window.location.href = "../Team-Screen/Team-Screen.html";
-
-  });
-//close the roster number pop up.
-document.getElementById("close-button").addEventListener("click", function(){
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("roster-number-box");
-    document.getElementById("roster-number-input").value = "";
-    overlay.style.opacity = 0;
-    roster_number_box.style.visibility = "hidden";
-    overlay.style.pointerEvents = "none";
-
-});
-
-
-  //Get data objects needed for this page.
-  let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
-  var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-  console.log(ship_in_progress);
-//Set pilot image of chosen pilot.
-document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
+//If you press the no button when asked if you want to delete an upgrade.
+document.getElementById("no-button").addEventListener("click",function(){
+  let overlay = document.getElementById("overlay");
+  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+  overlay.style.opacity = 0;
+  upgrade_removal_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+})
+//If you press the yes button when asked if you want to delete an upgrade.
+document.getElementById("yes-button").addEventListener("click",function(){
+  let overlay = document.getElementById("overlay");
+  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+  overlay.style.opacity = 0;
+  upgrade_removal_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+  //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
+  let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
+  for(var i =0; i < chosen_ship.upgrades.length;i++)
+  {
+    if(chosen_ship.upgrades[i].name == upgrade_name)
+    {
+      console.log("Removing");
+     chosen_ship.upgrades.splice(i,1);
+    }
+  }
+    sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_ship));
+window.location.reload();
+})
+/**
+ * End Section for Button Functions
+ */
 
 
+/**
+ * Section for Setting Upgrade Images
+ */
+function set_upgrade_images()
+{
 //I will be making a loop that will paste all of the upgrades a ship into the next available picture and then set the next empty to next selection.
 let grid_items = document.getElementsByClassName("grid-item");
 document.getElementById("next-selection").id = "empty";
-ship_in_progress.upgrades.forEach(upgrade =>{
+chosen_ship.upgrades.forEach(upgrade =>{
    let element = document.getElementById("empty");
    if(upgrade.characteristics != null && upgrade.characteristics.includes("Dual"))//If it is a dual upgrade, show the first side of that upgrade.
    {
@@ -112,44 +126,26 @@ ship_in_progress.upgrades.forEach(upgrade =>{
    })
    element.id = "taken";
 })
-if(ship_in_progress.upgrades.length <=12)
+if(chosen_ship.upgrades.length <=12)
 {
   document.getElementById("empty").id = "next-selection";
 }
 
 let next_upgrade_slot = document.getElementById("next-selection");
-//click event for the next selection for upgrade slot with plus button on it.
-
 next_upgrade_slot.addEventListener("click",function(){
-  window.location.href = "./upgrade-type-selection-screen/upgrade-type-selection-screen.html";
+  window.location.href = "./View-Team-Upgrade-Type-Selection-Screen/View-Team-upgrade-type-selection-screen.html";
 })
+}
+ /**
+  * End Section for Setting Upgrade Images
+  */
 
 
-//If you press the no button when asked if you want to delete an upgrade.
-document.getElementById("no-button").addEventListener("click",function(){
-  let overlay = document.getElementById("overlay");
-  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-  overlay.style.opacity = 0;
-  upgrade_removal_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
-})
-//If you press the yes button when asked if you want to delete an upgrade.
-document.getElementById("yes-button").addEventListener("click",function(){
-  let overlay = document.getElementById("overlay");
-  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-  overlay.style.opacity = 0;
-  upgrade_removal_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
-  //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
-  let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
-  for(var i =0; i < ship_in_progress.upgrades.length;i++)
-  {
-    if(ship_in_progress.upgrades[i].name == upgrade_name)
-    {
-     ship_in_progress.upgrades.splice(i,1);
-    }
-  }
-    sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-window.location.reload();
-})
+
+
+
+
+
+
+
 

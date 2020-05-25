@@ -152,10 +152,33 @@ document.getElementById("new-team-button").addEventListener("click", function(){
   {
     let teams = JSON.parse(sessionStorage.getItem("all_teams"));
       var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-      console.log(game_data);
-      let new_team = new team("Test Team "+(teams.length+1));
+      var chosen_roster_numbers = [];
+      var team_name = "Test Team";
+      let new_team = undefined;// new team(team_name);
       let team_size = Math.floor(Math.random() * 50)+1;
       var current_ship = undefined;
+      var team_number = 1;//I will Add this to the team name and chose the first unused number as the team name.
+      var team_name_formulated = false;
+      //Get Team name
+      while(team_name_formulated == false)
+      {
+        console.log();
+         let name_found = false;
+         let potential_name = team_name+" "+team_number.toString();
+         teams.forEach(team=>{
+            if(team.team_name == potential_name)
+            {
+              name_found = true;
+            }
+         })
+         if(name_found == false)
+         {
+           team_name = team_name+" "+team_number.toString();
+           team_name_formulated = true;
+         }
+         team_number++;
+      }
+      new_team = new team(team_name);
       for(var i =0; i < team_size;i++)
       {
         var pilot_index = Math.floor(Math.random() * game_data.all_pilots.length);
@@ -179,6 +202,14 @@ document.getElementById("new-team-button").addEventListener("click", function(){
           var upgrade_index = Math.floor(Math.random()*game_data.all_upgrades.length);
           current_ship.upgrades.push(game_data.all_upgrades[upgrade_index]);
         }
+        //Add unique roster number to ship.
+        var random_roster_number = Math.ceil(Math.random()*200);
+        while(chosen_roster_numbers.includes(random_roster_number))
+        {
+          random_roster_number = Math.ceil(Math.random()*200);
+        }
+        chosen_roster_numbers.push(random_roster_number);
+        current_ship.roster_number = random_roster_number;
         new_team.ship_list.push(current_ship);
       }
       teams.push(new_team);
