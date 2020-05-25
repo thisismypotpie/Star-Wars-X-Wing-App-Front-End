@@ -9,6 +9,7 @@ Create and establish graphs section
     create_upgrade_to_ship_cost_graph();
     create_pilot_skill_breakdown_graph();
     create_team_cost_comparison_graph();
+    create_team_role_diversity_graph();
 
 /*
 End create and establish graphs section
@@ -135,6 +136,44 @@ function get_costs_of_all_teams()
         }
     })
     return costs;
+}
+
+//Gets an array of 
+function get_team_roles()
+{
+    var roles = [0,0,0,0,0,0,0];
+    team_chosen.ship_list.forEach(ship=>{
+       var role = ship.chosen_pilot.ship_name.role;
+       if(role == "Assault")
+       {
+            roles[0]+=1;
+       }
+       else if(role == "Defense")
+       {
+        roles[1]+=1;
+       }
+       else if(role == "Interception")
+       {
+        roles[2]+=1;         
+       }
+       else if(role == "Bomber")
+       {
+        roles[3]+=1;          
+       }
+       else if(role == "Support")
+       {
+        roles[4]+=1;          
+       }
+       else if(role == "Frigate")
+       {
+        roles[5]+=1;         
+       }
+       else if(role == "Captial")
+       {
+        roles[6]+=1;          
+       }
+    })
+    return roles;
 }
 /*
 End misc. function section.
@@ -271,6 +310,73 @@ function create_team_cost_comparison_graph()
         legend: { display: false}
       }
       });
+}
+
+function create_team_role_diversity_graph()
+{
+    let green = Math.floor(Math.random()*255);
+    let red = Math.floor(Math.random()*255);
+    let blue = Math.floor(Math.random()*255);
+    console.log("red:"+red+"\n green: "+green+"\n blue: "+blue);
+    let radarChart = new Chart(document.getElementById("team-role-diversity"),{
+        type: 'polarArea',
+        data: {
+        labels:["Assault","Defense","Interception","Bomber","Support","Frigate","Capital"],
+        datasets: [
+          {
+        fill: true,
+        backgroundColor: [
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(102,51,0,0.8)',
+            'rgba(255,69,0,0.8)',
+            'rgba(45,87,44,0.8)',
+            'rgba(223,240,226,0.8)'],
+         borderColor: [
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(102,51,0,0.8)',
+            'rgba(255,69,0,0.8)',
+            'rgba(45,87,44,0.8)',
+            'rgba(223,240,226,0.8)'],
+         pointBorderColor:[
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(102,51,0,0.8)',
+            'rgba(255,69,0,0.8)',
+            'rgba(45,87,44,0.8)',
+            'rgba(223,240,226,0.8)'
+         ],
+         pointBackgroundColor:[
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(102,51,0,0.8)',
+            'rgba(255,69,0,0.8)',
+            'rgba(45,87,44,0.8)',
+            'rgba(223,240,226,0.8)'
+         ],
+            data:get_team_roles() 
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+        },
+        scale:{
+            angleLines:{
+                    color:"#fff"
+            },
+            gridLines:{
+                    color:"#fff"
+            }
+        }
+      }
+      });  
+      console.log(get_team_roles());  
 }
 /*
 End graph creation functions.
