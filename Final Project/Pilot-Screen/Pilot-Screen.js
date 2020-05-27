@@ -8,6 +8,7 @@ document.getElementById("back-button").addEventListener("click", function(){
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
       sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index]),team_name));
+      console.log(JSON.parse(sessionStorage.getItem("ship_in_progress")));
     }
     else// if the ship is large, delacre the correct type of large in-game ship.
     {

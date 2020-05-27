@@ -4,20 +4,20 @@ document.getElementById("back-button").addEventListener("click", function(){
   });
   document.getElementById("select-button").addEventListener("click", function(){
     //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
-
+    let team_name = sessionStorage.getItem("chosen_team_name");
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
-      sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index])));
+      sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index],team_name)));
     }
     else// if the ship is large, delacre the correct type of large in-game ship.
     {
       if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largeonecard")//large ship one card.
       {
-        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index])));
+        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index],team_name)));
       }
       else if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")//large ship two card.
       {
-        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index])));
+        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index],team_name)));
       }
       else
       {

@@ -8,7 +8,6 @@ const ship_types = {
 class ship{
     constructor(ship_type, ship_name, attack, agility, shields, hull, maneuvers, card,role)
     {
-        console.log("card: "+card);
         //constant ship info
         this.ship_type = ship_type;
         this.ship_name = ship_name;
