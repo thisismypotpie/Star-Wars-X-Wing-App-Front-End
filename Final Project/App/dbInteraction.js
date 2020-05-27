@@ -45,6 +45,9 @@ const server = http.createServer(function(request, response){
   get_upgrade_data();
   
   get_maneuver_data();
+  //I needed to use chain function calling here because I was not able to achieve the load order that I wanted in any other way. 
+  //Therefore, each function will call the next one within its promise to ensure the load order of the database while the response
+  //must wait three seconds before returning to ensure that the game_data object is fully created before returning.
   /*get_ship_data();
   get_pilot_data();
   add_large_ship_data();
