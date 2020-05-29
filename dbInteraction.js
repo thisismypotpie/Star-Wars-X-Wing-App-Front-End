@@ -310,5 +310,3 @@ function add_large_ship_data()
     console.log("LARGE SHIP LOADED");
   })
 }
-
-window.location.href = "./Title-Screen(Main Menu)/index.html";
