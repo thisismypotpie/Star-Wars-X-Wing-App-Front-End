@@ -310,6 +310,3 @@ function add_large_ship_data()
     console.log("LARGE SHIP LOADED");
   })
 }
-
-//Go to the first page.
-window.location.href = "./Title-Screen(Main Menu)/index.html";
