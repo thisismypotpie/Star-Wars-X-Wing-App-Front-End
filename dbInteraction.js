@@ -4,10 +4,10 @@
  */
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-const ship_page = require('../JS Data Classes/Ship-Variants.js');
-const maneuver_page = require('../JS Data Classes/Maneuvers.js');
-const pilot_page = require('../JS Data Classes/Pilot-Variants');
-const card_page = require('../JS Data Classes/card-Variants');
+const ship_page = require('JS Data Classes/Ship-Variants.js');
+const maneuver_page = require('JS Data Classes/Maneuvers.js');
+const pilot_page = require('JS Data Classes/Pilot-Variants');
+const card_page = require('JS Data Classes/card-Variants');
 const http = require('http');
 /**
  * End Require Section
