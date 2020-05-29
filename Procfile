@@ -1,1 +1,1 @@
-web: node "./App/dbInteraction"
+web: node dbInteraction.js
