@@ -4,7 +4,7 @@ document.getElementById("new-game-button").addEventListener("click", function(){
 
   
 //Load the game data and store it in session Storage.
-var url = "http://localhost:3000/";
+var url = "https://star-wars-x-wing.herokuapp.com/";//"http://localhost:3000/";
 var game_data = undefined;
 fetch(url)
 .then(response =>response.json())
