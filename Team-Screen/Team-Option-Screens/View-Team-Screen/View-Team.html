@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="View-Team.css" />
+    <title>Star Wars X-Wing</title>
+  </head>
+  <body>
+        <div id = "title">Team View</div>
+<div id = "full-container">
+    <div id = "left-container">
+        <div id = "pilot-card"></div>
+        <div id = "button-container">
+        <button type="button" class = "btn"id="prev-button" onclick="previous_button()"></button>
+        <button type="button" class = "btn"id="next-button" onclick="next_button()"></button>
+        </div>    
+    </div>
+    <section class = "grid-container">
+        <button type="button" id = "back-button" onclick="back_button()">Back</button>
+        <div class = "icon" id = "pilot-skill">:-1</div>
+        <div class = "icon" id = "attack">:-1</div>
+        <div class = "icon" id = "agility">:-1</div>
+        <div class = "icon" id = "hull">:-1</div>
+        <div class = "icon" id = "shields">:-1</div>
+        <div class = "icon" id = "energy">:-1</div>
+        <div class = "stat" id = "pilot-skill-stat">: -1</div>
+        <div class = "stat" id = "attack-stat">: -1</div>
+        <div class = "stat" id = "agility-stat">: -1</div>
+        <div class = "stat" id = "hull-stat">: -1</div>
+        <div class = "stat" id = "shields-stat">: -1</div>
+        <div class = "stat" id = "energy-stat">: -1</div>
+        <span class="upgrades-title">Upgrades</span>
+        <ul id = "upgrade-box"
+        tabindex="1"
+        role="listbox"
+        aria-labelledby="upgrades-title"></ul>
+        <span class="maneuvers-title">Maneuvers</span>
+        <div id="maneuver-box"></div>
+        <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Change</button>>
+    </section>
+</div>
+  </body>
+  <script type="text/javascript" src="View-Team.js"></script>
+</html>
