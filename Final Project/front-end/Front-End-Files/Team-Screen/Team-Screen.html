@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="Team-Screen.css" />
+    <title>Star Wars X-Wing</title>
+  </head>
+  <body>
+    <section class="flex-container">
+        <div class = "flex-item title" onclick="create_test_team()">Teams</div>
+       
+        <span class = "list-box-title team-names-title">Team Names</span>
+        <span class = "list-box-title number-of-ships-title">Team Size</span>
+        <span class = "list-box-title cost-title">Cost</span>
+        
+        <div class = "list-box team-names">
+            <ul class = "list-box-items team-names-items"
+            id = "list-box-team-names"
+            tabindex="0"
+            role="listbox"
+            aria-labelledby="team-names-title"></ul>
+        </div>
+       
+        <div class = "list-box team-size">
+            <ul class = "list-box-items team-size-items"
+            id = "list-box-team-size"
+            tabindex="1"
+            role="listbox"
+            aria-labelledby="number-of-ships-title"></ul>
+        </div>
+       
+        <div class = "list-box team-cost">
+            <ul class = "list-box-items team-names-items"
+            id = "list-box-team-cost"
+            tabindex="2"
+            role="listbox"
+            aria-labelledby="cost-title"></ul>
+        </div>
+
+        <div class = "flex-item buttons">
+            <button type="button" class = "button Start-Game">Start Game</button>
+            <button type="button" class = "button New-Team" id="new-team-button">New Team</button>
+            <button type="button" class = "button Back" id = "back-button">Back</button>
+        </div>
+    </section>
+    <!--This is the html for the team name container-->
+    <div class = "team-name-container" id = "team-name-box">
+        <div class = team-name-header>What is your Team Name?</div>
+        <input type = "text"
+        id = "team-name-input" />
+        <div id = "pop-up-button-container">
+        <button type = "button" class = "button pop-up close" id = "close-button">Close</button>
+        <button type = "button" class = "button pop-up ok" id="ok-button">OK</button>
+        </div>
+    </div>
+    <div id = "overlay"></div>
+
+    <!--This is the html for the options container-->
+    <div class = "team-options-container" id = "team-options-box">
+      <div class = "team-options-header" id = "team-options-header">Options</div>
+      <button type = "button" class = "long-button pop-up add" id = "add-button" onclick="addNewShip()">Add New Ship</button>
+      <button type = "button" class = "long-button pop-up remove" id = "remove-button" onclick="removeShipScreen()">Remove Ship</button>
+      <button type = "button" class = "long-button pop-up view" id = "view-button"onclick="window.location.href = './Team-Option-Screens/View-Team-Screen/View-Team.html'">View Team</button>
+      <button type = "button" class = "long-button pop-up stats" id = "stats-button" onclick="ViewStatistics()">Statistics</button>
+      <button type = "button" class = "long-button pop-up remove-all" id = "remove-all-button" onclick="removeTeam()">Remove Entire Team</button>
+      <button type = "button" class = "long-button pop-up close" id = "close-button" onclick = "closeOption()">Close</button>
+    </div>
+  </body>
+  <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>
+  <script type="text/javascript" src="Team-Screen.js"></script>
+</html>
