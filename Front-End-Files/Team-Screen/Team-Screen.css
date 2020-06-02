@@ -1,0 +1,197 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+.title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 7vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+}
+
+.flex-item{
+    display: flex;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.list-box{
+    display: flex;
+    width: 20%;
+    height: 65vh;
+    align-self: center;
+    margin-left: 3%;
+    margin-right:3%;
+    background-color: black;
+    border: 2px solid white;
+    list-style: none;
+    justify-content: center;
+    overflow: auto;
+}
+
+.list-box-title{
+    color: white;
+    font-size: 3vw;
+    font-family: Impact, Charcoal, sans-serif;
+    width:20%;
+    text-align: center;
+}
+
+.team-names-title{
+  width:20%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.team-names{
+    Width: 20%;
+}
+
+.cost-title{
+    width:44%;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.team-cost{
+    width: 15%;
+}
+
+.number-of-ships-title{
+    margin-right: 3%;
+    margin-left: 1%;
+}
+
+.team-size{
+    width: 15%;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    height: 65vh;
+    margin-left: 10%;
+}
+
+.button{
+margin:5%;
+height: 30vh;
+background-image: url("https://i.imgur.com/RkyE0Xv.png");
+background-repeat: no-repeat;
+background-size: 100% 20vh;
+background-color: transparent;
+font-family: Impact, Charcoal, sans-serif;
+font-size: 1.2vw;
+border:none;
+}
+
+.list-box-item{
+    font-size: 3vw;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: center;
+    overflow: auto;
+}
+/*This was created to remove padding of each list box item.*/
+.list-box-items{
+    padding: 0;
+}
+
+/*Overlay and popup styling.*/
+/*Credit to: https://www.youtube.com/watch?v=MBaw_6cPmAw
+for helping me make this popup.
+*/
+.team-name-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 25%;
+    visibility: hidden;
+}
+
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+.button.pop-up{
+    width: 50%;
+    height: 20vh;
+}
+
+#pop-up-button-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.team-name-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color: white;
+    justify-content: center;
+    width: 100%;
+}
+
+#team-name-input{
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color:white;
+    background-color: black;
+    text-align: center;
+}
+
+/*This is the css for the options panel*/
+.team-options-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 40%;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.team-options-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color:white;
+}
+
+.long-button{
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin:1%;
+    height: 12vh;
+    background-color: transparent;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+}
