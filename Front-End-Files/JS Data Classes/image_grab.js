@@ -7,7 +7,13 @@ function grab_and_set_image(input_url,element)
 {
     fetch(input_url,{
         method: 'GET',
-        Authorization:"Client-Id "+API_KEY //"Basic "+btoa(CLIENT_ID+':'+API_KEY)
+        headers: new Headers({
+            Authorization: "Client-ID "+CLIENT_ID,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods" : "POST, GET, OPTIONS, DELETE, PUT",
+            "Access-Control-Allow-Headers": "append,delete,entries,foreach,get,has,keys,set,values,Authorization"
+
+        })
     })
-.then(response=>{ element.style.background = response})   
+    
 }
