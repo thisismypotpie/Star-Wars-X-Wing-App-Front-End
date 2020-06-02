@@ -10,7 +10,7 @@ app.use("/", express.static(__dirname));
 
 // add other routes below
 app.get('/Front-End-Files', function (req, res) {
-  res.sendFile(path.join(__dirname + 'Title-Screen(Main Menu)/index.html'));
+  res.sendFile(path.join(__dirname + './Title-Screen(Main Menu)/index.html'));
 });
 
 app.listen(process.env.PORT || 8080);
