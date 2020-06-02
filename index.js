@@ -3,7 +3,7 @@ const express = require('express');
 var fs = require('fs');
 const app = express();
 
-let __dirname = "Front-End-Files"
+
 app.use(express.static(path.join(__dirname)));
 app.use("/", express.static(__dirname));
 
