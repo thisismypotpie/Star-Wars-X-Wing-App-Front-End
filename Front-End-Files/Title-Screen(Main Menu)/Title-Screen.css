@@ -13,6 +13,7 @@ body{
 
 .TitleImage{
     display: block;
+    background: url("https://i.imgur.com/LseOggz.png");
     width: 60%;
     height:50vh;
 }
