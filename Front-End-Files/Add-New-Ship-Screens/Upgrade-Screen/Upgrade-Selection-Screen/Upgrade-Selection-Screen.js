@@ -95,7 +95,7 @@
     back_button.style.border = "none";
     back_button.addEventListener("click", function(){
     sessionStorage.removeItem("upgrade-type-chosen");
-    window.location.href = "../Upgrade-Type-Selection-Screen/Upgrade-Type-Selection-Screen.html";
+    window.location.href = "../Upgrade-Type-Selection-Screen/upgrade-type-selection-screen.html";
     });
     grid_container.appendChild(back_button);
 
