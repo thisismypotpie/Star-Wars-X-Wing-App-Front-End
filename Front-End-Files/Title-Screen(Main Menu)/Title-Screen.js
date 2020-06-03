@@ -11,4 +11,5 @@ fetch(url)
 .then(response =>response.json())
 //.then(data=>console.log(data));
 .then(data => game_data = data)
+.then(()=> {if(game_data == undefined){alert("GAME DATA NOT LOADED, REFRESH TO TRY AGAIN!")}})
 .then(() => sessionStorage.setItem("game_data",JSON.stringify(game_data)));
