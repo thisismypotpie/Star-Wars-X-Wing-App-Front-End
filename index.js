@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname,'Front-End-Files/Team-Screen/Team-Opt
 app.use(express.static(path.join(__dirname,'Front-End-Files/Title-Screen(Main Menu)/')));
 
 app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/')));
-app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/Upgrade-Selection-Screen/')));
+//app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/Upgrade-Selection-Screen/')));
 //app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/Upgrade-Type-Selection-Screen/')));
 
 // add other routes below
