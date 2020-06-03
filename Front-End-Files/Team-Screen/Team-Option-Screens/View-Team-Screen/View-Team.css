@@ -108,6 +108,10 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+#roster-number{
+    grid-row: 1;
+    background-image: url("https://i.imgur.com/pPhaRyl.png");
+}
 #pilot-skill{
     grid-row: 2;
     background-image: url("https://i.imgur.com/Y43E97x.png");
@@ -144,6 +148,9 @@ body{
     padding-bottom: 2%;
     /* border: 1px solid purple; */
 }
+#roster-number-stat{
+    grid-row: 1;
+}
 #pilot-skill-stat{
     grid-row:2;
 }
@@ -177,9 +184,11 @@ body{
         font-size: 4vw;
         color: white;
         grid-column: 9/12;
-        grid-row: 3;
+        grid-row: 2;
         text-align: center;
 }
+
+
 
 #upgrade-box{
     grid-column: 4/8;

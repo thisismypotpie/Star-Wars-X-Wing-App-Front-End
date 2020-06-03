@@ -41,6 +41,7 @@ let agility = document.getElementById("agility-stat");
 let hull = document.getElementById("hull-stat");
 let shields = document.getElementById("shields-stat");
 let energy = document.getElementById("energy-stat");
+let roster_number = document.getElementById("roster-number-stat");
 let chosen_team = get_team();
 let selection_index = 0;
 //end global variable set up section
@@ -72,6 +73,8 @@ function set_all_items()
 {
     pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.image_path+"')";
     maneuver_box.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.ship_name.card+"')";
+
+    roster_number.textContent= ":"+chosen_team.ship_list[selection_index].roster_number;
     pilot_skill.textContent = " : "+chosen_team.ship_list[selection_index].current_pilot_skill;
     attack.textContent = " : "+chosen_team.ship_list[selection_index].current_attack;
     agility.textContent = " : "+chosen_team.ship_list[selection_index].current_agility;
