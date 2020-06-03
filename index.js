@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname,'Front-End-Files/Title-Screen(Main Me
 
 app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/')));
 app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/Upgrade-Selection-Screen/')));
-app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/upgrade-type-selection-screen/')));
+app.use(express.static(path.join(__dirname,'Front-End-Files/Upgrade-Screen/Upgrade-Type-Selection-Screen/')));
 
 // add other routes below
 app.get('/', function (req, res) {
