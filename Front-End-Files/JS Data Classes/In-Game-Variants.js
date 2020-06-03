@@ -95,3 +95,30 @@ function Calculate_cost_of_team(to_calculate)
     }
     return cost;
 }
+//Checks to see if any member of a team has a specific upgrade.
+function Does_anyone_on_this_team_have_this_upgrade(to_compare, team)
+{
+    var upgrade_found = false;
+    team.ship_list.forEach(ship_member=>{
+        if(Does_this_ship_have_this_upgrade(to_compare,ship_member) == true)
+        {            
+            upgrade_found = true;
+        }
+    })
+    return upgrade_found;
+}
+//Checks to see if this function has a specified upgrade.
+function Does_this_ship_have_this_upgrade(to_compare, ship)
+{
+    var upgrade_found = false;
+    ship.upgrades.forEach(upgrade=>{
+        if(upgrade.name == to_compare.name &&
+        upgrade.type == to_compare.type &&
+        upgrade.cost == to_compare.cost &&
+        upgrade.characteristics == to_compare.characteristics)
+        {
+            upgrade_found = true;
+        }
+    })
+    return upgrade_found;
+}

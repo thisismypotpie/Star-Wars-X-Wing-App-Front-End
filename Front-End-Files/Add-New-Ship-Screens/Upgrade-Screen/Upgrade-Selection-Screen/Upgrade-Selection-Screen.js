@@ -1,7 +1,3 @@
-/*document.getElementById("back-button").addEventListener("click", function(){
-    window.location.href = "../Upgrade-Type-Selection-Screen/Upgrade-Type-Selection-Screen.html";
-  });*/
-
   //Get data to show correct cards.
   var upgrade_type = sessionStorage.getItem("upgrade-type-chosen");
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
@@ -16,12 +12,44 @@
         selected_upgrades.push(upgrade);
       }
   });
-  console.log(selected_upgrades);
-/*
-
- MAKE SURE TO COME BACK HERE AND PUT UP SOME CODE FOR TAKING AWAY UNIQUE UPGRADES THAT ARE BEING USED!
-
-*/
+  //This will remove all used up limited and unique upgrades.
+  selected_upgrades.forEach(upgrade =>{
+    var characteristics = [];
+    if(upgrade.characteristics != null)//Get characteristics to see if any of them are unique or limited.
+    {
+      characteristics = upgrade.characteristics.split('*');
+    }
+      if (characteristics.includes("Limited"))
+      {
+        if(Does_this_ship_have_this_upgrade(upgrade,ship_in_progress)== true)
+        {
+          console.log("Removing: "+upgrade.name);
+           selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
+        }
+      }
+      else if(characteristics.includes("Unique"))//Remove unique upgrades each team is using.
+      {
+        //console.log(upgrade.name + " is unique.")
+        var upgrade_removed = false; //This is to make sure the upgrade is not removed more than once.
+        JSON.parse(sessionStorage.getItem("all_teams")).forEach(team=>{
+            if(Does_anyone_on_this_team_have_this_upgrade(upgrade,team) == true)
+            {
+              if(upgrade_removed == false)
+              {
+                console.log("Removing: "+upgrade.name)
+                selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it. 
+                upgrade_removed = true;
+              }
+            }
+        })
+        //Remove each unique upgrade the ship in progress is using.
+        if(Does_this_ship_have_this_upgrade(upgrade,ship_in_progress)== true)
+        {
+          console.log("Removing: "+upgrade.name);
+           selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
+        }
+    }
+  })
 
  
   //Make a div for each upgrade.

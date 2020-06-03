@@ -1,7 +1,3 @@
-/*document.getElementById("back-button").addEventListener("click", function(){
-    window.location.href = "../Upgrade-Type-Selection-Screen/Upgrade-Type-Selection-Screen.html";
-  });*/
-
   //Get data to show correct cards.
   var upgrade_type = sessionStorage.getItem("upgrade-type-chosen");
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
@@ -16,7 +12,21 @@
         selected_upgrades.push(upgrade);
       }
   });
-  console.log(selected_upgrades);
+  selected_upgrades.forEach(upgrade =>{
+    var characteristics = [];
+    if(upgrade.characteristics != null)//Get characteristics to see if any of them are unique or limited.
+    {
+      characteristics = upgrade.characteristics.split('*');
+    }
+    if(characteristics.includes("Limited") || characteristics.includes("Unique"))//Check all unique upgrades and remove if someone else has them.
+    {
+       if(Does_this_ship_have_this_upgrade(upgrade,ship_in_progress)== true)
+       {
+         console.log("Removing: "+upgrade.name);
+          selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
+       }
+    }
+  })
 /*
 
  MAKE SURE TO COME BACK HERE AND PUT UP SOME CODE FOR TAKING AWAY UNIQUE UPGRADES THAT ARE BEING USED!
