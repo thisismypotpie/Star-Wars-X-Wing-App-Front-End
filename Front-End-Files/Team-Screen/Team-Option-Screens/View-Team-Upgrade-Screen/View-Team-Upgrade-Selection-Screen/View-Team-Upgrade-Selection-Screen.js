@@ -47,7 +47,7 @@
             }
         })
         //Remove each unique upgrade the ship in progress is using.
-        if(Does_this_ship_have_this_upgrade(upgrade,ship_in_progress)== true)
+        if(Does_this_ship_have_this_upgrade(upgrade,Chosen_Team_Ship)== true)
         {
           console.log("Removing: "+upgrade.name);
            selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
