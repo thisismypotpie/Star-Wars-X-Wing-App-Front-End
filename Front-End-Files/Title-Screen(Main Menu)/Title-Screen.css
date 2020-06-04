@@ -45,6 +45,41 @@ body{
     
 }
 
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: all;
+    opacity: 1;
+}
+
+.loading-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/bN43Ucg.jpg");
+    background-size: 100%,100%;
+    background-repeat: no-repeat;
+    width: 25%;
+    height: 25vh;
+}
+
+.loading-container-header{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color: white;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
 @media screen and (max-width: 1200px) and (min-width: 1px)
 {
     .button{

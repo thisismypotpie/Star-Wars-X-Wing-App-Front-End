@@ -1,3 +1,10 @@
+//Sends an error letting the user know if game data is empty.
+if(JSON.parse(sessionStorage.getItem("game_data"))==null || JSON.parse(sessionStorage.getItem("game_data"))== undefined)
+{
+    alert("Game data not loaded, back end may be down.");
+    //throw "Game data now loaded error";
+}
+
 //This global variable is to get the name of a team you want to edit when that team has already been established.
 var selected_team_edit_name = undefined;
 

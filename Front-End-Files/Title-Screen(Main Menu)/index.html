@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="Title-Screen.css" />
     <title>Star Wars X-Wing</title>
-
+    <body>
     <section class="flex-container">
       <div class= "TitleImage" ></div>
       <button type="button" class = "button NewGame" id = "new-game-button">New Game</button>
@@ -14,9 +14,14 @@
     </section>
 
   </head>
+      <!--This is the html for the loading container-->
+      <div class = "loading-container" id = "loading-container">
+        <div class = "loading-container-header"  id = "loading-container-header">Game Data is Loading, Please Wait...</div>
+    </div>
+  <div id = "overlay"></div>
   <script type="text/javascript" src="../JS Data Classes/image_grab.js"></script>
   <script type="text/javascript" src="Title-Screen.js"></script>
-  <body>
+
 
   </body>
 </html>
