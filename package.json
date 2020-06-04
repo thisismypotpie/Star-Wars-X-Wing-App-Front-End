@@ -2,11 +2,7 @@
   "name": "app",
   "version": "1.0.0",
   "description": "Star Wars X-Wing applicaton ",
-<<<<<<< HEAD
-  "main": "dbInteraction.js",
-=======
   "main": "index.js",
->>>>>>> 497d06f49ddda1ec558ddf26e34d96479474dce7
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,15 +22,9 @@
   },
   "homepage": "https://github.com/thisismypotpie/front-end-web-tech-class#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "fs": "0.0.1-security",
-    "http": "0.0.1-security",
-    "sqlite3": "^4.2.0"
-=======
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "http": "0.0.1-security",
     "path": "^0.12.7"
->>>>>>> 497d06f49ddda1ec558ddf26e34d96479474dce7
   }
 }
