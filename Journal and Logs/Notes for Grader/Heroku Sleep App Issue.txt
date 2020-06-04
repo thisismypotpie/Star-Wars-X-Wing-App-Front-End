@@ -1,0 +1,1 @@
+Due to a heroku policy regarding free accounts, heroku will shut off apps after 30 minutes of inactivity. This means that my app may not be running at the time of grading. Please contact me and I will get the app up and running again for grading purposes. 

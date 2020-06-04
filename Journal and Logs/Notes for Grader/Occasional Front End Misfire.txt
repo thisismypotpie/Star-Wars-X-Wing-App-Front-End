@@ -1,0 +1,1 @@
+Due to heroku periodically shutting down my back-end, the front-end will occasionally misfire, leading to the database data needed to run the app not being retrieved. I am working on a fix that will at least warn the user if the data has not be retrieved.
