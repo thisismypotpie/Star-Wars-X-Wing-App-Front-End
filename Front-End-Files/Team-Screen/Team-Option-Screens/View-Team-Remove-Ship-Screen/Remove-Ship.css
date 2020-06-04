@@ -108,6 +108,10 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+#roster-number{
+    grid-row: 1;
+    background-image: url("https://i.imgur.com/pPhaRyl.png");
+}
 #pilot-skill{
     grid-row: 2;
     background-image: url("https://i.imgur.com/Y43E97x.png");
@@ -143,6 +147,9 @@ body{
     padding-top: 2%;
     padding-bottom: 2%;
     /* border: 1px solid purple; */
+}
+#roster-number-stat{
+    grid-row: 1;
 }
 #pilot-skill-stat{
     grid-row:2;

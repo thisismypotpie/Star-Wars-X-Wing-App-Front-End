@@ -3,14 +3,14 @@ document.getElementById("new-game-button").addEventListener("click", function(){
   });
 
 
-
+//If game data is already populated, then you do not need to call to the back end to get it again.
 if(JSON.parse(sessionStorage.getItem("game_data")!= null && JSON.parse(sessionStorage.getItem("game_data")!= undefined)))
 {
   document.getElementById("overlay").style.pointerEvents = "none";
   document.getElementById("overlay").style.opacity = 0;
   document.getElementById("loading-container").style.visibility = "hidden";
 }
-else
+else //Make a call to the back end and get game data.
 {
 //Load the game data and store it in session Storage.
 var url = "https://star-wars-x-wing-back-end.herokuapp.com/";//"http://localhost:3000/";
