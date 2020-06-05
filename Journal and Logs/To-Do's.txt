@@ -1,4 +1,5 @@
 - Make a flip button for large ships with two cards or dual sided upgrades.
 -In team view, have a button to change roster numbers.
 -Add functionality for unique pilots and unique upgrades.
+- If  you have more than one of the same upgrade and then remove it, it will remove every instance of that upgrade.
 

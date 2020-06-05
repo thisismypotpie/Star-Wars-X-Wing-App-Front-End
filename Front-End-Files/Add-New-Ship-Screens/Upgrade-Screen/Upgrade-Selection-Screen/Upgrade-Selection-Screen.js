@@ -13,7 +13,9 @@
       }
   });
   //This will remove all used up limited and unique upgrades.
-  selected_upgrades.forEach(upgrade =>{
+  //Using reverse traditional for loop as it has better removal results than going forward.
+  for(var i= selected_upgrades.length-1;i>=0;i--){
+    var upgrade = selected_upgrades[i];
     var characteristics = [];
     if(upgrade.characteristics != null)//Get characteristics to see if any of them are unique or limited.
     {
@@ -49,7 +51,7 @@
            selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
         }
     }
-  })
+  }
 
  
   //Make a div for each upgrade.

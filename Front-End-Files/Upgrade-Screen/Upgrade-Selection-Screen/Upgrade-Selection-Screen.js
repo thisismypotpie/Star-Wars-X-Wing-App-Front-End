@@ -12,7 +12,10 @@
         selected_upgrades.push(upgrade);
       }
   });
-  selected_upgrades.forEach(upgrade =>{
+  //Using reverse for loop to remove upgrades that the ship already has.
+  for(var i = selected_upgrades.length-1;i>=0;i--)
+  {
+    var upgrade = selected_upgrades[i];
     var characteristics = [];
     if(upgrade.characteristics != null)//Get characteristics to see if any of them are unique or limited.
     {
@@ -23,15 +26,19 @@
        if(Does_this_ship_have_this_upgrade(upgrade,ship_in_progress)== true)
        {
          console.log("Removing: "+upgrade.name);
-          selected_upgrades.splice(selected_upgrades.indexOf(upgrade),1);//Remove any limited upgrade as soon as the user has selected it.
+          selected_upgrades.splice(i,1);//Remove any limited upgrade as soon as the user has selected it.
        }
     }
-  })
-/*
-
- MAKE SURE TO COME BACK HERE AND PUT UP SOME CODE FOR TAKING AWAY UNIQUE UPGRADES THAT ARE BEING USED!
-
-*/
+    if(characteristics.includes("Unique"))
+    //Remove any unique upgrades another team is already using.
+    JSON.parse(sessionStorage.getItem("all_teams")).forEach(team=>{
+      if(Does_anyone_on_this_team_have_this_upgrade(upgrade,team)==true)
+      {
+        console.log("Removing: "+upgrade.name);      
+        selected_upgrades.splice(i,1);//Remove any unique upgrade as soon as the user has selected it.
+      }
+    })
+  }
 
  
   //Make a div for each upgrade.
