@@ -78,6 +78,7 @@ document.getElementById("yes-button").addEventListener("click",function(){
     {
       console.log("Removing");
      chosen_ship.upgrades.splice(i,1);
+     break;
     }
   }
     sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_ship));

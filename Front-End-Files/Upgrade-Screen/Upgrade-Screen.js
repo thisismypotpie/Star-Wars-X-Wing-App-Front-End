@@ -128,6 +128,7 @@ document.getElementById("yes-button").addEventListener("click",function(){
     if(ship_in_progress.upgrades[i].name == upgrade_name)
     {
      ship_in_progress.upgrades.splice(i,1);
+     break;
     }
   }
     sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
