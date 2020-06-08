@@ -46,6 +46,7 @@ let roster_number = document.getElementById("roster-number-stat");
 let flip_button = document.getElementById("flip-button");
 let chosen_team = get_team();
 let selection_index = 0;
+var aft_image_showing = false; //This is a bool for the flip button to see if the front or back image is showing. 
 //end global variable set up section
 
 //This section will be for setting up each element with proper pictures.
@@ -90,9 +91,14 @@ function set_all_items()
         energy_icon.style.visibility = "visible";
         energy.style.visibility = "visible";
         energy.textContent=" : "+chosen_team.ship_list[selection_index].current_energy;
+        if(chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        {
+            flip_button.style.visibility = "visible";
+        }
     }
     else
     {
+        flip_button.style.visibility = "hidden";
         energy_icon.style.visibility = "hidden";
         energy.style.visibility = "hidden";
     }
@@ -131,7 +137,16 @@ function change_upgrades_button()
 }
 
 //This is a function that will flip any large ship being seen on the screen.
-function flip_button()
+function flip_button_click()
 {
-
+    if(aft_image_showing == false)
+    {
+        pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.aft_card_path+"')";
+        aft_image_showing = true;
+    }
+    else
+    {
+        pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.image_path+"')";
+        aft_image_showing = false;
+    }
 }
