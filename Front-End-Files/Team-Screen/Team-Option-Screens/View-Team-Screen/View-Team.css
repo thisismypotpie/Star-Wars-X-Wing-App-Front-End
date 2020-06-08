@@ -89,6 +89,19 @@ body{
     text-align: center;
 }
 
+#flip-button{
+    grid-row: 8;
+    background-color: transparent;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+    visibility: hidden;
+}
+
 #upgrade-button{
     grid-row: 8/10;
     grid-column: 8/10;

@@ -41,7 +41,9 @@ let agility = document.getElementById("agility-stat");
 let hull = document.getElementById("hull-stat");
 let shields = document.getElementById("shields-stat");
 let energy = document.getElementById("energy-stat");
+let energy_icon = document.getElementById("energy");
 let roster_number = document.getElementById("roster-number-stat");
+let flip_button = document.getElementById("flip-button");
 let chosen_team = get_team();
 let selection_index = 0;
 //end global variable set up section
@@ -81,6 +83,20 @@ function set_all_items()
     hull.textContent = " : "+chosen_team.ship_list[selection_index].current_hull;
     shields.textContent = " : "+chosen_team.ship_list[selection_index].current_sheilds;
 
+    //If dealing with a large ship, then make energy and possibly flip button visible.
+    if(chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeOneCard" ||
+       chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    {
+        energy_icon.style.visibility = "visible";
+        energy.style.visibility = "visible";
+        energy.textContent=" : "+chosen_team.ship_list[selection_index].current_energy;
+    }
+    else
+    {
+        energy_icon.style.visibility = "hidden";
+        energy.style.visibility = "hidden";
+    }
+
     //Set the upgrade images of each upgrade.
     upgrade_box.innerHTML="";
     chosen_team.ship_list[selection_index].upgrades.forEach(upgrade=>{
@@ -112,4 +128,10 @@ function change_upgrades_button()
 {
     sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_team.ship_list[selection_index]));
     window.location.href ="../View-Team-Upgrade-Screen/Team-View-Upgrade-Screen.html";
+}
+
+//This is a function that will flip any large ship being seen on the screen.
+function flip_button()
+{
+
 }
