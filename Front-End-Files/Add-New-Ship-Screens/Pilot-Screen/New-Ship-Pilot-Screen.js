@@ -1,5 +1,5 @@
 document.getElementById("back-button").addEventListener("click", function(){
-    sessionStorage.removeItem("chosen_ship");
+    sessionStorage.removeItem("chosenShip");
     window.location.href = "../Selection-Screen/New-Ship-Selection-Screen.html";
   });
   document.getElementById("select-button").addEventListener("click", function(){
@@ -47,6 +47,8 @@ game_data.all_pilots.forEach(pilot => {
 });
 console.log(display_pilots);
 
+var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
+
 //display maneuvers and pilot card
 //I added this foreach loop to pre-load each picture into the div for pilot card, becasue each card took a while to load the first time.
 display_pilots.forEach(element =>{
@@ -74,3 +76,23 @@ document.getElementById("previous-btn").addEventListener("click", function(){
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 });
+
+//create functionality for the flip button
+if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
+{
+    document.getElementById("flip-button").style.visibility = "visible";
+}
+
+function flip_button_click()
+{
+    if(aft_showing == false)
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
+      aft_showing = true;
+    }
+    else
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+      aft_showing = false;
+    }
+}

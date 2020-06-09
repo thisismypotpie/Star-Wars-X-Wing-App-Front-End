@@ -1,6 +1,6 @@
 //Back button functionality. 
 document.getElementById("back-button").addEventListener("click", function(){
-    sessionStorage.removeItem("chosen_ship");
+    sessionStorage.removeItem("chosenShip");
     window.location.href = "../Selection-Screen/Selection-Screen.html";
   });
 
@@ -29,6 +29,8 @@ document.getElementById("back-button").addEventListener("click", function(){
     }
     window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
   });
+
+  var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
 
   //Get the chosen ship and game data from the session storage.
   let chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[shipName, faction, size]
@@ -77,3 +79,23 @@ document.getElementById("previous-btn").addEventListener("click", function(){
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 });
+
+//create functionality for the flip button
+if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
+{
+    document.getElementById("flip-button").style.visibility = "visible";
+}
+
+function flip_button_click()
+{
+    if(aft_showing == false)
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
+      aft_showing = true;
+    }
+    else
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+      aft_showing = false;
+    }
+}

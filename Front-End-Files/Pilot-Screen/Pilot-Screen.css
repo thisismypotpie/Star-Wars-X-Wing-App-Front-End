@@ -97,6 +97,18 @@ body{
     font-size: 2vw;
 }
 
+.flip{
+    background-color: transparent;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border:none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+    visibility: hidden;
+}
+
 @media screen and (max-width: 1200px) and (min-width: 851px)
 {
     .grid-container{
