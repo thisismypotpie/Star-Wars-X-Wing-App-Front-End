@@ -68,6 +68,19 @@ width: 10%;
 height: 20vh;
   }
 
+  .flip{
+    width: 15%;
+    height: 15vh;
+    margin-left: 5%;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    font-family: Impact, Charcoal, sans-serif;
+    border: none;
+    visibility: hidden;
+}
+
   .done{
     width: 10%;
     height: 20vh;

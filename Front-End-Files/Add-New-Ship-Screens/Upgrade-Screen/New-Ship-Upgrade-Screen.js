@@ -69,6 +69,7 @@ document.getElementById("close-button").addEventListener("click", function(){
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   console.log(ship_in_progress);
+  var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
 
@@ -97,10 +98,12 @@ ship_in_progress.upgrades.forEach(upgrade =>{
       {
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
         document.getElementById("upgrade-photo").style.border = "3px solid red";
+        document.getElementById("flip-button").style.visibility = "visible";
       }
       else
       {
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path+"')";
+        document.getElementById("upgrade-photo").style.border = "1px solid white";
       }
       document.getElementById("upgrade-photo").setAttribute('name', upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.
    })
@@ -126,6 +129,7 @@ document.getElementById("no-button").addEventListener("click",function(){
   overlay.style.opacity = 0;
   upgrade_removal_box.style.visibility = "hidden";
   overlay.style.pointerEvents = "none";
+  document.getElementById("flip-button").style.visibility = "hidden";
 })
 //If you press the yes button when asked if you want to delete an upgrade.
 document.getElementById("yes-button").addEventListener("click",function(){
@@ -133,6 +137,7 @@ document.getElementById("yes-button").addEventListener("click",function(){
   let upgrade_removal_box = document.getElementById("upgrade-removal-box");
   overlay.style.opacity = 0;
   upgrade_removal_box.style.visibility = "hidden";
+  document.getElementById("flip-button").style.visibility = "hidden";
   overlay.style.pointerEvents = "none";
   //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
   let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
@@ -168,4 +173,35 @@ function is_roster_number_taken(input_number)
     }
   })
   return found_roster;
+}
+
+
+function flip_button_click()
+{
+  if(dual_card_back_showing == false)
+  {
+    let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
+    for(var i =0; i < ship_in_progress.upgrades.length;i++)
+    {
+      if(ship_in_progress.upgrades[i].name == upgrade_name)
+      {
+        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].image_path.split("\n")[1]+"')";
+        dual_card_back_showing = true;
+       break;
+      }
+    }
+  }
+  else
+  {
+    let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
+    for(var i =0; i < ship_in_progress.upgrades.length;i++)
+    {
+      if(ship_in_progress.upgrades[i].name == upgrade_name)
+      {
+        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].image_path.split("\n")[0]+"')";
+        dual_card_back_showing = false;
+       break;
+      }
+    }
+  }
 }
