@@ -150,3 +150,13 @@ function flip_button_click()
         aft_image_showing = false;
     }
 }
+
+function change_roster_number()
+{
+    let overlay = document.getElementById("overlay");
+    let roster_number_box = document.getElementById("roster-number-box");
+    overlay.style.opacity = 1;
+    roster_number_box.style.visibility = "visible";
+    overlay.style.pointerEvents = "all";
+    document.getElementById("roster-number-input").focus();
+}

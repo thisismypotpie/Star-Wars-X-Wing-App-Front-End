@@ -1,3 +1,3 @@
--In team view, have a button to change roster numbers.
 -Add functionality for unique pilots.
-
+-There is an error, the unique pilot variable is missing from each pilot instance.
+-In team view, I have added a button to change the roster number. The pop-up appears but the buttons are not evenly spaced and do not do anything yet. 

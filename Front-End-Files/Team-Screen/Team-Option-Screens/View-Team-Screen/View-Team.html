@@ -18,6 +18,7 @@
         </div>    
     </div>
     <section class = "grid-container">
+        <button type = "button" id ="change-roster-button" onclick="change_roster_number()">Change</button>>
         <button type="button" id = "back-button" onclick="back_button()">Back</button>
         <div class = "icon" id = "pilot-skill">:-1</div>
         <div class = "icon" id = "attack">:-1</div>
@@ -44,6 +45,18 @@
         <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Change</button>>
     </section>
 </div>
+<!-- This is the code for the roster number popup.-->
+<div class = "roster-number-container" id = "roster-number-box">
+  <div class = roster-number-header>Roster Number</div>
+  <input type = "text"
+  id = "roster-number-input" />
+  <div id = "pop-up-button-container">
+    <button type = "button" class = "pop-btn pop-up close" id = "close-button">Close</button>
+    <button type = "button" class = "pop-btn pop-up ok" id="ok-button">OK</button>
+  </div>
+</div>
+<!--This is the code for the overlay.-->
+<div id = "overlay"></div>
   </body>
   <script type="text/javascript" src="View-Team.js"></script>
 </html>
