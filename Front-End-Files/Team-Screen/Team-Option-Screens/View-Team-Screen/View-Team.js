@@ -3,7 +3,7 @@ function back_button(){
     sessionStorage.removeItem("chose_team_name");
     window.location.href="../../Team-Screen.html";
 }
-
+//Go to next ship in the roster.
 function next_button()
 {
     selection_index++;
@@ -13,7 +13,7 @@ function next_button()
     }
     set_all_items();
 }
-
+//Go to previous ship in the roster.
 function previous_button()
 {
     selection_index--;
@@ -24,10 +24,6 @@ function previous_button()
     set_all_items();
 }
 
-function change_upgrades_button()
-{
-
-}
 //end button functionality section.
 
 //This will be the section for getting vari that we will manipulate.
@@ -150,7 +146,7 @@ function flip_button_click()
         aft_image_showing = false;
     }
 }
-
+//This is the function for when you click the change roster number button.
 function change_roster_number()
 {
     let overlay = document.getElementById("overlay");
@@ -159,4 +155,43 @@ function change_roster_number()
     roster_number_box.style.visibility = "visible";
     overlay.style.pointerEvents = "all";
     document.getElementById("roster-number-input").focus();
+}
+//This is the function when you you close the roster number screen.
+function close_button_click()
+{
+    let overlay = document.getElementById("overlay");
+    let roster_number_box = document.getElementById("roster-number-box");
+    let input = document.getElementById("roster-number-input");
+    overlay.style.opacity = 0;
+    roster_number_box.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
+    input.value="";
+}
+//This is the function for changing your roster number.
+function ok_button_click() 
+{
+    let potential_roster_number = parseInt(document.getElementById("roster-number-input").value,10);
+    //If the program is unable to convert to int, run this errors procedure.
+    if(isNaN(potential_roster_number))
+    {
+        alert("Error: What you have input is not a number.");
+        document.getElementById("roster-number-input").value = "";
+    }
+    else
+    {
+        //Go through each member of a team and determine if the potential roster number is already in use.
+        for(let member of chosen_team.ship_list)
+        {
+            if(member.roster_number == potential_roster_number)
+            {
+                alert("This roster number has already been chosen, please choose another.");
+                document.getElementById("roster-number-input").value = "";
+                return;
+            }
+            chosen_team.ship_list[selection_index].roster_number = potential_roster_number;
+            set_all_items();
+            close_button_click();
+        }
+
+    }
 }

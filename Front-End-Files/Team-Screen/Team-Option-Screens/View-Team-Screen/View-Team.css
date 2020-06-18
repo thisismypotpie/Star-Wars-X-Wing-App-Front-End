@@ -300,7 +300,7 @@ body{
 
 }
 
-.pop-up-button-container{
+#pop-up-button-container{
     display: flex;
     justify-content: space-evenly;
     width: 100%;
