@@ -37,6 +37,18 @@ body{
     /*background-image: url("https://i.imgur.com/IUWPLPU.png");*/
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    text-align: center;
+}
+
+#unavailable{
+    margin-top: 8%;
+    font-size: 4vw;
+}
+
+.unavail_info{
+    display: block;
+    font-family: Impact, Charcoal, sans-serif;
+    color:white;
 }
 
 .subtitle{

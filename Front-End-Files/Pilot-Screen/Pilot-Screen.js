@@ -53,13 +53,9 @@ game_data.all_pilots.forEach(pilot => {
 console.log(display_pilots);
 
 //display maneuvers and pilot card
-//I added this foreach loop to pre-load each picture into the div for pilot card, becasue each card took a while to load the first time.
-display_pilots.forEach(element =>{
-  document.getElementById("pilot-image").style.backgroundImage = "url('"+element.image_path+"')";
-})
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
-
+update_pilot_image();//Updates the image to see if the pilot is available or not.
 //Create functionality for the next button.
 document.getElementById("next-btn").addEventListener("click", function(){
   selection_index ++;
@@ -68,6 +64,7 @@ document.getElementById("next-btn").addEventListener("click", function(){
     selection_index = 0;
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+  update_pilot_image();//Updates the image to see if the pilot is available or not.
 });
 
 //creat functionality for the previous button
@@ -78,6 +75,7 @@ document.getElementById("previous-btn").addEventListener("click", function(){
     selection_index = display_pilots.length-1;
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+  update_pilot_image();//Updates the image to see if the pilot is available or not.
 });
 
 //create functionality for the flip button
@@ -98,4 +96,69 @@ function flip_button_click()
       document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
       aft_showing = false;
     }
+}
+
+//This function is a cluster of functions that will update the pilot image if that pilot is unique and is already taken. It will be triggered each time a pilot image appears or is changed on this screen.
+function update_pilot_image()
+{
+   var pilot_stats = is_pilot_available();
+   if(pilot_stats.pilot_available == false)
+   {
+     update_image_unavailable(pilot_stats);
+   }
+   else
+   {
+     update_image_available();
+   }
+}
+
+
+//This function will test to see if any other team has a unique pilot and will return false if the pilot is not available.
+function is_pilot_available()
+{
+    var pilot_stats = {
+      pilot_available:true,
+      team_that_has_pilot: undefined,
+      roster_number: undefined
+    };
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+    //Automatically return true if there are no established teams.
+    if(all_teams == null || all_teams == undefined || all_teams.length == 0)
+    {
+      return pilot_stats;
+    }
+    else
+    {
+      for(const team of all_teams)
+      {
+        for(const ship of team.ship_list)
+        {
+          if(ship.chosen_pilot.is_unique == true && 
+            ship.chosen_pilot.pilot_name == display_pilots[selection_index].pilot_name &&
+            display_pilots[selection_index].is_unique == true)
+          {
+            pilot_stats.pilot_available = false;
+            pilot_stats.team_that_has_pilot = team.team_name;
+            pilot_stats.roster_number = ship.roster_number;
+             return pilot_stats;
+          }
+        }
+      }
+      return pilot_stats;
+    }
+
+}
+
+//This will change the image of the pilot to display that the pilot is not available and who has that pilot. Also make select button invisible.
+function update_image_unavailable(pilot_details)
+{
+  document.getElementById("select-button").style.visibility = "hidden";
+  document.getElementById("pilot-image").style.opacity = 0.5;
+}
+
+//This function will update an image if a pilot is available to make sure the unavailable text is not visible. Also make select button visible.
+function update_image_available()
+{
+  document.getElementById("select-button").style.visibility = "visible";
+  document.getElementById("pilot-image").style.opacity = 1;
 }
