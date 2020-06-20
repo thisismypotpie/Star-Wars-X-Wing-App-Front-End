@@ -44,11 +44,24 @@ body{
     margin-top: 8%;
     font-size: 4vw;
 }
+#assigned_to{
+    margin-top: -10%;
+    font-size: 3vw;
+}
+
+#team_name_assigned{
+    font-size: 2.5vw;
+    margin-top: -10%;
+}
+
+#roster_number_assigned{
+    font-size: 3vW;
+}
 
 .unavail_info{
     display: block;
     font-family: Impact, Charcoal, sans-serif;
-    color:white;
+    color:red;
 }
 
 .subtitle{

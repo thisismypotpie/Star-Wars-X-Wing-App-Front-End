@@ -153,12 +153,25 @@ function is_pilot_available()
 function update_image_unavailable(pilot_details)
 {
   document.getElementById("select-button").style.visibility = "hidden";
-  document.getElementById("pilot-image").style.opacity = 0.5;
+  document.getElementById("pilot-image").style.backgroundImage = "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("+ display_pilots[selection_index].image_path+")";
+  
+  document.getElementById("team_name_assigned").textContent = pilot_details.team_that_has_pilot;
+  document.getElementById("roster_number_assigned").textContent = "ROSTER NUMBER: "+pilot_details.roster_number;
+  
+  document.getElementById("unavailable").style.visibility = "visible";
+  document.getElementById("assigned_to").style.visibility = "visible";
+  document.getElementById("team_name_assigned").style.visibility = "visible";
+  document.getElementById("roster_number_assigned").style.visibility = "visible";
 }
 
 //This function will update an image if a pilot is available to make sure the unavailable text is not visible. Also make select button visible.
 function update_image_available()
 {
   document.getElementById("select-button").style.visibility = "visible";
-  document.getElementById("pilot-image").style.opacity = 1;
+  document.getElementById("pilot-image").style.opacity = "linear-gradient(rgba(255,255,255,1), rgba(255,255,255,1)), url("+ display_pilots[selection_index].image_path+")";
+  document.getElementById("unavailable").style.visibility = "hidden";
+  document.getElementById("assigned_to").style.visibility = "hidden";
+  document.getElementById("team_name_assigned").style.visibility = "hidden";
+  document.getElementById("roster_number_assigned").style.visibility = "hidden";
+
 }
