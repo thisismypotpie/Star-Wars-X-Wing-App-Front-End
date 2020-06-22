@@ -274,4 +274,18 @@ function removeShipScreen()
   sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
   window.location.href = "./Team-Option-Screens/View-Team-Remove-Ship-Screen/Remove-Ship.html";
 }
+
+
+function start_game_button_click()
+{
+  let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+  if(all_teams.length == 0)
+  {
+    alert("You must have at least one team created before starting the game.");
+  }
+  else
+  {
+    window.location.href = "../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+  }
+}
   

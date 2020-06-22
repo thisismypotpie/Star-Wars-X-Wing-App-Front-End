@@ -13,7 +13,7 @@ if(JSON.parse(sessionStorage.getItem("game_data")!= null && JSON.parse(sessionSt
 else //Make a call to the back end and get game data.
 {
 //Load the game data and store it in session Storage.
-var url = "https://star-wars-x-wing-back-end.herokuapp.com/";//"http://localhost:3000/";
+var url = /*"https://star-wars-x-wing-back-end.herokuapp.com/";*/ "http://localhost:3000/";
 var game_data = undefined;
 fetch(url)
 .catch(function(error) {

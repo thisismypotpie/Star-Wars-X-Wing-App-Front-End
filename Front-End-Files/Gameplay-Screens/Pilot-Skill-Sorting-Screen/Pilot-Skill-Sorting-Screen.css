@@ -1,0 +1,77 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(24,calc(100%/24));
+    grid-template-rows: repeat(24,calc(200vh/24));
+}
+
+.button{
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.ship-box{
+    border: 1px solid white;
+    background-color: black;
+    padding-inline-start: 0px;
+    display: inline-block;
+    overflow: scroll;
+}
+
+.page-title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 6vw;
+    grid-column: 6/19;
+    color: white;
+    text-align: center;
+}
+
+.list-label{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+    color: white;
+    text-align: left;
+}
+
+#unsorted-ship-label{
+    grid-row: 5;
+    grid-column:2/25;
+}
+
+#unsorted-ship-box{
+    grid-column: 1/25;
+    grid-row: 6/15;
+}
+
+#sorted-ship-label{
+    grid-column: 2/25;
+    grid-row: 15;
+}
+
+#sorted-ship-box{
+    grid-column: 1/25;
+    grid-row: 16/25;
+}
+
+#back-button{
+    grid-row: 1/5;
+    grid-column: 2/6;
+}
+
+#done-button{
+    grid-row: 1/5;
+    grid-column: 19/23;
+}

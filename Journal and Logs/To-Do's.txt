@@ -1,2 +1,5 @@
--Add functionality for unique pilots.
--There is an error, the unique pilot variable is missing from each pilot instance.
+- Add loading functionality for pre-game squad building.
+- Come up with some sketches for the in-game interface.
+- Do bucket sorting for pilot skills once the start game button has been pressed.
+- Come up with the database schema for loading and saving games.
+- When you create the UI for maneuver selection, have a list that contains the list of all maneuvers chosen as well as the roster number of the ship that chose that maneuver.
