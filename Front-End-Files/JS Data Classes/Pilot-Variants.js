@@ -8,6 +8,7 @@ class pilot{
         this.upgrade_types = upgrade_types;
         this.ship_name = ship_name;
         this.image_path = image_path;
+        this.is_unique = uniquePilot;
     }
     
 }
