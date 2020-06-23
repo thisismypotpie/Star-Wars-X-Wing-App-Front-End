@@ -286,15 +286,17 @@ function start_game_button_click()
   else
   {
     var buckets = bucket_sort_pilots_by_skill(all_teams);
+    sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
     if(buckets.sorting_needed == true)
     {
-      sessionStorage.setItem(JSON.parse(buckets.sorted_buckets));
+      sessionStorage.setItem("buckets",JSON.stringify(buckets.sorted_buckets));
       window.location.href = "../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
     }
     else
     {
       sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
       alert("no sorting needed.");
+      //go to maneuver selection screen.
     }
   }
 }

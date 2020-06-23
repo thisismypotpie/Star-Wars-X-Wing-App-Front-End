@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="Pilot-Skill-Sorting-Screen.css" />
     <title>Star Wars X-Wing</title>
+    </head>
     <body>
       <div class = "grid-container">
         <div class = "page-title">Ship Sorting Screen</div>
+        <div class = "team-info-label" id = "team-name-label">Team: </div>
+        <div class = "team-info-label" id = "pilot-skill-label">Skill Level: </div>
         <div class = "list-label" id = "unsorted-ship-label">Unsorted Ships:</div>
         <div class = "list-label" id = "sorted-ship-label">Sorted Ships:</div>
         <ul class = "ship-box" id = "unsorted-ship-box" 
@@ -19,9 +22,10 @@
         tabindex="1"
         role="listbox"
         aria-labelledby=""></ul>
-        <button type = "button" class = "button" id = "back-button" onclick="window.location.href ='../../Team-Screen/Team-Screen.html'">Back</button>
-        <button type = "button" class = "button" id="done-button" onclick="">Done</button>
+        <button type = "button" class = "button" id = "back-button" onclick=" back_button_click()">Back</button>
+        <button type = "button" class = "button" id="done-button" onclick="done_button_click()">Done</button>
       </div>
     </body>
     <script type="text/javascript" src="../../JS Data Classes/Pilot-Sorter.js"></script>
+    <script type="text/javascript" src="Pilot-Skill-Sorting-Screen.js"></script>
     </html>

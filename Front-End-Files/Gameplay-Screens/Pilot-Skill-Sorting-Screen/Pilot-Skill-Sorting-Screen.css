@@ -75,3 +75,20 @@ body{
     grid-row: 1/5;
     grid-column: 19/23;
 }
+
+.team-info-label{
+    color: white;
+    text-align: left;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+}
+
+#team-name-label{
+    grid-row: 3;
+    grid-column: 7/19;
+}
+
+#pilot-skill-label{
+    grid-row: 4;
+    grid-column: 7/19;
+}
