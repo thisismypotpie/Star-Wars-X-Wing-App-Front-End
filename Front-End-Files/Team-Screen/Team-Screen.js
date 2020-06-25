@@ -300,33 +300,4 @@ function start_game_button_click()
     }
   }
 }
-
-//This function will seperate all ships of all teams into buckets and bring back an object full of sorting conflicts for the skill sorting screen to pan out.
-function bucket_sort_pilots_by_skill(all_teams)
-{
-    var sorted_buckets = [];
-    var sorting_needed = false;
-    all_teams.forEach(team=>{ //go through each team
-      var team_buckets = [];
-      for(var i =0; i < 12;i++)//push a struct with name, skill, and rosters from all skills. Making all of these at the beginning will make the algorithm more effective because we will only have to go through each time's list once.
-       {
-        team_buckets.push({name: team.team_name, skill:i, roster_numbers:[]});
-       }
-       team.ship_list.forEach(ship=>{//Goes through each ship and then puts the ship in the corresponding bucket according to ites pilot skill.
-          
-        team_buckets[ship.current_pilot_skill].roster_numbers.push(ship.roster_number); 
-       })
-       sorted_buckets.push.apply(sorted_buckets,team_buckets);
-    })
-    console.log(sorted_buckets);
-    for(bucket of sorted_buckets)
-    {
-      if(bucket.roster_numbers.length>1)
-      {
-        sorting_needed = true;
-        break;
-      }
-    }
-    return {sorted_buckets:sorted_buckets,sorting_needed:sorting_needed};//Retrun a struct with sorted buckets and whether or not sorting is needed.
-}
   
