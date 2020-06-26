@@ -1,0 +1,21 @@
+body{
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+}
+
+*:focus {
+    outline: none;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(24,calc(100%/24));
+    grid-template-rows: repeat(24,calc(100vh/24));
+}
+
+.page-title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 6vw;
+    grid-column: 6/19;
+    color: white;
+    text-align: center;
+}
