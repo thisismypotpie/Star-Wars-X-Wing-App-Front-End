@@ -32,10 +32,12 @@ for(var i = selected_index; i < buckets.length;i++)
     }
     if(i >= buckets.length-1)
     {
-        var sorting_done = confirm("Sorting is complete, is everyone done sorting?");
+        var sorting_done = confirm("Soring is complete, continue to maneuver selection?");
         if(sorting_done == true)
         {
             sort_pilots_by_skill_and_overwrite_all_teams(buckets);
+            sessionStorage.removeItem("buckets");
+            sessionStorage.removeItem("indecies");
             window.location.href = "../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
         }
         else
