@@ -1,5 +1,6 @@
 //This file will be for sorting all ships into pilot skilled order.
 
+//This function will take eac bucket from each team and overwrite the entire team ship list with the updated ship order.
 function sort_pilots_by_skill_and_overwrite_all_teams(team_buckets)
 {
     let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
