@@ -295,8 +295,7 @@ function start_game_button_click()
     else
     {
       sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
-      alert("no sorting needed.");
-      window.location.href = "../Gameplay-Screen/Maneuver-Selection-Screens/"
+      window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
     }
   }
 }
