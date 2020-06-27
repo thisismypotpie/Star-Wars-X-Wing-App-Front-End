@@ -19,3 +19,181 @@ body{
     color: white;
     text-align: center;
 }
+
+.team-mate-maneuvers-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    grid-row:3/5;
+    grid-column: 22/25;
+}
+
+.card-type-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    grid-row:4;
+    grid-column: 16/21;
+}
+
+.display-box{
+    border: 1px solid white;
+    background-color: black;
+    padding-inline-start: 0px;
+    display: inline-block;
+    overflow: scroll;
+}
+
+#team-mate-maneuvers{
+    grid-row: 5/21;
+    grid-column:22/25;
+}
+
+#card-box{
+    grid-row: 5/21;
+    grid-column: 16/21;
+}
+
+#target-lock-box{
+    grid-column: 12/15;
+    grid-row: 15/22;   
+}
+
+#token-box{
+    grid-row: 15/24;
+    grid-column: 1/12;
+    
+}
+
+.button{
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.long-button{
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center; 
+}
+
+#search-button{
+    grid-row: 21/24;
+    grid-column: 22/25;
+}
+
+#cycle-button{
+    grid-row: 21/24;
+    grid-column: 16/21;
+}
+
+#add-target-lock-button{
+    grid-row: 22/24;
+    grid-column: 12/15;
+    margin-top: -8%;
+}
+
+#back-button{
+    grid-row:12/15;
+    grid-column: 6/10;
+}
+
+#select-button{
+    grid-row: 12/15;
+    grid-column: 11/15;
+}
+
+#previous-button{
+    grid-column: 9/12;
+    grid-row: 8/11;
+    background-image: url("https://i.imgur.com/IWOoJwp.png");
+}
+
+#next-button{
+    grid-row: 8/11;
+    grid-column: 13/16;
+    background-image: url("https://i.imgur.com/I7pRm3g.png");
+}
+
+.test-div-border{
+    border: 1px solid white;
+}
+
+.stat-image{
+    grid-column: 6;
+}
+
+.stat-text{
+    text-align: left;
+    grid-column: 7/9;
+}
+
+#pilot-image{
+    grid-row: 4/15;
+    grid-column: 1/6;
+}
+
+#roster-image{
+    grid-row:4;
+}
+#roster-text{
+    grid-row: 4;
+}
+#pilot-skill-image{
+    grid-row: 5;
+}
+#pilot-skill-text{
+    grid-row: 5;
+}
+#attack-image{
+    grid-row: 6;
+}
+#attack-text{
+    grid-row: 6;
+}
+#agility-image{
+    grid-row: 7;
+}
+#agility-text{
+    grid-row: 7;
+}
+#hull-image{
+    grid-row: 8;
+}
+#hull-text{
+    grid-row: 8;
+}
+#shield-image{
+    grid-row:9;
+}
+#shield-text{
+    grid-row:9;
+}
+#energy-image{
+    grid-row:10;
+}
+#energy-text{
+    grid-row: 10;
+}
+
+#maneuver-range{
+    grid-row: 4/6;
+    grid-column: 12/14;
+}
+
+#maneuver-type{
+    grid-row: 6/8;
+    grid-column: 12/14;
+}
