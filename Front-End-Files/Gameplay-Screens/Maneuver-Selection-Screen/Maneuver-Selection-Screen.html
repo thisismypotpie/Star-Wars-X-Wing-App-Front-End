@@ -28,10 +28,14 @@
         <button type = "button" class = "long-button" id = "search-button" onclick="">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="">Cycle</button>
         <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="">Add</button>
-        <button type = "button" class = "long-button" id = "back-button" onclick="">Back</button>
-        <button type = "button" class = "long-button" id = "select-button" onclick="">Select</button>
         <button type = "button" class = "button" id = "previous-button" onclick=""></button>
         <button type = "button" class = "button" id = "next-button" onclick=""></button>
+        <button type = "button" class = "button" id = "flip-button" onclick="">Flip</button>
+
+        <div class = "button-container">
+          <button type = "button" class = "button" id = "back-button" onclick="">Back</button>
+          <button type = "button" class = "long-button" id = "select-button" onclick="">Select</button>
+        </div>
 
         <div class = "test-div-border stat-image" id="pilot-image"></div>
         <div class = "test-div-border stat-image" id="roster-image"></div>
@@ -49,8 +53,10 @@
         <div class = "test-div-border stat-text" id="shield-text"></div>
         <div class = "test-div-border stat-text" id="energy-text"></div>
 
-        <div class = "test-div-border "id = "maneuver-range"></div>
-        <div class = "test-div-border "id = "maneuver-type"></div>
+        <div class = "maneuver-container">
+          <div class = "test-div-border "id = "maneuver-range"></div>
+          <div class = "test-div-border "id = "maneuver-type"></div>
+        </div>
       </div>
     </body>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
