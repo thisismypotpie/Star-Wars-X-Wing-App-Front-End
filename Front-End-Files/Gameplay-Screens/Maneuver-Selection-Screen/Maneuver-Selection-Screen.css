@@ -148,11 +148,18 @@ body{
 
 .stat-image{
     grid-column: 6;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 .stat-text{
     text-align: left;
     grid-column: 7/9;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+    color: white;
 }
 
 #pilot-image{
@@ -161,42 +168,49 @@ body{
 }
 
 #roster-image{
+    background-image: url("https://i.imgur.com/pPhaRyl.png");
     grid-row:4;
 }
 #roster-text{
     grid-row: 4;
 }
 #pilot-skill-image{
+    background-image: url("https://i.imgur.com/Y43E97x.png");
     grid-row: 5;
 }
 #pilot-skill-text{
     grid-row: 5;
 }
 #attack-image{
+    background-image: url("https://i.imgur.com/Y39TqgA.png");
     grid-row: 6;
 }
 #attack-text{
     grid-row: 6;
 }
 #agility-image{
+    background-image: url("https://i.imgur.com/M7lUR6Z.png");
     grid-row: 7;
 }
 #agility-text{
     grid-row: 7;
 }
 #hull-image{
+    background-image: url("https://i.imgur.com/OMjodS4.png");
     grid-row: 8;
 }
 #hull-text{
     grid-row: 8;
 }
 #shield-image{
+    background-image: url("https://i.imgur.com/Aa8z8rX.png");
     grid-row:9;
 }
 #shield-text{
     grid-row:9;
 }
 #energy-image{
+    background-image: url("https://i.imgur.com/21ZF1eI.png");
     grid-row:10;
 }
 #energy-text{
