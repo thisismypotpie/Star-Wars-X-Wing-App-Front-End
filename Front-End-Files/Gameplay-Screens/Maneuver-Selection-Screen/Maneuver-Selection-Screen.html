@@ -22,9 +22,7 @@
         <ul class = "display-box"id = "target-lock-box" 
         tabindex="3"
         role="listbox"></ul>
-        <ul class = "display-box"id = "token-box" 
-        tabindex="4"
-        role="listbox"></ul>
+
         <button type = "button" class = "long-button" id = "search-button" onclick="">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="">Cycle</button>
         <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="">Add</button>
@@ -53,9 +51,23 @@
         <div class = "test-div-border stat-text" id="shield-text"></div>
         <div class = "test-div-border stat-text" id="energy-text"></div>
 
+        <div id = "token-box">
+          <div class ="token" id = "focus-token" onclick=""></div>
+          <div class = "token" id = "evade-token" onclick=""></div>
+          <div class = "token" id = "stress-token" onclick=""></div>
+          <div class = "token" id = "ion-token" onclick=""></div>
+          <div class = "token" id = "jam-token" onclick=""></div>
+          <div class = "token" id = "weapons-disabled-token" onclick=""></div>
+          <div class = "token" id = "cloak-token" onclick=""></div>
+          <div class = "token" id = "reinforce-token" onclick=""></div>
+          <div class = "token" id = "tractor-beam-token" onclick=""></div>
+          <div class = "token" id = "critical-hit-token" onclick=""></div>
+          <div class = "token" id = "condition-token" onclick=""></div>
+        </div>
+
         <div class = "maneuver-container">
-          <div class = "test-div-border "id = "maneuver-range"></div>
-          <div class = "test-div-border "id = "maneuver-type"></div>
+          <div class = "test-div-border stat-image"id = "maneuver-range"></div>
+          <div class = "test-div-border stat-image"id = "maneuver-type"></div>
         </div>
       </div>
     </body>

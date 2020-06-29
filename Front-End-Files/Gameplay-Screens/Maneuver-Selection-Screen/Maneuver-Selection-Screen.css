@@ -11,7 +11,9 @@ body{
     grid-template-columns: repeat(24,calc(100%/24));
     grid-template-rows: repeat(24,calc(100vh/24));
 }
-
+/*
+Labels
+*/
 .page-title{
     font-family: Impact, Charcoal, sans-serif;
     font-size: 6vw;
@@ -45,7 +47,9 @@ body{
     display: inline-block;
     overflow: scroll;
 }
-
+/*
+Unsorted Lists
+*/
 #team-mate-maneuvers{
     grid-row: 5/21;
     grid-column:22/25;
@@ -60,13 +64,9 @@ body{
     grid-column: 12/15;
     grid-row: 15/22;   
 }
-
-#token-box{
-    grid-row: 15/24;
-    grid-column: 1/12;
-    
-}
-
+/*
+Buttons
+*/
 .button{
     background-image: url("https://i.imgur.com/RkyE0Xv.png");
     background-size: 100% 100%;
@@ -145,7 +145,9 @@ body{
     border: 1px solid white;
 
 }
-
+/*
+Stat and images for stats next to the pilot card.
+*/
 .stat-image{
     grid-column: 6;
     background-size: 100% 100%;
@@ -217,7 +219,9 @@ body{
     grid-row: 10;
 }
 
-
+/*
+Maneuver selection console
+*/
 .maneuver-container{
     border: 1px solid red;
     grid-row: 4/8;
@@ -237,4 +241,96 @@ body{
     grid-column: 2/6;
 }
 
+/*
+This section of code is for the token box on the bottom left corner.
+*/
+#token-box{
+    grid-row: 15/24;
+    grid-column: 1/12;
+    border: 1px solid white;
+    background-color: black;
+    margin-block-start: 1em;
+    display: grid;
+    grid-template-columns: repeat(4,calc(100%/4));
+    grid-template-rows: repeat(3,calc(97%/3));
+}
 
+.token{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent; 
+    margin:5%;
+}
+
+#focus-token
+{
+    background-image: url("https://i.imgur.com/FUPk0q9.png");
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#evade-token
+{
+    background-image: url("https://i.imgur.com/Dls1QSF.png");
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#stress-token{
+    background-image: url("https://i.imgur.com/geEgnx6.png");
+    grid-row: 3;
+    grid-column: 1; 
+}
+
+#ion-token{
+    background-image: url("https://i.imgur.com/pky2QIu.png");
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#jam-token{
+    background-image: url("https://i.imgur.com/SyMwBez.png");
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#weapons-disabled-token{
+    background-image: url("https://i.imgur.com/cKtkZ63.png");
+    grid-row: 3;
+    grid-column: 2; 
+}
+
+#cloak-token{
+    background-image: url("https://i.imgur.com/TlTTykx.png");
+    grid-row: 1;
+    grid-column: 3;
+}
+
+#reinforce-token{
+    background-image: url("https://i.imgur.com/ffuItcQ.png");
+    grid-row:2;
+    grid-column: 3;
+}
+
+#tractor-beam-token{
+    background-image: url("https://i.imgur.com/3wmhkWB.png");
+    grid-row: 3;
+    grid-column: 3;
+}
+
+#upgrade-token{
+    grid-row: 1;
+    grid-column: 4;
+}
+
+#critical-hit-token{
+    background-image: url("https://i.imgur.com/JNlHDKX.png");
+    grid-row: 2;
+    grid-column: 4;
+}
+
+#condition-token{
+    background-image: url("https://i.imgur.com/ZT9d44p.png");
+    grid-row: 3;
+    grid-column: 4;
+}
