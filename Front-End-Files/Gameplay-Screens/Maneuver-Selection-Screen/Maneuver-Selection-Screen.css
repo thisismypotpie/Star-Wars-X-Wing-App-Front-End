@@ -18,7 +18,7 @@ Labels
 #initiative-label{
     background-image: url("https://i.imgur.com/MjqB2ug.png");
     grid-row: 1/4;
-    grid-column: 1/4;
+    grid-column: 19/22;
 }
 
 .page-title{
@@ -54,6 +54,37 @@ Labels
     display: inline-block;
     overflow: scroll;
 }
+
+#target-lock-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    grid-column: 12/15;
+    grid-row: 14;
+    margin-block-start: 0.5em;
+}
+
+#team-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align:center;
+    grid-column: 1/6;
+    grid-row: 1;
+}
+
+#team-name-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align:center;
+    grid-column: 1/6;
+    grid-row: 2;
+}
+
 /*
 Unsorted Lists
 */
@@ -131,7 +162,6 @@ Buttons
 
 .button-container{
     display: grid;
-    border: 1px solid red;
     grid-row: 11/14;
     grid-column: 6/16;
     grid-template-columns: repeat(20,calc(100%/20));
@@ -149,7 +179,7 @@ Buttons
 }
 
 .test-div-border{
-    border: 1px solid white;
+    /*border: 1px solid white;*/
 
 }
 /*
@@ -230,7 +260,6 @@ Stat and images for stats next to the pilot card.
 Maneuver selection console
 */
 .maneuver-container{
-    border: 1px solid red;
     grid-row: 4/8;
     grid-column: 11/14;
     display: grid;

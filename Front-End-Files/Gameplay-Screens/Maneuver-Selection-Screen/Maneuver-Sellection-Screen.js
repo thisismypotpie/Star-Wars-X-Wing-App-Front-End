@@ -17,6 +17,7 @@ var maneuver_range_label = document.getElementById("maneuver-range");
 var maneuver_type_label = document.getElementById("maneuver-type");
 var card_type_label = document.getElementById("card-type-label");
 var card_list = document.getElementById("card-box");
+var team_name_label = document.getElementById("team-name-label");
 
 //Set the first pilot to select maneuver of  the first team.
 pilot_image.style.backgroundImage = "url("+all_teams[0].ship_list[selected_ship_index].chosen_pilot.image_path+")";
@@ -30,6 +31,7 @@ energy_label.innerText = all_teams[team_index].ship_list[selected_ship_index].cu
 maneuver_range_label.style.backgroundImage = "url("+all_teams[0].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+")";
 maneuver_type_label.style.backgroundImage = "url("+all_teams[0].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+")";
 card_type_label.textContent = "Upgrades";
+team_name_label.innerText = all_teams[team_index].team_name;
 
 //Set up the upgrade list.
 all_teams[team_index].ship_list[selected_ship_index].upgrades.forEach(upgrade=>{
@@ -51,3 +53,9 @@ all_teams[team_index].ship_list[selected_ship_index].upgrades.forEach(upgrade=>{
     upgrade_div.style.flex = "0 0 90%";//Width is here.
     card_list.appendChild(upgrade_div);
 })
+
+//Thiis function will cycles through types of cards based on what is showing up currently.
+function cycle_button_click()
+{
+
+}
