@@ -296,6 +296,7 @@ This section of code is for the token box on the bottom left corner.
     background-repeat: no-repeat;
     background-color: transparent; 
     margin:5%;
+    opacity: 25%;
 }
 
 #focus-token
@@ -358,16 +359,19 @@ This section of code is for the token box on the bottom left corner.
     background-image: url("https://i.imgur.com/xOPUyGn.png");
     grid-row: 1;
     grid-column: 4;
+    opacity: 100%;
 }
 
 #critical-hit-token{
     background-image: url("https://i.imgur.com/JNlHDKX.png");
     grid-row: 2;
     grid-column: 4;
+    opacity: 100%;
 }
 
 #condition-token{
     background-image: url("https://i.imgur.com/ZT9d44p.png");
     grid-row: 3;
     grid-column: 4;
+    opacity: 100%;
 }

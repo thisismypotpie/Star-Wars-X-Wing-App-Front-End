@@ -3,6 +3,7 @@ class condition{
     {
         this.name = name;
         this.image_path = image_path;
+        this.discarded = false;
     }
     
 }
@@ -13,6 +14,7 @@ class criticalHitCard{
     {
         this.nam = name;
         this.image_path = image_path;
+        this.discarded = false;
     }
 }
 module.exports.criticalHitCard = criticalHitCard;
@@ -25,6 +27,7 @@ class UpgradeCard{
         this.cost = cost;
         this.characteristics = characteristics;
         this.image_path = image_path;
+        this.discarded = false;
     }
 }
 module.exports.UpgradeCard = UpgradeCard;
