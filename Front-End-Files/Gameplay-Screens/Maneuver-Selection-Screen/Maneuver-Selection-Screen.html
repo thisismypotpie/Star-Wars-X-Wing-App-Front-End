@@ -66,8 +66,8 @@
           <div class = "token" id = "reinforce-token" onclick=""></div>
           <div class = "token" id = "tractor-beam-token" onclick=""></div>
           <div class = "token" id = "upgrade-token" onclick=""></div>
-          <div class = "token" id = "critical-hit-token" onclick="critical_hit_token_click()"></div>
-          <div class = "token" id = "condition-token" onclick=""></div>
+          <div class = "token" id = "critical-hit-token" onclick="show_pop_up('crit-hit-pop-up');"></div>
+          <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
         </div>
 
         <div class = "maneuver-container">
@@ -75,6 +75,26 @@
           <div class = "test-div-border stat-image"id = "maneuver-type"></div>
         </div>
       </div>
+      <!-- This will be the html for various pop-up screens in the maneuver selection page.-->
+      <div id = "overlay"></div>
+
+      <!--Pop up for assigning critical hit cards.-->
+      <div class = "pop-up-container" id = "crit-hit-pop-up">
+        <div class = "pop-up-title">Assign Critical Hit Card to This Ship?</div>
+        <button type = "button" class = "button no-button" onclick="hide_pop_up('crit-hit-pop-up')">No</button>
+        <button type = "button" class = "button yes-button" onclick="assign_critical_hit_card()">Yes</button>
+      </div>
+
+      <!--Pop up for assigning conditions cards-->
+      <div class = "pop-up-container" id = "condition-pop-up">
+          <div class = "pop-up-title"id = "condition-title">Choose a Condition</div>
+          <div class = "pop-up-image"></div>
+          <button type = "button" class = "button pop-up-prev-button" onclick=""></button>
+          <button type = "button" class = "button pop-up-next-button" onclick=""></button>
+          <button type = "button" class = "long-button no-button" id ="condition-back-btn" onclick="hide_pop_up('condition-pop-up')">Back</button>
+          <button type = "button" class = "long-button yes-button" id = "condition-select-btn"onclick="">Select</button>
+      </div>
+
     </body>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
     </html>
