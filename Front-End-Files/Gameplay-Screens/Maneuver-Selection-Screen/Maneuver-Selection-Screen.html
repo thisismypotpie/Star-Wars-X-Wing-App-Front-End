@@ -88,11 +88,11 @@
       <!--Pop up for assigning conditions cards-->
       <div class = "pop-up-container" id = "condition-pop-up">
           <div class = "pop-up-title"id = "condition-title">Choose a Condition</div>
-          <div class = "pop-up-image"></div>
-          <button type = "button" class = "button pop-up-prev-button" onclick=""></button>
-          <button type = "button" class = "button pop-up-next-button" onclick=""></button>
+          <div class = "pop-up-image" id = "condition-pop-up-image"></div>
+          <button type = "button" class = "button pop-up-prev-button" onclick="previous_condition()"></button>
+          <button type = "button" class = "button pop-up-next-button" onclick="next_condition()"></button>
           <button type = "button" class = "long-button no-button" id ="condition-back-btn" onclick="hide_pop_up('condition-pop-up')">Back</button>
-          <button type = "button" class = "long-button yes-button" id = "condition-select-btn"onclick="">Select</button>
+          <button type = "button" class = "long-button yes-button" id = "condition-select-btn"onclick="assign_condition()">Select</button>
       </div>
 
     </body>

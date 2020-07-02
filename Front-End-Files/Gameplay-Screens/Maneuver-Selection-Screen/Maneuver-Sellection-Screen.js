@@ -1,9 +1,10 @@
 //Get data needed for this page.
 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-var selected_ship_index = 0;
-var maneuver_index = 0;
-var team_index = 0;
+var selected_ship_index = 0;//Used to determine which ship is being displayed.
+var maneuver_index = 0;//Used to determine what maneuver is being displayed.
+var team_index = 0;//Used to determine what team is being examined.
+var condition_index = 0;//Used when selecting a conditions to add to a ship.
 
 //Grab element needed to manipulate.
 var pilot_image = document.getElementById("pilot-image");
@@ -140,4 +141,41 @@ function assign_critical_hit_card()
     cycle_button_click();
     //end section to change card box
     hide_pop_up("crit-hit-pop-up");
+}
+
+//Will cycle image and condition index to previous condition.
+function previous_condition()
+{
+    if(condition_index <= 0)
+    {
+        condition_index = game_data.all_conditions.length -1;
+    }
+    else 
+    {
+        condition_index --;
+    }
+    document.getElementById("condition-pop-up-image").style.backgroundImage = "url('"+game_data.all_conditions[condition_index].image_path+"')";
+}
+//Will cycle image and condition index to next condition.
+function next_condition()
+{
+    if(condition_index >= game_data.all_conditions.length-1)
+    {
+        condition_index = 0;
+    }
+    else
+    {
+        condition_index++;
+    }
+    document.getElementById("condition-pop-up-image").style.backgroundImage = "url('"+game_data.all_conditions[condition_index].image_path+"')";
+}
+
+//Assignes selected condtion to ship, saves all teams, then shows all teams.
+function assign_condition()
+{
+    all_teams[team_index].ship_list[selected_ship_index].conditions.push(JSON.parse(JSON.stringify(game_data.all_conditions[condition_index])));//Used parse and stringify because these are used to deep copy and object so there is a seperate instance besides the one in game data.
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));//save to all teams.
+    card_type_label.innerText = "Critical Hit Cards";
+    cycle_button_click();
+    hide_pop_up("condition-pop-up");
 }

@@ -465,4 +465,8 @@ Overlay and pop-up screens
     grid-column: 5/13;
     grid-row: 3/14;
     border: 1px solid white;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent; 
+    background-image: url("https://i.imgur.com/HaeAycy.png");
 }
