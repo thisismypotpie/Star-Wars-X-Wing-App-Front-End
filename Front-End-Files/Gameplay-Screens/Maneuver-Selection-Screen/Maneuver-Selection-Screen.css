@@ -11,6 +11,15 @@ body{
     grid-template-columns: repeat(24,calc(100%/24));
     grid-template-rows: repeat(24,calc(100vh/24));
 }
+/*
+Labels
+*/
+
+#initiative-label{
+    background-image: url("https://i.imgur.com/MjqB2ug.png");
+    grid-row: 1/4;
+    grid-column: 19/22;
+}
 
 .page-title{
     font-family: Impact, Charcoal, sans-serif;
@@ -46,6 +55,39 @@ body{
     overflow: scroll;
 }
 
+#target-lock-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    grid-column: 12/15;
+    grid-row: 14;
+    margin-block-start: 0.5em;
+}
+
+#team-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align:center;
+    grid-column: 1/6;
+    grid-row: 1;
+}
+
+#team-name-label{
+    color: white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align:center;
+    grid-column: 1/6;
+    grid-row: 2;
+}
+
+/*
+Unsorted Lists
+*/
 #team-mate-maneuvers{
     grid-row: 5/21;
     grid-column:22/25;
@@ -60,13 +102,9 @@ body{
     grid-column: 12/15;
     grid-row: 15/22;   
 }
-
-#token-box{
-    grid-row: 15/24;
-    grid-column: 1/12;
-    
-}
-
+/*
+Buttons
+*/
 .button{
     background-image: url("https://i.imgur.com/RkyE0Xv.png");
     background-size: 100% 100%;
@@ -105,39 +143,62 @@ body{
     margin-top: -8%;
 }
 
-#back-button{
-    grid-row:12/15;
-    grid-column: 6/10;
-}
-
-#select-button{
-    grid-row: 12/15;
-    grid-column: 11/15;
-}
-
-#previous-button{
+#previous-maneuver-button{
     grid-column: 9/12;
     grid-row: 8/11;
     background-image: url("https://i.imgur.com/IWOoJwp.png");
 }
 
-#next-button{
+#next-maneuver-button{
     grid-row: 8/11;
     grid-column: 13/16;
     background-image: url("https://i.imgur.com/I7pRm3g.png");
 }
 
-.test-div-border{
-    border: 1px solid white;
+#flip-button{
+    grid-row: 4/6;
+    grid-column: 9/11;
 }
 
+.button-container{
+    display: grid;
+    grid-row: 11/14;
+    grid-column: 6/16;
+    grid-template-columns: repeat(20,calc(100%/20));
+    grid-template-rows: repeat(1,calc(100%));
+}
+
+#back-button{
+    grid-row:1;
+    grid-column: 2/6;
+}
+
+#select-button{
+    grid-row: 1;
+    grid-column: 8/20;
+}
+
+.test-div-border{
+    /*border: 1px solid white;*/
+
+}
+/*
+Stat and images for stats next to the pilot card.
+*/
 .stat-image{
     grid-column: 6;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 .stat-text{
     text-align: left;
     grid-column: 7/9;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+    color: white;
 }
 
 #pilot-image{
@@ -146,54 +207,266 @@ body{
 }
 
 #roster-image{
+    background-image: url("https://i.imgur.com/pPhaRyl.png");
     grid-row:4;
 }
 #roster-text{
     grid-row: 4;
 }
 #pilot-skill-image{
+    background-image: url("https://i.imgur.com/Y43E97x.png");
     grid-row: 5;
 }
 #pilot-skill-text{
     grid-row: 5;
 }
 #attack-image{
+    background-image: url("https://i.imgur.com/Y39TqgA.png");
     grid-row: 6;
 }
 #attack-text{
     grid-row: 6;
 }
 #agility-image{
+    background-image: url("https://i.imgur.com/M7lUR6Z.png");
     grid-row: 7;
 }
 #agility-text{
     grid-row: 7;
 }
 #hull-image{
+    background-image: url("https://i.imgur.com/OMjodS4.png");
     grid-row: 8;
 }
 #hull-text{
     grid-row: 8;
 }
 #shield-image{
+    background-image: url("https://i.imgur.com/Aa8z8rX.png");
     grid-row:9;
 }
 #shield-text{
     grid-row:9;
 }
 #energy-image{
+    background-image: url("https://i.imgur.com/21ZF1eI.png");
     grid-row:10;
 }
 #energy-text{
     grid-row: 10;
 }
 
+/*
+Maneuver selection console
+*/
+.maneuver-container{
+    grid-row: 4/8;
+    grid-column: 11/14;
+    display: grid;
+    grid-template-columns: repeat(6,calc(100%/6));
+    grid-template-rows: repeat(2,calc(100%/2));
+}
+
 #maneuver-range{
-    grid-row: 4/6;
-    grid-column: 12/14;
+    grid-row: 1;
+    grid-column: 2/6;
 }
 
 #maneuver-type{
-    grid-row: 6/8;
-    grid-column: 12/14;
+    grid-row: 2;
+    grid-column: 2/6;
+}
+
+/*
+This section of code is for the token box on the bottom left corner.
+*/
+#token-box{
+    grid-row: 15/24;
+    grid-column: 1/12;
+    border: 1px solid white;
+    background-color: black;
+    margin-block-start: 1em;
+    display: grid;
+    grid-template-columns: repeat(4,calc(100%/4));
+    grid-template-rows: repeat(3,calc(97%/3));
+}
+
+.token{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent; 
+    margin:5%;
+    opacity: 25%;
+}
+
+#focus-token
+{
+    background-image: url("https://i.imgur.com/FUPk0q9.png");
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#evade-token
+{
+    background-image: url("https://i.imgur.com/Dls1QSF.png");
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#stress-token{
+    background-image: url("https://i.imgur.com/geEgnx6.png");
+    grid-row: 3;
+    grid-column: 1; 
+}
+
+#ion-token{
+    background-image: url("https://i.imgur.com/pky2QIu.png");
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#jam-token{
+    background-image: url("https://i.imgur.com/SyMwBez.png");
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#weapons-disabled-token{
+    background-image: url("https://i.imgur.com/cKtkZ63.png");
+    grid-row: 3;
+    grid-column: 2; 
+}
+
+#cloak-token{
+    background-image: url("https://i.imgur.com/TlTTykx.png");
+    grid-row: 1;
+    grid-column: 3;
+}
+
+#reinforce-token{
+    background-image: url("https://i.imgur.com/ffuItcQ.png");
+    grid-row:2;
+    grid-column: 3;
+}
+
+#tractor-beam-token{
+    background-image: url("https://i.imgur.com/3wmhkWB.png");
+    grid-row: 3;
+    grid-column: 3;
+}
+
+#upgrade-token{
+    background-image: url("https://i.imgur.com/xOPUyGn.png");
+    grid-row: 1;
+    grid-column: 4;
+    opacity: 100%;
+}
+
+#critical-hit-token{
+    background-image: url("https://i.imgur.com/JNlHDKX.png");
+    grid-row: 2;
+    grid-column: 4;
+    opacity: 100%;
+}
+
+#condition-token{
+    background-image: url("https://i.imgur.com/ZT9d44p.png");
+    grid-row: 3;
+    grid-column: 4;
+    opacity: 100%;
+}
+
+/*
+Overlay and pop-up screens
+*/
+#overlay{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+.pop-up-title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+}
+
+.pop-up-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 40%;
+    visibility: hidden;
+    text-align: center;
+}
+
+.yes-button{
+    width: 25%;
+    height: 25vh;
+}
+
+.no-button{
+    width: 25%;
+    height: 25vh;
+}
+
+
+
+.pop-up-prev-button{
+    background-image: url("https://i.imgur.com/IWOoJwp.png");
+    grid-column: 2/5;
+    grid-row: 6/9;
+}
+
+.pop-up-next-button{
+    background-image: url("https://i.imgur.com/I7pRm3g.png");
+    grid-column: 13/16;
+    grid-row: 6/9;
+
+}
+
+#condition-pop-up{
+    display: grid;
+    grid-template-columns: repeat(16,calc(100%/16));
+    grid-template-rows: repeat(17,calc(70vh/17));
+}
+
+#condition-title{
+    grid-row: 1;
+    grid-column: 1/17;
+    width: auto;
+    border: none;
+}
+
+#condition-back-btn{
+    grid-column: 2/8;
+    grid-row: 15/17;
+    width: auto;
+    height: auto;
+}
+
+#condition-select-btn{
+    grid-column: 10/16;
+    grid-row: 15/17;
+    width: auto;
+    height: auto;
+}
+
+.pop-up-image{
+    grid-column: 5/13;
+    grid-row: 3/14;
+    border: 1px solid white;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent; 
+    background-image: url("https://i.imgur.com/HaeAycy.png");
 }
