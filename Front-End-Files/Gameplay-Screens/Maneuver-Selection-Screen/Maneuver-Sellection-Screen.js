@@ -170,7 +170,7 @@ function next_condition()
     document.getElementById("condition-pop-up-image").style.backgroundImage = "url('"+game_data.all_conditions[condition_index].image_path+"')";
 }
 
-//Assignes selected condtion to ship, saves all teams, then shows all teams.
+//Assigns selected condtion to ship, saves all teams, then shows all teams.
 function assign_condition()
 {
     all_teams[team_index].ship_list[selected_ship_index].conditions.push(JSON.parse(JSON.stringify(game_data.all_conditions[condition_index])));//Used parse and stringify because these are used to deep copy and object so there is a seperate instance besides the one in game data.
@@ -178,4 +178,36 @@ function assign_condition()
     card_type_label.innerText = "Critical Hit Cards";
     cycle_button_click();
     hide_pop_up("condition-pop-up");
+}
+
+//changes the maneuver for the ship to select.
+function next_maneuver_click()
+{
+    if(maneuver_index >= all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers.length -1)
+    {
+        maneuver_index = 0;
+    }
+    else 
+    {
+        maneuver_index++;
+    }
+    console.log("maneuver index: "+maneuver_index);
+    maneuver_type_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+"')";
+    maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
+}
+
+//chanes the maneuver for the ship to select.
+function previous_maneuver_click()
+{
+    if(maneuver_index <= 0)
+    {
+        maneuver_index = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers.length -1;
+    }
+    else 
+    {
+        maneuver_index--;
+    }
+    console.log("maneuver index: "+maneuver_index);
+    maneuver_type_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+"')";
+    maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
 }

@@ -143,13 +143,13 @@ Buttons
     margin-top: -8%;
 }
 
-#previous-button{
+#previous-maneuver-button{
     grid-column: 9/12;
     grid-row: 8/11;
     background-image: url("https://i.imgur.com/IWOoJwp.png");
 }
 
-#next-button{
+#next-maneuver-button{
     grid-row: 8/11;
     grid-column: 13/16;
     background-image: url("https://i.imgur.com/I7pRm3g.png");
