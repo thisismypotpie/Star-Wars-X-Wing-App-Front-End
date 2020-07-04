@@ -462,11 +462,53 @@ Overlay and pop-up screens
 }
 
 .pop-up-image{
-    grid-column: 5/13;
-    grid-row: 3/14;
     border: 1px solid white;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: transparent; 
+}
+
+/*Image from pop up for choosing a condition card.*/
+#condition-pop-up-image{
+    grid-column: 5/13;
+    grid-row: 3/14;
+
     background-image: url("https://i.imgur.com/HaeAycy.png");
+}
+
+/*Image for the pop up for removing cards from the ordered list.*/
+#removal-image{
+    
+    height: 50vh;
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#no-remove-button{
+    width: 30%;
+    height: 10vh;
+    margin-left: 5%;
+    margin-right:5%;
+}
+
+#yes-remove-button{
+    width:30%;
+    height: 10vh;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.removal-container-so-flip-button-and-image-can-be-inline{
+    display: flex;
+}
+
+#flip-button-for-removal-pop-up{
+    width: 15%;
+    height: 15vh;
+    margin-left: 10%;
+    margin-top:10%;
+    visibility: hidden;
 }

@@ -40,6 +40,7 @@ cycle_button_click();
 //Thiis function will cycles through types of cards based on what is showing up currently.
 function cycle_button_click()
 {
+    var index_attribute = 0;
     Array.from(document.getElementsByClassName("card-type-image")).forEach(card=>{
          card_list.removeChild(card);
     })
@@ -57,7 +58,10 @@ function cycle_button_click()
             crit_hit_div.style.margin = "3%";
             crit_hit_div.style.height = "75%";
             crit_hit_div.style.flex = "0 0 90%";//width is here.
+            let input_index = index_attribute;//I did that beccase as index attribute changed, it moved all of the previous cards to the same number rather than each card having its own index number.
+            crit_hit_div.onclick =function(){show_pop_up_with_card_type_and_index("card-removal-pop-up",input_index,card_type_label.textContent);};
             card_list.appendChild(crit_hit_div);
+            index_attribute++;
         })
     }
     else if(card_type_label.innerText == "Critical Hit Cards")
@@ -73,7 +77,11 @@ function cycle_button_click()
             condition_div.style.margin = "3%";
             condition_div.style.height = "75%";
             condition_div.style.flex = "0 0 90%";//width is here.
+            let input_index = index_attribute;//I did that beccase as index attribute changed, it moved all of the previous cards to the same number rather than each card having its own index number.
+            condition_div.onclick =function(){show_pop_up_with_card_type_and_index("card-removal-pop-up",input_index,card_type_label.textContent);};
+            condition_div.setAttribute("index",index_attribute);
             card_list.appendChild(condition_div);
+            index_attribute++;
         })
     }
     else if(card_type_label.innerText == "Conditions")
@@ -96,7 +104,11 @@ function cycle_button_click()
             upgrade_div.style.margin = "3%";
             upgrade_div.style.height = "75%";
             upgrade_div.style.flex = "0 0 90%";//Width is here.
+            let input_index = index_attribute;//I did that beccase as index attribute changed, it moved all of the previous cards to the same number rather than each card having its own index number.
+            upgrade_div.onclick =function(){show_pop_up_with_card_type_and_index("card-removal-pop-up",input_index,card_type_label.textContent);};
+            upgrade_div.setAttribute("index",index_attribute);
             card_list.appendChild(upgrade_div);
+            index_attribute++;
         })
     }
     else
@@ -123,6 +135,39 @@ function hide_pop_up(pop_up_id)
     overlay.style.opacity = 0;
     pop_up.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
+}
+//This function will make a pop up visible and have the upgrade in question to remove.
+function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
+{
+    let pop_up = document.getElementById(pop_up_id);
+    let overlay = document.getElementById("overlay");
+    let removal_image = document.getElementById("removal-image");
+    if(card_type == "Upgrades")
+    {
+        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics.includes("Dual"))
+        {
+            removal_image.style.border = "3px solid red";
+            removal_image.setAttribute("orientation","front");
+            document.getElementById("flip-button-for-removal-pop-up").style.visibility ="Visible";
+        }
+        removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[0]+"')";
+    }
+    else if(card_type == "Conditions")
+    {
+        removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].conditions[index].image_path+"')";
+    }
+    else if(card_type == "Critical Hit Cards")
+    {
+        removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards[index].image_path+"')";
+    }
+    else
+    {
+        alert("ERROR: Cannot determine what kind of card will show up in the removal pop up.");
+    }
+    overlay.style.opacity = 1;
+    pop_up.style.visibility = "visible";
+    overlay.style.pointerEvents = "all";
+    document.getElementById(pop_up_id).focus();
 }
 
 
@@ -210,4 +255,10 @@ function previous_maneuver_click()
     console.log("maneuver index: "+maneuver_index);
     maneuver_type_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+"')";
     maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
+}
+
+//This function will activate the flip button based on the flip button in the input.
+function flip_button_click(flip_button_element_name)
+{
+    //write code for flipping based on the orientation attribute that should have been set on dual sided upgrades.
 }
