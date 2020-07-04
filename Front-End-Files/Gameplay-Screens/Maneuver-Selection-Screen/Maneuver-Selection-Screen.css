@@ -512,3 +512,42 @@ Overlay and pop-up screens
     margin-top:10%;
     visibility: hidden;
 }
+
+/*
+Css for token pop-up
+*/
+#token-quantity-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(40vh/12));
+}
+#ok-button{
+    grid-row: 10/12;
+    grid-column: 4/10;
+}
+#token-title{
+    grid-row: 1;
+    grid-column: 1/13;
+}
+#token-image{
+    grid-row: 3/9;
+    grid-column: 4/10;
+    border:none;
+}
+#minus-button{
+    grid-row: 5/7;
+    grid-column: 2/4;
+    font-weight: bold;
+}
+#plus-button{
+    grid-row: 5/7;
+    grid-column: 10/12;
+    font-weight: bold;
+}
+#token-quantity{
+    grid-row: 7/9;
+    grid-column: 9/11;
+    font-weight: bold;
+    font-size: 4vw;
+    color:;
+}

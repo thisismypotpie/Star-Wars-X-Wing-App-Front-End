@@ -125,7 +125,7 @@ function cycle_button_click()
     }
     else
     {
-        alert("ERROR: No card type could be determined.");
+        alert("ERROR: No card type could be determined: "+card_type_label.innerText);
     }
     
 }
@@ -154,6 +154,7 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     let pop_up = document.getElementById(pop_up_id);
     let overlay = document.getElementById("overlay");
     let removal_image = document.getElementById("removal-image");
+    let yes_button = document.getElementById("yes-remove-button");//Used to set the type of card and index of that card if the yes button is pressed.
     if(card_type == "Upgrades")
     {
         if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics!= null &&
@@ -174,19 +175,23 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
             {
                 alert("ERROR: Could not determine orientation of an upgrade in the show remove pop up function.");
             }
+
         }
         else
         {
             removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path+"')";
         }
+        yes_button.onclick = function(){remove_card(card_type,index)};
     }
     else if(card_type == "Conditions")
     {
         removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].conditions[index].image_path+"')";
+        yes_button.onclick = function(){remove_card(card_type,index)};
     }
     else if(card_type == "Critical Hit Cards")
     {
         removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards[index].image_path+"')";
+        yes_button.onclick = function(){remove_card(card_type,index)};
     }
     else
     {
@@ -311,7 +316,45 @@ function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,inde
     }
 }
 
-function augment_token_quantity(token_type)
+function remove_card(card_type,index)
 {
-    
+    if(card_type == "Upgrades")
+    {
+        all_teams[team_index].ship_list[selected_ship_index].upgrades.splice(index,1);
+        card_type_label.textContent = "Conditions";
+        cycle_button_click();
+    }
+    else if(card_type == "Conditions")
+    {
+        all_teams[team_index].ship_list[selected_ship_index].conditions.splice(index,1);
+        card_type_label.textContent = "Critical Hit Cards";
+        cycle_button_click();
+    }
+    else if(card_type == "Critical Hit Cards")
+    {
+        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.splice(index,1);
+        card_type_label.textContent = "Upgrades";
+        cycle_button_click();
+    }
+    else
+    {
+        alert("ERROR: Could not determine card type while trying to remove card.");
+        return;
+    }
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    hide_pop_up('card-removal-pop-up');
+    document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';
+    document.getElementById('removal-image').style.border = '1px solid white';
+}
+
+//This will be to show the pop up for changing the quantity of a token. The tokene type will be used in an eval statement and the parent id will be used to get the background image
+function augment_token_quantity(token_type,parent_id)
+{
+    let parent_element = document.getElementById(parent_id);
+    var img = document.getElementById(parent_id),
+    style = img.currentStyle || window.getComputedStyle(img, false),
+    bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+
+    document.getElementById('token-image').style.backgroundImage = "url('"+bg_image_url+"')";
+    show_pop_up('token-quantity-pop-up');
 }
