@@ -3,3 +3,4 @@
 - Come up with the database schema for loading and saving games.
 -Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
 - Add a current maneuver variable to each ship.
+- I am going to need a way to make it so when someone flips an upgrade, it stays until the user flips it again. This way the program will keep track of which orientation the upgrade is in.

@@ -56,15 +56,15 @@
         <div class = "test-div-border stat-text" id="energy-text"></div>
 
         <div id = "token-box">
-          <div class ="token" id = "focus-token" onclick=""></div>
-          <div class = "token" id = "evade-token" onclick=""></div>
-          <div class = "token" id = "stress-token" onclick=""></div>
-          <div class = "token" id = "ion-token" onclick=""></div>
-          <div class = "token" id = "jam-token" onclick=""></div>
-          <div class = "token" id = "weapons-disabled-token" onclick=""></div>
-          <div class = "token" id = "cloak-token" onclick=""></div>
-          <div class = "token" id = "reinforce-token" onclick=""></div>
-          <div class = "token" id = "tractor-beam-token" onclick=""></div>
+          <div class ="token" id = "focus-token" onclick="augment_token_quantity('focus_tokens')"></div>
+          <div class = "token" id = "evade-token" onclick="augment_token_quantity('evade_tokens')"></div>
+          <div class = "token" id = "stress-token" onclick="augment_token_quantity('stress_tokens')"></div>
+          <div class = "token" id = "ion-token" onclick="augment_token_quantity('ion_tokens')"></div>
+          <div class = "token" id = "jam-token" onclick="augment_token_quantity('jam_tokens')"></div>
+          <div class = "token" id = "weapons-disabled-token" onclick="augment_token_quantity('weapons_disabled_tokens')"></div>
+          <div class = "token" id = "cloak-token" onclick="augment_token_quantity('cloak_tokens')"></div>
+          <div class = "token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_token')"></div>
+          <div class = "token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens')"></div>
           <div class = "token" id = "upgrade-token" onclick=""></div>
           <div class = "token" id = "critical-hit-token" onclick="show_pop_up('crit-hit-pop-up');"></div>
           <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
@@ -99,12 +99,19 @@
       <div class = "pop-up-container" id = "card-removal-pop-up">
       <div class = "pop-up-title">Remove this card?</div>
       <div class = "removal-container-so-flip-button-and-image-can-be-inline">
-        <button type = "button" class = "button" id = "flip-button-for-removal-pop-up"onclick="flip_button_click('flip-button-for-removal-pop-up')">flip</button>
+        <button type = "button" class = "button" id = "flip-button-for-removal-pop-up">flip</button>
         <div class = "pop-up-image" id = "removal-image"></div>
       </div>
       <button type = "button" class = "long-button no-button" id ="no-remove-button" onclick="hide_pop_up('card-removal-pop-up');document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';document.getElementById('removal-image').style.border = '1px solid white'">No</button>
       <button type = "button" class = "long-button yes-button" id = "yes-remove-button"onclick="">Yes</button>
+      </div>
 
+      <!--Pop up for adding/subtracting number of tokens-->
+      <div class = "pop-up-container" id = "token-quantity-pop-up">
+      <div class = "pop-up-title">Change Token Quantity</div>
+      <button type = "button" class = "button" id = "minus-button"onclick="">-</button>
+      <button type = "button" class = "button" id = "plus-button"onclick="">+</button>
+      <button type = "button" class = "long-button no-button" id ="no-button" onclick="hide_pop_up('token-quantity-pop-up');">OK</button>
       </div>
 
     </body>

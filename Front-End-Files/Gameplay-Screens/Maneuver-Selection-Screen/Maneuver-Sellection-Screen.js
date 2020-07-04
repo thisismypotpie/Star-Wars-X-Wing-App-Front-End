@@ -90,13 +90,25 @@ function cycle_button_click()
         all_teams[team_index].ship_list[selected_ship_index].upgrades.forEach(upgrade=>{
             var upgrade_div = document.createElement("div");
             upgrade_div.className = "card-type-image";
-            upgrade_div.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
             if(upgrade.characteristics != null && upgrade.characteristics.split("*").includes("Dual"))
             {
                 upgrade_div.style.border = "3px solid red";
+                if (upgrade.orientation == "front")
+                {
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
+                }
+                else if(upgrade.orientation  == "back")
+                {
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[1]+"')";
+                }
+                else
+                {
+                    alert("ERROR: Could not determine orientation type of dual sided upgrade.");
+                }
             }
             else
             {
+                upgrade_div.style.backgroundImage = "url('"+upgrade.image_path+"')";
                 upgrade_div.style.border = "1px solid white";
             }
             upgrade_div.style.backgroundRepeat = "no-repeat";
@@ -136,7 +148,7 @@ function hide_pop_up(pop_up_id)
     pop_up.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
 }
-//This function will make a pop up visible and have the upgrade in question to remove.
+//This function will make a pop up visible and have the card in question to remove or flip if it is a two sided upgrade.
 function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
 {
     let pop_up = document.getElementById(pop_up_id);
@@ -144,13 +156,29 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     let removal_image = document.getElementById("removal-image");
     if(card_type == "Upgrades")
     {
-        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics.includes("Dual"))
+        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics!= null &&
+           all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics.includes("Dual"))
         {
             removal_image.style.border = "3px solid red";
-            removal_image.setAttribute("orientation","front");
             document.getElementById("flip-button-for-removal-pop-up").style.visibility ="Visible";
+            document.getElementById("flip-button-for-removal-pop-up").onclick = function(){flip_button_click_for_dual_sided_upgrades('removal-image',index)};
+            if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "front")
+            {
+                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[0]+"')";
+            }
+            else if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "back")
+            {
+                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[1]+"')";
+            }
+            else
+            {
+                alert("ERROR: Could not determine orientation of an upgrade in the show remove pop up function.");
+            }
         }
-        removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[0]+"')";
+        else
+        {
+            removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path+"')";
+        }
     }
     else if(card_type == "Conditions")
     {
@@ -257,8 +285,33 @@ function previous_maneuver_click()
     maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
 }
 
-//This function will activate the flip button based on the flip button in the input.
-function flip_button_click(flip_button_element_name)
+//This will flip the card in the remove card pop up but also flip the upgrade in question on the card list permanently.
+function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,index)
 {
-    //write code for flipping based on the orientation attribute that should have been set on dual sided upgrades.
+    let image_div = document.getElementById(flip_button_element_name);
+    if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "front")
+    {
+            image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split('\n')[1]+"')";
+            all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation = "back";
+            card_type_label.textContent = "Conditions";
+            cycle_button_click();
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    }
+    else if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "back")
+    {
+        image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split('\n')[0]+"')";
+        all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation = "front";
+        card_type_label.textContent = "Conditions";
+        cycle_button_click();
+        sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    }
+    else
+    {
+        alert("ERROR: Could not determine flip button upgrade orientation type.");
+    }
+}
+
+function augment_token_quantity(token_type)
+{
+    
 }
