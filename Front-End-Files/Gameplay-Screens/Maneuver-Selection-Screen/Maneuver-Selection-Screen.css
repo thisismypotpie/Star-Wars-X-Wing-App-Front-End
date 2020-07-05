@@ -297,6 +297,10 @@ This section of code is for the token box on the bottom left corner.
     background-color: transparent; 
     margin:5%;
     opacity: 25%;
+    text-align: end;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
 }
 
 #focus-token

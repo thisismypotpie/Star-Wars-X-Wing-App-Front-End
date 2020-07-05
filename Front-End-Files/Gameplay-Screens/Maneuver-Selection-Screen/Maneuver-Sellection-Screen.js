@@ -21,6 +21,12 @@ var card_type_label = document.getElementById("card-type-label");
 var card_list = document.getElementById("card-box");
 var team_name_label = document.getElementById("team-name-label");
 
+//call the function that sets up the screen.
+set_up_maneuver_screen();
+
+
+function set_up_maneuver_screen()
+{
 //Set the first pilot to select maneuver of  the first team.
 pilot_image.style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.image_path+")";
 roster_number_label.innerText = all_teams[team_index].ship_list[selected_ship_index].roster_number;
@@ -32,9 +38,34 @@ shield_label.innerText = all_teams[team_index].ship_list[selected_ship_index].cu
 energy_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_energy;
 maneuver_range_label.style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+")";
 maneuver_type_label.style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+")";
+
+//This section will help to set up the card screen by setting the name to conditions, and pressing the button so all of the upgrades show up.
 card_type_label.textContent = "Conditions";
 team_name_label.innerText = all_teams[team_index].team_name;
 cycle_button_click();
+
+//This section will help to set up the token box.
+document.getElementById("focus-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].focus_tokens;
+document.getElementById("evade-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].evade_tokens;
+document.getElementById("stress-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].stress_tokens;
+document.getElementById("ion-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].ion_tokens;
+document.getElementById("jam-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].jam_tokens;
+document.getElementById("weapons-disabled-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].weapons_disabled_tokens;
+document.getElementById("cloak-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].cloak_tokens;
+document.getElementById("reinforce-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].reinforce_tokens;
+document.getElementById("tractor-beam-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].tractor_beam_tokens;
+Array.from(document.getElementsByClassName(" numerable-token")).forEach(token=>{
+    if(token.textContent != "x0")
+    {
+        token.style.opacity = 1;
+    }
+    else
+    {
+        token.style.opacity = 0.25;
+    }
+})
+}
+
 
 
 //Thiis function will cycles through types of cards based on what is showing up currently.
@@ -358,4 +389,43 @@ function augment_token_quantity(token_type,parent_id)
     let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
     eval(eval_string);
     show_pop_up('token-quantity-pop-up');
+    document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_id)};
+    document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_id)};
+
+}
+
+//This is what happens when you click the plus button when augmenting your number of tokens.
+function plus_button_click(token_type,parent_id)
+{
+    let parent_element = document.getElementById(parent_id);
+    var eval_string = "all_teams[team_index].ship_list[selected_ship_index]."+token_type+"++";//Increase the token type by one.
+    eval(eval_string);
+    eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update pop up with the correct number of this token.
+    eval(eval_string);
+    eval_string = "parent_element.textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
+    eval(eval_string);
+    parent_element.style.opacity = 1;
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+//This is what happens when you click the minus button when augmenting your number of tokens.
+function minus_button_click(token_type,parent_id)
+{
+    let parent_element = document.getElementById(parent_id);
+    var eval_string = "if(all_teams[team_index].ship_list[selected_ship_index]."+token_type+" >0){all_teams[team_index].ship_list[selected_ship_index]."+token_type+"--;}";
+    eval(eval_string);
+    eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
+    eval(eval_string);
+    eval_string = "parent_element.textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
+    eval(eval_string);
+    //The following line with remove text fromt the box, set opacity back to 0.25 and reset the token quantity to zero if it somehow got below zero.
+    eval_string = "if(all_teams[team_index].ship_list[selected_ship_index]."+token_type+" <=0){ parent_element.style.opacity = 0.25; all_teams[team_index].ship_list[selected_ship_index]."+token_type+"=0}";
+    eval(eval_string);
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+//This function will update the token box in the maneuver selection box.
+function update_token_box()
+{
+
 }

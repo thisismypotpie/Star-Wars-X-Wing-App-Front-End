@@ -56,15 +56,15 @@
         <div class = "test-div-border stat-text" id="energy-text"onclick="augment_token_quantity('current_energy','energy-image')"></div>
 
         <div id = "token-box">
-          <div class ="token" id = "focus-token" onclick="augment_token_quantity('focus_tokens','focus-token')"></div>
-          <div class = "token" id = "evade-token" onclick="augment_token_quantity('evade_tokens','evade-token')"></div>
-          <div class = "token" id = "stress-token" onclick="augment_token_quantity('stress_tokens','stress-token')"></div>
-          <div class = "token" id = "ion-token" onclick="augment_token_quantity('ion_tokens','ion-token')"></div>
-          <div class = "token" id = "jam-token" onclick="augment_token_quantity('jam_tokens','jam-token')"></div>
-          <div class = "token" id = "weapons-disabled-token" onclick="augment_token_quantity('weapons_disabled_tokens','weapons-disabled-token')"></div>
-          <div class = "token" id = "cloak-token" onclick="augment_token_quantity('cloak_tokens','cloak-token')"></div>
-          <div class = "token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_tokens','reinforce-token')"></div>
-          <div class = "token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens','tractor-beam-token')"></div>
+          <div class ="token numerable-token" id = "focus-token" onclick="augment_token_quantity('focus_tokens','focus-token')"></div>
+          <div class = "token numerable-token" id = "evade-token" onclick="augment_token_quantity('evade_tokens','evade-token')"></div>
+          <div class = "token numerable-token" id = "stress-token" onclick="augment_token_quantity('stress_tokens','stress-token')"></div>
+          <div class = "token numerable-token" id = "ion-token" onclick="augment_token_quantity('ion_tokens','ion-token')"></div>
+          <div class = "token numerable-token" id = "jam-token" onclick="augment_token_quantity('jam_tokens','jam-token')"></div>
+          <div class = "token numerable-token" id = "weapons-disabled-token" onclick="augment_token_quantity('weapons_disabled_tokens','weapons-disabled-token')"></div>
+          <div class = "token numerable-token" id = "cloak-token" onclick="augment_token_quantity('cloak_tokens','cloak-token')"></div>
+          <div class = "token numerable-token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_tokens','reinforce-token')"></div>
+          <div class = "token numerable-token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens','tractor-beam-token')"></div>
           <div class = "token" id = "upgrade-token" onclick=""></div>
           <div class = "token" id = "critical-hit-token" onclick="show_pop_up('crit-hit-pop-up');"></div>
           <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
@@ -111,9 +111,9 @@
       <div class = "pop-up-title" id="token-title">Change Token Quantity</div>
       <div class = "pop-up-image" id = "token-image"></div>
       <div class = "pop-up-title" id = "token-quantity">x0</div>
-      <button type = "button" class = "button" id = "minus-button"onclick="">-</button>
-      <button type = "button" class = "button" id = "plus-button"onclick="">+</button>
-      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');">OK</button>
+      <button type = "button" class = "button" id = "minus-button">-</button>
+      <button type = "button" class = "button" id = "plus-button">+</button>
+      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');update_token_box();">OK</button>
       </div>
 
     </body>
