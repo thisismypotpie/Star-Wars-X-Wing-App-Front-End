@@ -354,7 +354,8 @@ function augment_token_quantity(token_type,parent_id)
     var img = document.getElementById(parent_id),
     style = img.currentStyle || window.getComputedStyle(img, false),
     bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-
     document.getElementById('token-image').style.backgroundImage = "url('"+bg_image_url+"')";
+    let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
+    eval(eval_string);
     show_pop_up('token-quantity-pop-up');
 }

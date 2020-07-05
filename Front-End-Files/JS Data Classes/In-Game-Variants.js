@@ -1,3 +1,5 @@
+//This file is used when the random teams create a new team or when you are selecting a pilot and need create an in game class.
+
 const target_lock_status = {
     red: 'red',
     blue: 'blue'
@@ -15,15 +17,15 @@ class target_lock{
 
 class in_game_ship_status{
     //This constructor will set a default state based on the pilot sent to it.
-    constructor(incoming_pilot, name)
+    constructor(incoming_pilot, team_name)
     {
         this.upgrades = [];
         this.target_locks = [];
         this.critical_hit_cards = [];
         this.chosen_pilot = incoming_pilot;
         this.roster_number = 0;
-        this.chosen_maneuver = undefined;
-        this.team_name = name;
+        this.chosen_maneuver = null;
+        this.team_name = team_name;
         this.conditions = [];
         this.stress_tokens = 0;
         this.ion_tokens = 0;
@@ -33,6 +35,7 @@ class in_game_ship_status{
         this.tractor_beam_tokens = 0;
         this.reinforce_tokens = 0;
         this.cloak_tokens = 0;
+        this.evade_tokens = 0;
         this.current_attack = this.chosen_pilot.ship_name.attack;
         this.current_agility = this.chosen_pilot.ship_name.agility;
         this.current_sheilds = this.chosen_pilot.ship_name.shields;
@@ -94,31 +97,4 @@ function Calculate_cost_of_team(to_calculate)
         })
     }
     return cost;
-}
-//Checks to see if any member of a team has a specific upgrade.
-function Does_anyone_on_this_team_have_this_upgrade(to_compare, team)
-{
-    var upgrade_found = false;
-    team.ship_list.forEach(ship_member=>{
-        if(Does_this_ship_have_this_upgrade(to_compare,ship_member) == true)
-        {            
-            upgrade_found = true;
-        }
-    })
-    return upgrade_found;
-}
-//Checks to see if this function has a specified upgrade.
-function Does_this_ship_have_this_upgrade(to_compare, ship)
-{
-    var upgrade_found = false;
-    ship.upgrades.forEach(upgrade=>{
-        if(upgrade.name == to_compare.name &&
-        upgrade.type == to_compare.type &&
-        upgrade.cost == to_compare.cost &&
-        upgrade.characteristics == to_compare.characteristics)
-        {
-            upgrade_found = true;
-        }
-    })
-    return upgrade_found;
 }
