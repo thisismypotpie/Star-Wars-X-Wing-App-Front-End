@@ -1,10 +1,23 @@
 //Get data needed for this page.
 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-var selected_ship_index = 0;//Used to determine which ship is being displayed.
+var selected_ship_index = sessionStorage.getItem("selected_ship_index");//Used to determine which ship is being displayed.
 var maneuver_index = 0;//Used to determine what maneuver is being displayed.
-var team_index = 0;//Used to determine what team is being examined.
+var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
+
+//If there is no team index or selected ship index, then create them with a value of zero.
+if(selected_ship_index == null || selected_ship_index == undefined)
+{
+    selected_ship_index = 0;
+    sessionStorage.setItem("selected_ship_index",selected_ship_index);
+}
+if(team_index == null || selected_ship_index == undefined)
+{
+    team_index = 0;
+    sessionStorage.setItem("team_index",team_index);
+}
+
 
 //Grab element needed to manipulate.
 var pilot_image = document.getElementById("pilot-image");
@@ -424,8 +437,21 @@ function minus_button_click(token_type,parent_id)
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }
 
-//This function will update the token box in the maneuver selection box.
-function update_token_box()
+//This function will update stats of the ship such as attack , agility, shields, etc.
+function update_ship_stats()
 {
+    pilot_skill_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_pilot_skill;
+    attack_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_attack;
+    agility_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_agility;
+    hull_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_hull;
+    shield_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_sheilds;
+    energy_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_energy;
+}
 
+//This function will save important indecies and then go to the next screen.
+function go_to_upgrade_screen()
+{
+    sessionStorage.setItem("selected_ship_index",selected_ship_index);
+    sessionStorage.setItem("team_index",team_index);
+    window.location.href = './Alter-Upgrades-Screen/Alter-Upgrades-Screen.html';
 }

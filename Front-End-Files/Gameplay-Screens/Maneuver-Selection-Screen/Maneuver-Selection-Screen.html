@@ -65,7 +65,7 @@
           <div class = "token numerable-token" id = "cloak-token" onclick="augment_token_quantity('cloak_tokens','cloak-token')"></div>
           <div class = "token numerable-token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_tokens','reinforce-token')"></div>
           <div class = "token numerable-token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens','tractor-beam-token')"></div>
-          <div class = "token" id = "upgrade-token" onclick=""></div>
+          <div class = "token" id = "upgrade-token" onclick="go_to_upgrade_screen()"></div>
           <div class = "token" id = "critical-hit-token" onclick="show_pop_up('crit-hit-pop-up');"></div>
           <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
         </div>
@@ -113,7 +113,7 @@
       <div class = "pop-up-title" id = "token-quantity">x0</div>
       <button type = "button" class = "button" id = "minus-button">-</button>
       <button type = "button" class = "button" id = "plus-button">+</button>
-      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');update_token_box();">OK</button>
+      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');update_ship_stats();">OK</button>
       </div>
 
     </body>
