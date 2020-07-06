@@ -1,17 +1,14 @@
 //This file is used when the random teams create a new team or when you are selecting a pilot and need create an in game class.
 
-const target_lock_status = {
-    red: 'red',
-    blue: 'blue'
-}
-
 class target_lock{
-    constructor(assignment_number, image_path, status)
+    constructor(assignment_number,targetting_team,targetting_roster,targetted_team,targetted_roster)
     {
         
         this.assignment_number = assignment_number;
-        this.image_path = image_path;
-        this.status = status;
+        this.targetting_team = targetting_team;
+        this.targetting_roster = targetting_roster;
+        this.targetted_team = targetted_team;
+        this.gargetted_roster = targetted_roster;
     }
 }
 
@@ -125,4 +122,23 @@ function Does_this_ship_have_this_upgrade(to_compare, ship)
         }
     })
     return upgrade_found;
+}
+
+function get_next_available_target_number(all_locks)
+{
+    if(all_locks.length == 0)
+    {
+        return 1;
+    }
+    var numbers = all_locks.map(function(e){return e.assignment_number});
+    var chosen_number = undefined;
+    var current_number = 1;
+    while(chosen_number == undefined)
+    {
+        if(!numbers.includes(current_number))
+        {
+            chosen_number = current_number;
+        }
+    }
+    return chosen_number;
 }

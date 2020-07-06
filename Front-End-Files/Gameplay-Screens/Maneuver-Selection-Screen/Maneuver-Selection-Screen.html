@@ -29,7 +29,7 @@
 
         <button type = "button" class = "long-button" id = "search-button" onclick="">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
-        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_team_index = 0;">Add</button>
+        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_team_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;">Add</button>
         <button type = "button" class = "button" id = "previous-maneuver-button" onclick="previous_maneuver_click()"></button>
         <button type = "button" class = "button" id = "next-maneuver-button" onclick="next_maneuver_click()"></button>
         <button type = "button" class = "button" id = "flip-button" onclick="">Flip</button>
@@ -122,13 +122,14 @@
       <div class = "pop-up-title" id = "target-team">TestTestTest</div>
       <div class = "pop-up-title" id = "roster-number-target-lock-title">Roster Number:</div>
       <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
-      <button type = "button" class = "button" id = "previous-team-button"></button>
-      <button type = "button" class = "button" id = "next-team-button"></button>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_button_of_target_lock_pop_up_click()">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_button_of_target_lock_pop_up_click()">&#62;</button>
       <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
-      <button type = "button" class = "long-button" id = "ok-button-target-lock">Ok</button>
+      <button type = "button" class = "long-button" id = "ok-button-target-lock" onclick="add_target_lock()">Ok</button>
       <input type="text" id="roster-number-target-lock-input" name="roster-number">
       </div>
 
     </body>
+    <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
     </html>

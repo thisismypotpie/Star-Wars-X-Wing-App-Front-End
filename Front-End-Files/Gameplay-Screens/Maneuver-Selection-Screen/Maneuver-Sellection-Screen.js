@@ -1,6 +1,8 @@
 //Get data needed for this page.
 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+
+//Get/set indecies.
 var selected_ship_index = sessionStorage.getItem("selected_ship_index");//Used to determine which ship is being displayed.
 var maneuver_index = 0;//Used to determine what maneuver is being displayed.
 var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
@@ -19,6 +21,13 @@ if(team_index == null || selected_ship_index == undefined)
     sessionStorage.setItem("team_index",team_index);
 }
 
+//Set up target lock in session storage.
+var target_locks = sessionStorage.getItem("all_target_locks");
+if(target_locks == null || target_locks == undefined)
+{
+    target_locks = [];
+    sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
+}
 
 //Grab element needed to manipulate.
 var pilot_image = document.getElementById("pilot-image");
@@ -456,3 +465,51 @@ function go_to_upgrade_screen()
     sessionStorage.setItem("team_index",team_index);
     window.location.href = './Alter-Upgrades-Screen/Alter-Upgrades-Screen.html';
 }
+
+//This function will iterate the team index for target lock so that player can target a specific team.
+function next_button_of_target_lock_pop_up_click()
+{
+    target_lock_team_index++;
+    if(target_lock_team_index >= all_teams.length)
+    {
+        target_lock_team_index = 0;
+    }
+    document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;
+}
+
+//This function will deiterate the team index for target lock so that the player can target a specific team.
+function previous_button_of_target_lock_pop_up_click()
+{
+    target_lock_team_index--;
+    if(target_lock_team_index < 0)
+    {
+        target_lock_team_index = all_teams.length-1;
+    }
+    document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;
+}
+
+//This function will verify and check to make sure a valid target lock can be applied.
+function add_target_lock()
+{
+    var target_team = all_teams[target_lock_team_index];
+    var target_roster = parseInt(document.getElementById('roster-number-target-lock-input').value,10);
+    target_lock_team_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
+
+    if(target_roster == null || target_roster == undefined || isNaN(target_roster)||target_roster<0)
+    {
+        alert("The roster 'number' you picked is invalid. Please enter only a positive number.");
+        document.getElementById('roster-number-target-lock-input').value = "";
+        document.getElementById('roster-number-target-lock-input').focus();
+        return;
+    }
+    let ship = target_team.ship_list[target_team.ship_list.map(function(e){return e.roster_number}).indexOf(target_roster)];
+    if(ship == null || ship == undefined)
+    {
+        alert("The roster number was not found on this team.");
+        document.getElementById('roster-number-target-lock-input').value = "";
+        document.getElementById('roster-number-target-lock-input').focus();
+        return;
+    }
+    target_locks.push(new target_lock(get_next_available_target_number(target_locks),all_teams[team_index],all_teams[team_index.ship_list[selected_ship_index].roster_number],target_team,ship.roster_number));
+}
+

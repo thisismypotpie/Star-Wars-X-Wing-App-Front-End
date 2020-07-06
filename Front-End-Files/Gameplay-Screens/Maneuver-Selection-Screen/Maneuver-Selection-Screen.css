@@ -569,7 +569,7 @@ Css for token pop-up
     background-color: black;
     border: 1px solid white;
     text-align: center;
-    font-size:larger
+    font-size:x-large;
 }
 
 #target-lock-title{
@@ -586,19 +586,20 @@ Css for token pop-up
 
 
 #roster-number-target-lock-title{
-    grid-column: 3/11;
+    grid-column: 4/12;
     grid-row: 7;
     text-align: left;
     font-size: xx-large;
 }
 
 #roster-number-target-lock-input{
-    grid-column: 3/11;
+    grid-column: 4/10;
     grid-row: 8;
     background-color: black;
     color: white;
     font-family: Impact, Charcoal, sans-serif;
     font-size: 2vw;
+    text-align: center;
 }
 
 #ok-button-target-lock{
@@ -609,11 +610,13 @@ Css for token pop-up
 #back-button-target-lock{
     grid-column: 3/6;
     grid-row: 10/12;
+    text-align: center;
 }
 
 #previous-team-button{
     grid-column: 2;
-    grid-row: 5
+    grid-row: 5;
+    text-align: center;
 }
 
 #next-team-button{
