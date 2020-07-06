@@ -129,6 +129,18 @@
       <input type="text" id="roster-number-target-lock-input" name="roster-number">
       </div>
 
+      <!--Pop up for viewing a target lock-->
+      <div class = "pop-up-container" id = "target-lock-view-pop-up">
+        <div class = "pop-up-title" id= "target-lock-title">Target Lock Details</div>
+        <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-view-pop-up')">Back</button>
+        <button type = "button" class = "button" id = "target-lock-view-flip-button">Flip</button>
+        <button type = "button" class = "button" id = "target-lock-remove-button">Remove</button>
+        <div class = "pop-up-image" id= "targetter-image"></div>
+        <div class = "pop-up-image" id= "targetted-image"></div>
+        <div class = "pop-up-image" id= "targetter-stats"></div>
+        <div class = "pop-up-image" id= "targetted-stats"></div>
+      </div>
+
     </body>
     <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>

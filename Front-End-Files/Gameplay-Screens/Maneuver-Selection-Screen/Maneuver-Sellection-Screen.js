@@ -115,6 +115,7 @@ function set_up_target_lock_list()
                     blue_target_div.style.display = "flex";
                     blue_target_div.style.alignItems = "center";
                     blue_target_div.style.justifyContent = "center";
+                    blue_target_div.onclick = function(){show_pop_up('target-lock-view-pop-up')};
                     blue_target_div.style.fontSize = "x-large";
                     target_lock_box.appendChild(blue_target_div);
                 }
@@ -137,6 +138,7 @@ function set_up_target_lock_list()
                     red_target_div.style.alignItems = "center";
                     red_target_div.style.justifyContent = "center";
                     red_target_div.style.fontSize = "x-large";
+                    red_target_div.onclick = function(){show_pop_up('target-lock-view-pop-up')};
                     target_lock_box.appendChild(red_target_div);
                 }
             }

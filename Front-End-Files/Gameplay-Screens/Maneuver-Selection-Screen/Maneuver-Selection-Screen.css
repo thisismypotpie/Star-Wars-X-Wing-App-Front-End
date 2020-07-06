@@ -623,3 +623,31 @@ Css for token pop-up
     grid-column: 11;
     grid-row: 5 
 }
+
+/*
+This is the css for the target lock viewing pop-up
+*/
+#target-lock-view-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(80vh/12));
+}
+
+#targetter-image{
+    grid-column: 1/4;
+    grid-row: 3/9;
+}
+
+#targetter-stats{
+    grid-row: 3/9;
+    grid-column: 4/7;
+}
+#targetted-image{
+    grid-row: 3/9;
+    grid-column: 7/10; 
+}
+
+#targetted-stats{
+    grid-row: 3/9;
+    grid-column: 10/13; 
+}
