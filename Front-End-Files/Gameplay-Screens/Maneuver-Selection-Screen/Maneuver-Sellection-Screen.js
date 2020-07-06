@@ -5,6 +5,7 @@ var selected_ship_index = sessionStorage.getItem("selected_ship_index");//Used t
 var maneuver_index = 0;//Used to determine what maneuver is being displayed.
 var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
+var target_lock_team_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)

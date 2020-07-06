@@ -29,7 +29,7 @@
 
         <button type = "button" class = "long-button" id = "search-button" onclick="">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
-        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="">Add</button>
+        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_team_index = 0;">Add</button>
         <button type = "button" class = "button" id = "previous-maneuver-button" onclick="previous_maneuver_click()"></button>
         <button type = "button" class = "button" id = "next-maneuver-button" onclick="next_maneuver_click()"></button>
         <button type = "button" class = "button" id = "flip-button" onclick="">Flip</button>
@@ -114,6 +114,19 @@
       <button type = "button" class = "button" id = "minus-button">-</button>
       <button type = "button" class = "button" id = "plus-button">+</button>
       <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');update_ship_stats();">OK</button>
+      </div>
+
+      <!--Pop up for adding target locks-->
+      <div class = "pop-up-container" id = "target-lock-pop-up">
+      <div class = "pop-up-title" id= "target-lock-title">Acquire Target Lock</div>
+      <div class = "pop-up-title" id = "target-team">TestTestTest</div>
+      <div class = "pop-up-title" id = "roster-number-target-lock-title">Roster Number:</div>
+      <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
+      <button type = "button" class = "button" id = "previous-team-button"></button>
+      <button type = "button" class = "button" id = "next-team-button"></button>
+      <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
+      <button type = "button" class = "long-button" id = "ok-button-target-lock">Ok</button>
+      <input type="text" id="roster-number-target-lock-input" name="roster-number">
       </div>
 
     </body>
