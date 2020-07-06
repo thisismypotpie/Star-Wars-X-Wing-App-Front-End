@@ -22,7 +22,7 @@ if(team_index == null || selected_ship_index == undefined)
 }
 
 //Set up target lock in session storage.
-var target_locks = sessionStorage.getItem("all_target_locks");
+var target_locks = JSON.parse(sessionStorage.getItem("all_target_locks"));
 if(target_locks == null || target_locks == undefined)
 {
     target_locks = [];
@@ -43,6 +43,7 @@ var maneuver_type_label = document.getElementById("maneuver-type");
 var card_type_label = document.getElementById("card-type-label");
 var card_list = document.getElementById("card-box");
 var team_name_label = document.getElementById("team-name-label");
+var target_lock_box = document.getElementById("target-lock-box");
 
 //call the function that sets up the screen.
 set_up_maneuver_screen();
@@ -61,6 +62,7 @@ shield_label.innerText = all_teams[team_index].ship_list[selected_ship_index].cu
 energy_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_energy;
 maneuver_range_label.style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+")";
 maneuver_type_label.style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+")";
+
 
 //This section will help to set up the card screen by setting the name to conditions, and pressing the button so all of the upgrades show up.
 card_type_label.textContent = "Conditions";
@@ -87,6 +89,59 @@ Array.from(document.getElementsByClassName(" numerable-token")).forEach(token=>{
         token.style.opacity = 0.25;
     }
 })
+
+set_up_target_lock_list();
+
+}
+
+function set_up_target_lock_list()
+{
+    all_teams.forEach(team=>{
+        target_locks.forEach(target_lock=>{
+            if(target_lock.targetting_team == team.team_name)//Potentially create a blue target lock.
+            {
+                if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetting_roster)
+                {
+                    var blue_target_div = document.createElement("div");
+                    blue_target_div.style.border = "1px solid white";
+                    blue_target_div.style.backgroundRepeat = "no-repeat";
+                    blue_target_div.style.backgroundSize = "100% 100%";
+                    blue_target_div.style.backgroundImage = "url('https://i.imgur.com/ES0f0Qq.png')";
+                    blue_target_div.textContent = target_lock.assignment_number;
+                    blue_target_div.style.fontFamily = "Impact, Charcoal, sans-serif";
+                    blue_target_div.style.height = "50%";
+                    blue_target_div.style.border = "none";
+                    blue_target_div.style.color = "white";
+                    blue_target_div.style.display = "flex";
+                    blue_target_div.style.alignItems = "center";
+                    blue_target_div.style.justifyContent = "center";
+                    blue_target_div.style.fontSize = "x-large";
+                    target_lock_box.appendChild(blue_target_div);
+                }
+            }
+            if(target_lock.targetted_team == team.team_name)//Potentially create a red target lock.
+            {
+                if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetted_roster)
+                {
+                    var red_target_div = document.createElement("div");
+                    red_target_div.style.border = "1px solid white";
+                    red_target_div.style.backgroundRepeat = "no-repeat";
+                    red_target_div.style.backgroundSize = "100% 100%";
+                    red_target_div.style.backgroundImage = "url('https://i.imgur.com/V4DYCY4.png')";
+                    red_target_div.textContent = target_lock.assignment_number;
+                    red_target_div.style.fontFamily = "Impact, Charcoal, sans-serif";
+                    red_target_div.style.height = "50%";
+                    red_target_div.style.border = "none";
+                    red_target_div.style.color = "white";
+                    red_target_div.style.display = "flex";
+                    red_target_div.style.alignItems = "center";
+                    red_target_div.style.justifyContent = "center";
+                    red_target_div.style.fontSize = "x-large";
+                    target_lock_box.appendChild(red_target_div);
+                }
+            }
+        })
+    })
 }
 
 
@@ -510,6 +565,10 @@ function add_target_lock()
         document.getElementById('roster-number-target-lock-input').focus();
         return;
     }
-    target_locks.push(new target_lock(get_next_available_target_number(target_locks),all_teams[team_index],all_teams[team_index.ship_list[selected_ship_index].roster_number],target_team,ship.roster_number));
+    target_locks.push(new target_lock(get_next_available_target_number(target_locks),all_teams[team_index].team_name,all_teams[team_index].ship_list[selected_ship_index].roster_number,target_team.team_name,ship.roster_number));
+    sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
+    document.getElementById('roster-number-target-lock-input').value = "";
+    set_up_target_lock_list();
+    hide_pop_up('target-lock-pop-up');
 }
 

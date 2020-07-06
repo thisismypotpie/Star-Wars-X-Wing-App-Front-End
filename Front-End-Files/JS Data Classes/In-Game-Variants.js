@@ -8,7 +8,7 @@ class target_lock{
         this.targetting_team = targetting_team;
         this.targetting_roster = targetting_roster;
         this.targetted_team = targetted_team;
-        this.gargetted_roster = targetted_roster;
+        this.targetted_roster = targetted_roster;
     }
 }
 
@@ -130,14 +130,23 @@ function get_next_available_target_number(all_locks)
     {
         return 1;
     }
+    all_locks = Array.from(all_locks);
     var numbers = all_locks.map(function(e){return e.assignment_number});
     var chosen_number = undefined;
     var current_number = 1;
     while(chosen_number == undefined)
     {
-        if(!numbers.includes(current_number))
+        if(!numbers.includes(current_number) || current_number > 10000)
         {
             chosen_number = current_number;
+        }
+        else
+        {
+            current_number++;
+        }
+        if(current_number > 10000)
+        {
+            alert("ERROR: could not determine an assignment number for a target lock.");
         }
     }
     return chosen_number;
