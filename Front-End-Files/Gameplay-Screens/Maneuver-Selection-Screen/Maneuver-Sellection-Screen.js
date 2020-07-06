@@ -115,7 +115,7 @@ function set_up_target_lock_list()
                     blue_target_div.style.display = "flex";
                     blue_target_div.style.alignItems = "center";
                     blue_target_div.style.justifyContent = "center";
-                    blue_target_div.onclick = function(){show_pop_up('target-lock-view-pop-up')};
+                    blue_target_div.onclick = function(){populate_target_lock_view_popup(target_lock.assignment_number);show_pop_up('target-lock-view-pop-up');};
                     blue_target_div.style.fontSize = "x-large";
                     target_lock_box.appendChild(blue_target_div);
                 }
@@ -138,7 +138,7 @@ function set_up_target_lock_list()
                     red_target_div.style.alignItems = "center";
                     red_target_div.style.justifyContent = "center";
                     red_target_div.style.fontSize = "x-large";
-                    red_target_div.onclick = function(){show_pop_up('target-lock-view-pop-up')};
+                    red_target_div.onclick = function(){populate_target_lock_view_popup(target_lock.assignment_number);show_pop_up('target-lock-view-pop-up')};
                     target_lock_box.appendChild(red_target_div);
                 }
             }
@@ -146,7 +146,31 @@ function set_up_target_lock_list()
     })
 }
 
-
+//This function will populate the information of the target lock view before showing it. IT will get picutes and stats.
+function populate_target_lock_view_popup(passed_assignment_number)
+{
+    var target_index = target_locks.map(function(e){return e.assignment_number}).indexOf(passed_assignment_number);
+    var attacking_team = all_teams.find(team => team.team_name == target_locks[target_index].targetting_team);
+    var defending_team = all_teams.find(team => team.team_name == target_locks[target_index].targetted_team);
+    var attacking_ship = attacking_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetting_roster);
+    var defending_ship = attacking_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetted_roster);
+    document.getElementById('targetter-image').style.backgroundImage = "url('"+attacking_ship.chosen_pilot.image_path+"')";  
+    document.getElementById('targetted-image').style.backgroundImage = "url('"+defending_ship.chosen_pilot.image_path+"')"; 
+    document.getElementById('roster-tl-attack').textContent = attacking_ship.roster_number; 
+    document.getElementById('pilot-skill-tl-attack').textContent = attacking_ship.current_pilot_skill; 
+    document.getElementById('attack-tl-attack').textContent = attacking_ship.current_attack; 
+    document.getElementById('agility-tl-attack').textContent = attacking_ship.current_agility; 
+    document.getElementById('hull-tl-attack').textContent = attacking_ship.current_hull; 
+    document.getElementById('shield-tl-attack').textContent = attacking_ship.current_sheilds; 
+    document.getElementById('energy-tl-attack').textContent = attacking_ship.current_energy; 
+    document.getElementById('roster-tl-defend').textContent = defending_ship.roster_number; 
+    document.getElementById('pilot-skill-defend').textContent = defending_ship.current_pilot_skill; 
+    document.getElementById('attack-tl-defend').textContent = defending_ship.current_attack; 
+    document.getElementById('agility-tl-defend').textContent = defending_ship.current_agility; 
+    document.getElementById('hull-tl-defend').textContent = defending_ship.current_hull; 
+    document.getElementById('shield-tl-defend').textContent = defending_ship.current_sheilds; 
+    document.getElementById('energy-tl-defend').textContent = defending_ship.current_energy; 
+}
 
 //Thiis function will cycles through types of cards based on what is showing up currently.
 function cycle_button_click()

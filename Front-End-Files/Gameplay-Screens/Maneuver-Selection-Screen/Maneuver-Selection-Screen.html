@@ -132,13 +132,46 @@
       <!--Pop up for viewing a target lock-->
       <div class = "pop-up-container" id = "target-lock-view-pop-up">
         <div class = "pop-up-title" id= "target-lock-title">Target Lock Details</div>
+        <div class = "pop-up-title" id= "target-lock-attacker-title">Attacker</div>
+        <div class = "pop-up-title" id= "target-lock-defender-title">Defender</div>
         <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-view-pop-up')">Back</button>
-        <button type = "button" class = "button" id = "target-lock-view-flip-button">Flip</button>
+        <button type = "button" class = "button" id = "target-lock-view-flip-button-attacker">Flip</button>
+        <button type = "button" class = "button" id = "target-lock-view-flip-button-defender">Flip</button>
         <button type = "button" class = "button" id = "target-lock-remove-button">Remove</button>
         <div class = "pop-up-image" id= "targetter-image"></div>
         <div class = "pop-up-image" id= "targetted-image"></div>
-        <div class = "pop-up-image" id= "targetter-stats"></div>
-        <div class = "pop-up-image" id= "targetted-stats"></div>
+        
+        <div class = "pop-up-image" id= "targetter-stats">
+          <div class = "stat-image" id="roster-image-tl"></div>
+          <div class = "stat-image" id="pilot-skill-image-tl"></div>
+          <div class = "stat-image" id="attack-image-tl"></div>
+          <div class = "stat-image" id="agility-image-tl"></div>
+          <div class = "stat-image" id="hull-image-tl"></div>
+          <div class = "stat-image" id="shield-image-tl"></div>
+          <div class = "stat-image" id="energy-image-tl"></div>
+          <div class = "roster-text-tl stat-text" id="roster-tl-attack">:xx</div>
+          <div class = "pilot-skill-text-tl stat-text" id="pilot-skill-tl-attack">:xx</div>
+          <div class = "attack-text-tl stat-text" id="attack-tl-attack">:xx</div>
+          <div class = "agility-text-tl stat-text" id="agility-tl-attack">:xx</div>
+          <div class = "hull-text-tl stat-text" id="hull-tl-attack">:xx</div>
+          <div class = "shield-text-tl stat-text" id="shield-tl-attack">:xx</div>
+          <div class = "energy-text-tl stat-text" id="energy-tl-attack">:xx</div>
+      </div>
+      <div class = "pop-up-image" id= "targetted-stats">
+        <div class = "stat-image" id="roster-image-tl"></div>
+        <div class = "stat-image" id="pilot-skill-image-tl"></div>
+        <div class = "stat-image" id="attack-image-tl"></div>
+        <div class = "stat-image" id="agility-image-tl"></div>
+        <div class = "stat-image" id="hull-image-tl"></div>
+        <div class = "stat-image" id="shield-image-tl"></div>
+        <div class = "stat-image" id="energy-image-tl"></div>
+        <div class = "roster-text-tl stat-text" id="roster-tl-defend">:xx</div>
+        <div class = "pilot-skill-text-tl stat-text" id="pilot-skill-defend">:xx</div>
+        <div class = "attack-text-tl stat-text" id="attack-tl-defend">:xx</div>
+        <div class = "agility-text-tl stat-text" id="agility-tl-defend">:xx</div>
+        <div class = "hull-text-tl stat-text" id="hull-tl-defend">:xx</div>
+        <div class = "shield-text-tl stat-text" id="shield-tl-defend">:xx</div>
+        <div class = "energy-text-tl stat-text" id="energy-tl-defend">:xx</div>
       </div>
 
     </body>
