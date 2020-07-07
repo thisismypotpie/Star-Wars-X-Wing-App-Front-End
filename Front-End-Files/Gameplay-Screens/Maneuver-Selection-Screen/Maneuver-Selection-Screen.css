@@ -173,6 +173,12 @@ Buttons
     grid-column: 2/6;
 }
 
+#return-button{
+    grid-row:1;
+    grid-column: 2/6;
+    visibility: hidden;
+}
+
 #select-button{
     grid-row: 1;
     grid-column: 8/20;

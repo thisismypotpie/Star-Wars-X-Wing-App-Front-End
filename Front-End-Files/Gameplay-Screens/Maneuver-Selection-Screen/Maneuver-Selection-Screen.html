@@ -10,7 +10,7 @@
     <body>
       <div class = "grid-container">
         <div class = "page-title">Maneuver Selection</div>
-        <div class = "team-mate-maneuvers-label">Team-Mate Maneuvers</div>
+        <div class = "team-mate-maneuvers-label" id = "team-mate-maneuvers-label">Team-Mate Maneuvers</div>
         <div class = "card-type-label" id = "card-type-label">Card Type</div>
         <div id = "target-lock-label">Target Locks</div>
         <div id = "team-label">Team:</div>
@@ -36,6 +36,7 @@
 
         <div class = "button-container">
           <button type = "button" class = "button" id = "back-button" onclick="">Back</button>
+          <button type = "button" class = "button" id = "return-button" onclick="return_to_main_screen()">Retrun</button>     
           <button type = "button" class = "long-button" id = "select-button" onclick="">Select</button>
         </div>
 
@@ -122,8 +123,8 @@
       <div class = "pop-up-title" id = "target-team">TestTestTest</div>
       <div class = "pop-up-title" id = "roster-number-target-lock-title">Roster Number:</div>
       <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
-      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click()">&#60;</button>
-      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click()">&#62;</button>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click('target-team')">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click('target-team')">&#62;</button>
       <button type = "button" class = "long-button" id = "back-button-target-lock-view" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
       <button type = "button" class = "long-button" id = "ok-button-target-lock" onclick="add_target_lock()">Ok</button>
       <input type="text" class="roster-number-input" id ="roster-number-input-target-lock" name="roster-number">
@@ -135,8 +136,8 @@
       <div class = "pop-up-title" id = "target-team-search">TestTestTest</div>
       <div class = "pop-up-title" id = "roster-number-search-title">Roster Number:</div>
       <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
-      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click()">&#60;</button>
-      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click()">&#62;</button>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click('target-team-search')">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click('target-team-search')">&#62;</button>
       <button type = "button" class = "long-button" id = "back-button-search" onclick="hide_pop_up('search-pop-up')">Back</button>
       <button type = "button" class = "long-button" id = "ok-button-search" onclick="find_and_display_searching_ship()">Ok</button>
       <input type="text" class="roster-number-input" id ="roster-number-input-search" name="roster-number">

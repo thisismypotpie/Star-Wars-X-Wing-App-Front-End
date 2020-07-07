@@ -9,6 +9,24 @@ var team_index = sessionStorage.getItem("team_index");//Used to determine what t
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
+//Check to see if we are in a search or the actual bunch of ships. We do this by seeing if there is a saved team and ship saved for when we return from a search.
+if(sessionStorage.getItem("saved_team_index") != null &&
+sessionStorage.getItem("saved_ship_index")!=null &&
+sessionStorage.getItem("saved_team_index") != undefined &&
+sessionStorage.getItem("saved_ship_index")!=undefined)
+{
+    document.getElementById('back-button').style.visibility = "hidden";
+    document.getElementById('return-button').style.visibility = "visible";
+    document.getElementById('select-button').style.visibility = "hidden";
+    document.getElementById('next-maneuver-button').style.visibility = "hidden";
+    document.getElementById('previous-maneuver-button').style.visibility = "hidden";
+    document.getElementById('search-button').style.visibility = "hidden";
+    document.getElementById('team-mate-maneuvers').style.visibility = "hidden";
+    document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
+    document.getElementById('maneuver-type').style.visibility = "hidden";
+    document.getElementById('maneuver-range').style.visibility = "hidden";
+}
+
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
@@ -561,25 +579,25 @@ function go_to_upgrade_screen()
 }
 
 //This function will iterate the team index for target lock so that player can target a specific team.
-function next_team_button_click()
+function next_team_button_click(input_element_name)
 {
     target_lock_and_search_index++;
     if(target_lock_and_search_index >= all_teams.length)
     {
         target_lock_and_search_index = 0;
     }
-    document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;
+    document.getElementById(input_element_name).textContent=all_teams[target_lock_and_search_index].team_name;
 }
 
 //This function will deiterate the team index for target lock so that the player can target a specific team.
-function previous_team_button_click()
+function previous_team_button_click(input_element_name)
 {
     target_lock_and_search_index--;
     if(target_lock_and_search_index < 0)
     {
         target_lock_and_search_index = all_teams.length-1;
     }
-    document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;
+    document.getElementById(input_element_name).textContent=all_teams[target_lock_and_search_index].team_name;
 }
 
 //This function will verify and check to make sure a valid target lock can be applied.
@@ -587,7 +605,6 @@ function add_target_lock()
 {
     var target_team = all_teams[target_lock_and_search_index];
     var target_roster = parseInt(document.getElementById('roster-number-input-target-lock').value,10);
-    target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
 
     if(target_roster == null || target_roster == undefined || isNaN(target_roster)||target_roster<0)
     {
@@ -609,13 +626,13 @@ function add_target_lock()
     document.getElementById('roster-number-input-target-lock').value = "";
     set_up_target_lock_list();
     hide_pop_up('target-lock-pop-up');
+    target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
 }
 
 function find_and_display_searching_ship()
 {
     var target_team = all_teams[target_lock_and_search_index];
     var target_roster = parseInt(document.getElementById('roster-number-input-search').value,10);
-    target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
 
     if(target_roster == null || target_roster == undefined || isNaN(target_roster)||target_roster<0)
     {
@@ -624,7 +641,8 @@ function find_and_display_searching_ship()
         document.getElementById('roster-number-input-search').focus();
         return;
     }
-    let ship = target_team.ship_list[target_team.ship_list.map(function(e){return e.roster_number}).indexOf(target_roster)];
+    let ship_index= target_team.ship_list.map(function(e){return e.roster_number}).indexOf(target_roster);
+    let ship = target_team.ship_list[ship_index];
     if(ship == null || ship == undefined)
     {
         alert("The roster number was not found on this team.");
@@ -632,4 +650,20 @@ function find_and_display_searching_ship()
         document.getElementById('roster-number-input-search').focus();
         return;
     }
+
+    sessionStorage.setItem("saved_team_index",team_index);
+    sessionStorage.setItem("saved_ship_index",selected_ship_index);
+    sessionStorage.setItem("team_index",target_lock_and_search_index);
+    sessionStorage.setItem("selected_ship_index",ship_index);
+    location.reload();
+}
+
+//Used when the return button is pressed to go out of a search back to the current player's screen.
+function return_to_main_screen()
+{
+    sessionStorage.setItem("team_index",sessionStorage.getItem("saved_team_index"));
+    sessionStorage.setItem("selected_ship_index",sessionStorage.getItem("saved_ship_index"));
+    sessionStorage.removeItem("saved_team_index");
+    sessionStorage.removeItem("saved_ship_index");
+    location.reload();
 }
