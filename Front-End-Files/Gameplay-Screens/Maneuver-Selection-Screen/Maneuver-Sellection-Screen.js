@@ -178,7 +178,7 @@ function populate_target_lock_view_popup(passed_assignment_number)
     var attacking_team = all_teams.find(team => team.team_name == target_locks[target_index].targetting_team);
     var defending_team = all_teams.find(team => team.team_name == target_locks[target_index].targetted_team);
     var attacking_ship = attacking_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetting_roster);
-    var defending_ship = attacking_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetted_roster);
+    var defending_ship = defending_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetted_roster);
     document.getElementById('targetter-image').style.backgroundImage = "url('"+attacking_ship.chosen_pilot.image_path+"')";  
     document.getElementById('targetted-image').style.backgroundImage = "url('"+defending_ship.chosen_pilot.image_path+"')"; 
     document.getElementById('roster-tl-attack').textContent = attacking_ship.roster_number; 
