@@ -9,6 +9,24 @@ var team_index = sessionStorage.getItem("team_index");//Used to determine what t
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
+//Check if the back button should be visible or not.
+if(team_index == 0 && selected_ship_index == 0)
+{
+    document.getElementById('back-button').style.visibility = "hidden";
+}
+
+//Check if the flip button should be visible or not as well as if the ship is crippled or not.
+if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+  all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
+{
+    document.getElementById('energy-image').style.visibility = "visible";
+    document.getElementById('energy-text').style.visibility = "visible";
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    {
+        document.getElementById('flip-button').style.visibility = "visible";
+    }
+}
+
 //Check to see if we are in a search or the actual bunch of ships. We do this by seeing if there is a saved team and ship saved for when we return from a search.
 if(sessionStorage.getItem("saved_team_index") != null &&
 sessionStorage.getItem("saved_ship_index")!=null &&

@@ -5,4 +5,5 @@
 - I will need to add big ship functionality as far as flip buttons go for the following:
 1. The main flip button and energy stat for large ships in the main screen.
 2. The flip button and energy stat in the view target lock pop up.
+- There is an error if you have a team of one and then remove it using the remove ship button.
 
