@@ -592,7 +592,7 @@ Css for token pop-up
     font-size: xx-large;
 }
 
-#roster-number-target-lock-input{
+.roster-number-input{
     grid-column: 4/10;
     grid-row: 8;
     background-color: black;
@@ -627,6 +627,12 @@ Css for token pop-up
 /*
 This is the css for the target lock viewing pop-up
 */
+#back-button-target-lock-view
+{
+    grid-column: 2/7;
+    grid-row: 10/12;
+    text-align: center;
+}
 #target-lock-view-pop-up{
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));
@@ -743,4 +749,46 @@ This is the css for the target lock viewing pop-up
     grid-row:2;
     grid-column: 1/7;
     text-align: left;
+}
+
+/*
+This section will be for the search pop-up.
+*/
+
+#search-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(60vh/12));  
+}
+
+#search-title{
+    grid-row:1;
+    grid-column: 1/13;
+}
+
+#roster-number-search-title{
+    grid-column: 4/12;
+    grid-row: 7;
+    text-align: left;
+    font-size: xx-large;
+}
+
+#back-button-search{
+    grid-column: 2/7;
+    grid-row: 10/12;
+    text-align: center;
+}
+
+#ok-button-search{
+    grid-column: 8/11;
+    grid-row: 10/12;
+}
+
+#target-team-search{
+    grid-column: 3/11;
+    grid-row: 5;
+    background-color: black;
+    border: 1px solid white;
+    text-align: center;
+    font-size:x-large;
 }

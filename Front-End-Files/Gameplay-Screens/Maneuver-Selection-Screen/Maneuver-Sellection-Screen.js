@@ -7,7 +7,7 @@ var selected_ship_index = sessionStorage.getItem("selected_ship_index");//Used t
 var maneuver_index = 0;//Used to determine what maneuver is being displayed.
 var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
-var target_lock_team_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
+var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
@@ -96,6 +96,11 @@ set_up_target_lock_list();
 
 function set_up_target_lock_list()
 {
+    //Remove all locks from the list.
+    Array.from(document.getElementsByClassName("target-lock-list-item")).forEach(element=>{
+        target_lock_box.removeChild(element);
+   })
+
     all_teams.forEach(team=>{
         target_locks.forEach(target_lock=>{
             if(target_lock.targetting_team == team.team_name)//Potentially create a blue target lock.
@@ -103,6 +108,7 @@ function set_up_target_lock_list()
                 if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetting_roster)
                 {
                     var blue_target_div = document.createElement("div");
+                    blue_target_div.className = "target-lock-list-item";
                     blue_target_div.style.border = "1px solid white";
                     blue_target_div.style.backgroundRepeat = "no-repeat";
                     blue_target_div.style.backgroundSize = "100% 100%";
@@ -125,6 +131,7 @@ function set_up_target_lock_list()
                 if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetted_roster)
                 {
                     var red_target_div = document.createElement("div");
+                    red_target_div.className = "target-lock-list-item";
                     red_target_div.style.border = "1px solid white";
                     red_target_div.style.backgroundRepeat = "no-repeat";
                     red_target_div.style.backgroundSize = "100% 100%";
@@ -170,6 +177,12 @@ function populate_target_lock_view_popup(passed_assignment_number)
     document.getElementById('hull-tl-defend').textContent = defending_ship.current_hull; 
     document.getElementById('shield-tl-defend').textContent = defending_ship.current_sheilds; 
     document.getElementById('energy-tl-defend').textContent = defending_ship.current_energy; 
+
+    //Set removal button
+    document.getElementById('target-lock-remove-button').onclick= function(){target_locks.splice(target_index,1);
+                                                                             sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
+                                                                             hide_pop_up('target-lock-view-pop-up');
+                                                                             set_up_target_lock_list();};
 }
 
 //Thiis function will cycles through types of cards based on what is showing up currently.
@@ -548,53 +561,75 @@ function go_to_upgrade_screen()
 }
 
 //This function will iterate the team index for target lock so that player can target a specific team.
-function next_button_of_target_lock_pop_up_click()
+function next_team_button_click()
 {
-    target_lock_team_index++;
-    if(target_lock_team_index >= all_teams.length)
+    target_lock_and_search_index++;
+    if(target_lock_and_search_index >= all_teams.length)
     {
-        target_lock_team_index = 0;
+        target_lock_and_search_index = 0;
     }
-    document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;
+    document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;
 }
 
 //This function will deiterate the team index for target lock so that the player can target a specific team.
-function previous_button_of_target_lock_pop_up_click()
+function previous_team_button_click()
 {
-    target_lock_team_index--;
-    if(target_lock_team_index < 0)
+    target_lock_and_search_index--;
+    if(target_lock_and_search_index < 0)
     {
-        target_lock_team_index = all_teams.length-1;
+        target_lock_and_search_index = all_teams.length-1;
     }
-    document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;
+    document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;
 }
 
 //This function will verify and check to make sure a valid target lock can be applied.
 function add_target_lock()
 {
-    var target_team = all_teams[target_lock_team_index];
-    var target_roster = parseInt(document.getElementById('roster-number-target-lock-input').value,10);
-    target_lock_team_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
+    var target_team = all_teams[target_lock_and_search_index];
+    var target_roster = parseInt(document.getElementById('roster-number-input-target-lock').value,10);
+    target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
 
     if(target_roster == null || target_roster == undefined || isNaN(target_roster)||target_roster<0)
     {
         alert("The roster 'number' you picked is invalid. Please enter only a positive number.");
-        document.getElementById('roster-number-target-lock-input').value = "";
-        document.getElementById('roster-number-target-lock-input').focus();
+        document.getElementById('roster-number-input-target-lock').value = "";
+        document.getElementById('roster-number-input-target-lock').focus();
         return;
     }
     let ship = target_team.ship_list[target_team.ship_list.map(function(e){return e.roster_number}).indexOf(target_roster)];
     if(ship == null || ship == undefined)
     {
         alert("The roster number was not found on this team.");
-        document.getElementById('roster-number-target-lock-input').value = "";
-        document.getElementById('roster-number-target-lock-input').focus();
+        document.getElementById('roster-number-input-target-lock').value = "";
+        document.getElementById('roster-number-input-target-lock').focus();
         return;
     }
     target_locks.push(new target_lock(get_next_available_target_number(target_locks),all_teams[team_index].team_name,all_teams[team_index].ship_list[selected_ship_index].roster_number,target_team.team_name,ship.roster_number));
     sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
-    document.getElementById('roster-number-target-lock-input').value = "";
+    document.getElementById('roster-number-input-target-lock').value = "";
     set_up_target_lock_list();
     hide_pop_up('target-lock-pop-up');
 }
 
+function find_and_display_searching_ship()
+{
+    var target_team = all_teams[target_lock_and_search_index];
+    var target_roster = parseInt(document.getElementById('roster-number-input-search').value,10);
+    target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
+
+    if(target_roster == null || target_roster == undefined || isNaN(target_roster)||target_roster<0)
+    {
+        alert("The roster 'number' you picked is invalid. Please enter only a positive number.");
+        document.getElementById('roster-number-input-search').value = "";
+        document.getElementById('roster-number-input-search').focus();
+        return;
+    }
+    let ship = target_team.ship_list[target_team.ship_list.map(function(e){return e.roster_number}).indexOf(target_roster)];
+    if(ship == null || ship == undefined)
+    {
+        alert("The roster number was not found on this team.");
+        document.getElementById('roster-number-input-search').value = "";
+        document.getElementById('roster-number-input-search').focus();
+        return;
+    }
+}

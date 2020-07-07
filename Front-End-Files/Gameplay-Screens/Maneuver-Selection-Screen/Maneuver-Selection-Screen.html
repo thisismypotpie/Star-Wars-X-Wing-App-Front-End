@@ -27,9 +27,9 @@
         tabindex="3"
         role="listbox"></ul>
 
-        <button type = "button" class = "long-button" id = "search-button" onclick="">Search</button>
+        <button type = "button" class = "long-button" id = "search-button" onclick="target_lock_and_search_index = 0;show_pop_up('search-pop-up');document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name;">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
-        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_team_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_team_index].team_name;">Add</button>
+        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_and_search_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;">Add</button>
         <button type = "button" class = "button" id = "previous-maneuver-button" onclick="previous_maneuver_click()"></button>
         <button type = "button" class = "button" id = "next-maneuver-button" onclick="next_maneuver_click()"></button>
         <button type = "button" class = "button" id = "flip-button" onclick="">Flip</button>
@@ -116,18 +116,32 @@
       <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');update_ship_stats();">OK</button>
       </div>
 
-      <!--Pop up for adding target locks-->
+      <!--Pop up for adding target locks -->
       <div class = "pop-up-container" id = "target-lock-pop-up">
       <div class = "pop-up-title" id= "target-lock-title">Acquire Target Lock</div>
       <div class = "pop-up-title" id = "target-team">TestTestTest</div>
       <div class = "pop-up-title" id = "roster-number-target-lock-title">Roster Number:</div>
       <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
-      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_button_of_target_lock_pop_up_click()">&#60;</button>
-      <button type = "button" class = "button" id = "next-team-button" onclick="next_button_of_target_lock_pop_up_click()">&#62;</button>
-      <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click()">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click()">&#62;</button>
+      <button type = "button" class = "long-button" id = "back-button-target-lock-view" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
       <button type = "button" class = "long-button" id = "ok-button-target-lock" onclick="add_target_lock()">Ok</button>
-      <input type="text" id="roster-number-target-lock-input" name="roster-number">
+      <input type="text" class="roster-number-input" id ="roster-number-input-target-lock" name="roster-number">
       </div>
+
+      <!--Pop up for searching for another ship-->
+      <div class = "pop-up-container" id = "search-pop-up">
+      <div class = "pop-up-title" id= "search-title">Search For Specific Ship</div>
+      <div class = "pop-up-title" id = "target-team-search">TestTestTest</div>
+      <div class = "pop-up-title" id = "roster-number-search-title">Roster Number:</div>
+      <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click()">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click()">&#62;</button>
+      <button type = "button" class = "long-button" id = "back-button-search" onclick="hide_pop_up('search-pop-up')">Back</button>
+      <button type = "button" class = "long-button" id = "ok-button-search" onclick="find_and_display_searching_ship()">Ok</button>
+      <input type="text" class="roster-number-input" id ="roster-number-input-search" name="roster-number">
+      </div>
+
 
       <!--Pop up for viewing a target lock-->
       <div class = "pop-up-container" id = "target-lock-view-pop-up">

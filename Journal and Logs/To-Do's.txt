@@ -2,5 +2,7 @@
 - Come up with some sketches for the in-game interface.
 - Come up with the database schema for loading and saving games.
 -Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
-- Add a current maneuver variable to each ship.
--Current maneuver and evade tokens are not showing up for some reason. I will need to look into that some more.
+- I will need to add big ship functionality as far as flip buttons go for the following:
+1. The main flip button and energy stat for large ships in the main screen.
+2. The flip button and energy stat in the view target lock pop up.
+
