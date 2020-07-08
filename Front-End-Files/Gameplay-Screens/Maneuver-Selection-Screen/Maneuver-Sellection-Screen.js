@@ -8,6 +8,17 @@ var maneuver_index = 0;//Used to determine what maneuver is being displayed.
 var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
+//If there is no team index or selected ship index, then create them with a value of zero.
+if(selected_ship_index == null || selected_ship_index == undefined)
+{
+    selected_ship_index = 0;
+    sessionStorage.setItem("selected_ship_index",selected_ship_index);
+}
+if(team_index == null || selected_ship_index == undefined)
+{
+    team_index = 0;
+    sessionStorage.setItem("team_index",team_index);
+}
 
 //Check if the back button should be visible or not.
 if(team_index == 0 && selected_ship_index == 0)
@@ -15,7 +26,7 @@ if(team_index == 0 && selected_ship_index == 0)
     document.getElementById('back-button').style.visibility = "hidden";
 }
 
-//Check if the flip button should be visible or not as well as if the ship is crippled or not.
+//Check if the flip button should be visible or not as well as if the ship is crippled or not. This will also determine if the ship will have the crippled card showing or not.
 if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
   all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
 {
@@ -24,6 +35,10 @@ if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.s
     if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
     {
         document.getElementById('flip-button').style.visibility = "visible";
+        if(all_teams[team_index].ship_list[selected_ship_index].current_hull == 0)
+        {
+            //change to crippled stats and image.
+        }
     }
 }
 
@@ -45,17 +60,7 @@ sessionStorage.getItem("saved_ship_index")!=undefined)
     document.getElementById('maneuver-range').style.visibility = "hidden";
 }
 
-//If there is no team index or selected ship index, then create them with a value of zero.
-if(selected_ship_index == null || selected_ship_index == undefined)
-{
-    selected_ship_index = 0;
-    sessionStorage.setItem("selected_ship_index",selected_ship_index);
-}
-if(team_index == null || selected_ship_index == undefined)
-{
-    team_index = 0;
-    sessionStorage.setItem("team_index",team_index);
-}
+
 
 //Set up target lock in session storage.
 var target_locks = JSON.parse(sessionStorage.getItem("all_target_locks"));
@@ -106,17 +111,17 @@ team_name_label.innerText = all_teams[team_index].team_name;
 cycle_button_click();
 
 //This section will help to set up the token box.
-document.getElementById("focus-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].focus_tokens;
-document.getElementById("evade-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].evade_tokens;
-document.getElementById("stress-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].stress_tokens;
-document.getElementById("ion-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].ion_tokens;
-document.getElementById("jam-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].jam_tokens;
-document.getElementById("weapons-disabled-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].weapons_disabled_tokens;
-document.getElementById("cloak-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].cloak_tokens;
-document.getElementById("reinforce-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].reinforce_tokens;
-document.getElementById("tractor-beam-token").textContent = "x"+all_teams[team_index].ship_list[selected_ship_index].tractor_beam_tokens;
+document.getElementById("focus-token").textContent = all_teams[team_index].ship_list[selected_ship_index].focus_tokens;
+document.getElementById("evade-token").textContent = all_teams[team_index].ship_list[selected_ship_index].evade_tokens;
+document.getElementById("stress-token").textContent = all_teams[team_index].ship_list[selected_ship_index].stress_tokens;
+document.getElementById("ion-token").textContent = all_teams[team_index].ship_list[selected_ship_index].ion_tokens;
+document.getElementById("jam-token").textContent = all_teams[team_index].ship_list[selected_ship_index].jam_tokens;
+document.getElementById("weapons-disabled-token").textContent = all_teams[team_index].ship_list[selected_ship_index].weapons_disabled_tokens;
+document.getElementById("cloak-token").textContent = all_teams[team_index].ship_list[selected_ship_index].cloak_tokens;
+document.getElementById("reinforce-token").textContent = all_teams[team_index].ship_list[selected_ship_index].reinforce_tokens;
+document.getElementById("tractor-beam-token").textContent = all_teams[team_index].ship_list[selected_ship_index].tractor_beam_tokens;
 Array.from(document.getElementsByClassName(" numerable-token")).forEach(token=>{
-    if(token.textContent != "x0")
+    if(token.textContent != "0")
     {
         token.style.opacity = 1;
     }
@@ -474,6 +479,55 @@ function previous_maneuver_click()
     maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
 }
 
+function flip_button_click_for_large_ships(element_name)
+{
+    if(all_teams[team_index].ship_list[selected_ship_index].aft_showing == false)//display aft.
+    {
+        if(all_teams[team_index].ship_list[selected_ship_index].aft_crippled == true)//show crippled aft.
+        {
+            document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.aft_crippled_path+"')";
+        }
+        else//show regular aft.
+        {
+            document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.aft_card_path+"')";
+        }
+        //Change stats and stat onclicks to refelect the aft side of the ship.
+        document.getElementById('agility-image').onclick = function(){augment_stat_quantity('current_aft_agility','agility-image','agility-text')};
+        document.getElementById('agility-text').onclick = function(){augment_stat_quantity('current_aft_agility','agility-image','agility-text')};
+        document.getElementById('hull-image').onclick = function(){augment_stat_quantity('current_aft_hull','hull-image','hull-text')};
+        document.getElementById('hull-text').onclick = function(){augment_stat_quantity('current_aft_hull','hull-image','hull-text')};
+        document.getElementById('shield-image').onclick = function(){augment_stat_quantity('current_aft_shields','shield-image','shield-text')};
+        document.getElementById('shield-text').onclick = function(){augment_stat_quantity('current_aft_shields','shield-image','shield-text')};
+        document.getElementById('agility-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_aft_agility;
+        document.getElementById('hull-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_aft_hull;
+        document.getElementById('shield-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_aft_shields;
+        all_teams[team_index].ship_list[selected_ship_index].aft_showing = true;
+    }
+    else//display fore.
+    {
+        if(all_teams[team_index].ship_list[selected_ship_index].fore_crippled == true)//show crippled fore.
+        {
+            document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.fore_crippled_path+"')";
+        }
+        else//show regular fore.
+        {
+            document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.image_path+"')";
+        }
+                //Change stats and stat onclicks to refelect the fore side of the ship.
+                document.getElementById('agility-image').onclick = function(){augment_stat_quantity('current_agility','agility-image','agility-text')};
+                document.getElementById('agility-text').onclick = function(){augment_stat_quantity('current_agility','agility-image','agility-text')};
+                document.getElementById('hull-image').onclick = function(){augment_stat_quantity('current_hull','hull-image','hull-text')};
+                document.getElementById('hull-text').onclick = function(){augment_stat_quantity('current_hull','hull-image','hull-text')};
+                document.getElementById('shield-image').onclick = function(){augment_stat_quantity('current_sheilds','shield-image','shield-text')};
+                document.getElementById('shield-text').onclick = function(){augment_stat_quantity('current_sheilds','shield-image','shield-text')};
+                document.getElementById('agility-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_agility;
+                document.getElementById('hull-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_hull;
+                document.getElementById('shield-text').textContent = all_teams[team_index].ship_list[selected_ship_index].current_sheilds;
+                all_teams[team_index].ship_list[selected_ship_index].aft_showing = false;
+    }
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));//Save aft showing change.
+}
+
 //This will flip the card in the remove card pop up but also flip the upgrade in question on the card list permanently.
 function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,index)
 {
@@ -534,7 +588,6 @@ function remove_card(card_type,index)
 //This will be to show the pop up for changing the quantity of a token. The tokene type will be used in an eval statement and the parent id will be used to get the background image
 function augment_token_quantity(token_type,parent_id)
 {
-    let parent_element = document.getElementById(parent_id);
     var img = document.getElementById(parent_id),
     style = img.currentStyle || window.getComputedStyle(img, false),
     bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
@@ -547,6 +600,19 @@ function augment_token_quantity(token_type,parent_id)
 
 }
 
+function augment_stat_quantity(token_type,parent_image,parent_text)
+{
+    var img = document.getElementById(parent_image),
+    style = img.currentStyle || window.getComputedStyle(img, false),
+    bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+    document.getElementById('token-image').style.backgroundImage = "url('"+bg_image_url+"')";
+    let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
+    eval(eval_string);
+    show_pop_up('token-quantity-pop-up');
+    document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_text)};
+    document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_text)};
+}
+
 //This is what happens when you click the plus button when augmenting your number of tokens.
 function plus_button_click(token_type,parent_id)
 {
@@ -555,7 +621,7 @@ function plus_button_click(token_type,parent_id)
     eval(eval_string);
     eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update pop up with the correct number of this token.
     eval(eval_string);
-    eval_string = "parent_element.textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
+    eval_string = "parent_element.textContent = all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
     eval(eval_string);
     parent_element.style.opacity = 1;
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
@@ -569,23 +635,12 @@ function minus_button_click(token_type,parent_id)
     eval(eval_string);
     eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
     eval(eval_string);
-    eval_string = "parent_element.textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
+    eval_string = "parent_element.textContent = all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
     eval(eval_string);
     //The following line with remove text fromt the box, set opacity back to 0.25 and reset the token quantity to zero if it somehow got below zero.
     eval_string = "if(all_teams[team_index].ship_list[selected_ship_index]."+token_type+" <=0){ parent_element.style.opacity = 0.25; all_teams[team_index].ship_list[selected_ship_index]."+token_type+"=0}";
     eval(eval_string);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-}
-
-//This function will update stats of the ship such as attack , agility, shields, etc.
-function update_ship_stats()
-{
-    pilot_skill_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_pilot_skill;
-    attack_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_attack;
-    agility_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_agility;
-    hull_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_hull;
-    shield_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_sheilds;
-    energy_label.innerText = all_teams[team_index].ship_list[selected_ship_index].current_energy;
 }
 
 //This function will save important indecies and then go to the next screen.
