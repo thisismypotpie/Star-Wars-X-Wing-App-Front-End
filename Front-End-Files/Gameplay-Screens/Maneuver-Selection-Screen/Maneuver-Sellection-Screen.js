@@ -323,7 +323,9 @@ function flip_button_for_target_lock_view(image_element_id,passed_ship,agility_i
     }
     else
     {
-        alert("ERROR: Unable to determine if attacker or defender is being flipped to which orientation.");
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: Unable to determine if attacker or defender is being flipped to which orientation.";
+        show_pop_up("Notification-pop-up");
+
     }
 
 }
@@ -394,7 +396,8 @@ function cycle_button_click()
                 }
                 else
                 {
-                    alert("ERROR: Could not determine orientation type of dual sided upgrade.");
+                    document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine orientation type of dual sided upgrade.";
+                    show_pop_up("Notification-pop-up");
                 }
             }
             else
@@ -416,7 +419,8 @@ function cycle_button_click()
     }
     else
     {
-        alert("ERROR: No card type could be determined: "+card_type_label.innerText);
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: No card type could be determined: "+card_type_label.innerText;
+        show_pop_up("Notification-pop-up");
     }
     
 }
@@ -464,7 +468,8 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
             }
             else
             {
-                alert("ERROR: Could not determine orientation of an upgrade in the show remove pop up function.");
+                document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine orientation of an upgrade in the show remove pop up function.";
+                show_pop_up("Notification-pop-up");
             }
 
         }
@@ -486,7 +491,8 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     }
     else
     {
-        alert("ERROR: Cannot determine what kind of card will show up in the removal pop up.");
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: Cannot determine what kind of card will show up in the removal pop up.";
+        show_pop_up("Notification-pop-up");
     }
     overlay.style.opacity = 1;
     pop_up.style.visibility = "visible";
@@ -527,7 +533,8 @@ function assign_large_ship_crit_card(section)
     }
     else
     {
-        alert("ERROR: Could not determine card section for crit hit assignment.");
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine card section for crit hit assignment." ;
+        show_pop_up("Notification-pop-up");
         return;
     }
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));//save to all teams.
@@ -692,7 +699,8 @@ function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,inde
     }
     else
     {
-        alert("ERROR: Could not determine flip button upgrade orientation type.");
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine flip button upgrade orientation type." ;
+        show_pop_up("Notification-pop-up");
     }
 }
 
@@ -718,7 +726,8 @@ function remove_card(card_type,index)
     }
     else
     {
-        alert("ERROR: Could not determine card type while trying to remove card.");
+        document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine card type while trying to remove card." ;
+        show_pop_up("Notification-pop-up");
         return;
     }
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
@@ -928,6 +937,7 @@ function check_for_death()
         }
         if(aft_gone == true && fore_gone == true)
         {
+            document.getElementById('kaboom-button').style.visibility = 'visible';
             show_pop_up('ship-death-pop-up');
         }
     }
@@ -935,6 +945,7 @@ function check_for_death()
     {
         if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
         {
+            document.getElementById('kaboom-button').style.visibility = 'visible';
             show_pop_up('ship-death-pop-up');
         }
     }
@@ -970,4 +981,19 @@ function revive_ship()
     }
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams)); 
     location.reload();
+}
+
+function play_death_music()
+{
+    var death_music_chance = Math.floor(Math.random() * 10);
+    if(death_music_chance == 10)
+    {
+        var minion_ship_death = new Audio('https://docs.google.com/uc?export=download&id=1l3iV5tbP4xIg_4Y0q4f7eDGxbGkyv-W1');
+        minion_ship_death.play();
+    }
+    else
+    {
+        var regular_ship_death =  new Audio('https://docs.google.com/uc?export=download&id=1Id2DleeQ8isNQibcCOsHyvlyO2iIsWDc');
+        regular_ship_death.play();       
+    }
 }

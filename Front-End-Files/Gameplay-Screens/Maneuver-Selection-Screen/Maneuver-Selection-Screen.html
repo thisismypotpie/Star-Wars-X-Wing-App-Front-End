@@ -80,6 +80,12 @@
       <!-- This will be the html for various pop-up screens in the maneuver selection page.-->
       <div id = "overlay"></div>
 
+      <!--Notification Pop-up-->
+      <div class = "pop-up-container" id = "Notification-pop-up">
+        <div class = "pop-up-title" id = "notification-pop-up-title"></div>
+        <button type = "button" class = "long-button ok-button" onclick="hide_pop_up('Notification-pop-up')">OK</button>
+      </div>
+
       <!--Pop up for assigning critical hit cards.-->
       <div class = "pop-up-container" id = "crit-hit-pop-up">
         <div class = "pop-up-title">Assign Critical Hit Card to This Ship?</div>
@@ -155,8 +161,9 @@
       <!--Pop up for if a ship dies-->
       <div class = "pop-up-container" id = "ship-death-pop-up">
         <div class = "pop-up-title" id="death-title">Has this Ship Died?</div>
-        <button type = "button" class = "long-button no-button" onclick="revive_ship()">No</button>
-        <button type = "button" class = "long-button yes-button" id = "yes-death-button" onclick="ship_is_dead()">Yes</button>
+        <button type = "button" class = "long-button" id = "no-death-button"onclick="revive_ship()">No</button>
+        <button type = "button" class = "long-button" id = "yes-death-button" onclick="ship_is_dead()">Yes</button>
+        <button type = "button" class = "button kaboom-button" id = "kaboom-button" onclick="play_death_music();document.getElementById('kaboom-button').style.visibility = 'hidden';">KABOOM!</button>
         </div>
 
       <!--Pop up for viewing a target lock-->

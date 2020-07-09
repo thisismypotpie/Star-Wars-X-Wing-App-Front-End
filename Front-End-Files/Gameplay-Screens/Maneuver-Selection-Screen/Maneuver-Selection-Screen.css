@@ -105,6 +105,12 @@ Unsorted Lists
 /*
 Buttons
 */
+
+.ok-button{
+    height: 10vh;
+    width: 40%;
+}
+
 .button{
     background-image: url("https://i.imgur.com/RkyE0Xv.png");
     background-size: 100% 100%;
@@ -833,4 +839,33 @@ This is the css for the large ship crit hit pop-up.
 .fore-crit-card-button{
     grid-column: 2/12;
     grid-row: 4/6;
+}
+
+/*
+This is the css for the ship death pop-up
+*/
+
+#ship-death-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(50vh/12));
+}
+#death-title{
+    grid-row: 1;
+    grid-column: 1/13;
+}
+
+#yes-death-button{
+    grid-row: 4/6;
+    grid-column: 2/12;
+}
+
+#no-death-button{
+    grid-row: 7/9;
+    grid-column: 2/12;
+}
+
+#kaboom-button{
+    grid-row: 10/12;
+    grid-column: 9/12;
 }
