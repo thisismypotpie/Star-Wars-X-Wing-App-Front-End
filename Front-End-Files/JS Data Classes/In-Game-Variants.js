@@ -17,7 +17,6 @@ class in_game_ship_status{
     constructor(incoming_pilot, team_name)
     {
         this.upgrades = [];
-        this.target_locks = [];
         this.critical_hit_cards = [];
         this.chosen_pilot = incoming_pilot;
         this.roster_number = 0;
@@ -57,8 +56,6 @@ class large_two_card_in_game_ship_status extends in_game_ship_status{
         this.current_aft_agility = incoming_pilot.ship_name.aft_agility;
         this.current_aft_shields = incoming_pilot.ship_name.aft_shields;
         this.current_aft_hull = incoming_pilot.ship_name.aft_hull;
-        this.fore_crippled = false;
-        this.aft_crippled = false;
         this.aft_showing = false;
     }
 }

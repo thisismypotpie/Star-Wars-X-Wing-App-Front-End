@@ -26,22 +26,6 @@ if(team_index == 0 && selected_ship_index == 0)
     document.getElementById('back-button').style.visibility = "hidden";
 }
 
-//Check if the flip button should be visible or not as well as if the ship is crippled or not. This will also determine if the ship will have the crippled card showing or not.
-if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
-  all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
-{
-    document.getElementById('energy-image').style.visibility = "visible";
-    document.getElementById('energy-text').style.visibility = "visible";
-    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
-    {
-        document.getElementById('flip-button').style.visibility = "visible";
-        if(all_teams[team_index].ship_list[selected_ship_index].current_hull == 0)
-        {
-            //change to crippled stats and image.
-        }
-    }
-}
-
 //Check to see if we are in a search or the actual bunch of ships. We do this by seeing if there is a saved team and ship saved for when we return from a search.
 if(sessionStorage.getItem("saved_team_index") != null &&
 sessionStorage.getItem("saved_ship_index")!=null &&
@@ -81,6 +65,7 @@ var shield_label = document.getElementById("shield-text");
 var energy_label = document.getElementById("energy-text");
 var maneuver_range_label = document.getElementById("maneuver-range");
 var maneuver_type_label = document.getElementById("maneuver-type");
+var energy_gained_label = document.getElementById("maneuver-energy");
 var card_type_label = document.getElementById("card-type-label");
 var card_list = document.getElementById("card-box");
 var team_name_label = document.getElementById("team-name-label");
@@ -133,6 +118,30 @@ Array.from(document.getElementsByClassName(" numerable-token")).forEach(token=>{
 
 set_up_target_lock_list();
 
+//Check if the flip button should be visible or not as well as if the ship is crippled or not. This will also determine if the ship will have the crippled card showing or not.
+if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+  all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
+{
+    energy_gained_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].energy_symbol_path+"')";
+    document.getElementById('energy-image').style.visibility = "visible";
+    document.getElementById('energy-text').style.visibility = "visible";
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    {
+        document.getElementById('flip-button').style.visibility = "visible";
+        if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
+        {
+            document.getElementById('pilot-image').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.fore_crippled_path+"')";
+        }
+    }
+}
+else
+{
+    document.getElementById('energy-image').style.visibility = "hidden";
+    document.getElementById('energy-text').style.visibility = "hidden";
+    document.getElementById('flip-button').style.visibility = "hidden";
+    energy_gained_label.style.visibility = "hidden";
+}
+
 }
 
 function set_up_target_lock_list()
@@ -141,13 +150,10 @@ function set_up_target_lock_list()
     Array.from(document.getElementsByClassName("target-lock-list-item")).forEach(element=>{
         target_lock_box.removeChild(element);
    })
-
-    all_teams.forEach(team=>{
         target_locks.forEach(target_lock=>{
-            if(target_lock.targetting_team == team.team_name)//Potentially create a blue target lock.
+            if(target_lock.targetting_team == all_teams[team_index].team_name &&
+                all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetting_roster )//Potentially create a blue target lock.
             {
-                if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetting_roster)
-                {
                     var blue_target_div = document.createElement("div");
                     blue_target_div.className = "target-lock-list-item";
                     blue_target_div.style.border = "1px solid white";
@@ -165,12 +171,10 @@ function set_up_target_lock_list()
                     blue_target_div.onclick = function(){populate_target_lock_view_popup(target_lock.assignment_number);show_pop_up('target-lock-view-pop-up');};
                     blue_target_div.style.fontSize = "x-large";
                     target_lock_box.appendChild(blue_target_div);
-                }
             }
-            if(target_lock.targetted_team == team.team_name)//Potentially create a red target lock.
+            if(target_lock.targetted_team == all_teams[team_index].team_name &&
+                all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetted_roster)//Potentially create a red target lock.
             {
-                if(all_teams[team_index].ship_list[selected_ship_index].roster_number == target_lock.targetted_roster)
-                {
                     var red_target_div = document.createElement("div");
                     red_target_div.className = "target-lock-list-item";
                     red_target_div.style.border = "1px solid white";
@@ -188,10 +192,8 @@ function set_up_target_lock_list()
                     red_target_div.style.fontSize = "x-large";
                     red_target_div.onclick = function(){populate_target_lock_view_popup(target_lock.assignment_number);show_pop_up('target-lock-view-pop-up')};
                     target_lock_box.appendChild(red_target_div);
-                }
             }
         })
-    })
 }
 
 //This function will populate the information of the target lock view before showing it. IT will get picutes and stats.
@@ -203,7 +205,9 @@ function populate_target_lock_view_popup(passed_assignment_number)
     var attacking_ship = attacking_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetting_roster);
     var defending_ship = defending_team.ship_list.find(ship=> ship.roster_number == target_locks[target_index].targetted_roster);
     document.getElementById('targetter-image').style.backgroundImage = "url('"+attacking_ship.chosen_pilot.image_path+"')";  
+    document.getElementById('targetter-image').setAttribute("flipped","false");
     document.getElementById('targetted-image').style.backgroundImage = "url('"+defending_ship.chosen_pilot.image_path+"')"; 
+    document.getElementById('targetted-image').setAttribute("flipped","false");
     document.getElementById('roster-tl-attack').textContent = attacking_ship.roster_number; 
     document.getElementById('pilot-skill-tl-attack').textContent = attacking_ship.current_pilot_skill; 
     document.getElementById('attack-tl-attack').textContent = attacking_ship.current_attack; 
@@ -218,12 +222,110 @@ function populate_target_lock_view_popup(passed_assignment_number)
     document.getElementById('hull-tl-defend').textContent = defending_ship.current_hull; 
     document.getElementById('shield-tl-defend').textContent = defending_ship.current_sheilds; 
     document.getElementById('energy-tl-defend').textContent = defending_ship.current_energy; 
+    //Add functionality for if a flip button or energy stat is needed.
+    if(attacking_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    attacking_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        if(attacking_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        {
+            if(attacking_ship.current_hull <= 0)
+            {
+                document.getElementById('targetter-image').style.backgroundImage = "url('"+attacking_ship.chosen_pilot.fore_crippled_path+"')";
+            }
+            //Set flip button
+            document.getElementById('target-lock-view-flip-button-attacker').onclick = function(){flip_button_for_target_lock_view("targetter-image",attacking_ship,"agility-tl-attack","hull-tl-attack","shield-tl-attack")};
+            document.getElementById('target-lock-view-flip-button-attacker').style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById('target-lock-view-flip-button-attacker').style.visibility = "hidden";
+        }
+        document.getElementById('energy-image-tl-attacker').style.visibility = "visible";
+        document.getElementById('energy-tl-attack').style.visibility = "visible";
+    }
+    if(defending_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    defending_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        if(defending_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        {
+            if(defending_ship.current_hull <= 0)
+            {
+                document.getElementById('targetted-image').style.backgroundImage = "url('"+defending_ship.chosen_pilot.fore_crippled_path+"')";
+            }
+            //Set flip button
+            document.getElementById('target-lock-view-flip-button-defender').onclick = function(){flip_button_for_target_lock_view("targetted-image",defending_ship,"agility-tl-defend","hull-tl-defend","shield-tl-defend")};
+            document.getElementById('target-lock-view-flip-button-defender').style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById('target-lock-view-flip-button-defender').style.visibility = "hidden";
+        }
+        document.getElementById('energy-image-tl-defender').style.visibility = "visible";
+        document.getElementById('energy-tl-defend').style.visibility = "visible";
+    }
 
     //Set removal button
     document.getElementById('target-lock-remove-button').onclick= function(){target_locks.splice(target_index,1);
                                                                              sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
                                                                              hide_pop_up('target-lock-view-pop-up');
+                                                                             hide_large_ship_flip_button_and_energy_stat_on_target_lock_view();
                                                                              set_up_target_lock_list();};
+}
+
+function hide_large_ship_flip_button_and_energy_stat_on_target_lock_view()
+{
+    document.getElementById('target-lock-view-flip-button-attacker').style.visibility = "hidden";
+    document.getElementById('energy-image-tl-attacker').style.visibility = "hidden";
+    document.getElementById('energy-tl-attack').style.visibility = "hidden";
+    document.getElementById('target-lock-view-flip-button-defender').style.visibility = "hidden";
+    document.getElementById('energy-image-tl-defender').style.visibility = "hidden";
+    document.getElementById('energy-tl-defend').style.visibility = "hidden";
+}
+
+function flip_button_for_target_lock_view(image_element_id,passed_ship,agility_id,hull_id,shield_id)
+{
+    var image_element = document.getElementById(image_element_id);
+    if(image_element.getAttribute('flipped')=='false')
+    {
+        if(passed_ship.current_aft_hull <= 0)
+        {
+            image_element.style.backgroundImage = "url('"+passed_ship.chosen_pilot.aft_crippled_path+"')";
+            document.getElementById(agility_id).textContent = passed_ship.current_aft_agility;
+            document.getElementById(hull_id).textContent = passed_ship.current_aft_hull;
+            document.getElementById(shield_id).textContent = passed_ship.current_aft_shields;
+        }
+        else
+        {
+            image_element.style.backgroundImage = "url('"+passed_ship.chosen_pilot.aft_card_path+"')";
+            document.getElementById(agility_id).textContent = passed_ship.current_aft_agility;
+            document.getElementById(hull_id).textContent = passed_ship.current_aft_hull;
+            document.getElementById(shield_id).textContent = passed_ship.current_aft_shields;
+        }
+        image_element.setAttribute('flipped','true');
+    }
+    else if(image_element.getAttribute('flipped')=='true')
+    {
+        if(passed_ship.current_hull <= 0)
+        {
+            image_element.style.backgroundImage = "url('"+passed_ship.chosen_pilot.fore_crippled_path+"')";
+            document.getElementById(agility_id).textContent = passed_ship.current_agility;
+            document.getElementById(hull_id).textContent = passed_ship.current_hull;
+            document.getElementById(shield_id).textContent = passed_ship.current_shields;
+        }
+        else
+        {
+            image_element.style.backgroundImage = "url('"+passed_ship.chosen_pilot.image_path+"')";
+            document.getElementById(agility_id).textContent = passed_ship.current_agility;
+            document.getElementById(hull_id).textContent = passed_ship.current_hull;
+            document.getElementById(shield_id).textContent = passed_ship.current_sheilds;
+        }
+        image_element.setAttribute('flipped','false');
+    }
+    else
+    {
+        alert("ERROR: Unable to determine if attacker or defender is being flipped to which orientation.");
+    }
+
 }
 
 //Thiis function will cycles through types of cards based on what is showing up currently.
@@ -458,6 +560,13 @@ function next_maneuver_click()
     {
         maneuver_index++;
     }
+
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        energy_gained_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].energy_symbol_path+"')";
+    }
+
     console.log("maneuver index: "+maneuver_index);
     maneuver_type_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+"')";
     maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
@@ -474,6 +583,13 @@ function previous_maneuver_click()
     {
         maneuver_index--;
     }
+
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        energy_gained_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].energy_symbol_path+"')";
+    }
+
     console.log("maneuver index: "+maneuver_index);
     maneuver_type_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].maneuver_symbol_path+"')";
     maneuver_range_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].range_symbol_path+"')";
@@ -483,7 +599,7 @@ function flip_button_click_for_large_ships(element_name)
 {
     if(all_teams[team_index].ship_list[selected_ship_index].aft_showing == false)//display aft.
     {
-        if(all_teams[team_index].ship_list[selected_ship_index].aft_crippled == true)//show crippled aft.
+        if(all_teams[team_index].ship_list[selected_ship_index].current_aft_hull <= 0)//show crippled aft.
         {
             document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.aft_crippled_path+"')";
         }
@@ -505,7 +621,7 @@ function flip_button_click_for_large_ships(element_name)
     }
     else//display fore.
     {
-        if(all_teams[team_index].ship_list[selected_ship_index].fore_crippled == true)//show crippled fore.
+        if(all_teams[team_index].ship_list[selected_ship_index].current_hull <=0)//show crippled fore.
         {
             document.getElementById(element_name).style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.fore_crippled_path+"')";
         }

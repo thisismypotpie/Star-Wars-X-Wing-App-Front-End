@@ -52,8 +52,10 @@ document.getElementById("new-team-button").addEventListener("click", function(){
   });
   //go to main screen.
   document.getElementById("back-button").addEventListener("click", function(){
+    let game_data = JSON.parse(sessionStorage.getItem("game_data"));
+    sessionStorage.clear();
+    sessionStorage.setItem("game_data",JSON.stringify(game_data));
     window.location.href = "../Title-Screen(Main Menu)/index.html";
-    sessionStorage.removeItem("all_teams");
   });
   //go to next screen and set the team to be created.
   document.getElementById("ok-button").addEventListener("click", function(){
