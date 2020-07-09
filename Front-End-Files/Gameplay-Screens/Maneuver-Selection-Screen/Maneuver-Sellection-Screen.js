@@ -73,7 +73,7 @@ var target_lock_box = document.getElementById("target-lock-box");
 
 //call the function that sets up the screen.
 set_up_maneuver_screen();
-
+check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
 
 function set_up_maneuver_screen()
 {
@@ -893,5 +893,49 @@ function choose_which_crit_hit_screen_appears()
     else
     {
         show_pop_up('crit-hit-pop-up');
+    }
+}
+
+function check_for_death()
+{
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    {
+        var aft_gone = false;
+        var fore_gone = false
+        if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
+        {
+            fore_gone = true;
+            all_teams[team_index].ship_list[selected_ship_index].current_attack = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crippled_attack;
+            all_teams[team_index].ship_list[selected_ship_index].current_agility = 0;
+            all_teams[team_index].ship_list[selected_ship_index].current_hull = 0;
+            all_teams[team_index].ship_list[selected_ship_index].current_sheilds = 0;
+            if(all_teams[team_index].ship_list[selected_ship_index].aft_showing == false)
+            {
+                pilot_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.fore_crippled_path+"')";
+            }
+        }
+        if(all_teams[team_index].ship_list[selected_ship_index].current_aft_hull <= 0)
+        {
+            aft_gone = true;
+            all_teams[team_index].ship_list[selected_ship_index].current_energy = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crippled_energy;
+            all_teams[team_index].ship_list[selected_ship_index].current_aft_agility = 0;
+            all_teams[team_index].ship_list[selected_ship_index].current_aft_hull = 0;
+            all_teams[team_index].ship_list[selected_ship_index].current_aft_sheilds = 0;
+            if(all_teams[team_index].ship_list[selected_ship_index].aft_showing == true)
+            {
+                pilot_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.aft_crippled_path+"')";
+            }
+        }
+        if(aft_gone == true && fore_gone == true)
+        {
+            //dead
+        }
+    }
+    else
+    {
+        if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
+        {
+            //dead
+        }
     }
 }

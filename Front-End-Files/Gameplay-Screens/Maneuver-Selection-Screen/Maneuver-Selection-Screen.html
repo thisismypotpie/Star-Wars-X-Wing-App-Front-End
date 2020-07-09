@@ -123,7 +123,7 @@
       <div class = "pop-up-title" id = "token-quantity">x0</div>
       <button type = "button" class = "button" id = "minus-button">-</button>
       <button type = "button" class = "button" id = "plus-button">+</button>
-      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');">OK</button>
+      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');check_for_death()">OK</button>
       </div>
 
       <!--Pop up for adding target locks -->
@@ -152,6 +152,12 @@
       <input type="text" class="roster-number-input" id ="roster-number-input-search" name="roster-number">
       </div>
 
+      <!--Pop up for if a ship dies-->
+      <div class = "pop-up-container" id = "ship-death-pop-up">
+        <div class = "pop-up-title" id="death-title">Has this Ship Died?</div>
+        <button type = "button" class = "long-button no-button" id ="no-remove-button" onclick="hide_pop_up('ship-death-pop-up');document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';document.getElementById('removal-image').style.border = '1px solid white'">No</button>
+        <button type = "button" class = "long-button yes-button" id = "yes-remove-button">Yes</button>
+        </div>
 
       <!--Pop up for viewing a target lock-->
       <div class = "pop-up-container" id = "target-lock-view-pop-up">
