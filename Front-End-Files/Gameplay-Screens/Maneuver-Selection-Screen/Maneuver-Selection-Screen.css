@@ -806,3 +806,31 @@ This section will be for the search pop-up.
     text-align: center;
     font-size:x-large;
 }
+
+/*
+This is the css for the large ship crit hit pop-up.
+*/
+#crit-hit-pop-up-for-large-ship{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(60vh/12));
+}
+
+#large-crit-hit-title{
+    grid-column: 1/13;
+}
+
+.back-button-large-crit-hit{
+    grid-row: 10/12;
+    grid-column: 2/12;
+}
+
+.aft-crit-card-button{
+    grid-column: 2/12;
+    grid-row: 7/9;
+}
+
+.fore-crit-card-button{
+    grid-column: 2/12;
+    grid-row: 4/6;
+}

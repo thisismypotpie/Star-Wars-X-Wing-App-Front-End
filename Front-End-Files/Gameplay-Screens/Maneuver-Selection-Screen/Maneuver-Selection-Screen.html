@@ -67,7 +67,7 @@
           <div class = "token numerable-token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_tokens','reinforce-token')"></div>
           <div class = "token numerable-token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens','tractor-beam-token')"></div>
           <div class = "token" id = "upgrade-token" onclick="go_to_upgrade_screen()"></div>
-          <div class = "token" id = "critical-hit-token" onclick="show_pop_up('crit-hit-pop-up');"></div>
+          <div class = "token" id = "critical-hit-token" onclick="choose_which_crit_hit_screen_appears()"></div>
           <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
         </div>
 
@@ -85,6 +85,14 @@
         <div class = "pop-up-title">Assign Critical Hit Card to This Ship?</div>
         <button type = "button" class = "button no-button" onclick="hide_pop_up('crit-hit-pop-up')">No</button>
         <button type = "button" class = "button yes-button" onclick="assign_critical_hit_card()">Yes</button>
+      </div>
+
+      <!--Pop up for assigning critical hit card for large ship.-->
+      <div class = "pop-up-container" id = "crit-hit-pop-up-for-large-ship">
+        <div class = "pop-up-title" id="large-crit-hit-title">Please select type of critical hit card to deploy:</div>
+        <button type = "button" class = "long-button back-button-large-crit-hit" onclick="hide_pop_up('crit-hit-pop-up-for-large-ship')">Back</button>
+        <button type = "button" class = "long-button aft-crit-card-button" onclick="assign_large_ship_crit_card('aft')">Aft Card</button>
+        <button type = "button" class = "long-button fore-crit-card-button" onclick="assign_large_ship_crit_card('fore')">Fore Card</button>
       </div>
 
       <!--Pop up for assigning conditions cards-->

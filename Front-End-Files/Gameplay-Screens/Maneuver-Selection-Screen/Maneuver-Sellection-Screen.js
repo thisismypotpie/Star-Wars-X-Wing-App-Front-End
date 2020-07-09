@@ -512,6 +512,32 @@ function assign_critical_hit_card()
     hide_pop_up("crit-hit-pop-up");
 }
 
+//Adds a critical hit card for a large ship.
+function assign_large_ship_crit_card(section)
+{
+    if(section == "fore")
+    {
+        var crit_hit_assign_index = Math.floor(Math.random() * all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_fore.length);
+        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_fore[crit_hit_assign_index])));
+    }
+    else if(section == "aft")
+    {
+        var crit_hit_assign_index = Math.floor(Math.random() * all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_aft.length);
+        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_aft[crit_hit_assign_index])));
+    }
+    else
+    {
+        alert("ERROR: Could not determine card section for crit hit assignment.");
+        return;
+    }
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));//save to all teams.
+    //change card box to critical hit cards.
+    card_type_label.innerText = "Upgrades";
+    cycle_button_click();
+    //end section to change card box
+    hide_pop_up("crit-hit-pop-up-for-large-ship");
+}
+
 //Will cycle image and condition index to previous condition.
 function previous_condition()
 {
@@ -855,4 +881,17 @@ function return_to_main_screen()
     sessionStorage.removeItem("saved_team_index");
     sessionStorage.removeItem("saved_ship_index");
     location.reload();
+}
+
+function choose_which_crit_hit_screen_appears()
+{
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        show_pop_up('crit-hit-pop-up-for-large-ship');
+    }
+    else
+    {
+        show_pop_up('crit-hit-pop-up');
+    }
 }
