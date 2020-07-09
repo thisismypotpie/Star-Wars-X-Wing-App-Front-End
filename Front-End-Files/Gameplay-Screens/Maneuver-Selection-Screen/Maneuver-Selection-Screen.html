@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="Maneuver-Selection-Screen.css" />
+    <title>Star Wars X-Wing</title>
+    </head>
+    <body>
+      <div class = "grid-container">
+        <div class = "page-title">Maneuver Selection</div>
+        <div class = "team-mate-maneuvers-label" id = "team-mate-maneuvers-label">Team-Mate Maneuvers</div>
+        <div class = "card-type-label" id = "card-type-label">Card Type</div>
+        <div id = "target-lock-label">Target Locks</div>
+        <div id = "team-label">Team:</div>
+        <div id = "team-name-label">team name</div>
+        <div class = "stat-image" id = "initiative-label"></div>
+
+        <ul class = "display-box"id = "team-mate-maneuvers" 
+        tabindex="1"
+        role="listbox"></ul>
+        <ul class = "display-box"id = "card-box" 
+        tabindex="2"
+        role="listbox"></ul>
+        <ul class = "display-box"id = "target-lock-box" 
+        tabindex="3"
+        role="listbox"></ul>
+
+        <button type = "button" class = "long-button" id = "search-button" onclick="target_lock_and_search_index = 0;show_pop_up('search-pop-up');document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name;">Search</button>
+        <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
+        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_and_search_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;">Add</button>
+        <button type = "button" class = "button" id = "previous-maneuver-button" onclick="previous_maneuver_click()"></button>
+        <button type = "button" class = "button" id = "next-maneuver-button" onclick="next_maneuver_click()"></button>
+        <button type = "button" class = "button" id = "flip-button" onclick="flip_button_click_for_large_ships('pilot-image')">Flip</button>
+
+        <div class = "button-container">
+          <button type = "button" class = "button" id = "back-button" onclick="">Back</button>
+          <button type = "button" class = "button" id = "return-button" onclick="return_to_main_screen()">Retrun</button>     
+          <button type = "button" class = "long-button" id = "select-button" onclick="go_to_next_ship()">Select</button>
+        </div>
+
+        <div class = "test-div-border stat-image" id="pilot-image"></div>
+        <div class = "test-div-border stat-image" id="roster-image"></div>
+        <div class = "test-div-border stat-image" id="pilot-skill-image"onclick="augment_stat_quantity('current_pilot_skill','pilot-skill-image','pilot-skill-text')"></div>
+        <div class = "test-div-border stat-image" id="attack-image"onclick="augment_stat_quantity('current_attack','attack-image','attack-text')"></div>
+        <div class = "test-div-border stat-image" id="agility-image"onclick="augment_stat_quantity('current_agility','agility-image','agility-text')"></div>
+        <div class = "test-div-border stat-image" id="hull-image"onclick="augment_stat_quantity('current_hull','hull-image','hull-text')"></div>
+        <div class = "test-div-border stat-image" id="shield-image"onclick="augment_stat_quantity('current_sheilds','shield-image','shield-text')"></div>
+        <div class = "test-div-border stat-image" id="energy-image"onclick="augment_stat_quantity('current_energy','energy-image','energy-text')"></div>
+        <div class = "test-div-border stat-text" id="roster-text"></div>
+        <div class = "test-div-border stat-text" id="pilot-skill-text"onclick="augment_stat_quantity('current_pilot_skill','pilot-skill-image','pilot-skill-text')"></div>
+        <div class = "test-div-border stat-text" id="attack-text"onclick="augment_stat_quantity('current_attack','attack-image','attack-text')"></div>
+        <div class = "test-div-border stat-text" id="agility-text"onclick="augment_stat_quantity('current_agility','agility-image','agility-text')"></div>
+        <div class = "test-div-border stat-text" id="hull-text"onclick="augment_stat_quantity('current_hull','hull-image','hull-text')"></div>
+        <div class = "test-div-border stat-text" id="shield-text"onclick="augment_stat_quantity('current_sheilds','shield-image','shield-text')"></div>
+        <div class = "test-div-border stat-text" id="energy-text"onclick="augment_stat_quantity('current_energy','energy-image','energy-text')"></div>
+
+        <div id = "token-box">
+          <div class ="token numerable-token" id = "focus-token" onclick="augment_token_quantity('focus_tokens','focus-token')"></div>
+          <div class = "token numerable-token" id = "evade-token" onclick="augment_token_quantity('evade_tokens','evade-token')"></div>
+          <div class = "token numerable-token" id = "stress-token" onclick="augment_token_quantity('stress_tokens','stress-token')"></div>
+          <div class = "token numerable-token" id = "ion-token" onclick="augment_token_quantity('ion_tokens','ion-token')"></div>
+          <div class = "token numerable-token" id = "jam-token" onclick="augment_token_quantity('jam_tokens','jam-token')"></div>
+          <div class = "token numerable-token" id = "weapons-disabled-token" onclick="augment_token_quantity('weapons_disabled_tokens','weapons-disabled-token')"></div>
+          <div class = "token numerable-token" id = "cloak-token" onclick="augment_token_quantity('cloak_tokens','cloak-token')"></div>
+          <div class = "token numerable-token" id = "reinforce-token" onclick="augment_token_quantity('reinforce_tokens','reinforce-token')"></div>
+          <div class = "token numerable-token" id = "tractor-beam-token" onclick="augment_token_quantity('tractor_beam_tokens','tractor-beam-token')"></div>
+          <div class = "token" id = "upgrade-token" onclick="go_to_upgrade_screen()"></div>
+          <div class = "token" id = "critical-hit-token" onclick="choose_which_crit_hit_screen_appears()"></div>
+          <div class = "token" id = "condition-token" onclick="show_pop_up('condition-pop-up')"></div>
+        </div>
+
+        <div class = "maneuver-container">
+          <div class = "test-div-border stat-image"id = "maneuver-range"></div>
+          <div class = "test-div-border stat-image"id = "maneuver-type"></div>
+          <div class = "test-div-border stat-image"id = "maneuver-energy"></div>
+        </div>
+      </div>
+      <!-- This will be the html for various pop-up screens in the maneuver selection page.-->
+      <div id = "overlay"></div>
+
+      <!--Notification Pop-up-->
+      <div class = "pop-up-container" id = "Notification-pop-up">
+        <div class = "pop-up-title" id = "notification-pop-up-title"></div>
+        <button type = "button" class = "long-button ok-button" id="notificatin-ok-button" onclick="hide_pop_up('Notification-pop-up')">OK</button>
+      </div>
+
+      <!--Pop up for assigning critical hit cards.-->
+      <div class = "pop-up-container" id = "crit-hit-pop-up">
+        <div class = "pop-up-title">Assign Critical Hit Card to This Ship?</div>
+        <button type = "button" class = "button no-button" onclick="hide_pop_up('crit-hit-pop-up')">No</button>
+        <button type = "button" class = "button yes-button" onclick="assign_critical_hit_card()">Yes</button>
+      </div>
+
+      <!--Pop up for assigning critical hit card for large ship.-->
+      <div class = "pop-up-container" id = "crit-hit-pop-up-for-large-ship">
+        <div class = "pop-up-title" id="large-crit-hit-title">Please select type of critical hit card to deploy:</div>
+        <button type = "button" class = "long-button back-button-large-crit-hit" onclick="hide_pop_up('crit-hit-pop-up-for-large-ship')">Back</button>
+        <button type = "button" class = "long-button aft-crit-card-button" onclick="assign_large_ship_crit_card('aft')">Aft Card</button>
+        <button type = "button" class = "long-button fore-crit-card-button" onclick="assign_large_ship_crit_card('fore')">Fore Card</button>
+      </div>
+
+      <!--Pop up for assigning conditions cards-->
+      <div class = "pop-up-container" id = "condition-pop-up">
+          <div class = "pop-up-title"id = "condition-title">Choose a Condition</div>
+          <div class = "pop-up-image" id = "condition-pop-up-image"></div>
+          <button type = "button" class = "button pop-up-prev-button" onclick="previous_condition()"></button>
+          <button type = "button" class = "button pop-up-next-button" onclick="next_condition()"></button>
+          <button type = "button" class = "long-button no-button" id ="condition-back-btn" onclick="hide_pop_up('condition-pop-up')">Back</button>
+          <button type = "button" class = "long-button yes-button" id = "condition-select-btn"onclick="assign_condition()">Select</button>
+      </div>
+
+      <!--Pop up for removing any card-->
+      <div class = "pop-up-container" id = "card-removal-pop-up">
+      <div class = "pop-up-title">Remove this card?</div>
+      <div class = "removal-container-so-flip-button-and-image-can-be-inline">
+        <button type = "button" class = "button" id = "flip-button-for-removal-pop-up">flip</button>
+        <div class = "pop-up-image" id = "removal-image"></div>
+      </div>
+      <button type = "button" class = "long-button no-button" id ="no-remove-button" onclick="hide_pop_up('card-removal-pop-up');document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';document.getElementById('removal-image').style.border = '1px solid white'">No</button>
+      <button type = "button" class = "long-button yes-button" id = "yes-remove-button">Yes</button>
+      </div>
+
+      <!--Pop up for adding/subtracting number of tokens-->
+      <div class = "pop-up-container" id = "token-quantity-pop-up">
+      <div class = "pop-up-title" id="token-title">Change Token Quantity</div>
+      <div class = "pop-up-image" id = "token-image"></div>
+      <div class = "pop-up-title" id = "token-quantity">x0</div>
+      <button type = "button" class = "button" id = "minus-button">-</button>
+      <button type = "button" class = "button" id = "plus-button">+</button>
+      <button type = "button" class = "long-button" id ="ok-button" onclick="hide_pop_up('token-quantity-pop-up');check_for_death()">OK</button>
+      </div>
+
+      <!--Pop up for adding target locks -->
+      <div class = "pop-up-container" id = "target-lock-pop-up">
+      <div class = "pop-up-title" id= "target-lock-title">Acquire Target Lock</div>
+      <div class = "pop-up-title" id = "target-team">TestTestTest</div>
+      <div class = "pop-up-title" id = "roster-number-target-lock-title">Roster Number:</div>
+      <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click('target-team')">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click('target-team')">&#62;</button>
+      <button type = "button" class = "long-button" id = "back-button-target-lock-view" onclick="hide_pop_up('target-lock-pop-up')">Back</button>
+      <button type = "button" class = "long-button" id = "ok-button-target-lock" onclick="add_target_lock()">Ok</button>
+      <input type="text" class="roster-number-input" id ="roster-number-input-target-lock" name="roster-number">
+      </div>
+
+      <!--Pop up for searching for another ship-->
+      <div class = "pop-up-container" id = "search-pop-up">
+      <div class = "pop-up-title" id= "search-title">Search For Specific Ship</div>
+      <div class = "pop-up-title" id = "target-team-search">TestTestTest</div>
+      <div class = "pop-up-title" id = "roster-number-search-title">Roster Number:</div>
+      <div class = "pop-up-title" id = "target-lock-team-name">Select Team:</div>
+      <button type = "button" class = "button" id = "previous-team-button" onclick="previous_team_button_click('target-team-search')">&#60;</button>
+      <button type = "button" class = "button" id = "next-team-button" onclick="next_team_button_click('target-team-search')">&#62;</button>
+      <button type = "button" class = "long-button" id = "back-button-search" onclick="hide_pop_up('search-pop-up')">Back</button>
+      <button type = "button" class = "long-button" id = "ok-button-search" onclick="find_and_display_searching_ship()">Ok</button>
+      <input type="text" class="roster-number-input" id ="roster-number-input-search" name="roster-number">
+      </div>
+
+      <!--Pop up for if a ship dies-->
+      <div class = "pop-up-container" id = "ship-death-pop-up">
+        <div class = "pop-up-title" id="death-title">Has this Ship Died?</div>
+        <button type = "button" class = "long-button" id = "no-death-button"onclick="revive_ship()">No</button>
+        <button type = "button" class = "long-button" id = "yes-death-button" onclick="ship_is_dead()">Yes</button>
+        <button type = "button" class = "button kaboom-button" id = "kaboom-button" onclick="play_death_music();document.getElementById('kaboom-button').style.visibility = 'hidden';">KABOOM!</button>
+        </div>
+
+      <!--Pop up for viewing a target lock-->
+      <div class = "pop-up-container" id = "target-lock-view-pop-up">
+        <div class = "pop-up-title" id= "target-lock-title">Target Lock Details</div>
+        <div class = "pop-up-title" id= "target-lock-attacker-title">Attacker</div>
+        <div class = "pop-up-title" id= "target-lock-defender-title">Defender</div>
+        <button type = "button" class = "long-button" id = "back-button-target-lock" onclick="hide_pop_up('target-lock-view-pop-up');hide_large_ship_flip_button_and_energy_stat_on_target_lock_view();">Back</button>
+        <button type = "button" class = "button" id = "target-lock-view-flip-button-attacker">Flip</button>
+        <button type = "button" class = "button" id = "target-lock-view-flip-button-defender">Flip</button>
+        <button type = "button" class = "button" id = "target-lock-remove-button">Remove</button>
+        <div class = "pop-up-image" id= "targetter-image"></div>
+        <div class = "pop-up-image" id= "targetted-image"></div>
+        
+        <div class = "pop-up-image" id= "targetter-stats">
+          <div class = "stat-image" id="roster-image-tl"></div>
+          <div class = "stat-image" id="pilot-skill-image-tl"></div>
+          <div class = "stat-image" id="attack-image-tl"></div>
+          <div class = "stat-image" id="agility-image-tl"></div>
+          <div class = "stat-image" id="hull-image-tl"></div>
+          <div class = "stat-image" id="shield-image-tl"></div>
+          <div class = "stat-image energy-image-tl" id="energy-image-tl-attacker"></div>
+          <div class = "roster-text-tl stat-text" id="roster-tl-attack">:xx</div>
+          <div class = "pilot-skill-text-tl stat-text" id="pilot-skill-tl-attack">:xx</div>
+          <div class = "attack-text-tl stat-text" id="attack-tl-attack">:xx</div>
+          <div class = "agility-text-tl stat-text" id="agility-tl-attack">:xx</div>
+          <div class = "hull-text-tl stat-text" id="hull-tl-attack">:xx</div>
+          <div class = "shield-text-tl stat-text" id="shield-tl-attack">:xx</div>
+          <div class = "energy-text-tl stat-text" id="energy-tl-attack">:xx</div>
+      </div>
+      <div class = "pop-up-image" id= "targetted-stats">
+        <div class = "stat-image" id="roster-image-tl"></div>
+        <div class = "stat-image" id="pilot-skill-image-tl"></div>
+        <div class = "stat-image" id="attack-image-tl"></div>
+        <div class = "stat-image" id="agility-image-tl"></div>
+        <div class = "stat-image" id="hull-image-tl"></div>
+        <div class = "stat-image" id="shield-image-tl"></div>
+        <div class = "stat-image energy-image-tl" id="energy-image-tl-defender"></div>
+        <div class = "roster-text-tl stat-text" id="roster-tl-defend">:xx</div>
+        <div class = "pilot-skill-text-tl stat-text" id="pilot-skill-defend">:xx</div>
+        <div class = "attack-text-tl stat-text" id="attack-tl-defend">:xx</div>
+        <div class = "agility-text-tl stat-text" id="agility-tl-defend">:xx</div>
+        <div class = "hull-text-tl stat-text" id="hull-tl-defend">:xx</div>
+        <div class = "shield-text-tl stat-text" id="shield-tl-defend">:xx</div>
+        <div class = "energy-text-tl stat-text" id="energy-tl-defend">:xx</div>
+      </div>
+
+    </body>
+    <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>
+    <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
+    </html>

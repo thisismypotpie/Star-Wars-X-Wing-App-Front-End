@@ -16,6 +16,11 @@ if(sessionStorage.getItem("all_teams") == null)
 else//populate the board with the name of each team, the size and total cost.
 {
    let teams = JSON.parse(sessionStorage.getItem("all_teams"));
+     //set all initiative to false for all teams in case someone back clicks to here.
+      teams.forEach(team=>{
+  team.has_initiative_token = false;  
+      })
+      sessionStorage.setItem("all_teams",JSON.stringify(teams));
    //I need to use a traditional loop since a collection has no "foreach" method.
    for(var i=0; i < teams.length;i++)
    {
@@ -52,8 +57,10 @@ document.getElementById("new-team-button").addEventListener("click", function(){
   });
   //go to main screen.
   document.getElementById("back-button").addEventListener("click", function(){
+    let game_data = JSON.parse(sessionStorage.getItem("game_data"));
+    sessionStorage.clear();
+    sessionStorage.setItem("game_data",JSON.stringify(game_data));
     window.location.href = "../Title-Screen(Main Menu)/index.html";
-    sessionStorage.removeItem("all_teams");
   });
   //go to next screen and set the team to be created.
   document.getElementById("ok-button").addEventListener("click", function(){
@@ -295,8 +302,11 @@ function start_game_button_click()
     else
     {
       sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
-      alert("no sorting needed.");
-      //go to maneuver selection screen.
+      var initiative_assignment = Math.floor(Math.random() * all_teams.length);
+      all_teams[initiative_assignment].has_initiative_token = true;
+      sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+      alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
+      window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
     }
   }
 }

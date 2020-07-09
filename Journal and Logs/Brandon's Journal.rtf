@@ -151,6 +151,53 @@ Gtihub Repo(back end): {{\field{\*\fldinst{HYPERLINK https://github.com/thisismy
 -There has been a bit of a stumbling block in my plans. Caterina has told the classes that this must be a group project, no exceptions. In order to accomplish this, I have recruited Simon Barton as my partner. He is going through his final capstone project quarter so I though I could help him out a bit by offering for him to work on this project since it is already deployed and it would keep that piece of the project off his back.\par
 -I fixed an error that made my program crash. I have been working on a bucket sort algorithm to sort pilots by pilot skill so the player can sort out the order in which they want their pilots to go. The error came because as I was overwriting the game data to accomidate for the sorted ships, if there was more than one team, then the second team would get null entires equal to the number of the team before it due to a difference in roster numbers. I fixed it so the algorithm will only look for buckets in which it shares a team name wtih.\par
 -The images of each ship that needs to be sorted is now working. When you click on a ship from one list, it is put into the opposite list. The only issue present right now is an error when you press the back button. This may require more testing to see if the buckets are being saved correctly when the done button is being pressed.\par
+6/25/2020:\par
+- I gave Simon to tour of the app and told him the basics of how it all works. There are some tasks for Simon to take on and I am more excited to have him come aboard and work on this app together. I will be setting up the repo to add him as a contributor. \par
+6/26/2020:\par
+- The repos have been set up for Simon to pull down and take a look at the code. Each of us has our own branch to push to now. Simon has agreed to take on working on accessability by implemnting media queries to each screen, something I had neglected to do last quarter.  I will be working mostly on the front-end and getting the game screen implemented.\par
+- I was able to get a bug  fixed. On the sort pilots by skilll page, there was an error whenever pressing the back button to go to the previous set of ships. The issue here was that when each bucket was being overwritten with the new roster number order of that bucket, the number were being stored as strings when the retrieval function was looking for integers. This was an easy fix but difficult to find due to the subtle nature of the difference between strings and numbers as they appear in a debugger.\par
+6/27/2020:\par
+- I have begun and completed the positioning of each element in the maneuver selection screen. This will be the most intensive screen in the app so it will take a lot of js coding to get all of the functionality that I intend for this script. After this will be just the movement phase and attack screens.\par
+6/28/2020:\par
+- I was able to get the tokens and upgrade cards to show up on the maneuver screen. There is a bug with the right border for dual sided upgrades.  I will be addressing that in the future.\par
+6/30/2020:\par
+- I fixed the border bug and have begun adding functionality to the cycling button.\par
+7/1/2020 - 7/2/2020:\par
+- I have added the following functionality to the cycling button:\par
+1. Can cycle between all three types of cards.\par
+2. Tokens for critical hit cards and conditions are finished so they can be assigned and saved to the ship data.\par
+3. When you assign a card, you will be taken to that card's screen after you add it.\par
+- I made a push to master and to heroku to make sure everything is running as it should. Nothing bad to reporty.\par
+- I ended up reconnecting my app to the heroku back-end since I am not working on debugging it yet.\par
+7/3/2020:\par
+-There was an error where the blind pilot critical hit card gave me a 404, turns out I missed its URL  when redoing the database. It was an easy fix.\par
+7/4/2020:\par
+- I have added a new class for dual sided upgrades. This will be an extension of a regular upgrade except it will be able to tell if a dual sided upgrade has its front or back showing.\par
+- Because of the added new class of upgrade, I can now keep permanance in dual sided upgrades. \par
+- I added the ability to remove crit hit cards, conditions, and upgrades.\par
+-There is an error I am looking at. There are not systems upgrades that show up in upgrades to choose from even though they exist in the database. Turns out there was a missing letter in the spelling of system, nothing more.\par
+- I was able to get the token image to appear when a token is pressed to alter the amount of that token, I will be adding some code to add and subtract the total amount and then update the screen.\par
+-Fixed the bug with no evade token and no chosen maneuver variable.\par
+-I sorted each JS data class based on where it was needed. in game variants and pilot sorter are now in the front end while the others are in the back end.\par
+7/5/2020:\par
+-  I added the ability for the user to add upgrades from the maneuver selection screen.\par
+- I added full token functionality to the token box and ship stats box.\par
+- I have begun work on target locks but the form is not yet done. I still need to add stuff for the ok button, I am working on the logic for when someone presses that button.\par
+7/6/2020:\par
+- I managed to finish the pop up for adding target locks. Now I am adding another pop up to handle viewing and removing target locks.\par
+-I have finished the work on target locks and have moved on to ship searching. I created a popup for it but needed to do a lot of variable renaming. Now I need to work on the function for when the ok button is pressed.\par
+7/7/2020:\par
+- I added the rest of search functionality and it is now finished.\par
+-I have begun to add functionality for the flip button and energy stat.  The ones on the main screen now show up and disappear as intended but the flip button has no functionality yet.\par
+7/8/2020:\par
+- I added functionality for the flip button in the target lock view screen.\par
+- I fixed a bug where if two ships on two different teams had the same target lock, the both appear on each ship.\par
+- I added a new div to display energy gained when dealing with a large ship.\par
+-I was able to create functionality for adding large ship critical hit cards.\par
+- I have begun work on the ship death detecting when a ship's hull is zero. After that I need to work on initiative tokens and when it shows up.\par
+ \par
+\par
+\par
 \par
 \par
 \par

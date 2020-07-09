@@ -32,7 +32,22 @@ for(var i = selected_index; i < buckets.length;i++)
     }
     if(i >= buckets.length-1)
     {
-        alert("all done sorting");
+        var sorting_done = confirm("Soring is complete, continue to maneuver selection?");
+        if(sorting_done == true)
+        {
+            sort_pilots_by_skill_and_overwrite_all_teams(buckets);
+            sessionStorage.removeItem("buckets");
+            sessionStorage.removeItem("indecies");
+            var initiative_assignment = Math.floor(Math.random() * all_teams.length);
+            all_teams[initiative_assignment].has_initiative_token = true;
+            alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            window.location.href = "../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+        }
+        else
+        {
+            back_button_click();
+        }
     }
 }
 
@@ -73,7 +88,7 @@ function done_button_click()
     else
     {
         var roster_array = Array.from(document.getElementsByClassName("sorted-ship-image"));
-        buckets[selected_index].roster_numbers = roster_array.map(function(e){return e.getAttribute("roster-number")});
+        buckets[selected_index].roster_numbers = roster_array.map(function(e){return parseInt(e.getAttribute("roster-number"))});
         console.log(buckets[selected_index]);
         sessionStorage.setItem("buckets",JSON.stringify(buckets));
         sessionStorage.setItem("indecies",JSON.stringify(indecies));
