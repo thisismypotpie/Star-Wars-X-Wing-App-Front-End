@@ -853,6 +853,7 @@ This is the css for the ship death pop-up
 #death-title{
     grid-row: 1;
     grid-column: 1/13;
+    text-align: center;
 }
 
 #yes-death-button{

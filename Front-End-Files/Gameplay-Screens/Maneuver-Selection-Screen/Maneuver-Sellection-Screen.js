@@ -19,7 +19,15 @@ if(team_index == null || selected_ship_index == undefined)
     team_index = 0;
     sessionStorage.setItem("team_index",team_index);
 }
-
+//Set initiative token to be visible or not.
+if(all_teams[team_index].has_initiative_token == true)
+{
+    document.getElementById('initiative-label').style.visibility = "visible";
+}
+else
+{
+    document.getElementById('initiative-label').style.visibility = "hidden";
+}
 //Check if the back button should be visible or not.
 if(team_index == 0 && selected_ship_index == 0)
 {
@@ -953,12 +961,18 @@ function check_for_death()
 
 function ship_is_dead()
 {
-    hide_pop_up('ship-death-pop-up'); 
+    var game_over = false;
+    hide_pop_up('ship-death-pop-up');
     all_teams[team_index].ship_list.splice(selected_ship_index,1);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams)); 
     if(all_teams[team_index].ship_list.length == 0)
     {
         //Team is out of the game.
+        var team_name = all_teams[team_index].team_name;
+        all_teams.splice(team_index,1);
+        sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+        document.getElementById('notification-pop-up-title').textContent = team_name+" has been eliminated from the game!";
+        show_pop_up("Notification-pop-up");
     }
     if(all_teams.length ==1)
     {
@@ -967,8 +981,17 @@ function ship_is_dead()
     if(all_teams.length == 0)
     {
         //game over.
+        game_over = true;
+        document.getElementById('notification-pop-up-title').textContent = "All teams eliminated <br> GAME OVER";
+        show_pop_up("Notification-pop-up");
+        document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
+        sessionStorage.clear();
+        sessionStorage.setItem("game_data",JSON.stringify(game_data));
     }
-    location.reload();
+    if(game_over == false)
+    {
+        location.reload();
+    }
 }
 
 function revive_ship()

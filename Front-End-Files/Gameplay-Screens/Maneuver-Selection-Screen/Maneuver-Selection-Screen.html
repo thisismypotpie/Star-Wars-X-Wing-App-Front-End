@@ -37,7 +37,7 @@
         <div class = "button-container">
           <button type = "button" class = "button" id = "back-button" onclick="">Back</button>
           <button type = "button" class = "button" id = "return-button" onclick="return_to_main_screen()">Retrun</button>     
-          <button type = "button" class = "long-button" id = "select-button" onclick="">Select</button>
+          <button type = "button" class = "long-button" id = "select-button" onclick="go_to_next_ship()">Select</button>
         </div>
 
         <div class = "test-div-border stat-image" id="pilot-image"></div>
@@ -83,7 +83,7 @@
       <!--Notification Pop-up-->
       <div class = "pop-up-container" id = "Notification-pop-up">
         <div class = "pop-up-title" id = "notification-pop-up-title"></div>
-        <button type = "button" class = "long-button ok-button" onclick="hide_pop_up('Notification-pop-up')">OK</button>
+        <button type = "button" class = "long-button ok-button" id="notificatin-ok-button" onclick="hide_pop_up('Notification-pop-up')">OK</button>
       </div>
 
       <!--Pop up for assigning critical hit cards.-->

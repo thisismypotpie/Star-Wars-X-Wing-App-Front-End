@@ -38,6 +38,10 @@ for(var i = selected_index; i < buckets.length;i++)
             sort_pilots_by_skill_and_overwrite_all_teams(buckets);
             sessionStorage.removeItem("buckets");
             sessionStorage.removeItem("indecies");
+            var initiative_assignment = Math.floor(Math.random() * all_teams.length);
+            all_teams[initiative_assignment].has_initiative_token = true;
+            alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
             window.location.href = "../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
         }
         else
