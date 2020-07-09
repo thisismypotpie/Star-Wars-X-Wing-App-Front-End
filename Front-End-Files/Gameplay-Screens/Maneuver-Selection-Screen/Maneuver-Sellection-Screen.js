@@ -928,14 +928,46 @@ function check_for_death()
         }
         if(aft_gone == true && fore_gone == true)
         {
-            //dead
+            show_pop_up('ship-death-pop-up');
         }
     }
     else
     {
         if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
         {
-            //dead
+            show_pop_up('ship-death-pop-up');
         }
     }
+}
+
+function ship_is_dead()
+{
+    hide_pop_up('ship-death-pop-up'); 
+    all_teams[team_index].ship_list.splice(selected_ship_index,1);
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams)); 
+    if(all_teams[team_index].ship_list.length == 0)
+    {
+        //Team is out of the game.
+    }
+    if(all_teams.length ==1)
+    {
+        //Is the game over?
+    }
+    if(all_teams.length == 0)
+    {
+        //game over.
+    }
+    location.reload();
+}
+
+function revive_ship()
+{
+    all_teams[team_index].ship_list[selected_ship_index].current_hull =1;
+    if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard" &&
+    all_teams[team_index].ship_list[selected_ship_index].aft_showing == true)//Reset a two sided card back to the front.
+    {
+        all_teams[team_index].ship_list[selected_ship_index].aft_showing = false;
+    }
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams)); 
+    location.reload();
 }
