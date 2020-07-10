@@ -81,9 +81,9 @@ var target_lock_box = document.getElementById("target-lock-box");
 var main_title = document.getElementById('main-title');
 
 //call the function that sets up the screen.
+make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
 set_up_maneuver_screen();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
-make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
 
 function set_up_maneuver_screen()
 {
@@ -1049,7 +1049,23 @@ function main_back_button_click()
 
 function go_to_next_ship_movement_phase()
 {
-
+    var maneuver_attack_index = parseInt(sessionStorage.getItem("movement_atack_index"),10);
+    maneuver_attack_index ++;
+    var total_ships_left = 0;
+    all_teams.forEach(team=>{
+        total_ships_left = total_ships_left + team.ship_list.length;
+    })
+    if(maneuver_attack_index >= total_ships_left)
+    {
+        sessionStorage.setItem("movement_attack_index",0);
+        alert("movement phase complete!");
+        return;
+    }
+    else
+    {
+        sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+    }
+    location.reload();
 }
 
 function go_to_next_ship_attack_phase()
@@ -1100,6 +1116,9 @@ function make_phase_changes()
             document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
             document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.maneuver_symbol_path+"')";
             document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
+            var turn_index = parseInt(sessionStorage.getItem("movement_attack_index"),10);           
+            var indecies = get_pilot_whos_turn_it_is(turn_index,all_teams);
+            alert();
         }
         else if(sessionStorage.getItem("phase") == "attack")
         {

@@ -21,3 +21,5 @@ Simon TODO
 -Make sure to move a ship to the correct area when someone's pilot skill is changed.
 
 -Add functionality to the back button in the main maneuver selection screen.
+
+-There is an error in changing the roster numbers, the number are not perminant as soon you as you leave the screen.
