@@ -9,7 +9,7 @@
     </head>
     <body>
       <div class = "grid-container">
-        <div class = "page-title">Maneuver Selection</div>
+        <div class = "page-title" id="main-title">Maneuver Selection</div>
         <div class = "team-mate-maneuvers-label" id = "team-mate-maneuvers-label">Team-Mate Maneuvers</div>
         <div class = "card-type-label" id = "card-type-label">Card Type</div>
         <div id = "target-lock-label">Target Locks</div>
@@ -37,7 +37,7 @@
         <div class = "button-container">
           <button type = "button" class = "button" id = "back-button" onclick="">Back</button>
           <button type = "button" class = "button" id = "return-button" onclick="return_to_main_screen()">Retrun</button>     
-          <button type = "button" class = "long-button" id = "select-button" onclick="go_to_next_ship()">Select</button>
+          <button type = "button" class = "long-button" id = "select-button" onclick="go_to_next_ship_maneuver_selection()">Select</button>
         </div>
 
         <div class = "test-div-border stat-image" id="pilot-image"></div>
@@ -163,7 +163,7 @@
         <div class = "pop-up-title" id="death-title">Has this Ship Died?</div>
         <button type = "button" class = "long-button" id = "no-death-button"onclick="revive_ship()">No</button>
         <button type = "button" class = "long-button" id = "yes-death-button" onclick="ship_is_dead()">Yes</button>
-        <button type = "button" class = "button kaboom-button" id = "kaboom-button" onclick="play_death_music();document.getElementById('kaboom-button').style.visibility = 'hidden';">KABOOM!</button>
+        <button type = "button" class = "button" id = "kaboom-button" onclick="play_death_music();document.getElementById('kaboom-button').style.visibility = 'hidden';">KABOOM!</button>
         </div>
 
       <!--Pop up for viewing a target lock-->
@@ -212,6 +212,7 @@
       </div>
 
     </body>
+    <script type="text/javascript" src="../../JS Data Classes/Pilot-Sorter.js"></script>
     <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
     </html>

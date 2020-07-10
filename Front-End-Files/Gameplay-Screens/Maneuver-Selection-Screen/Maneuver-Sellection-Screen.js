@@ -78,10 +78,12 @@ var card_type_label = document.getElementById("card-type-label");
 var card_list = document.getElementById("card-box");
 var team_name_label = document.getElementById("team-name-label");
 var target_lock_box = document.getElementById("target-lock-box");
+var main_title = document.getElementById('main-title');
 
 //call the function that sets up the screen.
 set_up_maneuver_screen();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
+make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
 
 function set_up_maneuver_screen()
 {
@@ -953,7 +955,6 @@ function check_for_death()
     {
         if(all_teams[team_index].ship_list[selected_ship_index].current_hull <= 0)
         {
-            document.getElementById('kaboom-button').style.visibility = 'visible';
             show_pop_up('ship-death-pop-up');
         }
     }
@@ -961,34 +962,54 @@ function check_for_death()
 
 function ship_is_dead()
 {
-    var game_over = false;
     hide_pop_up('ship-death-pop-up');
     all_teams[team_index].ship_list.splice(selected_ship_index,1);
-    sessionStorage.setItem("all_teams",JSON.stringify(all_teams)); 
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    var game_over = false; 
     if(all_teams[team_index].ship_list.length == 0)
     {
         //Team is out of the game.
         var team_name = all_teams[team_index].team_name;
         all_teams.splice(team_index,1);
+        if(team_index >= all_teams.length)//Just in case the last team in the list is eliminated first.
+        {
+            team_index = all_teams.length -1;
+            sessionStorage.setItem("team_index",team_index);
+        }
         sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
         document.getElementById('notification-pop-up-title').textContent = team_name+" has been eliminated from the game!";
+        document.getElementById('notificatin-ok-button').onclick = function(){location.reload();};
         show_pop_up("Notification-pop-up");
+        if(all_teams.length <=1)
+        {
+            game_over = true;
+        }
+        else
+        {
+            return;
+        }
     }
-    if(all_teams.length ==1)
-    {
-        //Is the game over?
-    }
-    if(all_teams.length == 0)
+    if(all_teams.length == 0 || game_over == true)
     {
         //game over.
-        game_over = true;
-        document.getElementById('notification-pop-up-title').textContent = "All teams eliminated <br> GAME OVER";
+        if(all_teams.length == 0)
+        {
+            document.getElementById('notification-pop-up-title').textContent = "All teams eliminated! \n GAME OVER!";
+        }
+        else
+        {
+            document.getElementById('notification-pop-up-title').textContent = all_teams[team_index].team_name+" is victorious! \n GAME OVER!";
+        }
         show_pop_up("Notification-pop-up");
         document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
         sessionStorage.clear();
         sessionStorage.setItem("game_data",JSON.stringify(game_data));
+        if(all_teams.length > 0)
+        {
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+        }
     }
-    if(game_over == false)
+    else
     {
         location.reload();
     }
@@ -1018,5 +1039,71 @@ function play_death_music()
     {
         var regular_ship_death =  new Audio('https://docs.google.com/uc?export=download&id=1Id2DleeQ8isNQibcCOsHyvlyO2iIsWDc');
         regular_ship_death.play();       
+    }
+}
+
+function main_back_button_click()
+{
+
+}
+
+function go_to_next_ship_movement_phase()
+{
+
+}
+
+function go_to_next_ship_attack_phase()
+{
+
+}
+
+function go_to_next_ship_maneuver_selection()
+{
+    //save maneuver
+    all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index];
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    selected_ship_index++;
+    if(selected_ship_index >= all_teams[team_index].ship_list.length)//Move to next team.
+    {
+        team_index++;
+        selected_ship_index = 0;
+    }
+    if(team_index >= all_teams.length)
+    {
+        sessionStorage.removeItem("team_index");
+        sessionStorage.removeItem("selected_ship_index");
+        //move to movement phase.
+        sessionStorage.setItem("phase","movement");
+        sessionStorage.setItem("movement_attack_index",0);
+        location.reload();
+    }
+    else
+    {
+        sessionStorage.setItem("team_index",team_index);
+        sessionStorage.setItem("selected_ship_index",selected_ship_index);
+        location.reload();
+    }
+}
+
+function make_phase_changes()
+{
+    if(sessionStorage.getItem("phase")!=null && sessionStorage.getItem("phase")!= undefined)//its not the maneuver selection phase if this is true.
+    {
+        if(sessionStorage.getItem("phase") == "movement")
+        {
+            //set team index, selected ship index, and all teams. also set holder for normal all teams.
+            main_title.textContent = "Movement Phase";
+            document.getElementById('previous-maneuver-button').style.visibility = "hidden";
+            document.getElementById('next-maneuver-button').style.visibility = "hidden";
+            document.getElementById('select-button').onclick = function(){go_to_next_ship_movement_phase()};
+            document.getElementById('team-mate-maneuvers').style.visibility = "hidden";
+            document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
+            document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.maneuver_symbol_path+"')";
+            document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
+        }
+        else if(sessionStorage.getItem("phase") == "attack")
+        {
+
+        }
     }
 }

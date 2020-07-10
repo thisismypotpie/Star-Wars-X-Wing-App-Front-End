@@ -47,3 +47,9 @@ function bucket_sort_pilots_by_skill(all_teams)
     }
     return {sorted_buckets:sorted_buckets,sorting_needed:sorting_needed};//Retrun a struct with sorted buckets and whether or not sorting is needed.
 }
+
+//This function will line up all of the ships in order for the movement and attack phase and then return the team index and selected ship index of who's turn it is.
+function get_pilot_whos_turn_it_is(index,all_teams)
+{
+    
+}

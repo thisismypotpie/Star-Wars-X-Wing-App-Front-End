@@ -21,6 +21,13 @@ else//populate the board with the name of each team, the size and total cost.
   team.has_initiative_token = false;  
       })
       sessionStorage.setItem("all_teams",JSON.stringify(teams));
+
+      //Remove everything from session storage except for game data and all teams. This is for when you use the back button in maneuver selection screen.
+    let game_data = JSON.parse(sessionStorage.getItem("game_data"));
+    sessionStorage.clear();
+    sessionStorage.setItem("all_teams",JSON.stringify(teams));
+    sessionStorage.setItem("game_data",JSON.stringify(game_data));
+
    //I need to use a traditional loop since a collection has no "foreach" method.
    for(var i=0; i < teams.length;i++)
    {
