@@ -1,6 +1,11 @@
 - Add loading functionality for pre-game squad building.
 
-- Come up with some sketches for the in-game interface.
+- When you create the UI for maneuver selection, have a list that contains the list of all maneuvers chosen as well as the roster number of the ship that chose that maneuver.
+
+Simon TODO
+- Media queries.
+- Implement multiplayer system.
+- Come up with the database schema for loading and saving games.
 
 - Come up with the database schema for loading and saving games.
 -Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
@@ -12,4 +17,3 @@
 - There is an error if you have a team of one and then remove it using the remove ship button.
 
 - I need to test to see if big ship specific critical hit cards work.
-

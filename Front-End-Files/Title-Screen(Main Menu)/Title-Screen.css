@@ -80,9 +80,9 @@ body{
     width: 100%;
 }
 
-@media screen and (max-width: 1200px) and (min-width: 1px)
-{
+@media screen and (max-width: 768px){
     .button{
-        width: 60%;
+        width: 40%;
+        font-size: 5vw;
     }
 }
