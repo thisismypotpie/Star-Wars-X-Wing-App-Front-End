@@ -80,6 +80,7 @@ var card_list = document.getElementById("card-box");
 var team_name_label = document.getElementById("team-name-label");
 var target_lock_box = document.getElementById("target-lock-box");
 var main_title = document.getElementById('main-title');
+var team_mate_maneuvers = document.getElementById('team-mate-maneuvers');
 
 //call the function that sets up the screen.
 make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
@@ -160,7 +161,89 @@ function set_up_team_mate_maneuvers()
 {
     for(var i =0; i < selected_ship_index;i++)
     {
-        var team_mate_maneuver_div = document.createElement("div");
+        //Create container for the stored maneuvers.
+        var team_mate_maneuver_container = document.createElement("div");
+        team_mate_maneuver_container.className = "maneuver-roster-"+all_teams[team_index].ship_list[i].roster_number;
+        team_mate_maneuver_container.style.border = "1px solid white";
+        team_mate_maneuver_container.style.width  = "100%";
+        team_mate_maneuver_container.style.height = "5%";
+        team_mate_maneuver_container.style.display = "flex";
+        team_mate_maneuvers.style.flexDirection = "row";
+        team_mate_maneuver_container.style.marginBottom="2%";
+
+            //Add range image to the container.
+            var range_div = document.createElement("div");
+            range_div.className = "maneuver-roster-"+all_teams[team_index].ship_list[i].roster_number+"-range";
+            range_div.style.backgroundRepeat = "no-repeat";
+            range_div.style.backgroundSize = "100% 100%";
+            range_div.style.width = "30%";
+            range_div.style.height = "100%";
+            range_div.style.marginRight = "5%";
+            range_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.range_symbol_path+"')";
+            if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+            all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                range_div.style.width = "25%";
+                range_div.style.marginRight = "0%";    
+            }
+            team_mate_maneuver_container.appendChild(range_div);
+
+            //Add maneuver image to the container.
+            var maneuver_div = document.createElement("div");
+            maneuver_div.className = "maneuver-roster-"+all_teams[team_index].ship_list[i].roster_number+"-maneuver";
+            maneuver_div.style.backgroundRepeat = "no-repeat";
+            maneuver_div.style.backgroundSize = "100% 100%";
+            maneuver_div.style.width = "30%";
+            maneuver_div.style.height = "100%";
+            maneuver_div.style.marginRight = "5%";
+            maneuver_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.maneuver_symbol_path+"')";
+            if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+            all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                maneuver_div.style.width = "25%";
+                maneuver_div.style.marginRight = "0%";    
+            }
+            team_mate_maneuver_container.appendChild(maneuver_div);
+
+            //potentially add energy image to container.
+            if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+            all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                var energy_div = document.createElement("div");
+                energy_div.className = "maneuver-roster-"+all_teams[team_index].ship_list[i].roster_number+"-energy";
+                energy_div.style.backgroundRepeat = "no-repeat";
+                energy_div.style.backgroundSize = "100% 100%";
+                energy_div.style.width = "25%";
+                energy_div.style.height = "100%";
+                energy_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.energy_symbol_path+"')"; 
+                team_mate_maneuver_container.appendChild(energy_div);
+            }
+
+            //Add roster number to container.
+            var roster_div = document.createElement("div");
+            roster_div.className = "maneuver-roster-"+all_teams[team_index].ship_list[i].roster_number+"-maneuver";
+            roster_div.style.backgroundRepeat = "no-repeat";
+            roster_div.style.backgroundSize = "100% 100%";
+            roster_div.style.width = "30%";
+            roster_div.style.height = "100%";
+            roster_div.style.marginRight = "5%";
+            roster_div.style.backgroundColor = "rgb(75,75,75)";
+            roster_div.style.color = "White";
+            roster_div.style.fontFamily = "Impact, Charcoal, sans-serif";
+            roster_div.style.borderLeft = "2px solid rgb(156,156,156)";
+            roster_div.style.borderRight = "2px solid rgb(156,156,156)";
+            roster_div.style.fontSize = "auto";
+            roster_div.style.textAlign = "Center";
+            roster_div.textContent = all_teams[team_index].ship_list[i].roster_number;
+            if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+            all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                roster_div.style.width = "25%";
+                roster_div.style.marginRight = "0%";    
+            }
+            team_mate_maneuver_container.appendChild(roster_div);
+        team_mate_maneuvers.appendChild(team_mate_maneuver_container);
+
     }
 }
 

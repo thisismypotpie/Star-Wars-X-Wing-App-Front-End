@@ -29,3 +29,5 @@ Simon TODO
 -Center the buttons around the roster number assignment aspect of the upgrade screen.
 
 -For some reason, the search is not working properly when it comes to searching for a ship durring the movement or attack phase. I will need to fix that.
+
+-Check to make sure in the movement phase that the chosen maneuver energy shows up when needed.
