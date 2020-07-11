@@ -76,6 +76,20 @@
           <div class = "test-div-border stat-image"id = "maneuver-type"></div>
           <div class = "test-div-border stat-image"id = "maneuver-energy"></div>
         </div>
+
+      <!--Dice Container-->
+      <div class = "dice-container" id ="dice-container">
+        <button type = "button" class = "button" id = "minus-attacker-dice" onclick="subtract_attack_die()">-</button>
+        <button type = "button" class = "button" id = "add-attacker-dice" onclick="add_attack_die()">+</button>
+        <button type = "button" class = "button" id = "minus-defender-dice" onclick="subtract_defense_die()">-</button>
+        <button type = "button" class = "button" id = "add-defender-dice" onclick="add_defense_die()">+</button>
+        <button type = "button" class = "long-button" id = "roll-dice" onclick="roll_dice_click()">Roll</button>
+        <div class = "stat-text" id="number-of-attacking-dice">X0</div>
+        <div class = "stat-text" id="number-of-defending-dice">X0</div>
+        <div class = "stat-image" id="attacker-dice-image"></div>
+        <div class = "stat-image" id = "defender-dice-image"></div>        
+      </div>
+
       </div>
       <!-- This will be the html for various pop-up screens in the maneuver selection page.-->
       <div id = "overlay"></div>
@@ -209,24 +223,21 @@
         <div class = "hull-text-tl stat-text" id="hull-tl-defend">:xx</div>
         <div class = "shield-text-tl stat-text" id="shield-tl-defend">:xx</div>
         <div class = "energy-text-tl stat-text" id="energy-tl-defend">:xx</div>
-      </div>
+      </div>dice-results-pop-up
 
-      <!--Dice Container-->
-      <div class = "dice-container" id ="dice-container">
-        <button type = "button" class = "button" id = "minus-attacker-dice" onclick="">-</button>
-        <button type = "button" class = "button" id = "add-attacker-dice" onclick="">+</button>
-        <button type = "button" class = "button" id = "minus-defender-dice" onclick="">-</button>
-        <button type = "button" class = "button" id = "add-defender-dice" onclick="">+</button>
-        <button type = "button" class = "long-button" id = "roll-dice" onclick="">Roll</button>
-        <div class = "stat-text" id="number-of-attacking-dice"></div>
-        <div class = "stat-text" id="number-of-defending-dice"></div>
-        <div class = "stat-image" id="attacker-dice-image"></div>
-        <div class = "stat-image" id = "defender-dice-image"></div>
-        
+    <!--Pop-up for the results of dice rolling-->
+    <div class = "pop-up-container" id="dice-results-pop-up">
+      <div class = "pop-up-title" id="dice-results-title">Roll Results</div>
+      <div id="dice-results-container">
+        <div id = "attacking-dice-results"></div>
+        <div id = "defending-dice-results"></div>
       </div>
+      <button type = "button" class = "long-button" onclick="hide_pop_up('dice-results-pop-up');remove_dice();">Done</button>
+    </div>
 
     </body>
     <script type="text/javascript" src="../../JS Data Classes/Pilot-Sorter.js"></script>
     <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>
     <script type="text/javascript" src="Maneuver-Sellection-Screen.js"></script>
+    <script type="text/javascript" src="../../JS Data Classes/Dice-Functions.js"></script>
     </html>

@@ -1241,6 +1241,7 @@ function make_phase_changes()//Alter the appropriate elements to get to the corr
             document.getElementById('select-button').onclick = function(){go_to_next_ship_attack_phase()};
             maneuver_range_label.style.visibility = "hidden";
             maneuver_type_label.style.visibility = "hidden";
+            document.getElementById('dice-container').style.visibility = "visible";
             //the energy gained symbol will be hidden by the set up screen function, I was unable to get it to happen here due to to order of events not being able to be changed.
         }
     }
