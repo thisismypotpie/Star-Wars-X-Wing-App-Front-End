@@ -135,6 +135,10 @@ set_up_target_lock_list();
 if(all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
   all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.ship_type == "largeOneCard")
 {
+    if(sessionStorage.getItem("phase") == "attack")
+    {
+        energy_gained_label.style.visibility = "hidden";
+    }
     energy_gained_label.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index].energy_symbol_path+"')";
     document.getElementById('energy-image').style.visibility = "visible";
     document.getElementById('energy-text').style.visibility = "visible";
@@ -1235,6 +1239,9 @@ function make_phase_changes()//Alter the appropriate elements to get to the corr
         {
             main_title.textContent = "Attack Phase";
             document.getElementById('select-button').onclick = function(){go_to_next_ship_attack_phase()};
+            maneuver_range_label.style.visibility = "hidden";
+            maneuver_type_label.style.visibility = "hidden";
+            //the energy gained symbol will be hidden by the set up screen function, I was unable to get it to happen here due to to order of events not being able to be changed.
         }
     }
 }
