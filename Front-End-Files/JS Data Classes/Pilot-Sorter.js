@@ -99,21 +99,13 @@ function get_pilot_whos_turn_it_is(index_of_whos_turn_it_is,all_teams)
     var id_found = false;
     for(var i = 0; i < all_teams.length;i++)//Find the chosen ship's ship index and team index.
     {
-        for(var j = 0; j < all_teams[i].ship_list.length;j++)
-        {
-            if(all_teams[i].team_name == ordered_ships[index_of_whos_turn_it_is].team_name &&
-                all_teams[i].ship_list[j].roster_number == ordered_ships[index_of_whos_turn_it_is].roster_number)
-                {
-                    chosen_team_index = i;
-                    chosen_ship_index = j;
-                    id_found = true;
-                    break;
-                }
-        }
-        if(id_found == true)
-        {
-            break;
-        }
+        var ship_rosters = all_teams[i].ship_list.map(function(e){return e.roster_number;});
+        if(ship_rosters.includes(ordered_ships[index_of_whos_turn_it_is].roster_number) &&
+            all_teams[i].team_name == ordered_ships[index_of_whos_turn_it_is].team_name) 
+            {
+                chosen_team_index = i;
+                chosen_ship_index = ship_rosters.indexOf(ordered_ships[index_of_whos_turn_it_is].roster_number);
+            }
     }
 
     if(chosen_team_index == -1)

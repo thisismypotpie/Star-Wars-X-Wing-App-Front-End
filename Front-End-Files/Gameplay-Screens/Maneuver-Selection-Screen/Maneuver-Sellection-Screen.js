@@ -1056,11 +1056,11 @@ function go_to_next_ship_movement_phase()
     all_teams.forEach(team=>{
         total_ships_left = total_ships_left + team.ship_list.length;
     })
-    if(maneuver_attack_index >= total_ships_left)
+    if(maneuver_attack_index >= total_ships_left)//Go to attack phase.
     {
-        sessionStorage.setItem("movement_attack_index",0);
-        alert("movement phase complete!");
-        return;
+        sessionStorage.setItem("phase","attack");
+        maneuver_attack_index --;
+        sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
     }
     else
     {
@@ -1071,7 +1071,21 @@ function go_to_next_ship_movement_phase()
 
 function go_to_next_ship_attack_phase()
 {
-
+    var maneuver_attack_index =sessionStorage.getItem("movement_attack_index");
+    maneuver_attack_index --;
+    var total_ships_left = 0;
+    if(maneuver_attack_index < 0)//Go to maneuver Selection phase.
+    {
+        sessionStorage.removeItem("phase");//Phase is used to determine when phase we are in, if there is no phase in sessionstorage, then we are in maneuver selection.
+        sessionStorage.removeItem("movement_attack_index");
+        sessionStorage.removeItem("team_index");
+        sessionStorage.removeItem("selected_ship_index");
+    }
+    else
+    {
+        sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+    }
+    location.reload();
 }
 
 function go_to_next_ship_maneuver_selection()
@@ -1102,31 +1116,32 @@ function go_to_next_ship_maneuver_selection()
     }
 }
 
-function make_phase_changes()
+function make_phase_changes()//Alter the appropriate elements to get to the correct phase.
 {
     if(sessionStorage.getItem("phase")!=null && sessionStorage.getItem("phase")!= undefined)//its not the maneuver selection phase if this is true.
     {
+        var turn_index = parseInt(sessionStorage.getItem("movement_attack_index"),10);           
+        var indecies = get_pilot_whos_turn_it_is(turn_index,all_teams);
+        team_index = indecies[0];
+        selected_ship_index = indecies[1];
+        sessionStorage.setItem("team_index",team_index);
+        sessionStorage.setItem("selected_ship_storage",selected_ship_index);
+        document.getElementById('previous-maneuver-button').style.visibility = "hidden";
+        document.getElementById('next-maneuver-button').style.visibility = "hidden";
+        document.getElementById('team-mate-maneuvers').style.visibility = "hidden";
+        document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
+        document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.maneuver_symbol_path+"')";
+        document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
         if(sessionStorage.getItem("phase") == "movement")
         {
             //set team index, selected ship index, and all teams. also set holder for normal all teams.
             main_title.textContent = "Movement Phase";
-            document.getElementById('previous-maneuver-button').style.visibility = "hidden";
-            document.getElementById('next-maneuver-button').style.visibility = "hidden";
             document.getElementById('select-button').onclick = function(){go_to_next_ship_movement_phase()};
-            document.getElementById('team-mate-maneuvers').style.visibility = "hidden";
-            document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
-            document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.maneuver_symbol_path+"')";
-            document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
-            var turn_index = parseInt(sessionStorage.getItem("movement_attack_index"),10);           
-            var indecies = get_pilot_whos_turn_it_is(turn_index,all_teams);
-            team_index = indecies[0];
-            selected_ship_index = indecies[0];
-            sessionStorage.setItem("team_index",team_index);
-            sessionStorage.setItem("selected_ship_storage",selected_ship_index);
         }
         else if(sessionStorage.getItem("phase") == "attack")
         {
-
+            main_title.textContent = "Attack Phase";
+            document.getElementById('select-button').onclick = function(){go_to_next_ship_attack_phase()};
         }
     }
 }
