@@ -1080,6 +1080,7 @@ function go_to_next_ship_attack_phase()
         sessionStorage.removeItem("movement_attack_index");
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
+        //change who has initiative and then save to all teams.
     }
     else
     {
@@ -1142,6 +1143,71 @@ function make_phase_changes()//Alter the appropriate elements to get to the corr
         {
             main_title.textContent = "Attack Phase";
             document.getElementById('select-button').onclick = function(){go_to_next_ship_attack_phase()};
+        }
+    }
+}
+
+function main_back_button_click()
+{
+    if(sessionStorage.getItem("phase") != null && sessionStorage.getItem("phase") != undefined)//movement or attack phase back button.
+    {
+        if(sessionStorage.getItem("phase") == "movement")
+        {
+            var movement_attack_index =  parseInt(sessionStorage.getItem("movement_attack_index"),10);
+            if(movement_attack_index > 0)//Going back from movement to maneuver selection.
+            {
+                sessionStorage.setItem("movement_attack_index",(movement_attack_index-1));
+                location.reload();
+            }
+            else//going back within maneuver selection.
+            {
+                sessionStorage.removeItem("phase");
+                sessionStorage.removeItem("movement_attack_index");
+                team_index = all_teams.length -1;
+                selected_ship_index = all_teams[all_teams.length-1].ship_list.length -1;
+                sessionStorage.setItem("team_index",team_index);
+                sessionStorage.setItem("selected_ship_index",selected_ship_index);
+                location.reload();
+            }
+        }
+        else if(sessionStorage.getItem("phase") == "attack")
+        {
+            var total_ships = 0;
+            all_teams.forEach(team=>{
+                total_ships = total_ships + team.ship_list.length;
+            })
+            total_ships = total_ships - 1;//This is to change the number into an array index.
+            if(total_ships <= movement_attack_index)
+            {
+                sessionStorage.setItem("phase","movement");
+                location.reload();
+            }
+            else
+            {
+                sessionStorage.setItem("movement_attack_index",(movement_attack_index+1));
+                location.reload();         
+            }
+        }
+        else
+        {
+            alert("ERROR: back button could not determine which phase the game is in.");
+        }
+    }
+    else// maneuver selection back button if you are going back a team.
+    {
+        if(selected_ship_index == 0)//go back to previous team
+        {
+            team_index --;
+            selected_ship_index = all_teams[team_index].ship_list.length -1;
+            sessionStorage.setItem("team_index",team_index);
+            sessionStorage.setItem("selected_ship_index",selected_ship_index);
+            location.reload();
+        }
+        else//maneuver selection going back one ship.
+        {
+            selected_ship_index --;
+            sessionStorage.setItem("selected_ship_index",selected_ship_index);
+            location.reload();
         }
     }
 }

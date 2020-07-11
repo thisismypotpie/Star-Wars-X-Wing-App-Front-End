@@ -27,3 +27,5 @@ Simon TODO
 -When altering the pilot skill, make sure the player cannot go above 12.
 
 -Center the buttons around the roster number assignment aspect of the upgrade screen.
+
+-For some reason, the search is not working properly when it comes to searching for a ship durring the movement or attack phase. I will need to fix that.
