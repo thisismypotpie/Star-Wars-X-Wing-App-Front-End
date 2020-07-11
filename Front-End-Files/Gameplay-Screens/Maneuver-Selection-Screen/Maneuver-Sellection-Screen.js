@@ -84,6 +84,7 @@ var main_title = document.getElementById('main-title');
 //call the function that sets up the screen.
 make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
 set_up_maneuver_screen();
+set_up_team_mate_maneuvers();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
 
 function set_up_maneuver_screen()
@@ -153,6 +154,14 @@ else
     energy_gained_label.style.visibility = "hidden";
 }
 
+}
+
+function set_up_team_mate_maneuvers()
+{
+    for(var i =0; i < selected_ship_index;i++)
+    {
+        var team_mate_maneuver_div = document.createElement("div");
+    }
 }
 
 function set_up_target_lock_list()
@@ -1080,13 +1089,13 @@ function go_to_next_ship_attack_phase()
         sessionStorage.removeItem("movement_attack_index");
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
-        //change who has initiative and then save to all teams.
+        assign_new_round_initiative_token();
     }
     else
     {
         sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+        location.reload();//Moved this to the else segment so a message can appear at the end of the round, when the ok button is clicked, it will reload the page so that it does not happen automatically.
     }
-    location.reload();
 }
 
 function go_to_next_ship_maneuver_selection()
@@ -1172,6 +1181,7 @@ function main_back_button_click()
         }
         else if(sessionStorage.getItem("phase") == "attack")
         {
+            var movement_attack_index =  parseInt(sessionStorage.getItem("movement_attack_index"),10);
             var total_ships = 0;
             all_teams.forEach(team=>{
                 total_ships = total_ships + team.ship_list.length;
@@ -1210,4 +1220,30 @@ function main_back_button_click()
             location.reload();
         }
     }
+}
+
+function assign_new_round_initiative_token()
+{
+    for(var i=0; i < all_teams.length;i++)
+    {
+        if(all_teams[i].has_initiative_token == true)
+        {
+            var new_index = -1;
+            all_teams[i].has_initiative_token = false;
+            if((i+1)>= all_teams.length)
+            {
+                new_index = 0;
+            }
+            else
+            {
+                new_index = i+1;
+            }
+            all_teams[new_index].has_initiative_token = true;
+            document.getElementById('notification-pop-up-title').textContent = "ROUND OVER! \n"+all_teams[new_index].team_name+" now has initiative.";
+            document.getElementById('notificatin-ok-button').onclick = function(){location.reload()};
+            show_pop_up("Notification-pop-up");
+            return;
+        }
+    }
+    alert("ERROR: No team was found with the initiative token!");
 }
