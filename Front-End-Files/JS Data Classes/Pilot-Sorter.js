@@ -49,13 +49,15 @@ function bucket_sort_pilots_by_skill(all_teams)
 }
 
 //This function will line up all of the ships in order for the movement and attack phase and then return the team index and selected ship index of who's turn it is.
-function get_pilot_whos_turn_it_is(index,all_teams)
+function get_pilot_whos_turn_it_is(index_of_whos_turn_it_is,all_teams)
 {
-    //This function will re-create the line of ships every time in order to reflect changes made each time instead of being out of sync with all teams.
+    var pilot_skill_buckets = [{skill:0,ships:[]},{skill:1,ships:[]},{skill:2,ships:[]},{skill:3,ships:[]},{skill:4,ships:[]},{skill:5,ships:[]},{skill:6,ships:[]},{skill:7,ships:[]},{skill:8,ships:[]},{skill:9,ships:[]},{skill:10,ships:[]},{skill:11,ships:[]},{skill:12,ships:[]}];
     var initiative_index = 0;
-    var ordered_all_teams = [];
-    var ordered_ships = [];
-    for(var i =0; i < all_teams.length;i++)//Find out which team has initiative.
+    var ordered_ships  = [];
+    var chosen_ship_index = -1;
+    var chosen_team_index = -1;
+    //Get the index of the team that has initiative.
+    for(var i=0; i < all_teams.length;i++)
     {
         if(all_teams[i].has_initiative_token == true)
         {
@@ -63,61 +65,65 @@ function get_pilot_whos_turn_it_is(index,all_teams)
             break;
         }
     }
-    for(var i = initiative_index; i<all_teams.length;i++)//Move the team with initiative and each team after it to the front of the ordered team list.
+
+    for(var i=initiative_index;i<all_teams.length;i++)//Sort all teams from the first team to the end.
     {
-        ordered_all_teams.push(all_teams[i]);
-    }
-    for(var i = 0; i<initiative_index;i++)//Move the team each team before team with initiative before team with initiative.
-    {
-        ordered_all_teams.push(all_teams[i]);
-    }
-    var current_pilot_skill_adding = 0;
-    var team_out_of_ships = 0;
-    while(team_out_of_ships < ordered_all_teams.length)//Sort pilots into the sorted order.
-    {
-        team_out_of_ships = 0;
-        for(var i = 0; i<ordered_all_teams.length;i++)//Sort by pilot skill.
-        {
-            if(ordered_all_teams[i].ship_list.length == 0)//Add to ships that are out of team.
-            {
-                team_out_of_ships++;
-            }
-            else
-            {
-                for(var j =0; j < ordered_all_teams[i].ship_list.length;i++)//take all ships that are in the current pilot skill away and add them to the ordered ships.
+        all_teams[i].ship_list.forEach(ship=>{
+            pilot_skill_buckets.forEach(bucket=>{
+                if(bucket.skill == ship.current_pilot_skill)
                 {
-                    if(ordered_all_teams[i].ship_list[j].current_pilot_skill == current_pilot_skill_adding)
-                    {
-                        ordered_ships.push(ordered_all_teams[i].ship_list[j]);
-                        ordered_all_teams[i].ship_list.splice(j,1);
-                    }
+                    bucket.ships.push(ship);
                 }
-    
-            }
-        }
-        current_pilot_skill_adding++
+            })
+        })
     }
-    var team_index_to_return = 0;
-    var ship_index_to_return = 0;
-    for(var i =0; i < all_teams.length;i++)//Find the team index and ship index for who's turn it is.
+
+    for(var i=0; i < initiative_index;i++)//Sort all teamd before initiative index.
     {
-        if(all_teams[i].team_name == ordered_ships[index].team_name)
-        {
-            team_index_to_return = i;
-            for(var j = 0; j< all_teams[i].ship_list;j++)
-            {
-                if(ordered_ships[index].roster_number == all_teams[i].ship_list[j].roster_number)
+        all_teams[i].ship_list.forEach(ship=>{
+            pilot_skill_buckets.forEach(bucket=>{
+                if(bucket.skill == ship.current_pilot_skill)
                 {
-                    ship_index_to_return = j;
+                    bucket.ships.push(ship);
+                }
+            })
+        })
+    }
+
+    pilot_skill_buckets.forEach(bucket=>{//combine buckets to get a list of all ordered ships.
+        bucket.ships.forEach(bucket_ship=>{
+            ordered_ships.push(bucket_ship);
+        })
+    })
+
+    var id_found = false;
+    for(var i = 0; i < all_teams.length;i++)//Find the chosen ship's ship index and team index.
+    {
+        for(var j = 0; j < all_teams[i].ship_list.length;j++)
+        {
+            if(all_teams[i].team_name == ordered_ships[index_of_whos_turn_it_is].team_name &&
+                all_teams[i].ship_list[j].roster_number == ordered_ships[index_of_whos_turn_it_is].roster_number)
+                {
+                    chosen_team_index = i;
+                    chosen_ship_index = j;
+                    id_found = true;
                     break;
                 }
-            }
+        }
+        if(id_found == true)
+        {
             break;
         }
-        else if(i == (all_teams.length -1))
-        {
-            alert("ERROR: Not abel to find team of selected ship in ship sorter.");
-        }
     }
-    return[team_index_to_return,ship_index_to_return];
+
+    if(chosen_team_index == -1)
+    {
+        alert("ERROR: chosen team index not found!.");
+        return;
+    }
+    if(chosen_ship_index == -1)
+    {
+        alert("ERROR: chosen ship index not found!");
+    }
+    return[chosen_team_index,chosen_ship_index];
 }

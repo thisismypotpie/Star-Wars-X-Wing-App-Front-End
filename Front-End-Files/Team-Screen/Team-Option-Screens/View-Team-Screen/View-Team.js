@@ -7,7 +7,7 @@ function back_button(){
 function next_button()
 {
     selection_index++;
-    if(selection_index >= chosen_team.ship_list.length)
+    if(selection_index >= all_teams[chosen_team_index].ship_list.length)
     {
         selection_index = 0;
     }
@@ -19,7 +19,7 @@ function previous_button()
     selection_index--;
     if(selection_index < 0)
     {
-        selection_index = chosen_team.ship_list.length-1;
+        selection_index = all_teams[chosen_team_index].ship_list.length-1;
     }
     set_all_items();
 }
@@ -40,7 +40,8 @@ let energy = document.getElementById("energy-stat");
 let energy_icon = document.getElementById("energy");
 let roster_number = document.getElementById("roster-number-stat");
 let flip_button = document.getElementById("flip-button");
-let chosen_team = get_team();
+let chosen_team_index = get_team_index();
+let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
 let selection_index = 0;
 var aft_image_showing = false; //This is a bool for the flip button to see if the front or back image is showing. 
 //end global variable set up section
@@ -53,41 +54,43 @@ set_all_items();
 //This section is for functions called throughout this file.
 
 //This function takes in the chosen team name and returns the team.
-function get_team()
+function get_team_index()
 {
     let team_name = sessionStorage.getItem("chosen_team_name");
     let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
     var chosen_team = undefined;
-    all_teams.forEach(team =>{
-        if (team.team_name == team_name)
+    for(var i =0; i < all_teams.length;i++)
+    {
+        if (all_teams[i].team_name == team_name)
         {
-            chosen_team = team;
+            chosen_team = i;
+            break;
         }
-    })
+    }
     return chosen_team;
 }
 
 //This will set all of the items for this page when the page first loads or if the next/previous buttons are pressed.
 function set_all_items()
 {
-    pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.image_path+"')";
-    maneuver_box.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.ship_name.card+"')";
+    pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.image_path+"')";
+    maneuver_box.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.ship_name.card+"')";
 
-    roster_number.textContent= ":"+chosen_team.ship_list[selection_index].roster_number;
-    pilot_skill.textContent = " : "+chosen_team.ship_list[selection_index].current_pilot_skill;
-    attack.textContent = " : "+chosen_team.ship_list[selection_index].current_attack;
-    agility.textContent = " : "+chosen_team.ship_list[selection_index].current_agility;
-    hull.textContent = " : "+chosen_team.ship_list[selection_index].current_hull;
-    shields.textContent = " : "+chosen_team.ship_list[selection_index].current_sheilds;
+    roster_number.textContent= ":"+all_teams[chosen_team_index].ship_list[selection_index].roster_number;
+    pilot_skill.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_pilot_skill;
+    attack.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_attack;
+    agility.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_agility;
+    hull.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_hull;
+    shields.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_sheilds;
 
     //If dealing with a large ship, then make energy and possibly flip button visible.
-    if(chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeOneCard" ||
-       chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    if(all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeOneCard" ||
+       all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
     {
         energy_icon.style.visibility = "visible";
         energy.style.visibility = "visible";
-        energy.textContent=" : "+chosen_team.ship_list[selection_index].current_energy;
-        if(chosen_team.ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        energy.textContent=" : "+all_teams[chosen_team_index].ship_list[selection_index].current_energy;
+        if(all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.ship_name.ship_type == "largeTwoCard")
         {
             flip_button.style.visibility = "visible";
         }
@@ -101,7 +104,7 @@ function set_all_items()
 
     //Set the upgrade images of each upgrade.
     upgrade_box.innerHTML="";
-    chosen_team.ship_list[selection_index].upgrades.forEach(upgrade=>{
+    all_teams[chosen_team_index].ship_list[selection_index].upgrades.forEach(upgrade=>{
         console.log(upgrade);
         console.log("path: "+upgrade.image_path);
         var upgrade_image = document.createElement("div");
@@ -128,7 +131,7 @@ function set_all_items()
 //This function will take you to the upgrade screen to add/remove upgrades. 
 function change_upgrades_button()
 {
-    sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_team.ship_list[selection_index]));
+    sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(all_teams[chosen_team_index].ship_list[selection_index]));
     window.location.href ="../View-Team-Upgrade-Screen/Team-View-Upgrade-Screen.html";
 }
 
@@ -137,12 +140,12 @@ function flip_button_click()
 {
     if(aft_image_showing == false)
     {
-        pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.aft_card_path+"')";
+        pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.aft_card_path+"')";
         aft_image_showing = true;
     }
     else
     {
-        pilot_picture.style.backgroundImage = "url('"+chosen_team.ship_list[selection_index].chosen_pilot.image_path+"')";
+        pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.image_path+"')";
         aft_image_showing = false;
     }
 }
@@ -180,7 +183,7 @@ function ok_button_click()
     else
     {
         //Go through each member of a team and determine if the potential roster number is already in use.
-        for(let member of chosen_team.ship_list)
+        for(let member of all_teams[chosen_team_index].ship_list)
         {
             if(member.roster_number == potential_roster_number)
             {
@@ -188,7 +191,8 @@ function ok_button_click()
                 document.getElementById("roster-number-input").value = "";
                 return;
             }
-            chosen_team.ship_list[selection_index].roster_number = potential_roster_number;
+            all_teams[chosen_team_index].ship_list[selection_index].roster_number = potential_roster_number;
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
             set_all_items();
             close_button_click();
         }

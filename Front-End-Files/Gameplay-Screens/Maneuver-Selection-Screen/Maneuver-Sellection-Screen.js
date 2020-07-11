@@ -8,6 +8,7 @@ var maneuver_index = 0;//Used to determine what maneuver is being displayed.
 var team_index = sessionStorage.getItem("team_index");//Used to determine what team is being examined.
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
+
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
@@ -29,7 +30,7 @@ else
     document.getElementById('initiative-label').style.visibility = "hidden";
 }
 //Check if the back button should be visible or not.
-if(team_index == 0 && selected_ship_index == 0)
+if(team_index == 0 && selected_ship_index == 0 &&(sessionStorage.getItem("phase") == null  || sessionStorage.getItem("phase") == undefined))
 {
     document.getElementById('back-button').style.visibility = "hidden";
 }
@@ -1049,7 +1050,7 @@ function main_back_button_click()
 
 function go_to_next_ship_movement_phase()
 {
-    var maneuver_attack_index = parseInt(sessionStorage.getItem("movement_atack_index"),10);
+    var maneuver_attack_index =sessionStorage.getItem("movement_attack_index");
     maneuver_attack_index ++;
     var total_ships_left = 0;
     all_teams.forEach(team=>{
@@ -1118,7 +1119,10 @@ function make_phase_changes()
             document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
             var turn_index = parseInt(sessionStorage.getItem("movement_attack_index"),10);           
             var indecies = get_pilot_whos_turn_it_is(turn_index,all_teams);
-            alert();
+            team_index = indecies[0];
+            selected_ship_index = indecies[0];
+            sessionStorage.setItem("team_index",team_index);
+            sessionStorage.setItem("selected_ship_storage",selected_ship_index);
         }
         else if(sessionStorage.getItem("phase") == "attack")
         {
