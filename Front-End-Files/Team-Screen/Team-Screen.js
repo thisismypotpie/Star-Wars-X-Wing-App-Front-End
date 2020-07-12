@@ -181,9 +181,8 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       var team_number = 1;//I will Add this to the team name and chose the first unused number as the team name.
       var team_name_formulated = false;
       //Get Team name
-      while(team_name_formulated == false)
+      while(team_name_formulated == false)//look for a team name that has not been taken yet.
       {
-        console.log();
          let name_found = false;
          let potential_name = team_name+" "+team_number.toString();
          teams.forEach(team=>{
@@ -204,11 +203,11 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       {
         var pilot_index = Math.floor(Math.random() * game_data.all_pilots.length);
         //Create a new ship
-        if(pilot_index ==0 || pilot_index == 2)//large ship two cards.
+        if(game_data.all_pilots[pilot_index].ship_name.ship_type == "largeTwoCard")//large ship two cards.
         {
           current_ship = new large_two_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name);
         }
-        else if(pilot_index == 1 || pilot_index == 3 || pilot_index == 4)//large ship one card
+        else if(game_data.all_pilots[pilot_index].ship_name.ship_type == "largeOneCard")//large ship one card
         {
           current_ship = new large_one_card_in_game_ship_status(game_data.all_pilots[pilot_index],new_team.team_name);
         }
