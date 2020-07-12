@@ -30,6 +30,4 @@ Simon TODO
 
 -For some reason, the search is not working properly when it comes to searching for a ship durring the movement or attack phase. I will need to fix that.
 
--Check to make sure in the movement phase that the chosen maneuver energy shows up when needed.
-
--There was an error with the gozanti class cruise where it does not have any energy.
+-Change the difference between YT-1300 and Yt-1300 special.
