@@ -119,3 +119,12 @@ function get_pilot_whos_turn_it_is(index_of_whos_turn_it_is,all_teams)
     }
     return[chosen_team_index,chosen_ship_index];
 }
+
+function get_total_ships(all_teams)
+{
+    var total_ships = 0;
+    all_teams.forEach(team=>{
+        total_ships = total_ships + team.ship_list.length; 
+    })
+    return total_ships;
+}

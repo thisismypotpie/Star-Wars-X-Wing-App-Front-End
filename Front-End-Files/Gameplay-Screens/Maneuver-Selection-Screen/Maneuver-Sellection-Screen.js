@@ -27,10 +27,8 @@ if(team_index == 0 && selected_ship_index == 0 &&(sessionStorage.getItem("phase"
 }
 
 //Check to see if we are in a search or the actual bunch of ships. We do this by seeing if there is a saved team and ship saved for when we return from a search.
-if(sessionStorage.getItem("saved_team_index") != null &&
-sessionStorage.getItem("saved_ship_index")!=null &&
-sessionStorage.getItem("saved_team_index") != undefined &&
-sessionStorage.getItem("saved_ship_index")!=undefined)
+if(sessionStorage.getItem("searching") != null &&
+sessionStorage.getItem("searching") != undefined)
 {
     document.getElementById('back-button').style.visibility = "hidden";
     document.getElementById('return-button').style.visibility = "visible";
@@ -42,6 +40,7 @@ sessionStorage.getItem("saved_ship_index")!=undefined)
     document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
     document.getElementById('maneuver-type').style.visibility = "hidden";
     document.getElementById('maneuver-range').style.visibility = "hidden";
+    document.getElementById('maneuver-energy').style.visibility = "hidden";
 }
 
 
@@ -983,6 +982,7 @@ function find_and_display_searching_ship()
     sessionStorage.setItem("saved_ship_index",selected_ship_index);
     sessionStorage.setItem("team_index",target_lock_and_search_index);
     sessionStorage.setItem("selected_ship_index",ship_index);
+    sessionStorage.setItem("searching","");
     location.reload();
 }
 
@@ -993,6 +993,7 @@ function return_to_main_screen()
     sessionStorage.setItem("selected_ship_index",sessionStorage.getItem("saved_ship_index"));
     sessionStorage.removeItem("saved_team_index");
     sessionStorage.removeItem("saved_ship_index");
+    sessionStorage.removeItem("searching");
     location.reload();
 }
 
@@ -1060,6 +1061,7 @@ function ship_is_dead()
     all_teams[team_index].ship_list.splice(selected_ship_index,1);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
     var game_over = false; 
+
     if(all_teams[team_index].ship_list.length == 0)
     {
         //Team is out of the game.
@@ -1105,6 +1107,13 @@ function ship_is_dead()
     }
     else
     {
+        if(team_index >= (all_teams.length-1) &&
+           selected_ship_index >= (all_teams[team_index].ship_list.length))//If the last ship in the entire list has been removed, move to maneuver phase instead of trying to go back to the last ship.
+        {
+            alert("moving to movement phase.");
+            sessionStorage.setItem("phase","movement");
+            sessionStorage.setItem("movement_attack_index",0);
+        }
         location.reload();
     }
 }
@@ -1212,7 +1221,9 @@ function go_to_next_ship_maneuver_selection()
 
 function make_phase_changes()//Alter the appropriate elements to get to the correct phase.
 {
-    if(sessionStorage.getItem("phase")!=null && sessionStorage.getItem("phase")!= undefined)//its not the maneuver selection phase if this is true.
+    if(sessionStorage.getItem("phase")!=null && 
+       sessionStorage.getItem("phase")!= undefined &&
+       (sessionStorage.getItem("searching") == null || sessionStorage.getItem("searching")==undefined))//its not the maneuver selection phase if this is true.
     {
         var turn_index = parseInt(sessionStorage.getItem("movement_attack_index"),10);           
         var indecies = get_pilot_whos_turn_it_is(turn_index,all_teams);
