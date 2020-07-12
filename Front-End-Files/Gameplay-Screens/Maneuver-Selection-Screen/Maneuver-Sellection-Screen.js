@@ -1108,11 +1108,25 @@ function ship_is_dead()
     else
     {
         if(team_index >= (all_teams.length-1) &&
-           selected_ship_index >= (all_teams[team_index].ship_list.length))//If the last ship in the entire list has been removed, move to maneuver phase instead of trying to go back to the last ship.
+           selected_ship_index >= (all_teams[team_index].ship_list.length)&&
+           (sessionStorage.getItem("phase")==null &&
+           sessionStorage.getItem("phase")==undefined))//If the last ship in the entire list has been removed, move to maneuver phase instead of trying to go back to the last ship.
         {
             alert("moving to movement phase.");
             sessionStorage.setItem("phase","movement");
             sessionStorage.setItem("movement_attack_index",0);
+            sessionStorage.removeItem("team_index");
+            sessionStorage.removeItem("selected_ship_index");
+        }
+        if(sessionStorage.getItem("phase")!=null &&
+            sessionStorage.getItem("phase")!=undefined)
+        {
+            if(get_total_ships(all_teams)<= (parseInt(sessionStorage.getItem("movement_attack_index"),10)))//If the last ship in the movement phase is killed.
+            {
+                alert("resetting movement attack index.");
+                sessionStorage.setItem("movement_attack_index",(get_total_ships(all_teams)-1));
+                sessionStorage.setItem("phase","attack");
+            }
         }
         location.reload();
     }
@@ -1242,11 +1256,13 @@ function make_phase_changes()//Alter the appropriate elements to get to the corr
             //set team index, selected ship index, and all teams. also set holder for normal all teams.
             main_title.textContent = "Movement Phase";
             document.getElementById('select-button').onclick = function(){go_to_next_ship_movement_phase()};
+            document.getElementById('select-button').textContent = "Next";
         }
         else if(sessionStorage.getItem("phase") == "attack")
         {
             main_title.textContent = "Attack Phase";
             document.getElementById('select-button').onclick = function(){go_to_next_ship_attack_phase()};
+            document.getElementById('select-button').textContent = "Next";
             maneuver_range_label.style.visibility = "hidden";
             maneuver_type_label.style.visibility = "hidden";
             document.getElementById('dice-container').style.visibility = "visible";
