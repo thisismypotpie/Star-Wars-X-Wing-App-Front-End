@@ -856,6 +856,13 @@ function augment_token_quantity(token_type,parent_id)
 
 function augment_stat_quantity(token_type,parent_image,parent_text)
 {
+    if(token_type == "current_pilot_skill" &&
+    sessionStorage.getItem("phase")!=null &&
+    sessionStorage.getItem("phase")!=undefined)
+    {
+        alert("Cannot edit pilot skill in the movement or attack phases.");
+        return;
+    }
     var img = document.getElementById(parent_image),
     style = img.currentStyle || window.getComputedStyle(img, false),
     bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
