@@ -19,6 +19,7 @@ Labels
     background-image: url("https://i.imgur.com/MjqB2ug.png");
     grid-row: 1/4;
     grid-column: 19/22;
+    visibility: hidden;
 }
 
 .page-title{

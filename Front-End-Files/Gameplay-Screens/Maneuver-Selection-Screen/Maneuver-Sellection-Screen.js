@@ -20,15 +20,6 @@ if(team_index == null || selected_ship_index == undefined)
     team_index = 0;
     sessionStorage.setItem("team_index",team_index);
 }
-//Set initiative token to be visible or not.
-if(all_teams[team_index].has_initiative_token == true)
-{
-    document.getElementById('initiative-label').style.visibility = "visible";
-}
-else
-{
-    document.getElementById('initiative-label').style.visibility = "hidden";
-}
 //Check if the back button should be visible or not.
 if(team_index == 0 && selected_ship_index == 0 &&(sessionStorage.getItem("phase") == null  || sessionStorage.getItem("phase") == undefined))
 {
@@ -87,6 +78,12 @@ make_phase_changes();//Check to see what phase we are in and makes appropriate c
 set_up_maneuver_screen();
 set_up_team_mate_maneuvers();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
+
+//Set initiative token to be visible or not.
+if(all_teams[team_index].has_initiative_token == true)
+{
+    document.getElementById('initiative-label').style.visibility = "visible";
+}
 
 function set_up_maneuver_screen()
 {
@@ -1330,7 +1327,8 @@ function assign_new_round_initiative_token()
                 new_index = i+1;
             }
             all_teams[new_index].has_initiative_token = true;
-            document.getElementById('notification-pop-up-title').textContent = "ROUND OVER! \n"+all_teams[new_index].team_name+" now has initiative.";
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            document.getElementById('notification-pop-up-title').textContent = "ROUND OVER! \r"+all_teams[new_index].team_name+" now has initiative.";
             document.getElementById('notificatin-ok-button').onclick = function(){location.reload()};
             show_pop_up("Notification-pop-up");
             return;
