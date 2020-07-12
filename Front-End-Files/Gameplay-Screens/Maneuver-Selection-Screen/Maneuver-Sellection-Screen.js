@@ -871,8 +871,14 @@ function augment_stat_quantity(token_type,parent_image,parent_text)
 function plus_button_click(token_type,parent_id)
 {
     let parent_element = document.getElementById(parent_id);
-    var eval_string = "all_teams[team_index].ship_list[selected_ship_index]."+token_type+"++";//Increase the token type by one.
+    var stat_quantity =0;
+    var eval_string = "all_teams[team_index].ship_list[selected_ship_index]."+token_type+"++; stat_quantity = all_teams[team_index].ship_list[selected_ship_index]."+token_type+";";//Increase the token type by one.
     eval(eval_string);
+    if(token_type == "current_pilot_skill" && stat_quantity > 12)
+    {
+        all_teams[team_index].ship_list[selected_ship_index].current_pilot_skill = 12;
+        alert("Cannot have a pilot skill of more than twelve!");
+    }
     eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update pop up with the correct number of this token.
     eval(eval_string);
     eval_string = "parent_element.textContent = all_teams[team_index].ship_list[selected_ship_index]."+token_type;//Update token box element.
