@@ -64,12 +64,25 @@ function roll_dice_click()
         attack_roll.id = "attack-dice-number-"+(i+1);
         attack_roll.style.width = "100%";
         attack_roll.style.height = "15vh";
-        attack_roll.style.border = "1px solid blue";
         attack_roll.style.marginBottom = "15px";
         attack_roll.style.backgroundSize = "50% 100%";
         attack_roll.style.backgroundRepeat = "no-repeat";
         attack_roll.style.backgroundColor = "transparent";
         attack_roll.style.backgroundPosition = "50%";
+        attack_roll.setAttribute("opacity","1");
+        attack_roll.onclick= function(){
+            var roll = document.getElementById(this.id);
+            if(roll.getAttribute("opacity")=="1")
+            {
+                roll.style.opacity = "0.25";
+                roll.setAttribute("opacity","0.25");
+            }
+            else
+            {
+                roll.style.opacity = "1";
+                roll.setAttribute("opacity","1"); 
+            }
+        };
         if(result == 0 || result == 1)
         {
             attack_roll.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
@@ -102,12 +115,24 @@ function roll_dice_click()
         defense_roll.id = "defense-dice-number-"+(i+1);
         defense_roll.style.width = "100%";
         defense_roll.style.height = "15vh";
-        defense_roll.style.border = "1px solid yellow";
         defense_roll.style.marginBottom = "15px";
         defense_roll.style.backgroundSize = "50% 100%";
         defense_roll.style.backgroundRepeat = "no-repeat";
         defense_roll.style.backgroundColor = "transparent";
         defense_roll.style.backgroundPosition = "50%";
+        defense_roll.onclick= function(){
+            var roll = document.getElementById(this.id);
+            if(roll.getAttribute("opacity")=="1")
+            {
+                roll.style.opacity = "0.25";
+                roll.setAttribute("opacity","0.25");
+            }
+            else
+            {
+                roll.style.opacity = "1";
+                roll.setAttribute("opacity","1"); 
+            }
+        };
         if(result == 0 || result == 1 || result == 2)
         {
             defense_roll.style.backgroundImage = "url('https://i.imgur.com/cu8tNhe.png')";

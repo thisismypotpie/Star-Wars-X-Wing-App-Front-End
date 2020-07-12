@@ -945,24 +945,30 @@ text-align: left;
     background-image: url('https://i.imgur.com/P8UKnKW.png');
     background-position: 50%;
 }
+#dice-results-pop-up{
+    overflow: auto;
+    max-height: 80vh;
+}
 
 #dice-results-container{
     width: 100%;
     height: auto;
+display: flex;
 }
 
 #attacking-dice-results{
-    width: 48%;
-    border: 1px solid red;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    margin-right: 2%;
 }
 
-#defending-dice-reslts{
-    width: 48%;
-    border: 1px solid green;
+#defending-dice-results{
+    width: 50%;
     display: flex;
     flex-direction: column;
-    margin-left: 2%;
+}
+
+#done-button-dice{
+    width: 75%;
+    height: 50px;
 }
