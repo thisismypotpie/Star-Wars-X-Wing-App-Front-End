@@ -135,8 +135,19 @@ function remove_ship_button()
             }
         }
         sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+        if(chosen_team.ship_list.length == 0)//go back to the team screen if this is the last ship to be removed.
+        {
+            window.location.href = "../../Team-Screen.html";
+        }
+        else
+        {
+            window.location.reload();
+        }
     }
-    window.location.reload();
+    else
+    {
+        window.location.reload();
+    }
 }
 
 //This is a function that will flip any large ship being seen on the screen.

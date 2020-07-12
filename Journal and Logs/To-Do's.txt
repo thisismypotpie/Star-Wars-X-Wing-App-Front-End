@@ -8,22 +8,15 @@ Simon TODO
 - Come up with the database schema for loading and saving games.
 
 - Come up with the database schema for loading and saving games.
+
 -Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
 
-- I will need to add big ship functionality as far as flip buttons go for the following:
-1. The main flip button and energy stat for large ships in the main screen.
-2. The flip button and energy stat in the view target lock pop up.
-
 - There is an error if you have a team of one and then remove it using the remove ship button.
-
--Make sure to move a ship to the correct area when someone's pilot skill is changed.
 
 -Add functionality to the back button in the main maneuver selection screen.
 
 -In team view, I would like to add some functionality where you can change your stats by click, like in the maneuver selection screen.
 
--When altering the pilot skill, make sure the player cannot go above 12.
-
--For some reason, the search is not working properly when it comes to searching for a ship durring the movement or attack phase. I will need to fix that.
-
 -Change the difference between YT-1300 and Yt-1300 special.
+
+-Show crippled ship as soon as the hull is at zero.

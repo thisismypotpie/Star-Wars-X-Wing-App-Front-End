@@ -284,8 +284,25 @@ function ViewStatistics()
 
 function removeShipScreen()
 {
-  sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
-  window.location.href = "./Team-Option-Screens/View-Team-Remove-Ship-Screen/Remove-Ship.html";
+  var teams = JSON.parse(sessionStorage.getItem("all_teams"));
+  var team_index = 0;
+  for (var i=0; i < teams.length;i++)
+  {
+    if(teams[i].team_name == selected_team_edit_name)
+    {
+      team_index = i;
+      break;
+    }
+  }
+  if(teams[i].ship_list.length == 0)
+  {
+    alert("You cannot view a team with no ships.");
+  }
+  else
+  {
+    sessionStorage.setItem("chosen_team_name",selected_team_edit_name);
+    window.location.href = "./Team-Option-Screens/View-Team-Remove-Ship-Screen/Remove-Ship.html";
+  }
 }
 
 
@@ -314,6 +331,28 @@ function start_game_button_click()
       alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
       window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
     }
+  }
+}
+
+function go_to_team_view()
+{
+  var team_index = 0;
+  var teams = JSON.parse(sessionStorage.getItem("all_teams"));
+  for (var i=0; i < teams.length;i++)
+  {
+    if(teams[i].team_name == selected_team_edit_name)
+    {
+      team_index = i;
+      break;
+    }
+  }
+  if(teams[i].ship_list.length == 0)
+  {
+    alert("You cannot view a team with no ships.");
+  }
+  else
+  {
+    window.location.href = './Team-Option-Screens/View-Team-Screen/View-Team.html';
   }
 }
   
