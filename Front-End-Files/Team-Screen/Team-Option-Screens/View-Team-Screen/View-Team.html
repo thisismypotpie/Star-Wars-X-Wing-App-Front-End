@@ -20,18 +20,18 @@
     <section class = "grid-container">
         <button type = "button" id ="change-roster-button" onclick="change_roster_number()">Change</button>>
         <button type="button" id = "back-button" onclick="back_button()">Back</button>
-        <div class = "icon" id = "pilot-skill">:-1</div>
-        <div class = "icon" id = "attack">:-1</div>
-        <div class = "icon" id = "agility">:-1</div>
-        <div class = "icon" id = "hull">:-1</div>
-        <div class = "icon" id = "shields">:-1</div>
-        <div class = "icon" id = "energy">:-1</div>
-        <div class = "stat" id = "pilot-skill-stat">: -1</div>
-        <div class = "stat" id = "attack-stat">: -1</div>
-        <div class = "stat" id = "agility-stat">: -1</div>
-        <div class = "stat" id = "hull-stat">: -1</div>
-        <div class = "stat" id = "shields-stat">: -1</div>
-        <div class = "stat" id = "energy-stat">: -1</div>
+        <div class = "icon" id = "pilot-skill" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">:-1</div>
+        <div class = "icon" id = "attack" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">:-1</div>
+        <div class = "icon" id = "agility" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">:-1</div>
+        <div class = "icon" id = "hull" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">:-1</div>
+        <div class = "icon" id = "shields" onclick="augment_stat_quantity('current_sheilds','shields','shields-stat')">:-1</div>
+        <div class = "icon" id = "energy" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">:-1</div>
+        <div class = "stat" id = "pilot-skill-stat" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">: -1</div>
+        <div class = "stat" id = "attack-stat" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">: -1</div>
+        <div class = "stat" id = "agility-stat" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">: -1</div>
+        <div class = "stat" id = "hull-stat" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">: -1</div>
+        <div class = "stat" id = "shields-stat" onclick="augment_stat_quantity('current_sheilds','shields','shield-stat')">: -1</div>
+        <div class = "stat" id = "energy-stat" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">: -1</div>
         <div class = "icon" id = roster-number>-1</div>
         <div class = "stat" id = roster-number-stat>:-1</div>
         <button type ="button" id="flip-button" onclick="flip_button_click()">Flip</button>
@@ -45,6 +45,7 @@
         <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Change</button>>
     </section>
 </div>
+
 <!-- This is the code for the roster number popup.-->
 <div class = "roster-number-container" id = "roster-number-box">
   <div class = roster-number-header>Roster Number</div>
@@ -55,6 +56,17 @@
     <button type = "button" class = "pop-btn pop-up ok" id="ok-button" onclick="ok_button_click()">OK</button>
   </div>
 </div>
+
+      <!--Pop up for adding/subtracting number of tokens-->
+      <div class = "pop-up-container" id = "token-quantity-pop-up">
+        <div class = "pop-up-title" id="token-title">Change Token Quantity</div>
+        <div class = "pop-up-image" id = "token-image"></div>
+        <div class = "pop-up-title" id = "token-quantity">x0</div>
+        <button type = "button" class = "button" id = "minus-button">-</button>
+        <button type = "button" class = "button" id = "plus-button">+</button>
+        <button type = "button" class = "long-button" id ="ok-button" onclick="close_stat_popup();">OK</button>
+        </div>
+
 <!--This is the code for the overlay.-->
 <div id = "overlay"></div>
   </body>

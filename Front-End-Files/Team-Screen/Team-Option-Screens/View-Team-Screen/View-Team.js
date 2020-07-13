@@ -142,11 +142,17 @@ function flip_button_click()
     {
         pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.aft_card_path+"')";
         aft_image_showing = true;
+        agility.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_agility;
+        hull.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_hull;
+        shields.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_shields;
     }
     else
     {
         pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.image_path+"')";
         aft_image_showing = false;
+        agility.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_agility;
+        hull.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_hull;
+        shields.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_sheilds;
     }
 }
 //This is the function for when you click the change roster number button.
@@ -198,4 +204,89 @@ function ok_button_click()
         }
 
     }
+}
+
+function augment_stat_quantity(token_type,parent_image,parent_html_id)
+{
+    if(aft_image_showing == true && (
+        token_type == "current_agility" || token_type == "current_hull"||token_type=="current_sheilds"))// add aft to some of the stats if the back is showing.
+    {
+        if(token_type == "current_sheilds")
+        {
+            token_type = "current_aft_shields";
+        }
+        else if(token_type == "current_hull")
+        {
+            token_type = "current_aft_hull";
+        }
+        else if(token_type == "current_agility")
+        {
+            token_type = "current_aft_agility";
+        }
+        else
+        {
+            alert("ERROR: Could not determine token type.");
+        }
+    }
+    var img = document.getElementById(parent_image),
+    style = img.currentStyle || window.getComputedStyle(img, false),
+    bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+    document.getElementById('token-image').style.backgroundImage = "url('"+bg_image_url+"')";
+    let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;
+    eval(eval_string);
+    let overlay = document.getElementById("overlay");
+    let stat_box = document.getElementById("token-quantity-pop-up");
+    overlay.style.opacity = 1;
+    stat_box.style.visibility = "visible";
+    overlay.style.pointerEvents = "all";
+    document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_html_id)};
+    document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_html_id)};
+}
+
+function plus_button_click(token_type,parent_html_id)
+{
+    let parent_element = document.getElementById(parent_html_id);
+    var stat_quantity =0;
+    var eval_string = "all_teams[chosen_team_index].ship_list[selection_index]."+token_type+"++; stat_quantity = all_teams[chosen_team_index].ship_list[selection_index]."+token_type+";";//Increase the token type by one.
+    eval(eval_string);
+    if(token_type == "current_pilot_skill" && stat_quantity > 12)
+    {
+        all_teams[chosen_team_index].ship_list[selection_index].current_pilot_skill = 12;
+        alert("Cannot have a pilot skill of more than twelve!");
+    }
+    eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update pop up with the correct number of this token.
+    eval(eval_string);
+    eval_string = "parent_element.textContent =':'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
+    eval(eval_string);
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+function minus_button_click(token_type,parent_html_id)
+{
+    let parent_element = document.getElementById(parent_html_id);
+    var stat_quantity =0;
+    var eval_string = "if(all_teams[chosen_team_index].ship_list[selection_index]."+token_type+" >0){all_teams[chosen_team_index].ship_list[selection_index]."+token_type+"--;}stat_quantity = all_teams[chosen_team_index].ship_list[selection_index]."+token_type+";";
+    eval(eval_string);
+    if(token_type == "current_hull" && stat_quantity <= 0)
+    {
+        alert("You cannot have hull less than one before the game starts.");
+        all_teams[chosen_team_index].ship_list[selection_index].current_hull = 1;
+    }
+    else
+    {
+        eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;
+        eval(eval_string);
+        eval_string = "parent_element.textContent =':'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
+        eval(eval_string);
+    }
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+function close_stat_popup()
+{
+    let overlay = document.getElementById("overlay");
+    let roster_number_box = document.getElementById("token-quantity-pop-up");
+    overlay.style.opacity = 0;
+    roster_number_box.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
 }

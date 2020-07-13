@@ -1,23 +1,14 @@
 - Add loading functionality for pre-game squad building.
 
-- When you create the UI for maneuver selection, have a list that contains the list of all maneuvers chosen as well as the roster number of the ship that chose that maneuver.
-
 Simon TODO
 - Media queries.
 - Implement multiplayer system.
 - Come up with the database schema for loading and saving games.
 
-- Come up with the database schema for loading and saving games.
-
--Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
-
-
--In team view, I would like to add some functionality where you can change your stats by click, like in the maneuver selection screen.
-
 -Change the difference between YT-1300 and Yt-1300 special.
-
--Show crippled ship as soon as the hull is at zero.
 
 - I need clearer rules when it comes to when one can change their pilot skill.
 
 -Change the "5" on Erin's pilot card. Try to take a 2 and fix it up.
+
+-Change button for changing roster into image click.
