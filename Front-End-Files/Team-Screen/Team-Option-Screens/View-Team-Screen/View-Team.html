@@ -18,7 +18,6 @@
         </div>    
     </div>
     <section class = "grid-container">
-        <button type = "button" id ="change-roster-button" onclick="change_roster_number()">Change</button>>
         <button type="button" id = "back-button" onclick="back_button()">Back</button>
         <div class = "icon" id = "pilot-skill" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">:-1</div>
         <div class = "icon" id = "attack" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">:-1</div>
@@ -32,8 +31,8 @@
         <div class = "stat" id = "hull-stat" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">: -1</div>
         <div class = "stat" id = "shields-stat" onclick="augment_stat_quantity('current_sheilds','shields','shield-stat')">: -1</div>
         <div class = "stat" id = "energy-stat" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">: -1</div>
-        <div class = "icon" id = roster-number>-1</div>
-        <div class = "stat" id = roster-number-stat>:-1</div>
+        <div class = "icon" id = roster-number onclick="change_roster_number()">-1</div>
+        <div class = "stat" id = roster-number-stat onclick="change_roster_number()">:-1</div>
         <button type ="button" id="flip-button" onclick="flip_button_click()">Flip</button>
         <span class="upgrades-title">Upgrades</span>
         <ul id = "upgrade-box"

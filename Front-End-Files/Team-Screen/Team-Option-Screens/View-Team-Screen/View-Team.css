@@ -102,20 +102,6 @@ body{
     visibility: hidden;
 }
 
-#change-roster-button
-{
-    grid-row: 1;
-    grid-column: 3;
-    background-color: transparent;
-    background-image: url("https://i.imgur.com/RkyE0Xv.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    border:none;
-    font-family: Impact, Charcoal, sans-serif;
-    font-size: 1.5vw;
-    text-align: center;   
-}
-
 #upgrade-button{
     grid-row: 8/10;
     grid-column: 8/10;

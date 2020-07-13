@@ -76,7 +76,7 @@ function set_all_items()
     pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.image_path+"')";
     maneuver_box.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.ship_name.card+"')";
 
-    roster_number.textContent= ":"+all_teams[chosen_team_index].ship_list[selection_index].roster_number;
+    roster_number.textContent= " : "+all_teams[chosen_team_index].ship_list[selection_index].roster_number;
     pilot_skill.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_pilot_skill;
     attack.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_attack;
     agility.textContent = " : "+all_teams[chosen_team_index].ship_list[selection_index].current_agility;
@@ -142,17 +142,17 @@ function flip_button_click()
     {
         pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.aft_card_path+"')";
         aft_image_showing = true;
-        agility.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_agility;
-        hull.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_hull;
-        shields.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_shields;
+        agility.textContent=" : "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_agility;
+        hull.textContent=" : "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_hull;
+        shields.textContent=" : "+ all_teams[chosen_team_index].ship_list[selection_index].current_aft_shields;
     }
     else
     {
         pilot_picture.style.backgroundImage = "url('"+all_teams[chosen_team_index].ship_list[selection_index].chosen_pilot.image_path+"')";
         aft_image_showing = false;
-        agility.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_agility;
-        hull.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_hull;
-        shields.textContent=": "+ all_teams[chosen_team_index].ship_list[selection_index].current_sheilds;
+        agility.textContent=" : "+ all_teams[chosen_team_index].ship_list[selection_index].current_agility;
+        hull.textContent= " : "+ all_teams[chosen_team_index].ship_list[selection_index].current_hull;
+        shields.textContent=" : "+ all_teams[chosen_team_index].ship_list[selection_index].current_sheilds;
     }
 }
 //This is the function for when you click the change roster number button.
@@ -256,7 +256,7 @@ function plus_button_click(token_type,parent_html_id)
     }
     eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update pop up with the correct number of this token.
     eval(eval_string);
-    eval_string = "parent_element.textContent =':'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
+    eval_string = "parent_element.textContent =' : '+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
     eval(eval_string);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }
@@ -276,7 +276,7 @@ function minus_button_click(token_type,parent_html_id)
     {
         eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;
         eval(eval_string);
-        eval_string = "parent_element.textContent =':'+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
+        eval_string = "parent_element.textContent =' : '+all_teams[chosen_team_index].ship_list[selection_index]."+token_type;//Update token box element.
         eval(eval_string);
     }
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
