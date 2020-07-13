@@ -130,3 +130,10 @@ function sorted_image_click(clicked_element)
     clicked_element.onclick = function(){unsorted_image_click(clicked_element)};
     unsorted_ship_box.appendChild(clicked_element);
 }
+
+//When you press the view button you  will get the ships in a bucket showing up in a stripped down version of team view.
+function go_to_bucket_view()
+{
+    sessionStorage.setItem("display_index",selected_index);
+    window.location.href='./Skill-Bucket-View-Screens/Skill-Bucket-View.html'
+}

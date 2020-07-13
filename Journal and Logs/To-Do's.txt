@@ -11,12 +11,13 @@ Simon TODO
 
 -Add the ability to see the details of each ship when you are in pilot skill selection mode. I was thinking of adding a button which would bring up a clone of team view except that it only shows the ships are on in the line up for being selected.
 
-- There is an error if you have a team of one and then remove it using the remove ship button.
-
--Add functionality to the back button in the main maneuver selection screen.
 
 -In team view, I would like to add some functionality where you can change your stats by click, like in the maneuver selection screen.
 
 -Change the difference between YT-1300 and Yt-1300 special.
 
 -Show crippled ship as soon as the hull is at zero.
+
+- I need clearer rules when it comes to when one can change their pilot skill.
+
+-Change the "5" on Erin's pilot card. Try to take a 2 and fix it up.

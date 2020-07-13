@@ -100,3 +100,8 @@ body{
     grid-row: 4;
     grid-column: 7/19;
 }
+
+#view-button{
+    grid-row: 4/6;
+    grid-column: 13/16;
+}
