@@ -9,6 +9,4 @@ Simon TODO
 
 - I need clearer rules when it comes to when one can change their pilot skill.
 
--Change the "5" on Erin's pilot card. Try to take a 2 and fix it up.
-
--Change button for changing roster into image click.
+- Potentially add a reminder function that will keep reminders for the end of the round.
