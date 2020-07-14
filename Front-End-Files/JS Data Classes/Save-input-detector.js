@@ -53,24 +53,47 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
       //Create back button
       let back_button = document.createElement("button");
-      back_button.style.gridColumn = "1/3";
-      back_button.style.gridRow = "10/12";
+      back_button.textContent = "Back";
+      back_button.style.gridColumn = "2/6";
+      back_button.style.gridRow = "8/12";
       back_button.style.backgroundImage = " url('https://i.imgur.com/RkyE0Xv.png')";
       back_button.style.backgroundColor = "transparent";
       back_button.style.backgroundRepeat ="no-repeat";
       back_button.style.backgroundSize = "100% 100%";
+      back_button.style.fontFamily="Impact, Charcoal, sans-serif";
+      back_button.style.fontSize = "large";
       back_button.style.border = "none";
+      back_button.onclick = function(){close_pop_up();};
       container.appendChild(back_button);
 
-      /**
-       *     background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    font-family: Impact, Charcoal, sans-serif;
-    font-size: 2vw;
-    text-align: center;
-       */
+     //Create Save Button
+     let save_button = document.createElement("button")
+     save_button.textContent = "Save";
+     save_button.style.gridColumn = "8/12";
+     save_button.style.gridRow = "8/12";
+     save_button.style.backgroundImage = " url('https://i.imgur.com/RkyE0Xv.png')";
+     save_button.style.backgroundColor = "transparent";
+     save_button.style.backgroundRepeat ="no-repeat";
+     save_button.style.backgroundSize = "100% 100%";
+     save_button.style.fontFamily="Impact, Charcoal, sans-serif";
+     save_button.style.fontSize = "large";
+     save_button.style.border = "none";
+     save_button.onclick = function(){validate_save_name()};
+     container.appendChild(save_button);
+
+     //Create text input:
+     let text_input = document.createElement("input");
+     text_input.id = "save_game_input";
+     text_input.type = "text";
+     text_input.style.gridColumn = "2/12";
+     text_input.style.gridRow = "6/8";
+     text_input.style.fontFamily="Impact, Charcoal, sans-serif";
+     text_input.style.fontSize = "large";
+     text_input.style.backgroundColor = "black";
+     text_input.style.color = "white";
+     text_input.style.fontSize = "x-large";
+     text_input.style.textAlign = "center";
+     container.appendChild(text_input);
   }
 
   function create_overlay_dynamically()
@@ -86,4 +109,78 @@ document.addEventListener("keydown", function(event){ //press s to save game.
     overlay.style.backgroundColor = "rgba(0,0,0,.5)";
     overlay.pointerEvents = "none";
     document.body.appendChild(overlay);
+  }
+
+  function validate_save_name()
+  {
+      if(document.getElementById('save_game_input').value == "")
+      {
+          alert("You must enter a save name.");
+          return;
+      }
+       var url = "http://localhost:3000/get_game_names";
+       var potential_name = document.getElementById('save_game_input').value;
+       var game_names = [];
+       fetch(url)
+.catch(function(error) {
+  console.log(error);
+  alert("Something went wrong trying to get saved game names. "+error)
+})
+.then(response =>response.json())
+.then(data => game_names = data)
+.then(()=>{
+            var viable_name = true;
+            game_names.forEach(name=>{
+                if(name == potential_name)
+                {
+                    viable_name = false;
+                    var overwrite = confirm("A game by that name already exists, would you like to overwrite it?");
+                    if(overwrite == true)
+                    {
+                        if(sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
+                         JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
+                        {
+                            alert("There is no data to save.");
+                            return;
+                        }
+                        //overwrite game.
+                        var url = "http://localhost:3000/overwrite_game";
+                        fetch(url,{
+                            method: 'POST',
+                            body:JSON.stringify(JSON.parse(sessionStorage.getItem("all_teams")))
+                        })
+                    }
+                    else
+                    {
+                        document.getElementById('save_game_input').value = "";
+                    }
+                }
+            })
+            if(viable_name == true)
+            {
+                if(sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
+                JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
+               {
+                   alert("There is no data to save.");
+                   return;
+               }
+                //save game.
+                var url = "http://localhost:3000/save_game";
+                fetch(url,{
+                    method: 'POST',
+                    body:JSON.stringify(JSON.parse(sessionStorage.getItem("all_teams")))
+                })
+            }
+})
+.then(()=>console.log("game is saved."))
+}
+
+  function close_pop_up()
+  {
+    let overlay = document.getElementById("overlay");
+    overlay.style.opacity = 0;
+    overlay.style.pointerEvents = "none";  
+    document.getElementById("save_game_input").value = ""; 
+    document.getElementById('save_game_pop_up').style.visibility = "hidden";
+
   }
