@@ -34,9 +34,43 @@ document.addEventListener("keydown", function(event){ //press s to save game.
       container.style.width = "40%";
       container.style.visibility = "hidden";
       container.style.textAlign = "center";
+      container.style.display = "grid";
+      container.style.gridTemplateColumns="repeat(12,calc(100%/12))";
+      container.style.gridTemplateRows= "repeat(12,calc(60vh/12))";
       document.body.appendChild(container);
 
       //Create title
+      let title = document.createElement("div");
+      title.id = "pop-up-title";
+      title.textContent = "Choose a Name to Save Your Game Under:";
+      title.style.gridColumn = "1/13";
+      title.style.gridRow = "1";
+      title.style.color = "white";
+      title.style.fontFamily="Impact, Charcoal, sans-serif";
+      title.style.textAlign = "center";
+      title.style.fontSize = "4vw";
+      container.appendChild(title);
+
+      //Create back button
+      let back_button = document.createElement("button");
+      back_button.style.gridColumn = "1/3";
+      back_button.style.gridRow = "10/12";
+      back_button.style.backgroundImage = " url('https://i.imgur.com/RkyE0Xv.png')";
+      back_button.style.backgroundColor = "transparent";
+      back_button.style.backgroundRepeat ="no-repeat";
+      back_button.style.backgroundSize = "100% 100%";
+      back_button.style.border = "none";
+      container.appendChild(back_button);
+
+      /**
+       *     background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+       */
   }
 
   function create_overlay_dynamically()
