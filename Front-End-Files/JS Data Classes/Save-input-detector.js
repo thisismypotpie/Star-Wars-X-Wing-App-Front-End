@@ -1,5 +1,5 @@
 document.addEventListener("keydown", function(event){ //press s to save game.
-    if (!(event.which == 115))
+    if (event.keyCode == 179)
     {
         //Create overlay dynamically.
         if(document.getElementById('overlay')==null || document.getElementById('overlay')==undefined)
