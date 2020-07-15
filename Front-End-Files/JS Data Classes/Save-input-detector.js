@@ -145,9 +145,11 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                         }
                         //overwrite game.
                         var url = "http://localhost:3000/overwrite_game";
+                        var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+                        all_teams.push({save_game_name:document.getElementById('save_game_input').value,save_game_phase:get_game_phase()});//Put name of game and game phase into the request.
                         fetch(url,{
                             method: 'POST',
-                            body:JSON.stringify(JSON.parse(sessionStorage.getItem("all_teams")))
+                            body:JSON.stringify(all_teams)
                         })
                     }
                     else
@@ -166,9 +168,12 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                }
                 //save game.
                 var url = "http://localhost:3000/save_game";
+                //Add name to all teams.
+                var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+                all_teams.push({save_game_name:document.getElementById('save_game_input').value,save_game_phase:get_game_phase()});
                 fetch(url,{
                     method: 'POST',
-                    body:JSON.stringify(JSON.parse(sessionStorage.getItem("all_teams")))
+                    body:JSON.stringify(all_teams)
                 })
             }
 })
@@ -183,4 +188,10 @@ document.addEventListener("keydown", function(event){ //press s to save game.
     document.getElementById("save_game_input").value = ""; 
     document.getElementById('save_game_pop_up').style.visibility = "hidden";
 
+  }
+
+
+  function get_game_phase()
+  {
+      return "In-Game";
   }
