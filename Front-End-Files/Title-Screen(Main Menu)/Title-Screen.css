@@ -86,3 +86,10 @@ body{
         font-size: 5vw;
     }
 }
+
+@media screen and (max-width: 414px){
+    .button{
+        width: 60%;
+        font-size: 6vw;
+    }
+}

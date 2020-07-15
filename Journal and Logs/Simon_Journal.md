@@ -22,3 +22,7 @@ Some current thoughts on multiplayer:
         - Next step would be to (optionally add a chat pane?) and a 'Begin' button, which will then take both (more than 2?) users to actual game.
 
 Will have to discuss what multiplayer gameplay should look like to make sure this is correct and go further. In any case, the gears are turning thinking about back end tasks.
+
+
+7/14/20
+Begin mobile friendlization of screens. Got Team-Screen tonight, will need to revisit all others starting with Title again tomorrow. Getting into a good groove with CSS and 3 live server windows at Desktop, Mobile, Tablet sizes.
