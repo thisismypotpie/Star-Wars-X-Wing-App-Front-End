@@ -67,8 +67,8 @@ body{
     background: url("https://i.imgur.com/bN43Ucg.jpg");
     background-size: 100%,100%;
     background-repeat: no-repeat;
-    width: 25%;
-    height: 35vh;
+    width: 45vh;
+    height: 32vh;
 }
 
 .loading-container-header{
@@ -84,5 +84,16 @@ body{
     .button{
         width: 40%;
         font-size: 5vw;
+    }
+
+    .loading-container-header{
+        font-size: 4.5vw;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .button{
+        width: 60%;
+        font-size: 6vw;
     }
 }

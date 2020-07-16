@@ -83,15 +83,16 @@ body{
 }
 
 .button{
-margin:5%;
-height: 30vh;
-background-image: url("https://i.imgur.com/RkyE0Xv.png");
-background-repeat: no-repeat;
-background-size: 100% 20vh;
-background-color: transparent;
-font-family: Impact, Charcoal, sans-serif;
-font-size: 1.2vw;
-border:none;
+    margin:5%;
+    height: 30vh;
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-repeat: no-repeat;
+    background-size: 100% 20vh;
+    background-color: transparent;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 1.8vw;
+    border:none;
+    word-wrap: break-word;
 }
 
 .list-box-item{
@@ -106,12 +107,18 @@ border:none;
     padding: 0;
 }
 
+.list-box-item:hover{
+    background-color: #303030;
+}
+
 /*Overlay and popup styling.*/
 /*Credit to: https://www.youtube.com/watch?v=MBaw_6cPmAw
 for helping me make this popup.
 */
 .team-name-container{
     position: fixed;
+    min-width: 350px;
+    min-height: 200px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -147,12 +154,13 @@ for helping me make this popup.
     font-family: Impact, Charcoal, sans-serif;
     font-size: 2vw;
     color: white;
-    justify-content: center;
+    text-align: center;
     width: 100%;
 }
 
 #team-name-input{
     width: 95%;
+    min-height: 25px;
     margin-left: 2%;
     margin-right: 2%;
     font-family: Impact, Charcoal, sans-serif;
@@ -193,5 +201,44 @@ for helping me make this popup.
     background-color: transparent;
     border:none;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 2vw;
+    font-size: 3vw;
+}
+
+@media screen and (max-width: 768px){
+    .buttons {
+        margin-left: 3%;
+    }
+    
+    .button{
+        width: 200%;
+        font-size: 3.9vw;
+    }
+
+    .team-name-header {
+        font-size: 3.5vw;
+    }
+
+    #team-name-input {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .list-box-title{
+        font-size: 5vw;
+        margin-bottom: 0.3rem;
+    }
+
+    .list-box-item {
+        font-size: 1.1rem;
+    }
+
+    .button{
+        width: 240%;
+        font-size: 4.8vw;
+    }
+    
+    .team-name-header{
+        font-size: 6vw;
+    }
 }
