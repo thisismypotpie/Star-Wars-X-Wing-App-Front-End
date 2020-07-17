@@ -177,7 +177,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                 })
             }
 })
-.then(()=>console.log("game is saved."))
+.then(()=>alert("game is saved."))
 }
 
   function close_pop_up()
