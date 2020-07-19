@@ -120,6 +120,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
       }
        var url = "http://localhost:3000/get_game_names";
        var potential_name = document.getElementById('save_game_input').value;
+       potential_name = potential_name.replace(/\s+/g, '');
+       potential_name = potential_name.toLowerCase();
        var game_names = [];
        fetch(url)
 .catch(function(error) {
@@ -131,7 +133,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 .then(()=>{
             var viable_name = true;
             game_names.forEach(name=>{
-                if(name.toLowerCase().trim() == potential_name.toLowerCase().trim())
+                if(name == potential_name)
                 {
                     viable_name = false;
                     var overwrite = confirm("A game by that name already exists, would you like to overwrite it?");
@@ -146,7 +148,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                         //overwrite game.
                         var url = "http://localhost:3000/overwrite_game";
                         var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                        all_teams.push({save_game_name:document.getElementById('save_game_input').value.trim(),save_game_phase:get_game_phase()});//Put name of game and game phase into the request.
+                        all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase()});//Put name of game and game phase into the request.
                         fetch(url,{
                             method: 'POST',
                             body:JSON.stringify(all_teams)
@@ -170,7 +172,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                 var url = "http://localhost:3000/save_game";
                 //Add name to all teams.
                 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                all_teams.push({save_game_name:document.getElementById('save_game_input').value,save_game_phase:get_game_phase()});
+                all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase()});
                 fetch(url,{
                     method: 'POST',
                     body:JSON.stringify(all_teams)
