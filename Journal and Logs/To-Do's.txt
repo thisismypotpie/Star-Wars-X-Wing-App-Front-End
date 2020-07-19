@@ -10,3 +10,5 @@ Simon TODO
 - I need clearer rules when it comes to when one can change their pilot skill.
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
+
+- I need to work on getting rid of all whitespace in the name of a saved game.
