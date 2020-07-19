@@ -624,15 +624,20 @@ function assign_critical_hit_card()
 //Adds a critical hit card for a large ship.
 function assign_large_ship_crit_card(section)
 {
+
     if(section == "fore")
     {
-        var crit_hit_assign_index = Math.floor(Math.random() * all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_fore.length);
-        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_fore[crit_hit_assign_index])));
+        var crit_hit_array = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_fore;
+        var crit_hit_assign_index = Math.floor(Math.random() *crit_hit_array.length)+crit_hit_array[0];
+        var chosen_index = game_data.all_large_crit_hit_cards.map(function(e){return e.id}).indexOf(crit_hit_assign_index);
+        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( game_data.all_large_crit_hit_cards[chosen_index])));
     }
     else if(section == "aft")
     {
-        var crit_hit_assign_index = Math.floor(Math.random() * all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_aft.length);
-        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_aft[crit_hit_assign_index])));
+        var crit_hit_array = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.crit_hit_cards_aft;
+        var crit_hit_assign_index = Math.floor(Math.random() *crit_hit_array.length)+crit_hit_array[0];
+        var chosen_index = game_data.all_large_crit_hit_cards.map(function(e){return e.id}).indexOf(crit_hit_assign_index);
+        all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.push(JSON.parse(JSON.stringify( game_data.all_large_crit_hit_cards[chosen_index])));
     }
     else
     {
