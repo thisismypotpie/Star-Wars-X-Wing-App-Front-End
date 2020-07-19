@@ -48,4 +48,4 @@ Later in the evening, did more messing around with the game save code. Cleaned u
 Met with Brandon again. Realized we did not quite have the save system figure out. Our last function to retrieve team names and ids was suffering from a race condition. Spent about an hour trying to troubleshoot and brainstorm, didn't quite get there. Note that some of these hours do not result in lines of code or commits...
 
 7/19/20
-Starting on more media query work.
+Starting on more media query work, first today will be Pilot-Screen.
