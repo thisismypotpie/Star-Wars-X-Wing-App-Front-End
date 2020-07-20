@@ -74,11 +74,14 @@ function get_load_data()
 console.log(error);
 alert("Something went wrong trying to get saved game names. "+error)
 })
+.then(response =>response.json())
+.then(data=>{game_names = data;})
 .then(()=>{
         var match_found = false;
       for(var i =0; i < game_names.length;i++)
       {
         match_found = true;
+        console.log("comparing: "+input+" and "+game_names[i]);
         if(game_names[i] == input)
         {
            alert("Found a match: "+game_names[i]);
@@ -89,9 +92,8 @@ alert("Something went wrong trying to get saved game names. "+error)
         })
         .then(response =>response.json())
         .then(data=>{parse_load_data(data)})
-        .then(()=>{break;})
-
         }
+        break;
       }
       if(match_found == false)
       {
