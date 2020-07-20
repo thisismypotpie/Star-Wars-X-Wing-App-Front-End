@@ -57,6 +57,7 @@ function close_load_game_pop_up()
 
 function get_load_data()
 {
+    var game_names = [];
     var input = document.getElementById('load-name-input').value;
     input = input.replace(/\s+/g, '');
     input = input.toLowerCase();
@@ -65,5 +66,42 @@ function get_load_data()
        alert("No name was input, please input game name.");
        document.getElementById('load-name-input').value = "";
        document.getElementById('load-name-input').focus();
+       return;
     }
+    var url = "http://localhost:3000/get_game_names";
+    fetch(url)
+.catch(function(error) {
+console.log(error);
+alert("Something went wrong trying to get saved game names. "+error)
+})
+.then(()=>{
+        var match_found = false;
+      for(var i =0; i < game_names.length;i++)
+      {
+        match_found = true;
+        if(game_names[i] == input)
+        {
+           alert("Found a match: "+game_names[i]);
+           var url = "http://localhost:3000/load_game";
+           fetch(url,{
+            method: 'POST',
+            body:JSON.stringify([game_names[i]])
+        })
+        .then(response =>response.json())
+        .then(data=>{parse_load_data(data)})
+        .then(()=>{break;})
+
+        }
+      }
+      if(match_found == false)
+      {
+        alert("There were no game names that matched: "+document.getElementById('load-name-input').value);
+      }
+})
+}
+
+//takes load data and makes team and ship an sets up the game.
+function parse_load_data(raw_data)
+{
+  console.log(raw_data);
 }
