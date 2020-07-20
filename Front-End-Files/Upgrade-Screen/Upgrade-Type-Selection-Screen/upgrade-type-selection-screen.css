@@ -34,7 +34,7 @@ body{
     margin-left: 10%;
     width:100%;
     outline: none;
-  }
+}
 
   .title{
     width: 100%;
@@ -131,17 +131,38 @@ body{
 }
 
 @media screen and (max-width: 768px){
+    .title{
+        font-size: 6vw;
+    }
+
     .button{
         font-size: 5vw;
         width: 25vw;
         height: 20vh;
     }
-}
+    
+    .grid-container{
+        grid-template-columns: repeat(3,calc(95%/3));
+        grid-template-rows: auto;
+        margin-left: 0%;
+    }
 
-@media screen and (max-width: 414px){
-    .button{
-        font-size: 5vw;
+    .grid-item{
+        height: 20vh;
     }
 }
 
-/* Simon TODO make icons look better, less columns, less stretchy */
+@media screen and (max-width: 414px){
+    .title{
+        font-size: 7vw;
+    }
+
+    .button{
+        font-size: 6vw;
+        width: 35vw;
+    }
+
+    .grid-container{
+        grid-template-columns: repeat(2,calc(95%/2));
+    }
+}

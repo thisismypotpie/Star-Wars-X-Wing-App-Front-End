@@ -48,4 +48,7 @@ Later in the evening, did more messing around with the game save code. Cleaned u
 Met with Brandon again. Realized we did not quite have the save system figure out. Our last function to retrieve team names and ids was suffering from a race condition. Spent about an hour trying to troubleshoot and brainstorm, didn't quite get there. Note that some of these hours do not result in lines of code or commits...
 
 7/19/20
-Starting on more media query work, first today will be Stats screen. Separate team screens will be tough: View-Team-Screen, View-Team-Remove-Ship-Screen and View-Team-Stats-Screen. Ended up getting stats screen, pilot screen and upgrade screen today.... Much CSS.
+Starting on more media query work, first today will be Stats screen. Separate team screens will be tough: View-Team-Screen, View-Team-Remove-Ship-Screen and View-Team-Stats-Screen. Ended up getting stats screen, pilot screen and upgrade screen today.... Much CSS. Reorganized entire grids, messed with button arrangement and font sizes to great lengths.
+
+7/20/20
+More and more media queries for improving mobile design. Getting upgrade-type-selection-screen.
