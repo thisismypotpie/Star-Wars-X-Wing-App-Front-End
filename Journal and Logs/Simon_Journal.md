@@ -51,4 +51,6 @@ Met with Brandon again. Realized we did not quite have the save system figure ou
 Starting on more media query work, first today will be Stats screen. Separate team screens will be tough: View-Team-Screen, View-Team-Remove-Ship-Screen and View-Team-Stats-Screen. Ended up getting stats screen, pilot screen and upgrade screen today.... Much CSS. Reorganized entire grids, messed with button arrangement and font sizes to great lengths.
 
 7/20/20
-More and more media queries for improving mobile design. Getting upgrade-type-selection-screen.
+More and more media queries for improving mobile design. Getting upgrade-type-selection-screen. Many small modifications to upgrade selection screen as well. Grids now adapt to screen size. Things look weird right after pixel break points, but definitely movin' in the right direction. Got the upgrade removal pop-up modal mobile friendly as well.
+
+Up next I will need to address the rest of the team options screens as well as save/load screens.

@@ -18,6 +18,10 @@ body{
     font-size: 2vw;
 }
 
+.container{
+    margin-left: 16vw;
+}
+
 .grid-item{
     border: none;
     margin-bottom: 3%;
@@ -28,10 +32,10 @@ body{
 
 .grid-container{
     display:grid;
+    position: relative;
     align-items: stretch;
     grid-template-columns: repeat(5,calc(75%/5));
     grid-template-rows: repeat(4,calc(80vh/4));
-    margin-left: 10%;
     width:100%;
     outline: none;
 }
@@ -140,11 +144,14 @@ body{
         width: 25vw;
         height: 20vh;
     }
+
+    .container{
+        margin-left: 0vw;
+    }
     
     .grid-container{
         grid-template-columns: repeat(3,calc(95%/3));
         grid-template-rows: auto;
-        margin-left: 0%;
     }
 
     .grid-item{
