@@ -10,7 +10,7 @@
     <section class="flex-container">
       <div class= "TitleImage" ></div>
       <button type="button" class = "button NewGame" id = "new-game-button">New Game</button>
-      <button type="button" class = "button LoadGame" onclick="sound_test()">Load Game</button>
+      <button type="button" class = "button LoadGame" onclick="load_game()">Load Game</button>
     </section>
 
   </head>
@@ -19,8 +19,14 @@
         <div class = "loading-container-header"  id = "loading-container-header">Game Data is Loading, Please Wait...</div>
     </div>
   <div id = "overlay"></div>
+
+      <div id = "loading-game-input-popup">
+        <div id = "loading-pop-up-title">What is the name of the game you wish to load?</div>
+        <input type="text" id="load-name-input" name="load-name-input"></input>
+        <button type="button" class = "pop-up-button" id = "back-button-load-pop-up" onclick="close_load_game_pop_up()">Back</button>
+        <button type="button" class = "pop-up-button" id = "ok-button-load-pop-up" onclick="get_load_data()">OK</button>
+      </div>
   <script type="text/javascript" src="Title-Screen.js"></script>
-  <script type="text/javascript" src="../JS Data Classes/Save-input-detector.js"></script>
 
   </body>
 </html>

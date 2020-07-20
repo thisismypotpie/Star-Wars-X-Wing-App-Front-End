@@ -36,3 +36,34 @@ fetch(url)
     }
 });
 }
+
+
+function load_game()
+{
+  let overlay = document.getElementById("overlay");
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "all";
+  document.getElementById('loading-game-input-popup').style.visibility = "visible";
+  document.getElementById('load-name-input').focus();
+}
+
+function close_load_game_pop_up()
+{
+  let overlay = document.getElementById("overlay");
+  overlay.style.opacity = 0;
+  overlay.style.pointerEvents = "none";
+  document.getElementById('loading-game-input-popup').style.visibility = "hidden";
+}
+
+function get_load_data()
+{
+    var input = document.getElementById('load-name-input').value;
+    input = input.replace(/\s+/g, '');
+    input = input.toLowerCase();
+    if(input.length == 0)
+    {
+       alert("No name was input, please input game name.");
+       document.getElementById('load-name-input').value = "";
+       document.getElementById('load-name-input').focus();
+    }
+}

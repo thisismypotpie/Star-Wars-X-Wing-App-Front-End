@@ -68,6 +68,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
      //Create Save Button
      let save_button = document.createElement("button")
+     save_button.id = "save-button";
      save_button.textContent = "Save";
      save_button.style.gridColumn = "8/12";
      save_button.style.gridRow = "8/12";
@@ -113,6 +114,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
   function validate_save_name()
   {
+    document.getElementById('save-button').onclick = null;
       if(document.getElementById('save_game_input').value == "")
       {
           alert("You must enter a save name.");
@@ -179,7 +181,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                 })
             }
 })
-.then(()=>alert("game is saved."))
+.then(()=>{alert("game is saved."); close_pop_up();})
+.then(()=>{    document.getElementById('save-button').onclick = function(){validate_save_name()}})
 }
 
   function close_pop_up()
@@ -195,5 +198,5 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
   function get_game_phase()
   {
-      return "In-Game";
+      return "Squad-building";
   }

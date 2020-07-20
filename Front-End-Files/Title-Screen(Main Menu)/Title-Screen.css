@@ -80,6 +80,66 @@ body{
     width: 100%;
 }
 
+/*///////////////////////////////////////////// LOADING POP-UP //////////////////////////////////////////////*/
+.pop-up-button{
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center;
+}
+
+#back-button-load-pop-up{
+    grid-column: 2/6;
+    grid-row: 8/12;
+}
+
+#ok-button-load-pop-up{
+    grid-column:8/12 ;
+    grid-row: 8/12;
+}
+
+#load-name-input{
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: large;
+  color: white;
+  background-color: black;
+  font-size: x-large;
+  text-align: center;
+  grid-row: 6/8;
+  grid-column: 2/12;
+}
+
+#loading-pop-up-title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+    text-align: center;
+    grid-row: 1;
+    grid-column: 1/13;
+}
+
+#loading-game-input-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 40%;
+    visibility: hidden;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(40vh/12));
+    visibility: hidden;
+}
+
+/*///////////////////////////////////////////// MEDIA QUERIES//////////////////////////////////////////////*/
 @media screen and (max-width: 768px){
     .button{
         width: 40%;
