@@ -129,3 +129,19 @@ body{
 .seventeen{
     background-image: url("https://i.imgur.com/jP2oBjU.png");
 }
+
+@media screen and (max-width: 768px){
+    .button{
+        font-size: 5vw;
+        width: 25vw;
+        height: 20vh;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .button{
+        font-size: 5vw;
+    }
+}
+
+/* Simon TODO make icons look better, less columns, less stretchy */

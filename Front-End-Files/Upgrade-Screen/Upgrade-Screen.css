@@ -18,9 +18,9 @@ body{
 .grid-container{
     display:grid;
     align-items: stretch;
-    grid-template-columns: repeat(4,calc(75%/4));
+    grid-template-columns: repeat(4,calc(95%/4));
     grid-template-rows: repeat(3,calc(90vh/3));
-    margin-left: 10%;
+    margin-top: 10px;
     width:100%;
     outline: none;
 }
@@ -274,3 +274,136 @@ body{
 #ok-button{
     font-size: x-large;
 }
+
+@media screen and (max-width: 768px){
+    .title{
+        font-size: 8vw;
+    }
+
+    .flex-container{
+        display: block;
+    }
+
+    .pilot-picture{
+        width: 80vw;
+        height: 60vh;
+        margin-left: 8vw;
+    }
+
+    .grid-container{
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        width: 95%;
+        margin-left: 5vw;
+        margin-top: 20px;
+    }
+
+    .grid-item{
+        height: 35vh;
+        width: 40vw;
+        margin: 0%;
+    }
+
+    .one{
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .two{
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .three{
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .four{
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .five{
+        grid-column: 1;
+        grid-row: 3;
+    }
+    .six{
+        grid-column: 2;
+        grid-row: 3;
+    }
+    .seven{
+        grid-column: 1;
+        grid-row: 4;
+    }
+    .eight{
+        grid-column: 2;
+        grid-row: 4;
+    }
+    .nine{
+        grid-column: 1;
+        grid-row: 5;
+    }
+    .ten{
+        grid-column: 2;
+        grid-row: 5;
+    }
+    .eleven{
+        grid-column: 1;
+        grid-row: 6;
+    }
+    .twelve{
+        grid-column: 2;
+        grid-row: 6;
+    }
+
+    .back{
+        width: 15vw;
+        height: 10vh;
+        margin-top: 2%;
+        position: static;
+    }
+    
+    .done{
+        width: 15vw;
+        height: 10vh;
+        margin-top: 2%;
+        position: static;
+    }
+    
+    .button{
+        font-size: 3vw;
+    }
+
+    .roster-number-container{
+        width:  70%;
+    }
+
+    .roster-number-header{
+        font-size: 7vw;
+    }
+    
+    #roster-number-input{
+        font-size: 5vw;
+    
+    }
+}
+
+@media screen and (max-width: 414px){
+    .title{
+        font-size: 10vw;
+    }
+
+    .back{
+        width: 20vw;
+        height: 18vh;
+    }
+    
+    .done{
+        width: 20vw;
+        height: 18vh;
+        left: 25%;
+    }
+
+    .button{
+        font-size: 5vw;
+    }
+}
+
+/* TODO fix upgrade remover container text size, image size, overall look on mobile */
