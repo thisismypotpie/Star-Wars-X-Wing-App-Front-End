@@ -198,5 +198,26 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
   function get_game_phase()
   {
-      return "Squad-building";
+      if(sessionStorage.getItem('phase') &&
+         sessionStorage.getItem('movement_attack_index'))
+         {
+            if(sessionStorage.getItem('phase') == "movement")
+            {
+                return {phase:"movement", movement_attack_index: sessionStorage.getItem('movement_attack_index')}
+            }
+            else if(sessionStorage.getItem('phase') == 'attack')
+            {
+                return {phase:"attack",movement_attack_index: sessionStorage.getItem('movement_attack_index')}
+            }
+            else
+            {
+                alert("ERROR: cannot determine game phase, defaulting to squad building.")
+            }
+         }
+         else if(sessionStorage.getItem('team_index') &&
+         sessionStorage.getItem('selected_ship_index'))
+         {
+            return{phase:"maneuver-selection", team_index: sessionStorage.getItem('team_index'), ship_index: sessionStorage.getItem('selected_ship_index')};
+         }
+        return {phase:"squad-building"};
   }
