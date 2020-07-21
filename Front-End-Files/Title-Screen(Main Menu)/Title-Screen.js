@@ -1,5 +1,3 @@
-const { raw } = require("express");
-
 document.getElementById("new-game-button").addEventListener("click", function(){
     window.location.href = "../Team-Screen/Team-Screen.html";
   });
@@ -107,26 +105,18 @@ alert("Something went wrong trying to get saved game names. "+error)
 //takes load data and makes team and ship an sets up the game.
 function parse_load_data(raw_data)
 {
-  var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-  var all_teams = create_teams_for_game(raw_data); //Used to store each team before being pushed to all teams.
+  sessionStorage.setItem("all_teams",JSON.stringify(create_teams_for_game(raw_data)));
   var phase = raw_data.turn_data.Phase;
   
   console.log(raw_data);
-  if(phase == "movement")
+  if(phase == "movement" || phase == "attack" || phase == "maneuver-selection")
   {
-    
-  }
-  else if(phase == "attack")
-  {
-
-  }
-  else if(phase == "maneuver-selection")
-  {
-
+    determine_turn_info(raw_data);
+    add_target_locks_to_game(raw_data);
   }
   else if(phase == "squad-building")
   {
-
+    //go to the team screen.
   }
   else
   {
@@ -150,25 +140,26 @@ function create_teams_for_game(raw_data)
 
 function add_ships_to_team(raw_data,all_teams)
 {
-  var all_teams_map = [];//An array of all team names.
+  var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+
+  //The map variables are used to get a list of all ID's or team names to help determine indecies when presented with just an ID number.
+  var all_teams_map = all_teams.map(function(e){return e.team_name;});;//An array of all team names.
+  var pilot_map = game_data.all_pilots.map(function(e){return e.id;});//flatten the pilot id's to find the index of the matching pilot ID.
+  var maneuver_map = game_data.all_maneuvers.map(function(e){return e.id;});
+
 
   var chosen_pilot = undefined;//Store the pilot of the ship as they are found here. 
-  var pilot_map = [];//flatten the pilot id's to find the index of the matching pilot ID.
- 
   var ship_in_progress = undefined;//Ship as we modify load results.
       //Add ships
       raw_data.ship_data.forEach(raw_ship=>{
-        //get chosen pilot.
-        pilot_map = game_data.all_pilots.map(function(e){return e.id;});
-        all_teams_map = all_teams.map(function(e){return e.team_name;});
-        
+        //get chosen pilot. 
         chosen_pilot = game_data.all_pilots[pilot_map.indexOf(raw_ship.ChosenPilot)];
         //Create new in ship game based on ship size.
-        if(chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        if(chosen_pilot.ship_name.ship_type == "largeTwoCard")// add large ship with two cards and its unique parameters.
         {
             ship_in_progress = new large_two_card_in_game_ship_status(chosen_pilot,raw_ship.TeamName);
             //Add energy.
-            if(raw_ship.CurrentEnergy)
+            if(raw_ship.CurrentEnergy!= null)
             {
               ship_in_progress.current_energy = raw_ship.CurrentEnergy;
             }
@@ -177,7 +168,7 @@ function add_ships_to_team(raw_data,all_teams)
               console.log("ERROR: Current energy was null!");
             }
             //Add aft agility.
-            if(raw_ship.CurrentAftAgility)
+            if(raw_ship.CurrentAftAgility!= null)
             {
               ship_in_progress.current_aft_agility = raw_ship.CurrentAftAgility
             }
@@ -186,7 +177,7 @@ function add_ships_to_team(raw_data,all_teams)
               console.log("ERROR: Current aft agility was null!")
             }
             //Add aft hull.
-            if(raw_ship.CurrentAftHull)
+            if(raw_ship.CurrentAftHull!=null)
             {
               ship_in_progress.current_aft_hull = raw_ship.CurrentAftHull;
             }
@@ -195,7 +186,7 @@ function add_ships_to_team(raw_data,all_teams)
               console.log("ERROR: Current aft hull was null!")
             }
             //Add aft shields
-            if(raw_ship.CurrentAftShields)
+            if(raw_ship.CurrentAftShields!=null)
             {
               ship_in_progress.current_aft_shields = raw_ship.CurrentAftShields;
             }
@@ -203,7 +194,8 @@ function add_ships_to_team(raw_data,all_teams)
             {
               console.log("ERROR: Current aft shields was null!.")
             }
-            if(raw_ship.AftShowing)
+            //Aft showing
+            if(raw_ship.AftShowing != null)
             {
                if(raw_ship.AftShowing == 0)
                {
@@ -223,7 +215,7 @@ function add_ships_to_team(raw_data,all_teams)
               console.log("ERROR: Aft showing was null.");
             }
         }
-        else if(chosen_pilot.ship_name.ship_type == "largeOneCard")
+        else if(chosen_pilot.ship_name.ship_type == "largeOneCard")// Add large ship one card an its unique parameter.
         {
             ship_in_progress  = new large_one_card_in_game_ship_status(chosen_pilot,raw_ship.TeamName);
             //Add energy.
@@ -236,29 +228,66 @@ function add_ships_to_team(raw_data,all_teams)
               console.log("ERROR: Current energy was null!");
             }
         }
-        else
+        else //Add regular ship.
         {
             ship_in_progress = new in_game_ship_status(chosen_pilot,raw_ship.TeamName);
         }
         //Set the rest of the parameters
-
+        if(raw_ship.ChosenManeuver)
+        {
+            ship_in_progress.chosen_maneuver = game_data.all_maneuvers[maneuver_map.indexOf(raw_ship.ChosenManeuver)];
+        }
+        ship_in_progress.cloak_tokens = raw_ship.CloakTokens;
+        ship_in_progress.current_agility = raw_ship.CurrentAgility;
+        ship_in_progress.current_attack = raw_ship.CurrentAttack;
+        ship_in_progress.current_hull = raw_ship.CurrentHull;
+        ship_in_progress.current_pilot_skill = raw_ship.CurrentPilotSkill;
+        ship_in_progress.current_sheilds = raw_ship.CurrentShields;
+        ship_in_progress.evade_tokens = raw_ship.EvadeTokens;
+        ship_in_progress.focus_tokens = raw_ship.FocusTokens;
+        ship_in_progress.ion_tokens = raw_ship.IonTokens;
+        ship_in_progress.jam_tokens = raw_ship.JamTokens;
+        ship_in_progress.reinforce_tokens = raw_ship.ReinforceTokens;
+        ship_in_progress.roster_number = raw_ship.RosterNumber;
+        ship_in_progress.stress_tokens = raw_ship.StressTokens;
+        ship_in_progress.tractor_beam_tokens = raw_ship.TractorBeamTokens;
+        ship_in_progress.weapons_disabled_tokens = raw_ship.WeaponsDisabledTokens;
+        
+        //Still need to do upgrades, crit hits, and conditions.
+        ship_in_progress.upgrades = get_upgrades_for_ship(ship_in_progress);
+        ship_in_progress.conditions = get_conditions_for_ship(ship_in_progress);
+        ship_in_progress.critical_hit_cards = get_crit_hit_cards_for_ship(ship_in_progress);
         //Add ship to correct team.
+        all_teams[all_teams_map.indexOf(ship_in_progress.team_name)].ship_list.push(ship_in_progress);
         
     })
     return all_teams;
 }
 
-function add_target_locks_to_game()
+function add_target_locks_to_game(raw_data)
 {
 
 }
 
-function determine_turn_info()
+function determine_turn_info(raw_data)
 {
 
 }
 
-function get_upgrades_for_ship()
+function get_upgrades_for_ship(ship)
 {
+  var upgrades = [];
+  return upgrades;
+}
 
+function get_conditions_for_ship(ship)
+{
+  var conditions = [];
+  return conditions;
+}
+
+function get_crit_hit_cards_for_ship(ship)
+{
+  var critical_hit_cards = [];
+  return critical_hit_cards;
 }
