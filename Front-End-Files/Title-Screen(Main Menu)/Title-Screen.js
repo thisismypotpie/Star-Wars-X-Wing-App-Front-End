@@ -138,9 +138,9 @@ function create_teams_for_game(raw_data)
   var all_teams = [];
   raw_data.team_data.forEach(raw_team => {
     all_teams.push(new team(raw_team.TeamName));
-    if(raw_data.team_data.HasInitiative == 1)
+    if(raw_team.HasInitiative == 1)
     {
-       all_teams[i].has_initiative_token = true;
+       all_teams[all_teams.length-1].has_initiative_token = true;
     }
   });
   return add_ships_to_team(raw_data,all_teams);

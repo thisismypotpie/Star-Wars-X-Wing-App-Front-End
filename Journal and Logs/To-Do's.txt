@@ -20,5 +20,3 @@ d) The feature itself is for adding ships to a game in progress.
 - Make it so when you save on the team screen, if you have already started a game, save on the correct type of game.
 
 -For some reason, load is not working the first time it is executed, there seems to be a freeze somewhere along the line.
-
--Chosen maneuvers are not showing up correctly in movement phase.
