@@ -105,7 +105,8 @@ alert("Something went wrong trying to get saved game names. "+error)
 //takes load data and makes team and ship an sets up the game.
 function parse_load_data(raw_data)
 {
-  var phase = raw_data.phase;
+  var all_teams = [];
+  var phase = raw_data.turn_data.Phase;
   var raw_team_data = raw_data.team_data;
   console.log(raw_data);
   if(phase == "movement")
@@ -122,7 +123,17 @@ function parse_load_data(raw_data)
   }
   else if(phase == "squad-building")
   {
+    //Create each team.
+    raw_data.team_data.forEach(raw_team => {
+      all_teams.push(new team(raw_team.TeamName));
+      if(raw_data.team_data.HasInitiative == 1)
+      {
+         all_teams[i].has_initiative_token = true;
+      }
+    });
+    //Add ships
 
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
   }
   else
   {
