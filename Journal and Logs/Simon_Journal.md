@@ -54,3 +54,5 @@ Starting on more media query work, first today will be Stats screen. Separate te
 More and more media queries for improving mobile design. Getting upgrade-type-selection-screen. Many small modifications to upgrade selection screen as well. Grids now adapt to screen size. Things look weird right after pixel break points, but definitely movin' in the right direction. Got the upgrade removal pop-up modal mobile friendly as well.
 
 Up next I will need to address the rest of the team options screens as well as save/load screens.
+
+... Did some more reading about Promises for personal understanding. Later in the evening, copy-pasta'd media queries for all of the 'Add New Ship' screens. Although it feels somewhat wrong to not reference the same CSS. It might make sense to keep these files separate in case the 'Add a new ship' screens need a slightly different look to them compared to the normal flow screens.
