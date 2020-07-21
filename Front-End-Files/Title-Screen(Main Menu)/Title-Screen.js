@@ -113,10 +113,12 @@ function parse_load_data(raw_data)
   {
     determine_turn_info(raw_data);
     add_target_locks_to_game(raw_data);
+    //go to maneuver selection screen
   }
   else if(phase == "squad-building")
   {
     //go to the team screen.
+    window.location.href = "../Team-Screen/Team-Screen.html";
   }
   else
   {
@@ -254,9 +256,9 @@ function add_ships_to_team(raw_data,all_teams)
         ship_in_progress.weapons_disabled_tokens = raw_ship.WeaponsDisabledTokens;
         
         //Still need to do upgrades, crit hits, and conditions.
-        ship_in_progress.upgrades = get_upgrades_for_ship(ship_in_progress);
-        ship_in_progress.conditions = get_conditions_for_ship(ship_in_progress);
-        ship_in_progress.critical_hit_cards = get_crit_hit_cards_for_ship(ship_in_progress);
+        ship_in_progress.upgrades = get_upgrades_for_ship(ship_in_progress,raw_ship);
+        ship_in_progress.conditions = get_conditions_for_ship(ship_in_progress,raw_ship);
+        ship_in_progress.critical_hit_cards = get_crit_hit_cards_for_ship(ship_in_progress,raw_ship);
         //Add ship to correct team.
         all_teams[all_teams_map.indexOf(ship_in_progress.team_name)].ship_list.push(ship_in_progress);
         
@@ -274,19 +276,34 @@ function determine_turn_info(raw_data)
 
 }
 
-function get_upgrades_for_ship(ship)
+function get_upgrades_for_ship(ship,raw_ship)
 {
+  if(raw_ship.Upgrades == null || raw_ship.Upgrades == undefined || raw_ship.Upgrades.length <= 0)//If there are no upgrades.
+  {
+    return [];
+  }
+  var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+  var upgrade_ids = raw_ship.Upgrades.toString().split('*');
+  for(var i=0; i < upgrade_ids.length;i++)//change all id strings to numbers.
+  {
+    upgrade_ids[i] = parseInt(upgrade_ids[i],10);
+  }
   var upgrades = [];
+  var upgrade_map = game_data.all_upgrades.map(function(e){return e.id});
+  upgrade_ids.forEach(current_id=>{
+    console.log("index is: "+ upgrade_map.indexOf(current_id));
+    upgrades.push(game_data.all_upgrades[upgrade_map.indexOf(current_id)]);
+  })
   return upgrades;
 }
 
-function get_conditions_for_ship(ship)
+function get_conditions_for_ship(ship,raw_ship)
 {
   var conditions = [];
   return conditions;
 }
 
-function get_crit_hit_cards_for_ship(ship)
+function get_crit_hit_cards_for_ship(ship,raw_ship)
 {
   var critical_hit_cards = [];
   return critical_hit_cards;
