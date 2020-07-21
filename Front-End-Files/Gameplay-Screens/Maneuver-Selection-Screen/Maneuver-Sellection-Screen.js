@@ -26,6 +26,8 @@ if(team_index == 0 && selected_ship_index == 0 &&(sessionStorage.getItem("phase"
     document.getElementById('back-button').style.visibility = "hidden";
 }
 
+
+
 //Check to see if we are in a search or the actual bunch of ships. We do this by seeing if there is a saved team and ship saved for when we return from a search.
 if(sessionStorage.getItem("searching") != null &&
 sessionStorage.getItem("searching") != undefined)
@@ -74,9 +76,17 @@ var team_mate_maneuvers = document.getElementById('team-mate-maneuvers');
 
 //call the function that sets up the screen.
 make_phase_changes();//Check to see what phase we are in and makes appropriate changes as needed to match the phase.
+//Display chosen maneuver if a ship has one. Must be in between these  functions to get data after it has been set but before it isapplied.
+if(all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver!= null &&
+    all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver!= undefined )
+ {
+         maneuver_index = all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver;
+ }
 set_up_maneuver_screen();
 set_up_team_mate_maneuvers();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
+
+
 
 //Set initiative token to be visible or not.
 if(all_teams[team_index].has_initiative_token == true)
@@ -179,7 +189,7 @@ function set_up_team_mate_maneuvers()
             range_div.style.width = "30%";
             range_div.style.height = "100%";
             range_div.style.marginRight = "5%";
-            range_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.range_symbol_path+"')";
+            range_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].range_symbol_path+"')";
             if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
             all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
             {
@@ -196,7 +206,7 @@ function set_up_team_mate_maneuvers()
             maneuver_div.style.width = "30%";
             maneuver_div.style.height = "100%";
             maneuver_div.style.marginRight = "5%";
-            maneuver_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.maneuver_symbol_path+"')";
+            maneuver_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].maneuver_symbol_path+"')";
             if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
             all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
             {
@@ -215,7 +225,7 @@ function set_up_team_mate_maneuvers()
                 energy_div.style.backgroundSize = "100% 100%";
                 energy_div.style.width = "25%";
                 energy_div.style.height = "100%";
-                energy_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_maneuver.energy_symbol_path+"')"; 
+                energy_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].energy_symbol_path+"')"; 
                 team_mate_maneuver_container.appendChild(energy_div);
             }
 
@@ -1226,7 +1236,7 @@ function go_to_next_ship_attack_phase()
 function go_to_next_ship_maneuver_selection()
 {
     //save maneuver
-    all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver = all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[maneuver_index];
+    all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver = maneuver_index;
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
     selected_ship_index++;
     if(selected_ship_index >= all_teams[team_index].ship_list.length)//Move to next team.
@@ -1267,8 +1277,8 @@ function make_phase_changes()//Alter the appropriate elements to get to the corr
         document.getElementById('next-maneuver-button').style.visibility = "hidden";
         document.getElementById('team-mate-maneuvers').style.visibility = "hidden";
         document.getElementById('team-mate-maneuvers-label').style.visibility = "hidden";
-        document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.maneuver_symbol_path+"')";
-        document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver.range_symbol_path+"')";
+        //document.getElementById('maneuver-type').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver].maneuver_symbol_path+"')";
+        //document.getElementById('maneuver-range').style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver].range_symbol_path+"')";
         if(sessionStorage.getItem("phase") == "movement")
         {
             //set team index, selected ship index, and all teams. also set holder for normal all teams.

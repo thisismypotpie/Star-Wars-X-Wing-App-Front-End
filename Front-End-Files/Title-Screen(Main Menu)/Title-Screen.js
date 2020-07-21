@@ -241,9 +241,9 @@ function add_ships_to_team(raw_data,all_teams)
             ship_in_progress = new in_game_ship_status(chosen_pilot,raw_ship.TeamName);
         }
         //Set the rest of the parameters
-        if(raw_ship.ChosenManeuver)
+        if(raw_ship.ChosenManeuver != null && raw_ship.ChosenManeuver != undefined)
         {
-            ship_in_progress.chosen_maneuver = game_data.all_maneuvers[maneuver_map.indexOf(raw_ship.ChosenManeuver)];
+            ship_in_progress.chosen_maneuver = raw_ship.ChosenManeuver;
         }
         ship_in_progress.cloak_tokens = raw_ship.CloakTokens;
         ship_in_progress.current_agility = raw_ship.CurrentAgility;
