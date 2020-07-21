@@ -299,12 +299,48 @@ function get_upgrades_for_ship(ship,raw_ship)
 
 function get_conditions_for_ship(ship,raw_ship)
 {
+  if(raw_ship.Conditions == null || raw_ship.Conditions == undefined || raw_ship.Conditions.length <= 0)//If there are no upgrades.
+  {
+    return [];
+  }
+  var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+  var conditions_ids = raw_ship.Conditions.toString().split('*');
+  for(var i=0; i< conditions_ids.length;i++)
+  {
+    conditions_ids[i] = parseInt(conditions_ids[i],10);
+  }
   var conditions = [];
+  var conditions_map = game_data.all_conditions.map(function(e){return e.id});
+  conditions_ids.forEach(current_id=>{
+    conditions.push(game_data.all_conditions[conditions_map.indexOf(current_id)]);
+  })
   return conditions;
 }
 
 function get_crit_hit_cards_for_ship(ship,raw_ship)
 {
+  if(raw_ship.CritHitCards == null || raw_ship.CritHitCards == undefined || raw_ship.CritHitCards.length <= 0)//If there are no upgrades.
+  {
+    return [];
+  }
+  var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+  var crit_hit_ids = raw_ship.CritHitCards.toString().split('*');
+  for(var i=0; i < crit_hit_ids.length;i++)
+  {
+    crit_hit_ids[i] = parseInt(crit_hit_ids[i],10);
+  }
   var critical_hit_cards = [];
+  var crit_hits_map = game_data.all_crit_cards.map(function(e){return e.id;});
+  var large_crit_hits_map = game_data.all_large_crit_hit_cards.map(function(e){return e.id;});
+  critical_hit_cards.forEach(current_id=>{
+    if(current_id >= 100)
+    {
+      critical_hit_cards.push(game_data.all_large_crit_hit_cards[large_crit_hits_map.indexOf(current_id)]);
+    }
+    else
+    {
+      critical_hit_cards.push(game_data.all_crit_cards[crit_hits_map.indexOf(current_id)]);
+    }
+  })
   return critical_hit_cards;
 }
