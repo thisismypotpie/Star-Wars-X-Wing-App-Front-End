@@ -6,6 +6,11 @@ document.getElementById("new-game-button").addEventListener("click", function(){
 //If game data is already populated, then you do not need to call to the back end to get it again.
 if(JSON.parse(sessionStorage.getItem("game_data")!= null && JSON.parse(sessionStorage.getItem("game_data")!= undefined)))
 {
+  //Clear all session storage items except for game data.
+  var temp_data = JSON.parse(sessionStorage.getItem("game_data"));
+  sessionStorage.clear();
+  sessionStorage.setItem("game_data",JSON.stringify(temp_data));
+  //Remove overlay. It is on by default.
   document.getElementById("overlay").style.pointerEvents = "none";
   document.getElementById("overlay").style.opacity = 0;
   document.getElementById("loading-container").style.visibility = "hidden";
@@ -114,6 +119,7 @@ function parse_load_data(raw_data)
     determine_turn_info(raw_data);
     add_target_locks_to_game(raw_data);
     //go to maneuver selection screen
+    window.location.href ="../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
   }
   else if(phase == "squad-building")
   {
@@ -273,7 +279,21 @@ function add_target_locks_to_game(raw_data)
 
 function determine_turn_info(raw_data)
 {
-
+  var phase = raw_data.turn_data.Phase;
+  if(phase == "maneuver-selection")
+  {
+    sessionStorage.setItem('team_index',raw_data.turn_data.TeamIndex);
+    sessionStorage.setItem('selected_ship_index',raw_data.turn_data.ShipIndex);
+  }
+  else if(phase == "attack" || phase == "movement")
+  {
+          sessionStorage.setItem('phase',phase); 
+         sessionStorage.setItem('movement_attack_index',raw_data.turn_data.MovementAttackIndex);
+  }
+  else
+  {
+      alert("ERROR: Unable to determine what phase the game is in.")
+  }
 }
 
 function get_upgrades_for_ship(ship,raw_ship)
