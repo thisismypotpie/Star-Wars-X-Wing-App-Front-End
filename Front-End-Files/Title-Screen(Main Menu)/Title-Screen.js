@@ -80,10 +80,10 @@ alert("Something went wrong trying to get saved game names. "+error)
         var match_found = false;
       for(var i =0; i < game_names.length;i++)
       {
-        match_found = true;
         console.log("comparing: "+input+" and "+game_names[i]);
         if(game_names[i] == input)
         {
+          match_found = true;
            alert("Found a match: "+game_names[i]);
            var url = "http://localhost:3000/load_game";
            fetch(url,{
@@ -92,8 +92,8 @@ alert("Something went wrong trying to get saved game names. "+error)
         })
         .then(response =>response.json())
         .then(data=>{parse_load_data(data)})
-        }
         break;
+        }
       }
       if(match_found == false)
       {
@@ -105,5 +105,28 @@ alert("Something went wrong trying to get saved game names. "+error)
 //takes load data and makes team and ship an sets up the game.
 function parse_load_data(raw_data)
 {
+  var phase = raw_data.phase;
+  var raw_team_data = raw_data.team_data;
   console.log(raw_data);
+  if(phase == "movement")
+  {
+    
+  }
+  else if(phase == "attack")
+  {
+
+  }
+  else if(phase == "maneuver-selection")
+  {
+
+  }
+  else if(phase == "squad-building")
+  {
+
+  }
+  else
+  {
+    alert("ERROR: invalid phase type data on load.")
+  }
+
 }

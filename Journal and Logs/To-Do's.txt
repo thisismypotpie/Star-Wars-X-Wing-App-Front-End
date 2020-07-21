@@ -11,4 +11,8 @@ Simon TODO
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
-- I need to work on getting rid of all whitespace in the name of a saved game.
+- Add the following feature:
+a) pressing the back button in game no longer removes all of the session storage except for the ship.
+b) Ending the game removes all game data.
+c) add a "continue game" button that will continue the game where it left off if you are in game and press the back button.
+d) The feature itself is for adding ships to a game in progress.
