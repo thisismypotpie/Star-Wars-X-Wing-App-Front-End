@@ -42,6 +42,21 @@ fetch(url)
 });
 }
 
+function open_load_info_screen()
+{
+  document.getElementById("overlay").style.pointerEvents = "all";
+  document.getElementById("overlay").style.opacity = 1;
+  document.getElementById("loading-container").style.visibility = "visible";
+  document.getElementById('loading-container-header').textContent = "Searching for game name, please wait ....";
+}
+
+function close_load_info_screen()
+{
+  document.getElementById("overlay").style.pointerEvents = "none";
+  document.getElementById("overlay").style.opacity = 0;
+  document.getElementById("loading-container").style.visibility = "hidden";
+  document.getElementById('loading-container-header').textContent = "Game Data is Loading, Please Wait...";
+}
 
 function load_game()
 {
@@ -49,6 +64,7 @@ function load_game()
   overlay.style.opacity = 1;
   overlay.style.pointerEvents = "all";
   document.getElementById('loading-game-input-popup').style.visibility = "visible";
+  document.getElementById('load-name-input').value = "";
   document.getElementById('load-name-input').focus();
 }
 
@@ -62,8 +78,10 @@ function close_load_game_pop_up()
 
 function get_load_data()
 {
-    var game_names = [];
+    close_load_game_pop_up();
+    open_load_info_screen();
     var input = document.getElementById('load-name-input').value;
+    var game_names = [];
     input = input.replace(/\s+/g, '');
     input = input.toLowerCase();
     if(input.length == 0)
@@ -89,7 +107,7 @@ alert("Something went wrong trying to get saved game names. "+error)
         if(game_names[i] == input)
         {
           match_found = true;
-           alert("Found a match: "+game_names[i]);
+          document.getElementById('loading-container-header').textContent = "Game Found!  Game loading, please wait ....";
            var url ="https://star-wars-x-wing-back-end.herokuapp.com/load_game"//"http://localhost:3000/load_game";
            fetch(url,{
             method: 'POST',
@@ -103,6 +121,7 @@ alert("Something went wrong trying to get saved game names. "+error)
       if(match_found == false)
       {
         alert("There were no game names that matched: "+document.getElementById('load-name-input').value);
+        close_load_info_screen();
       }
 })
 }
@@ -118,11 +137,13 @@ function parse_load_data(raw_data)
   {
     determine_turn_info(raw_data);
     add_target_locks_to_game(raw_data);
+    close_load_info_screen();//close loading screen.
     //go to maneuver selection screen
     window.location.href ="../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
   }
   else if(phase == "squad-building")
   {
+    close_load_info_screen();//close loading screen.
     //go to the team screen.
     window.location.href = "../Team-Screen/Team-Screen.html";
   }
