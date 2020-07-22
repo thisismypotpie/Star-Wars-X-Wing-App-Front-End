@@ -56,3 +56,5 @@ More and more media queries for improving mobile design. Getting upgrade-type-se
 Up next I will need to address the rest of the team options screens as well as save/load screens.
 
 ... Did some more reading about Promises for personal understanding. Later in the evening, copy-pasta'd media queries for all of the 'Add New Ship' screens. Although it feels somewhat wrong to not reference the same CSS. It might make sense to keep these files separate in case the 'Add a new ship' screens need a slightly different look to them compared to the normal flow screens.
+
+For tomorrow: get the media queries for 'View Team' and 'Remove Ship' screens on team options screens. Additionally would be good to get the save/load screens. After that only gameplay screens will be remaining. Those will be a bit trickier. I will begin to consider multiplayer system again and discuss next steps with Brandon on Thursday's meeting.
