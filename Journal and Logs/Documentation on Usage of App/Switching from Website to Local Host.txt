@@ -1,0 +1,24 @@
+This document is intended for use if the user wants to either switch from local host to the heroku deploy or vise versa:
+
+1. dbInteraction.js(back end)
+-There is a line that looks like this: var port = process.env.PORT||3000;
+- Comment out the "process.env.PORT" if you want to keep things local (port 3000 in this case) or keep the whole line if you want heroku deploy to respond.
+
+2. Title-Screen.js(front end)
+- Get data:
+- Look for this line: var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_data";//"http://localhost:3000/get_data";
+-local host is for local and the herokuapp url is for heroku.
+
+-Get game names: 
+-    var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";//"http://localhost:3000/get_game_names"
+
+-Loading game:
+           var url ="https://star-wars-x-wing-back-end.herokuapp.com/load_game"//"http://localhost:3000/load_game";
+
+3. save-input-detector.js(front-end)
+-Save game:
+"https://star-wars-x-wing-back-end.herokuapp.com/save_game";//"http://localhost:3000/save_game"
+-Get game names:
+       var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";//"http://localhost:3000/get_game_names";
+-overwriting games:
+                        var url = "https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";//"http://localhost:3000/overwrite_game";
