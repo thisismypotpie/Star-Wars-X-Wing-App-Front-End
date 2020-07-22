@@ -274,7 +274,15 @@ function add_ships_to_team(raw_data,all_teams)
 
 function add_target_locks_to_game(raw_data)
 {
-
+    var raw_target_locks = raw_data.target_lock_data;
+    var target_locks =[];
+    if(raw_target_locks != null && raw_target_locks != undefined && raw_target_locks.length >0)
+    {
+      raw_target_locks.forEach(lock=>{
+        target_locks.push(new target_lock(lock.assignmentNumber,lock.targettingTeamName,lock.targettingRoster,lock.targettedTeamName, lock.targettedRoster));
+      })
+    }
+    sessionStorage.setItem("all_target_locks",JSON.stringify(target_locks));
 }
 
 function determine_turn_info(raw_data)
