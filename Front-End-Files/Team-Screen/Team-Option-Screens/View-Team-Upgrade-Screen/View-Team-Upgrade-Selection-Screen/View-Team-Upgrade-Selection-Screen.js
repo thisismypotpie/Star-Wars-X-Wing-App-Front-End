@@ -117,8 +117,6 @@
     });
     grid_container.appendChild(back_button);
 
-  document.getElementById("grid-container").style.gridTemplateColumns="repeat(6,calc(100%/6))";  
-
   //I made a function here because the same click code is being used twice when a dual upgrade is being displayed. I wanted to make sure I did not copy the code twice.
   function upgrade_item_click(id)
   {

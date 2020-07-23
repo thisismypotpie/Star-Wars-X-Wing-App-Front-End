@@ -18,6 +18,10 @@ body{
     font-size: 2vw;
 }
 
+.container{
+    margin-left: 16vw;
+}
+
 .grid-item{
     border: none;
     margin-bottom: 3%;
@@ -31,7 +35,6 @@ body{
     align-items: stretch;
     grid-template-columns: repeat(5,calc(75%/5));
     grid-template-rows: repeat(4,calc(80vh/4));
-    margin-left: 10%;
     width:100%;
     outline: none;
   }
@@ -128,4 +131,45 @@ body{
 /*Turret*/
 .seventeen{
     background-image: url("https://i.imgur.com/jP2oBjU.png");
+}
+
+@media screen and (max-width: 768px){
+    .title{
+        font-size: 6vw;
+    }
+
+    .button{
+        font-size: 5vw;
+        width: 25vw;
+        height: 20vh;
+    }
+
+    .container{
+        margin-left: 0vw;
+    }
+    
+    .grid-container{
+        margin-left: 0;
+        grid-template-columns: repeat(3,calc(95%/3));
+        grid-template-rows: auto;
+    }
+
+    .grid-item{
+        height: 20vh;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .title{
+        font-size: 7vw;
+    }
+
+    .button{
+        font-size: 6vw;
+        width: 35vw;
+    }
+
+    .grid-container{
+        grid-template-columns: repeat(2,calc(95%/2));
+    }
 }

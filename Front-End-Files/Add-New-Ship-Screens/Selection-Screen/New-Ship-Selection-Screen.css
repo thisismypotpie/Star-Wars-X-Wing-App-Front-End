@@ -78,6 +78,10 @@ body{
     padding: 1%;
 }
 
+.list_options:hover{
+    background-color: #303030;
+}
+
 /*
 #rebels:focus{
     background: maroon;
@@ -93,4 +97,52 @@ body{
 
 .ship-size-option{
     visibility: hidden;
+}
+
+@media screen and (max-width: 768px){
+    .button{
+        width: 40%;
+        font-size: 6vw;
+    }
+
+    .title{
+        font-size: 8vw;
+    }
+
+    .list-box{
+        height: 60vh;
+    }
+
+    .list-box-title {
+        font-size: 4.5vw;
+        align-self: center;
+        margin-top: 20px;
+    }
+
+    .list_options {
+        font-size: 1.5rem;
+        margin: 0%;
+        padding: 0%;
+        padding-top: 10px;
+    }
+
+    ul {
+        padding-inline-start: 10px;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .button{
+        width: 50%;
+        font-size: 6vw;
+    }
+
+    .list-box-title{
+        font-size: 6vw;
+        margin-bottom: 0.3rem;
+    }
+
+    .list_options {
+        font-size: 1rem;
+    }
 }
