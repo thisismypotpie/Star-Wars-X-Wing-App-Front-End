@@ -1,5 +1,3 @@
-- Add loading functionality for pre-game squad building.
-
 Simon TODO
 - Media queries.
 - Implement multiplayer system.
@@ -11,12 +9,4 @@ Simon TODO
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
-- Add the following feature:
-a) pressing the back button in game no longer removes all of the session storage except for the ship.
-b) Ending the game removes all game data.
-c) add a "continue game" button that will continue the game where it left off if you are in game and press the back button.
-d) The feature itself is for adding ships to a game in progress.
-
-- Make it so when you save on the team screen, if you have already started a game, save on the correct type of game.
-
-- I need to incorperate the loading screen into the main title so that the user knows when the game is loading.
+- Begin first thoughts on galactic conquest feature of the app (stretch goal supreme).

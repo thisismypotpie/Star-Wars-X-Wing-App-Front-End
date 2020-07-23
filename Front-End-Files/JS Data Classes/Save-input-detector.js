@@ -118,6 +118,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
       if(document.getElementById('save_game_input').value == "")
       {
           alert("You must enter a save name.");
+          document.getElementById('save-button').onclick = function(){validate_save_name()};
           return;
       }
        var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";//"http://localhost:3000/get_game_names";
