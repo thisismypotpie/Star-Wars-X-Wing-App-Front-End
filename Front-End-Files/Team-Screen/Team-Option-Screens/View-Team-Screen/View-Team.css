@@ -435,6 +435,10 @@ This is the css for the stat quantity altering pop up.
         font-size: 3.5vw;
     }
 
+    .icon{
+        margin-left: 1px;
+    }
+
     .icon, .stat{
         width: 6vw;
     }
