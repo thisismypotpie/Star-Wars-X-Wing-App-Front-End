@@ -63,8 +63,8 @@ body{
 
 #left-container{
     /* border: 1px solid green; */
-    width: 25%
-;}
+    width: 25%;
+}
 
 .grid-container{
     width: 75%;
@@ -111,7 +111,7 @@ body{
     background-repeat: no-repeat;
     border:none;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 2vw;
+    font-size: 1.5vw;
     text-align: center;
 }
 
@@ -120,6 +120,7 @@ body{
     grid-column: 1;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    margin-left: 12px;
 }
 #roster-number{
     grid-row: 1;
@@ -162,7 +163,9 @@ body{
     /* border: 1px solid purple; */
 }
 #roster-number-stat{
+    grid-column: 2/3;
     grid-row: 1;
+    white-space: nowrap;
 }
 #pilot-skill-stat{
     grid-row:2;
@@ -194,12 +197,12 @@ body{
 }
 
 .maneuvers-title{
-        font-family: Impact, Charcoal, sans-serif;
-        font-size: 4vw;
-        color: white;
-        grid-column: 9/12;
-        grid-row: 2;
-        text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 4vw;
+    color: white;
+    grid-column: 9/12;
+    grid-row: 2;
+    text-align: center;
 }
 
 
@@ -377,4 +380,76 @@ This is the css for the stat quantity altering pop up.
     font-family: Impact, Charcoal, sans-serif;
     font-size: 2vw;
     text-align: center; 
+}
+
+@media screen and (max-width: 768px){
+    #left-container{
+        width: 40%;
+    }
+
+    .grid-container{
+        width: 55%;
+        height:82vh;
+        /* border: 1px solid orange; */
+        display:grid;
+        align-items: stretch;
+        grid-template-columns: repeat(12,calc(100%/12));
+        grid-template-rows: repeat(16,calc(100vh/16));
+    }
+
+    .upgrades-title, .maneuvers-title{
+        font-size: 6vw;
+        grid-column: 6/10;
+    }
+
+    #upgrade-box{
+        grid-column: 4/13;
+        margin: 0;
+    }
+
+    #upgrade-button {
+        position: absolute;
+        bottom: 1vh;
+        left: 22vw;
+        width: 25vw;
+    }
+
+    .maneuvers-title{
+        grid-row: 12;
+    }
+
+    #maneuver-box{
+        grid-column: 4/13;
+        grid-row: 13/16;
+    }
+
+    #back-button{
+        width: 20vw;
+        position: absolute;
+        bottom: 1vh;
+        left: 1vw;
+    }
+
+    #upgrade-button, #back-button{
+        height: 12vh;
+        font-size: 3.5vw;
+    }
+
+    .icon, .stat{
+        width: 6vw;
+    }
+
+    .roster-number-container{
+        width:  70%;
+        height: 40vh;
+    }
+
+    .roster-number-header{
+        font-size: 7vw;
+    }
+    
+    #roster-number-input, .pop-btn{
+        font-size: 5vw;
+    
+    }
 }
