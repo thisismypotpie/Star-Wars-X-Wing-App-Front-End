@@ -388,12 +388,7 @@ This is the css for the stat quantity altering pop up.
     }
 
     .grid-container{
-        width: 55%;
-        height:82vh;
-        /* border: 1px solid orange; */
-        display:grid;
-        align-items: stretch;
-        grid-template-columns: repeat(12,calc(100%/12));
+        width: 60%;
         grid-template-rows: repeat(16,calc(100vh/16));
     }
 

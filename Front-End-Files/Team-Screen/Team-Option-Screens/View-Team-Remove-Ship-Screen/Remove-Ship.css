@@ -218,3 +218,60 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 768px){
+    #left-container{
+        width: 40%;
+    }
+
+    .grid-container{
+        width: 60%;
+        grid-template-rows: repeat(16,calc(100vh/16));
+    }
+
+    .upgrades-title, .maneuvers-title{
+        font-size: 6vw;
+        grid-column: 6/10;
+    }
+
+    #upgrade-box{
+        grid-column: 4/13;
+        margin: 0;
+    }
+
+    #upgrade-button {
+        position: absolute;
+        bottom: 1vh;
+        left: 22vw;
+        width: 25vw;
+    }
+
+    .maneuvers-title{
+        grid-row: 12;
+    }
+
+    #maneuver-box{
+        grid-column: 4/13;
+        grid-row: 13/16;
+    }
+
+    #back-button{
+        width: 20vw;
+        position: absolute;
+        bottom: 1vh;
+        left: 1vw;
+    }
+
+    #upgrade-button, #back-button{
+        height: 12vh;
+        font-size: 3.5vw;
+    }
+
+    .icon{
+        margin-left: 1px;
+    }
+
+    .icon, .stat{
+        width: 6vw;
+    }
+}
