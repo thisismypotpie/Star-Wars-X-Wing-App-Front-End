@@ -60,4 +60,4 @@ Up next I will need to address the rest of the team options screens as well as s
 For tomorrow: get the media queries for 'View Team' and 'Remove Ship' screens on team options screens. Additionally would be good to get the save/load screens. After that only gameplay screens will be remaining. Those will be a bit trickier. I will begin to consider multiplayer system again and discuss next steps with Brandon on Thursday's meeting.
 
 7/22/20
-I worked through a huge final stretch of media queries today. Got the remaining team options screen mobile friendly.
+I worked through a huge final stretch of media queries today. Got the remaining team options screen mobile friendly. 
