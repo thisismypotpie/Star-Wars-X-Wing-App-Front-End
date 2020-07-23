@@ -47,3 +47,37 @@ body{
     font-size: 4vw;
     height: 10vh;
 }
+
+@media screen and (max-width: 768px){
+    .title{
+        font-size: 6vw;
+    }
+
+    .button{
+        font-size: 4vw;
+        width: 15vw;
+        height: 20vh;
+        margin-top: 20%;
+        margin-left: 20%;
+
+    }
+    
+    .grid-container{
+        grid-template-columns: repeat(3,calc(100%/3));
+    }
+}
+
+@media screen and (max-width: 414px){
+    .title{
+        font-size: 8vw;
+    }
+
+    .button{
+        font-size: 6vw;
+        width: 35vw;
+    }
+
+    .grid-container{
+        grid-template-columns: repeat(2,calc(100%/2));
+    }
+}
