@@ -18,6 +18,10 @@ body{
     font-size: 2vw;
 }
 
+.container{
+    margin-left: 16vw;
+}
+
 .grid-item{
     border: none;
     margin-bottom: 3%;
@@ -31,7 +35,6 @@ body{
     align-items: stretch;
     grid-template-columns: repeat(5,calc(75%/5));
     grid-template-rows: repeat(4,calc(80vh/4));
-    margin-left: 10%;
     width:100%;
     outline: none;
   }
