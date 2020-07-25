@@ -18,7 +18,7 @@ if(JSON.parse(sessionStorage.getItem("game_data")!= null && JSON.parse(sessionSt
 else //Make a call to the back end and get game data.
 {
 //Load the game data and store it in session Storage.
-var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_data";//"http://localhost:3000/get_data";
+var url = "http://localhost:3000/get_data";//"https://star-wars-x-wing-back-end.herokuapp.com/get_data";
 var game_data = undefined;
 fetch(url)
 .catch(function(error) {
@@ -91,7 +91,13 @@ function get_load_data()
        document.getElementById('load-name-input').focus();
        return;
     }
-    var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";//"http://localhost:3000/get_game_names"
+    if(input.includes("\'"))//If this symbol makes it into sql, it messes up the queries.
+    {
+        alert("Testing aposterphe.")
+        input = input.replace(/'/g, '');
+        alert("New name: "+input);
+    }
+    var url = "http://localhost:3000/get_game_names";//"https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";
     fetch(url)
 .catch(function(error) {
 console.log(error);
@@ -108,7 +114,7 @@ alert("Something went wrong trying to get saved game names. "+error)
         {
           match_found = true;
           document.getElementById('loading-container-header').textContent = "Game Found!  Game loading, please wait ....";
-           var url ="https://star-wars-x-wing-back-end.herokuapp.com/load_game"//"http://localhost:3000/load_game";
+           var url ="http://localhost:3000/load_game";//"https://star-wars-x-wing-back-end.herokuapp.com/load_game"
            fetch(url,{
             method: 'POST',
             body:JSON.stringify([game_names[i]])

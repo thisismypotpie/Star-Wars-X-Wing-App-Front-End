@@ -10,3 +10,5 @@ Simon TODO
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
 - Begin first thoughts on galactic conquest feature of the app (stretch goal supreme).
+
+-There is an error if you try to save while searching for a ship, the save game saves the ship you are searching as their turn instead of the ship who's turn it actually is.

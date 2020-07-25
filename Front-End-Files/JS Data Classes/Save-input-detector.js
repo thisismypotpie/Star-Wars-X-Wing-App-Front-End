@@ -1,5 +1,5 @@
 document.addEventListener("keydown", function(event){ //press s to save game.
-    if (event.keyCode == 179)
+    if (event.keyCode == 192)//this is f5179)
     {
         //Create overlay dynamically.
         if(document.getElementById('overlay')==null || document.getElementById('overlay')==undefined)
@@ -121,7 +121,23 @@ document.addEventListener("keydown", function(event){ //press s to save game.
           document.getElementById('save-button').onclick = function(){validate_save_name()};
           return;
       }
-       var url = "https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";//"http://localhost:3000/get_game_names";
+      if(document.getElementById('save_game_input').value.includes("\'"))//If this symbol makes it into sql, it messes up the queries.
+      {
+          alert("Testing aposterphe.")
+          var name_in_question = document.getElementById('save_game_input').value;
+          name_in_question = name_in_question.replace(/'/g, '');
+          /*for(var i = name_in_question.length; i >= 0;i--)
+          {
+            if(name_in_question[i] == "\'")
+            {
+                alert("splicing");
+                name_in_question = name_in_question.splice(i,1);
+            }
+          }*/
+          alert("New name: "+name_in_question);
+          document.getElementById('save_game_input').value = name_in_question;
+      }
+       var url = "http://localhost:3000/get_game_names";//"https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";
        var potential_name = document.getElementById('save_game_input').value;
        potential_name = potential_name.replace(/\s+/g, '');
        potential_name = potential_name.toLowerCase();
@@ -149,7 +165,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                             return;
                         }
                         //overwrite game.
-                        var url = "https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";//"http://localhost:3000/overwrite_game";
+                        var url = "http://localhost:3000/overwrite_game";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
                         var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
                         all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks"))});//Put name of game and game phase into the request.
                         fetch(url,{
@@ -172,7 +188,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                    return;
                }
                 //save game.
-                var url = "https://star-wars-x-wing-back-end.herokuapp.com/save_game";//"http://localhost:3000/save_game"
+                var url = "http://localhost:3000/save_game";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game";
                 //Add name to all teams.
                 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
                 all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks"))});
