@@ -31,25 +31,35 @@ else//populate the board with the name of each team, the size and total cost.
    //I need to use a traditional loop since a collection has no "foreach" method.
    for(var i=0; i < teams.length;i++)
    {
+     //Make container to put team stats in.
+     var team_container = document.createElement('div');
+     team_container.length = "100%";
+     team_container.style.borderBottom = "3px solid white";
+     team_container.style.display = "flex";
      //Set item for the team name
-      var new_team_name_item = document.createElement('li');
+      var new_team_name_item = document.createElement('div');
       new_team_name_item.id = teams[i].team_name;
       new_team_name_item.className = "list-box-item";
       new_team_name_item.textContent = teams[i].team_name;
+      new_team_name_item.style.textAlign = "center";
+      team_container.appendChild(new_team_name_item);
+      //Set item for number of ships.
+      var new_ship_number_item = document.createElement('li');
+      new_ship_number_item.id = teams[i].team_name + "-size";
+      new_ship_number_item.className = "list-box-item";
+      new_ship_number_item.style.textAlign = "center";
+      new_ship_number_item.textContent = teams[i].ship_list.length;
+      team_container.appendChild(new_ship_number_item);
       //Set item for the cost box.
       var new_cost_item = document.createElement('li');
       new_cost_item.id = teams[i].team_name + "-cost";
       new_cost_item.className = "list-box-item";
       new_cost_item.textContent = Calculate_cost_of_team(teams[i]);
-      //Set item for number of ships.
-      var new_ship_number_item = document.createElement('li');
-      new_ship_number_item.id = teams[i].team_name + "-size";
-      new_ship_number_item.className = "list-box-item";
-      new_ship_number_item.textContent = teams[i].ship_list.length;
+      new_cost_item.style.textAlign = "center";
+      team_container.appendChild(new_cost_item);
+
+      document.getElementById('list-box-team-names').appendChild(team_container);
       
-      document.getElementById("list-box-team-names").append(new_team_name_item);
-      document.getElementById("list-box-team-cost").append(new_cost_item);
-      document.getElementById("list-box-team-size").append(new_ship_number_item);
    }
 }
 //Sets the overlay and have the team name pop-up appear.
@@ -125,7 +135,7 @@ document.getElementById("new-team-button").addEventListener("click", function(){
        if(items[i].id.split('-')[0] == (name))
        {
          //Set background and color and then open the team options.
-         items[i].style.backgroundColor = "purple";
+         items[i].style.backgroundColor = "blue";
          items[i].style.border = "1px solid white";
          //Open the options menu
          let overlay = document.getElementById("overlay");
