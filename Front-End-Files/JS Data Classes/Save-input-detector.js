@@ -126,14 +126,6 @@ document.addEventListener("keydown", function(event){ //press s to save game.
           alert("Testing aposterphe.")
           var name_in_question = document.getElementById('save_game_input').value;
           name_in_question = name_in_question.replace(/'/g, '');
-          /*for(var i = name_in_question.length; i >= 0;i--)
-          {
-            if(name_in_question[i] == "\'")
-            {
-                alert("splicing");
-                name_in_question = name_in_question.splice(i,1);
-            }
-          }*/
           alert("New name: "+name_in_question);
           document.getElementById('save_game_input').value = name_in_question;
       }

@@ -12,3 +12,5 @@ Simon TODO
 - Begin first thoughts on galactic conquest feature of the app (stretch goal supreme).
 
 -There is an error if you try to save while searching for a ship, the save game saves the ship you are searching as their turn instead of the ship who's turn it actually is.
+
+- In the team screen, if there is a team name that takes up more than one line, the cost and number for ship columns are no longer aligned. 
