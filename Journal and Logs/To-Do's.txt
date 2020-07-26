@@ -11,8 +11,15 @@ Simon TODO
 
 - Begin first thoughts on galactic conquest feature of the app (stretch goal supreme).
 
--There is an error if you try to save while searching for a ship, the save game saves the ship you are searching as their turn instead of the ship who's turn it actually is.
-
 -Add flip button to all upgrade screens(for some reason I did not add them there).
 
 -In the order selection screen, show roster number on card. I could not tell which was which when there were five of the same TIE fighter to sort.
+
+-make it so focus and evade tokens go away at end of round.
+-When adding TIE fighters, wampa appeared again even though he was picked and unique.
+-The flip button is visible for all ships when removing a target lock.
+- remove tokens at end of round.
+-If someone has critical hit cards, have that show up first rather than upgrades.
+- Add focus to number input when you change teams with target lock and search.
+-Remove target lock of someone if they die to prevent errors.
+-when a ship dies, usually there is a search happening and the next pilot gets put into a search, make sure search  is off when after a ship dies.
