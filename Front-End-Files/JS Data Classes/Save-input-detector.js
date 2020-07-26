@@ -1,6 +1,11 @@
 document.addEventListener("keydown", function(event){ //press s to save game.
     if (event.keyCode == 192)//this is f5179)
     {
+        if(sessionStorage.getItem("searching")!= null || sessionStorage.getItem("searching")!= undefined)
+        {
+            alert("You cannot save your game while you are doing a search, exit search to save.");
+            return;
+        }
         //Create overlay dynamically.
         if(document.getElementById('overlay')==null || document.getElementById('overlay')==undefined)
         {

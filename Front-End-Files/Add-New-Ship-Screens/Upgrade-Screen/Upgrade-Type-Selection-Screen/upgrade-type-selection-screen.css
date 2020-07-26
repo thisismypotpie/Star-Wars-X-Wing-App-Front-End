@@ -31,8 +31,10 @@ body{
 }
 
 .grid-container{
+    position: fixed;
+    top: 12%;
+    left: 10%;
     display:grid;
-    position: relative;
     align-items: stretch;
     grid-template-columns: repeat(5,calc(75%/5));
     grid-template-rows: repeat(4,calc(80vh/4));
