@@ -13,4 +13,6 @@ Simon TODO
 
 -There is an error if you try to save while searching for a ship, the save game saves the ship you are searching as their turn instead of the ship who's turn it actually is.
 
--In upgrade type selection for new ships, the upgrades are not centered.
+-Add flip button to all upgrade screens(for some reason I did not add them there).
+
+-In the order selection screen, show roster number on card. I could not tell which was which when there were five of the same TIE fighter to sort.
