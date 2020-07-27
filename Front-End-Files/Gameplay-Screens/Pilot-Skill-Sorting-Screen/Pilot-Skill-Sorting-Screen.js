@@ -69,8 +69,23 @@ buckets[selected_index].roster_numbers.forEach(roster_num=>{//Go through each ro
          ship_image.style.flex = "0 0 35%";//Width is here.
          ship_image.style.marginLeft = "3%";
          ship_image.style.marginRight = "3%";
+         ship_image.style.display = "grid";
+         ship_image.style.gridTemplateColumns = "repeat(12,calc(100%/12))";
+         ship_image.style.gridTemplateRows = "repeat(12,calc(100%/12))";
          ship_image.setAttribute("roster-number",ship.roster_number);
          ship_image.onclick = function(){unsorted_image_click(ship_image)};
+
+         //Add div that is the roster number of each ship to their card.
+         var roster_display = document.createElement("div");
+         roster_display.id = "roster-display";
+         roster_display.style.fontSize = "4vw";
+         roster_display.style.fontFamily = "Impact, Charcoal, sans-serif";
+         roster_display.innerHTML = "# "+ship.roster_number;
+         roster_display.style.color = "red";
+         roster_display.style.gridRow = "1/4";
+         roster_display.style.gridColumn = "10/13";
+         roster_display.style.textAlign = "center";
+         ship_image.appendChild(roster_display);
          unsorted_ship_box.appendChild(ship_image);
       }
    })

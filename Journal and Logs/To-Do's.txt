@@ -22,5 +22,3 @@ Simon TODO
 -Remove target lock of someone if they die to prevent errors.
 
 -Make a surrender button. If a team decides to surrender the game will end.
-
--Upgrades are messed up when assigning them during the game.
