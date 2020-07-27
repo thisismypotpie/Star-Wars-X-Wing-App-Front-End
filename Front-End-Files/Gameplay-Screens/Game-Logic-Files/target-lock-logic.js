@@ -191,7 +191,25 @@ function populate_target_lock_view_popup(passed_assignment_number)
                                                                              hide_pop_up('target-lock-view-pop-up');
                                                                              hide_large_ship_flip_button_and_energy_stat_on_target_lock_view();
                                                                              set_up_target_lock_list();};
+    determine_flip_button_and_ship_visibility(attacking_ship,"target-lock-view-flip-button-attacker","energy-image-tl-attacker","energy-tl-attack");
+    determine_flip_button_and_ship_visibility(defending_ship,"target-lock-view-flip-button-defender","energy-image-tl-defender","energy-tl-defend");
+
 }
+
+function determine_flip_button_and_ship_visibility(passed_ship,flip_id,energy_id,energy_text_id)
+{
+    if(passed_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+    passed_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {
+        document.getElementById(energy_id).style.visibility = "visible";
+        document.getElementById(energy_text_id).style.visibility = "visible";
+        if(passed_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        {
+            document.getElementById(flip_id).style.visibility = "visible";
+        }       
+    }
+}
+
 
 function flip_button_for_target_lock_view(image_element_id,passed_ship,agility_id,hull_id,shield_id)
 {
@@ -241,6 +259,7 @@ function flip_button_for_target_lock_view(image_element_id,passed_ship,agility_i
 
 }
 
+//If a ship dies, remove target locks associated with that ship.
 function discard_related_target_locks()
 {
     var locks = JSON.parse(sessionStorage.getItem("all_target_locks"));

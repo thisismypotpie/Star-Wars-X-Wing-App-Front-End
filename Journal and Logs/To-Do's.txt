@@ -11,6 +11,4 @@ Simon TODO
 
 -Add flip button to all upgrade screens(for some reason I did not add them there).
 
--The flip button is visible for all ships when removing a target lock.
-
 -Make a surrender button. If a team decides to surrender the game will end.
