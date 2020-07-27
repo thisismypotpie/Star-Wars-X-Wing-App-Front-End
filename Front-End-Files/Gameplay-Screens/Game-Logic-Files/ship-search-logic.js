@@ -26,6 +26,7 @@ function find_and_display_searching_ship()
         document.getElementById('roster-number-input-search').focus();
         return;
     }
+    
     sessionStorage.setItem("saved_team_index",team_index);
     sessionStorage.setItem("saved_ship_index",selected_ship_index);
     sessionStorage.setItem("team_index",target_lock_and_search_index);

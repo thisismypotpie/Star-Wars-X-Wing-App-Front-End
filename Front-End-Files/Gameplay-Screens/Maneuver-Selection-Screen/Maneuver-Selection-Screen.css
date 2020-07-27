@@ -272,6 +272,18 @@ Stat and images for stats next to the pilot card.
     grid-row: 10;
     visibility: hidden;
 }
+/*
+Maneuver card shown when player is searching.
+*/
+#maneuver-card-display{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    grid-column: 9/15;
+    grid-row: 4/12;
+    visibility: hidden;
+}
 
 /*
 Maneuver selection console
@@ -746,20 +758,24 @@ This is the css for the target lock viewing pop-up
     background-image: url("https://i.imgur.com/21ZF1eI.png");
     grid-row:13/15;
     grid-column: 1/3;
+    visibility: hidden;
 }
 .energy-text-tl{
     grid-row:13/15;
     grid-column: 3/6;
+    visibility: hidden;
 }
 
 #target-lock-view-flip-button-attacker{
     grid-row: 9/11;
     grid-column: 1/3;
+    visibility: hidden;
 }
 
 #target-lock-view-flip-button-defender{
     grid-row: 9/11;
     grid-column: 7/9;
+    visibility: hidden;
 }
 
 #target-lock-remove-button{

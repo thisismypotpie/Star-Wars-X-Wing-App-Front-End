@@ -5,6 +5,7 @@ var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
 var unsorted_ship_box = document.getElementById("unsorted-ship-box");
 var sorted_ship_box = document.getElementById("sorted-ship-box");
 var selected_index = 0;
+var bucket_order_roster_list = [];
 
 //Start indecies as an empty array if indecies is null or undefined.
 if(indecies == null || indecies == undefined)
@@ -36,6 +37,7 @@ for(var i = selected_index; i < buckets.length;i++)
         if(sorting_done == true)
         {
             sort_pilots_by_skill_and_overwrite_all_teams(buckets);
+            all_teams = JSON.parse(sessionStorage.getItem("all_teams"));//This is to set all teams to the version manipulated by the function on the previous line.
             sessionStorage.removeItem("buckets");
             sessionStorage.removeItem("indecies");
             var initiative_assignment = Math.floor(Math.random() * all_teams.length);
@@ -102,9 +104,7 @@ function done_button_click()
     }
     else
     {
-        var roster_array = Array.from(document.getElementsByClassName("sorted-ship-image"));
-        buckets[selected_index].roster_numbers = roster_array.map(function(e){return parseInt(e.getAttribute("roster-number"))});
-        console.log(buckets[selected_index]);
+        buckets[selected_index].roster_numbers = bucket_order_roster_list;
         sessionStorage.setItem("buckets",JSON.stringify(buckets));
         sessionStorage.setItem("indecies",JSON.stringify(indecies));
         location.reload();
@@ -136,6 +136,7 @@ function unsorted_image_click(clicked_element)
     clicked_element.className = "sorted-ship-image";
     clicked_element.onclick = function(){sorted_image_click(clicked_element)};
     sorted_ship_box.appendChild(clicked_element);
+    bucket_order_roster_list.push(parseInt(clicked_element.getAttribute("roster-number"),10));
 }
 
 //Take image off sorted image list and put it in the unsorted list.
@@ -144,6 +145,7 @@ function sorted_image_click(clicked_element)
     clicked_element.className = "unsorted-ship-image";
     clicked_element.onclick = function(){unsorted_image_click(clicked_element)};
     unsorted_ship_box.appendChild(clicked_element);
+    bucket_order_roster_list.splice(bucket_order_roster_list.indexOf(parseInt(clicked_element.getAttribute("roster-number"),10)),1);
 }
 
 //When you press the view button you  will get the ships in a bucket showing up in a stripped down version of team view.
