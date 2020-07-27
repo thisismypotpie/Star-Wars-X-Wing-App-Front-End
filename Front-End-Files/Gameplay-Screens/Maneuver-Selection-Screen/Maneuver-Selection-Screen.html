@@ -27,9 +27,9 @@
         tabindex="3"
         role="listbox"></ul>
 
-        <button type = "button" class = "long-button" id = "search-button" onclick="target_lock_and_search_index = 0;show_pop_up('search-pop-up');document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name;">Search</button>
+        <button type = "button" class = "long-button" id = "search-button" onclick="target_lock_and_search_index = 0;show_pop_up('search-pop-up');document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name; document.getElementById('roster-number-input-search').focus();">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
-        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_and_search_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;">Add</button>
+        <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_and_search_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;document.getElementById('roster-number-input-target-lock').focus();">Add</button>
         <button type = "button" class = "button" id = "previous-maneuver-button" onclick="previous_maneuver_click()"></button>
         <button type = "button" class = "button" id = "next-maneuver-button" onclick="next_maneuver_click()"></button>
         <button type = "button" class = "button" id = "flip-button" onclick="flip_button_click_for_large_ships('pilot-image')">Flip</button>

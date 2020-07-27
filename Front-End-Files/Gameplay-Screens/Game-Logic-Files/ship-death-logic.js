@@ -46,6 +46,7 @@ function check_for_death()
 function ship_is_dead()
 {
     hide_pop_up('ship-death-pop-up');
+    discard_related_target_locks();//This will make sure that any target lock associated with the dead ship is removed.
     all_teams[team_index].ship_list.splice(selected_ship_index,1);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
     var game_over = false; 

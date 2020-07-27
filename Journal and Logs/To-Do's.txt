@@ -13,12 +13,8 @@ Simon TODO
 
 -Add flip button to all upgrade screens(for some reason I did not add them there).
 
--In the order selection screen, show roster number on card. I could not tell which was which when there were five of the same TIE fighter to sort.
-
 -The flip button is visible for all ships when removing a target lock.
 
-- Add focus to number input when you change teams with target lock and search.
-
--Remove target lock of someone if they die to prevent errors.
-
 -Make a surrender button. If a team decides to surrender the game will end.
+
+-Pilot sorting will not sort the pilots into the proper order once the game starts.

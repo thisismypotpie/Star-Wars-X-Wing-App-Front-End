@@ -79,7 +79,7 @@ function add_target_lock()
     target_lock_and_search_index = 0;//Reset list back to first team for the next time someone pressed the add target lock button.
 }
 
-//This function will iterate the team index for target lock so that player can target a specific team.
+//This function will iterate the team index for target lock and searching so that player can target a specific team.
 function next_team_button_click(input_element_name)
 {
     target_lock_and_search_index++;
@@ -88,9 +88,17 @@ function next_team_button_click(input_element_name)
         target_lock_and_search_index = 0;
     }
     document.getElementById(input_element_name).textContent=all_teams[target_lock_and_search_index].team_name;
+    if(input_element_name.includes("search"))
+    {
+        document.getElementById("roster-number-input-search").focus();
+    }
+    else
+    {
+        document.getElementById("roster-number-input-target-lock").focus();
+    }
 }
 
-//This function will deiterate the team index for target lock so that the player can target a specific team.
+//This function will deiterate the team index for target lock  and searching so that the player can target a specific team.
 function previous_team_button_click(input_element_name)
 {
     target_lock_and_search_index--;
@@ -99,6 +107,14 @@ function previous_team_button_click(input_element_name)
         target_lock_and_search_index = all_teams.length-1;
     }
     document.getElementById(input_element_name).textContent=all_teams[target_lock_and_search_index].team_name;
+    if(input_element_name.includes("search"))
+    {
+        document.getElementById("roster-number-input-search").focus();
+    }
+    else
+    {
+        document.getElementById("roster-number-input-target-lock").focus();
+    }
 }
 
 //This function will populate the information of the target lock view before showing it. IT will get picutes and stats.
@@ -223,4 +239,25 @@ function flip_button_for_target_lock_view(image_element_id,passed_ship,agility_i
 
     }
 
+}
+
+function discard_related_target_locks()
+{
+    var locks = JSON.parse(sessionStorage.getItem("all_target_locks"));
+    var dead_ship = all_teams[team_index].ship_list[selected_ship_index];
+    if(locks == null || locks == undefined)
+    {
+        return;
+    }
+
+    for(var i=0; i < locks.length;i++)
+    {
+        if((dead_ship.team_name == locks[i].targetting_team && locks[i].targetting_roster == dead_ship.roster_number)||
+            (dead_ship.team_name == locks[i].targetted_team && locks[i].targetted_roster == dead_ship.roster_number))
+        {
+            alert("Removing lock: "+locks[i].assignment_number+" because it is related to the newly dead ship.");
+            locks.splice(i,1);
+        }
+    }
+    sessionStorage.setItem("all_target_locks",JSON.stringify(locks));
 }
