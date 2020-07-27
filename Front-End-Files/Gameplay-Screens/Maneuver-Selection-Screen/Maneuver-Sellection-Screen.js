@@ -85,6 +85,8 @@ if(all_teams[team_index].ship_list[selected_ship_index].chosen_maneuver!= null &
 set_up_maneuver_screen();
 set_up_team_mate_maneuvers();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
+check_for_conditions();//displats conditions first if a ship has them.
+check_for_crit_hits();//Displays crit hits first if a ship has them.
 
 
 
@@ -600,7 +602,7 @@ function go_to_next_ship_attack_phase()
         sessionStorage.removeItem("movement_attack_index");
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
-        assign_new_round_initiative_token();
+        end_of_round_procedures();
     }
     else
     {
@@ -739,31 +741,4 @@ function main_back_button_click()
             location.reload();
         }
     }
-}
-
-function assign_new_round_initiative_token()
-{
-    for(var i=0; i < all_teams.length;i++)
-    {
-        if(all_teams[i].has_initiative_token == true)
-        {
-            var new_index = -1;
-            all_teams[i].has_initiative_token = false;
-            if((i+1)>= all_teams.length)
-            {
-                new_index = 0;
-            }
-            else
-            {
-                new_index = i+1;
-            }
-            all_teams[new_index].has_initiative_token = true;
-            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-            document.getElementById('notification-pop-up-title').textContent = "ROUND OVER! \r"+all_teams[new_index].team_name+" now has initiative.";
-            document.getElementById('notificatin-ok-button').onclick = function(){location.reload()};
-            show_pop_up("Notification-pop-up");
-            return;
-        }
-    }
-    alert("ERROR: No team was found with the initiative token!");
 }

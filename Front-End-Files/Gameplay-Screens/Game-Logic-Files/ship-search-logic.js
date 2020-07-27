@@ -19,7 +19,13 @@ function find_and_display_searching_ship()
         document.getElementById('roster-number-input-search').focus();
         return;
     }
-
+    if(team_index == target_lock_and_search_index && selected_ship_index == ship_index)//Makes it so you cannot search for yourself.
+    {
+        alert("You cannot search for yourself.");
+        document.getElementById('roster-number-input-search').value = "";
+        document.getElementById('roster-number-input-search').focus();
+        return;
+    }
     sessionStorage.setItem("saved_team_index",team_index);
     sessionStorage.setItem("saved_ship_index",selected_ship_index);
     sessionStorage.setItem("team_index",target_lock_and_search_index);

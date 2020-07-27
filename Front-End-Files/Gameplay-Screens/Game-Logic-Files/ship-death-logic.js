@@ -95,6 +95,14 @@ function ship_is_dead()
     }
     else
     {
+        if(sessionStorage.getItem("searching")!=null && sessionStorage.getItem("searching")!= undefined)//Just in case someone is searching when a another ship dies.
+        {
+            sessionStorage.setItem("team_index",sessionStorage.getItem("saved_team_index"));
+            sessionStorage.setItem("selected_ship_index",sessionStorage.getItem("saved_ship_index"));
+            sessionStorage.removeItem("saved_team_index");
+            sessionStorage.removeItem("saved_ship_index");
+            sessionStorage.removeItem("searching");
+        }
         if(team_index >= (all_teams.length-1) &&
            selected_ship_index >= (all_teams[team_index].ship_list.length)&&
            (sessionStorage.getItem("phase")==null &&

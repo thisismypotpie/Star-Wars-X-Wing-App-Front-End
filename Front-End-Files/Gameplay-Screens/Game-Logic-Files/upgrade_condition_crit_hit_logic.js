@@ -1,3 +1,8 @@
+var upgrade_ids_for_keeping_focus_tokens_at_end_of_round = [281];
+var upgrade_ids_for_keeping_evade_tokens_at_end_of_round = [275];
+
+
+
 //Adds a critical hit card to the current ship and then saves to the all teams data set. It then closes the pop-up.
 function assign_critical_hit_card()
 {
@@ -123,5 +128,23 @@ function choose_which_crit_hit_screen_appears()
     else
     {
         show_pop_up('crit-hit-pop-up');
+    }
+}
+
+function check_for_conditions()//Displats conditions first if a ship has them.
+{
+    if(all_teams[team_index].ship_list[selected_ship_index].conditions.length > 0)
+    {
+        card_type_label.textContent = "Critical Hit Cards";
+        cycle_button_click();
+    }
+}
+
+function check_for_crit_hits()//Displays crit hits first if a ship has them.
+{
+    if(all_teams[team_index].ship_list[selected_ship_index].critical_hit_cards.length > 0)
+    {
+        card_type_label.textContent = "Upgrades";
+        cycle_button_click();
     }
 }
