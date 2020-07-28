@@ -9,6 +9,4 @@ Simon TODO
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
--Add flip button to all upgrade screens(for some reason I did not add them there).
-
 -Make a surrender button. If a team decides to surrender the game will end.
