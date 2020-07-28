@@ -1,3 +1,5 @@
+  var flipped = false;//flip button orientation.
+  
   //Get data objects needed for this page.
   var selected_ship_index = sessionStorage.getItem("selected_ship_index");
   var team_index = sessionStorage.getItem("team_index");
@@ -7,7 +9,11 @@
   var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
-
+//Check if flip button is visible or not.
+if(ship_in_progress.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+{
+  document.getElementById('main-flip-button').style.visibility = "visible";
+}
 
 //I will be making a loop that will paste all of the upgrades a ship into the next available picture and then set the next empty to next selection.
 let grid_items = document.getElementsByClassName("grid-item");
@@ -116,5 +122,18 @@ function flip_button_click()
        break;
       }
     }
+  }
+}
+
+function flip_ship(){
+  if(flipped == false)
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.aft_card_path+"')";
+    flipped = true;
+  }
+  else
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
+    flipped = false;
   }
 }

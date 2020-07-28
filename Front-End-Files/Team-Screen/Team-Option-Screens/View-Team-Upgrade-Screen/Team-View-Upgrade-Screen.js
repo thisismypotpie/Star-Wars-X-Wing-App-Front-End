@@ -1,4 +1,4 @@
-
+var flipped = false;//keep track of flip button orientation.
 /**
  * Section for setting up global variables and form elements.
  */
@@ -11,7 +11,11 @@ set_upgrade_images();//Need to set upgrade images before accessing id's associat
 /**
  * End Section for setting up global variables and form elements.
  */
-
+//Check if flip button is visible or not.
+if(chosen_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+{
+  document.getElementById('main-flip-button').style.visibility = "visible";
+}
 
 
  /**
@@ -177,6 +181,19 @@ next_upgrade_slot.addEventListener("click",function(){
   }
  
  }
+
+ function flip_ship(){
+  if(flipped == false)
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+chosen_ship.chosen_pilot.aft_card_path+"')";
+    flipped = true;
+  }
+  else
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+chosen_ship.chosen_pilot.image_path+"')";
+    flipped = false;
+  }
+}
 
 
 

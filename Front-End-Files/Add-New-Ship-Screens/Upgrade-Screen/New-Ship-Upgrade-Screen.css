@@ -74,6 +74,14 @@ body{
     left:12%;
 }
 
+#main-flip-button{
+    width:5%;
+    height: 10vh;
+    left:21%;
+    bottom: 18%;
+    visibility: hidden;
+}
+
 #next-selection{
     background-image: url(https://i.imgur.com/oNRxf0v.png);
 }
@@ -411,6 +419,13 @@ body{
         grid-column: 6/9;
         grid-row: 10/13;
     }
+    #main-flip-button{
+        width:10%;
+        height: 10vh;
+        left:5%;
+        top: 1%;
+        visibility: hidden;
+    }
 }
 
 @media screen and (max-width: 414px){
@@ -431,5 +446,12 @@ body{
 
     .button{
         font-size: 5vw;
+    }
+    #main-flip-button{
+        width:10%;
+        height: 10vh;
+        left:1%;
+        top: 1%;
+        visibility: hidden;
     }
 }

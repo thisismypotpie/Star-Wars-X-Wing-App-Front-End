@@ -1,3 +1,5 @@
+var flipped = false;//keeps track if front or back or large ship is showing.
+
 //Back to previous form.
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("ship_in_progress");
@@ -141,6 +143,11 @@ document.getElementById("yes-button").addEventListener("click",function(){
     sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
 window.location.reload();
 })
+//Check if flip button is visible or not.
+if(ship_in_progress.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+{
+  document.getElementById('main-flip-button').style.visibility = "visible";
+}
 
 function flip_button_click()
 {
@@ -172,3 +179,15 @@ function flip_button_click()
   }
 }
 
+function flip_ship(){
+  if(flipped == false)
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.aft_card_path+"')";
+    flipped = true;
+  }
+  else
+  {
+    document.getElementById('pilot-picture').style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
+    flipped = false;
+  }
+}
