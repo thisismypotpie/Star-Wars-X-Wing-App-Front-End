@@ -24,10 +24,12 @@ document.addEventListener("keydown", function(event){
          grid_coordinate.id = x+"_"+y;
          grid_coordinate.setAttribute("x",x.toString());
          grid_coordinate.setAttribute("y",y.toString());
-         grid_coordinate.style.gridRow = (x).toString();
-         grid_coordinate.style.gridColumn = (y).toString();
+         grid_coordinate.style.gridColumn = (x).toString();
+         grid_coordinate.style.gridRow = (y).toString();
          grid_coordinate.style.backgroundSize = "100%  100%";
          grid_coordinate.style.backgroundRepeat = "no-repeat";
+         grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid red";planet_check()};
+         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";planet_check()};
          document.getElementById('grid-container').appendChild(grid_coordinate);
 
      }
@@ -37,6 +39,7 @@ document.addEventListener("keydown", function(event){
     red_alert(e.target);  
 })
 
+//give coordinates of clicked area.
   function red_alert(clicked)
   {
       console.log(clicked);
@@ -49,7 +52,13 @@ document.addEventListener("keydown", function(event){
       alert(alert_string);
   }
 
+//Shows a pop-up when you hover over a planet.
+function planet_check()
+{
 
+}
+
+//Load planets onto galaxy map.
   load_planets();
   function load_planets()
   {
