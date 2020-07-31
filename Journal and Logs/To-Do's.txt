@@ -10,3 +10,9 @@ Simon TODO
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
 -Make a surrender button. If a team decides to surrender the game will end.
+
+-When you use a unique pilot, make sure to remove their unique upgrade from selection choices.
+
+-Add reroll button for dice.
+
+-If you choose to search a friendly ship, have their chosen manuever pop up.

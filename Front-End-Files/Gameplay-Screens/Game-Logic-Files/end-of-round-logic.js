@@ -24,9 +24,11 @@ function clear_tokens()//Clear evade and focus tokens unless someone has an upgr
             {
                 alert("Number "+ship.roster_number+" on team "+ship.team_name +" gets to keep their evade tokens because they had an upgrade allowing them to do so.");
             }
+            ship.weapons_disabled_tokens = 0;
+            ship.ion_tokens = 0;
         })
     })
-    alert("Evade and focus tokens have been cleared.");
+    alert("Evade, focus, ion, and weapons disabled tokens have been cleared.");
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }
 

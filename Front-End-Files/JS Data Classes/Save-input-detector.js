@@ -20,6 +20,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
             create_save_game_form_dynamically();
         }
             document.getElementById('save_game_pop_up').style.visibility = "visible";
+            document.getElementById('save_game_input').textContent = "";
+            document.getElementById('save_game_input').focus();
     };
   });
 
@@ -206,7 +208,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
     overlay.style.pointerEvents = "none";  
     document.getElementById("save_game_input").value = ""; 
     document.getElementById('save_game_pop_up').style.visibility = "hidden";
-
+    document.getElementById('save_game_input').textContent = "";
   }
 
 

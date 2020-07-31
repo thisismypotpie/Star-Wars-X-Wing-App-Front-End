@@ -9,3 +9,73 @@ body{
     grid-template-columns: repeat(100,calc(100%/100));
     grid-template-rows: repeat(100,calc(98vh/100));
 }
+
+#planet-info-pop-up{
+    background-color: gray;
+    width: 20%;
+    height: 20vh;
+    position: fixed;
+    top:0%;
+    left:0%;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(100%/12));
+    color: white;
+    visibility: hidden;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: left;
+}
+
+.pop-up-text{
+    font-size: xx-large;
+}
+
+#planet-name{
+    grid-row: 1/4;
+    grid-column: 1/13;
+    text-align: center;
+}
+#x-coordinate{
+    grid-row: 5/8;
+    grid-column: 2/5;
+
+}
+#y-coordinate{
+    grid-row: 9/12;
+    grid-column: 2/5;
+}
+
+#planet-image{
+    grid-column: 6/12;
+    grid-row: 5/12;
+}
+
+#controlling-faction{
+    grid-column: 10/12;
+    grid-row: 2/5;
+    background:white;
+    visibility: hidden;
+}
+
+.pop-up-image{
+    background-size: 90% 95%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+@media screen and (max-width: 1024px){
+    .pop-up-text{
+        font-size: x-large;
+    }
+}
+@media screen and (max-width: 768px){
+    .pop-up-text{
+        font-size: large;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .pop-up-text{
+        font-size: medium;
+    }
+}
