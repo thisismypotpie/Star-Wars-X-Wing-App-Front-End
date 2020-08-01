@@ -16,3 +16,7 @@ Simon TODO
 -Add reroll button for dice.
 
 -If you choose to search a friendly ship, have their chosen manuever pop up.
+
+-Need a workaround for slam action.
+
+-Critical hit cards are not loading correctly from the load game.

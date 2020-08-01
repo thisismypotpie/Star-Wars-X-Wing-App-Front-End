@@ -382,12 +382,17 @@ function get_crit_hit_cards_for_ship(ship,raw_ship)
   var crit_hit_ids = raw_ship.CritHitCards.toString().split('*');
   for(var i=0; i < crit_hit_ids.length;i++)
   {
+    if(crit_hit_ids[i].length <= 0)
+    {
+      crit_hit_ids.splice(i,1);
+      continue;
+    }
     crit_hit_ids[i] = parseInt(crit_hit_ids[i],10);
   }
   var critical_hit_cards = [];
   var crit_hits_map = game_data.all_crit_cards.map(function(e){return e.id;});
   var large_crit_hits_map = game_data.all_large_crit_hit_cards.map(function(e){return e.id;});
-  critical_hit_cards.forEach(current_id=>{
+   crit_hit_ids.forEach(current_id=>{
     if(current_id >= 100)
     {
       critical_hit_cards.push(game_data.all_large_crit_hit_cards[large_crit_hits_map.indexOf(current_id)]);
