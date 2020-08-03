@@ -65,4 +65,7 @@ I worked through a huge final stretch of media queries today. Got the remaining 
 Next up I am going to review Node and begin hw3 so that I can refresh my back end knowledge, and then I would like to start helping with functional testing and perhaps implementing additional backend features.
 
 7/29/20
-After a few days off for mental sanity purposes and ploughing through the many lectures and skimming the React reading more and completing Homework 3, I'm back at it. Tonight I'm going to begin chipping away at media queries for manuever screen. This will be difficult and many elements will need major tweaking for this to work.
+After a few days off for mental sanity purposes and ploughing through the many lectures and skimming the React reading more and completing Homework 3, I'm back at it. Tonight I'm going to begin chipping away at media queries for manuever screen. This will be difficult and many elements will need major tweaking for this to work. On second thought, just fixed a small issue.
+
+8/2/20
+Capstone work painfully completed. Back to tackling maneuver screen.
