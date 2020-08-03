@@ -19,7 +19,7 @@ body{
     background-color: transparent;
     border: none;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 2vw;
+    font-size: 2.5vw;
     text-align: center;
 }
 
@@ -33,7 +33,7 @@ body{
 
 .page-title{
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 6vw;
+    font-size: 5vw;
     grid-column: 6/19;
     color: white;
     text-align: center;
@@ -104,4 +104,49 @@ body{
 #view-button{
     grid-row: 4/6;
     grid-column: 13/16;
+}
+
+@media screen and (max-width: 768px){
+    #done-button {
+        font-size: 4vw;
+    }
+
+    #back-button {
+        font-size: 4vw;
+    }
+}
+
+@media screen and (max-width: 414px){
+    #team-name-label {
+        font-size: 5vw;
+        grid-row: 2;
+    }
+
+    #done-button {
+        grid-row: 3/5;
+        grid-column: 19/24;
+    }
+
+    #back-button {
+        grid-row: 3/5;
+    }
+
+    #view-button {
+        grid-row: 3/5;
+        grid-column: 10/15;
+    }
+
+    #pilot-skill-label {
+        font-size: 4vw;
+        grid-row: 5;
+        grid-column: 18/24;
+    }
+
+    .list-label {
+        font-size: 5vw;
+    }
+
+    .button {
+        font-size: 4.5vw;
+    }
 }
