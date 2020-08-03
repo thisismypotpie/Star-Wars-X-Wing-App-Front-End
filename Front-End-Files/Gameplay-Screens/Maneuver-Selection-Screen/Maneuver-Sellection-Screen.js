@@ -9,6 +9,8 @@ var team_index = sessionStorage.getItem("team_index");//Used to determine what t
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
+let isMobile = window.matchMedia("(max-width: 414px)").matches;
+
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
