@@ -888,6 +888,19 @@ This is the css for the ship death pop-up
     grid-column: 9/12;
 }
 
+#team-move-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(70vh/12));
+    z-index: 1;
+}
+
+#card-box-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(70vh/12));  
+}
+
 /*
 This is the css for the dice container for attack phase.
 */
@@ -997,8 +1010,98 @@ display: flex;
         align-self: center;
     }
 
+    #team-label, #team-name-label {
+        font-size: 4vw;
+    }
+
+    .pop-up-container {
+        width: 90%;
+    }
 }
 
 @media screen and (max-width: 414px){
+    body{
+        margin: 0;
+    }
 
+    .grid-container {
+        grid-template-columns: repeat(15,calc(100%/15));
+    }
+
+    #main-title {
+        grid-column: 5/16;
+        font-size: 6vw;
+    }
+
+    #back-button {
+        grid-column: 3/8;
+    }
+
+    #target-lock-label {
+        font-size: 4vw;
+    }
+
+    #initiative-label {
+        grid-row: 2/4;
+        grid-column: 6/8;
+    }
+
+    #pilot-image {
+        grid-column: 1/7;
+    }
+
+    .stat-image {
+        grid-column: 7;
+    }
+
+    .stat-text {
+        font-size: 4.5vw;
+        grid-column: 8/10;
+    }
+
+    .button, .long-button {
+        font-size: 4vw;
+    }
+
+    .team-mate-maneuvers-label, .card-type-label {
+        font-size: 7vw;
+        grid-row: 1/2;
+        grid-column: 1/12;
+    }
+
+    #card-box {
+        grid-row: 2/11;
+        grid-column: 2/11;
+    }
+
+    #team-mate-maneuvers {
+        grid-row: 2/11;
+        grid-column: 3/11;
+    }
+
+    #search-button {
+        grid-row: 11/12;
+        grid-column: 5/9;
+    }
+
+    #cycle-button {
+        grid-row: 11/12;
+        grid-column: 4/8;
+    }
+
+    .pop-up-title {
+        font-size: 6vw;
+    }
+
+    .roster-number-input {
+        font-size: 4.5vw;
+    }
+
+    #return-button {
+     grid-column: 3/9;   
+    }
+
+    #maneuver-card-display {
+        grid-column: 10/16;
+    }
 }

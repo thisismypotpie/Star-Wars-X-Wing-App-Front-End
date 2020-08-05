@@ -9,8 +9,6 @@ var team_index = sessionStorage.getItem("team_index");//Used to determine what t
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
-let isMobile = window.matchMedia("(max-width: 414px)").matches;
-
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
@@ -748,4 +746,128 @@ function main_back_button_click()
             location.reload();
         }
     }
+}
+
+let isMobile = window.matchMedia("(max-width: 414px)").matches;
+
+if (isMobile) {
+    let gridContainer = document.getElementsByClassName('grid-container')[0];
+    let teamPopUp = document.getElementById('team-move-pop-up');
+    let cardBoxPopUp = document.getElementById('card-box-pop-up');
+    let teamVis, cardVis = false;
+    let hideElementsIDs = 
+    [
+        'card-type-label', 
+        'team-mate-maneuvers-label',
+        'card-box',
+        'team-mate-maneuvers',
+        'search-button',
+        'cycle-button'
+    ];
+
+    hideElementsIDs.forEach(element => {
+        document.getElementById(element).style.visibility = "hidden";
+    });
+
+    function styleButton(button, id, innerText) {
+        button.id = id;
+        button.innerHTML = innerText;
+        button.style.backgroundImage = "url(https://i.imgur.com/RkyE0Xv.png)";
+        button.style.webkitBackgroundSize = "100% 100%";
+        button.style.backgroundRepeat = "no-repeat";
+        button.style.backgroundColor = "transparent";
+        button.style.border = "none";
+    }
+
+    let cardBoxBtn = document.createElement('button');
+    styleButton(cardBoxBtn, 'reveal-upgrades-button', 'Card Box');
+    cardBoxBtn.id = "reveal-upgrades-button";
+    cardBoxBtn.style.gridRow = "2/4";
+    cardBoxBtn.style.gridColumn = "9/12";
+
+    let hideCardBoxBtn = document.createElement('button');
+    styleButton(hideCardBoxBtn, 'hide-button', 'Hide pop up!');
+    hideCardBoxBtn.style.gridRow = "11/13";
+    hideCardBoxBtn.style.gridColumn = "11/13";
+
+    hideCardBoxBtn.onclick = () => {
+        cardVis = false;
+        label.style.visibility = "hidden";
+        box.style.visibility = "hidden";
+        btn.style.visibility = "hidden";
+        hide_pop_up('card-box-pop-up'); 
+    }
+
+    let label = document.getElementById('card-type-label');
+    let box = document.getElementById('card-box');
+    let btn = document.getElementById('cycle-button');
+    cardBoxPopUp.appendChild(label);
+    cardBoxPopUp.appendChild(box);
+    cardBoxPopUp.appendChild(btn);
+    cardBoxPopUp.appendChild(hideCardBoxBtn);
+
+    function revealCardBox() {
+        if (!cardVis) {
+            show_pop_up('card-box-pop-up');
+            label.style.visibility = "visible";
+            box.style.visibility = "visible";
+            btn.style.visibility = "visible";
+            cardVis = true;
+        } else {
+            label.style.visibility = "hidden";
+            box.style.visibility = "hidden";
+            btn.style.visibility = "hidden";
+            hide_pop_up('card-box-pop-up');
+            cardVis = false;
+        }
+    }
+
+    cardBoxBtn.onclick = revealCardBox;
+
+    gridContainer.appendChild(cardBoxBtn);
+
+    let revealTeammateManeuversBtn = document.createElement('button');
+    styleButton(revealTeammateManeuversBtn, 'reveal-team-maneuver-button', 'Team Moves');
+    revealTeammateManeuversBtn.style.gridRow = "2/4";
+    revealTeammateManeuversBtn.style.gridColumn = "13/16";
+
+    let hideTeamMoveBtn = document.createElement('button');
+    styleButton(hideTeamMoveBtn, 'hide-button', 'Hide pop up!');
+    hideTeamMoveBtn.style.gridRow = "11/13";
+    hideTeamMoveBtn.style.gridColumn = "11/13";
+
+    hideTeamMoveBtn.onclick = () => {
+        teamVis = false;
+        team_label.style.visibility = "hidden";
+        team_box.style.visibility = "hidden";
+        team_btn.style.visibility = "hidden";
+        hide_pop_up('team-move-pop-up'); 
+    }
+
+    let team_label = document.getElementById('team-mate-maneuvers-label');
+    let team_box = document.getElementById('team-mate-maneuvers');
+    let team_btn = document.getElementById('search-button');
+    teamPopUp.appendChild(team_label);
+    teamPopUp.appendChild(team_box);
+    teamPopUp.appendChild(team_btn);
+    teamPopUp.appendChild(hideTeamMoveBtn);
+
+    function revealTeamManeuvers() {
+        if (!teamVis) {
+            show_pop_up('team-move-pop-up');
+            team_label.style.visibility = "visible";
+            team_box.style.visibility = "visible";
+            team_btn.style.visibility = "visible";
+            teamVis = true;
+        } else {
+            team_label.style.visibility = "hidden";
+            team_box.style.visibility = "hidden";
+            team_btn.style.visibility = "hidden";
+            hide_pop_up('team-move-pop-up');
+            teamVis = false;
+        }
+    }
+
+    revealTeammateManeuversBtn.onclick = revealTeamManeuvers;
+    gridContainer.appendChild(revealTeammateManeuversBtn);
 }
