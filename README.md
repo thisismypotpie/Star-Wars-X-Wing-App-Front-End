@@ -14,7 +14,7 @@ Packages:
 -Path
 
 API:
-- Imgur
+- Imgur 
 
 Dataset:
 - Backend of this project utilizes a self-created sqlite database.
