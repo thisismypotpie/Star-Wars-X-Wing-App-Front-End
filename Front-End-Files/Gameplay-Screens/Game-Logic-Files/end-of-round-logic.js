@@ -8,6 +8,7 @@ function clear_tokens()//Clear evade and focus tokens unless someone has an upgr
     all_teams.forEach(team=>{
         team.ship_list.forEach(ship=>{
             var upgrade_ids = ship.upgrades.map(function(e){return e.id});
+            ship.chosen_maneuver = null;
             if(findCommonElements(upgrade_ids,upgrade_ids_for_keeping_focus_tokens_at_end_of_round)==false)//ID of upgrade that allows you to keep focus tokens.
             {
                 ship.focus_tokens = 0;
@@ -24,11 +25,9 @@ function clear_tokens()//Clear evade and focus tokens unless someone has an upgr
             {
                 alert("Number "+ship.roster_number+" on team "+ship.team_name +" gets to keep their evade tokens because they had an upgrade allowing them to do so.");
             }
-            ship.weapons_disabled_tokens = 0;
-            ship.ion_tokens = 0;
         })
     })
-    alert("Evade, focus, ion, and weapons disabled tokens have been cleared.");
+    alert("Evade and focus tokens have been cleared.");
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }
 

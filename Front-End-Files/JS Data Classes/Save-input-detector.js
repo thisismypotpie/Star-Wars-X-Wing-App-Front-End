@@ -20,8 +20,10 @@ document.addEventListener("keydown", function(event){ //press s to save game.
             create_save_game_form_dynamically();
         }
             document.getElementById('save_game_pop_up').style.visibility = "visible";
-            document.getElementById('save_game_input').textContent = "";
             document.getElementById('save_game_input').focus();
+            setTimeout(() => {
+                document.getElementById('save_game_input').value = "";
+            },25);//This timeout is here because otherwise there will be a "`" key pressed into the value and I was not able to find another way to delete it without a timeout.
     };
   });
 

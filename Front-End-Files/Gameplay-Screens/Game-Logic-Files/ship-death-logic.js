@@ -143,7 +143,7 @@ function revive_ship()
 
 function play_death_music()
 {
-    var death_music_chance = Math.floor(Math.random() * 10);
+    var death_music_chance = Math.floor(Math.random() * 11);
     if(death_music_chance == 10)
     {
         var minion_ship_death = new Audio('https://docs.google.com/uc?export=download&id=1l3iV5tbP4xIg_4Y0q4f7eDGxbGkyv-W1');

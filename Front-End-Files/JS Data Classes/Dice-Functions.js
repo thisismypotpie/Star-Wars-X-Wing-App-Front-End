@@ -58,7 +58,6 @@ function roll_dice_click()
     }
     for(var i=0; i < attack_dice;i++)
     {
-        var result = Math.floor(Math.random() * 8);
         var attack_roll = document.createElement("div");
         attack_roll.className = "dice-result-attacker";
         attack_roll.id = "attack-dice-number-"+(i+1);
@@ -69,6 +68,15 @@ function roll_dice_click()
         attack_roll.style.backgroundRepeat = "no-repeat";
         attack_roll.style.backgroundColor = "transparent";
         attack_roll.style.backgroundPosition = "50%";
+        //attack_roll.setAttribute("opacity","1");
+        attack_roll.onclick= function(){
+            var roll = document.getElementById(this.id);
+            roll_die(roll,"attack");
+            var color_one = Math.floor(Math.random() * 256);
+            var color_two = Math.floor(Math.random() * 256);
+            var color_three = Math.floor(Math.random() * 256);
+            roll.style.border = "1px solid rgb("+color_one+","+color_two+","+color_three+")";
+            /*if(roll.getAttribute("opacity")=="1")
         attack_roll.setAttribute("opacity","1");
         attack_roll.onclick= function(){
             var roll = document.getElementById(this.id);
@@ -81,35 +89,13 @@ function roll_dice_click()
             {
                 roll.style.opacity = "1";
                 roll.setAttribute("opacity","1"); 
-            }
+            }*/
         };
-        if(result == 0 || result == 1)
-        {
-            attack_roll.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
-        }
-        else if(result == 2 || result == 3)
-        {
-            attack_roll.style.backgroundImage = "url('https://i.imgur.com/WwG90kF.png')";
-        }
-        else if(result == 4 || result == 5)
-        {
-            attack_roll.style.backgroundImage = "url('https://i.imgur.com/r44JvPX.png')";
-        }
-        else if(result == 6 || result == 7)
-        {
-            attack_roll.style.backgroundImage = "url('https://i.imgur.com/AX8NQYM.png')";
-        }
-        else
-        {
-            document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine outcome of attack die, setting to zero.";
-            show_pop_up("Notification-pop-up");
-            attack_roll.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
-        }
+        roll_die(attack_roll,"attack");
         document.getElementById("attacking-dice-results").appendChild(attack_roll);
     } 
     for(var i=0; i < defense_dice;i++)
     {
-        var result = Math.floor(Math.random() * 8);        var result = Math.floor(Math.random() * 8);
         var defense_roll = document.createElement("div");
         defense_roll.className = "dice-result-defender";
         defense_roll.id = "defense-dice-number-"+(i+1);
@@ -122,6 +108,13 @@ function roll_dice_click()
         defense_roll.style.backgroundPosition = "50%";
         defense_roll.onclick= function(){
             var roll = document.getElementById(this.id);
+            roll_die(roll,"defense");
+            var color_one = Math.floor(Math.random() * 256);
+            var color_two = Math.floor(Math.random() * 256);
+            var color_three = Math.floor(Math.random() * 256);
+            roll.style.border = "1px solid rgb("+color_one+","+color_two+","+color_three+")";
+            /*if(roll.getAttribute("opacity")=="1")
+
             if(roll.getAttribute("opacity")=="1")
             {
                 roll.style.opacity = "0.25";
@@ -131,29 +124,67 @@ function roll_dice_click()
             {
                 roll.style.opacity = "1";
                 roll.setAttribute("opacity","1"); 
-            }
+            }*/
         };
+        roll_die(defense_roll,"defense");
+        document.getElementById("defending-dice-results").appendChild(defense_roll);
+    } 
+    show_pop_up('dice-results-pop-up');
+}
+
+function roll_die(element,type)
+{
+    var result = Math.floor(Math.random() * 8);
+    if(type == "attack")
+    {
+        if(result == 0 || result == 1)
+        {
+            element.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
+        }
+        else if(result == 2 || result == 3)
+        {
+            element.style.backgroundImage = "url('https://i.imgur.com/WwG90kF.png')";
+        }
+        else if(result == 4 || result == 5)
+        {
+            element.style.backgroundImage = "url('https://i.imgur.com/r44JvPX.png')";
+        }
+        else if(result == 6 || result == 7)
+        {
+            element.style.backgroundImage = "url('https://i.imgur.com/AX8NQYM.png')";
+        }
+        else
+        {
+            document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine outcome of attack die, setting to zero.";
+            show_pop_up("Notification-pop-up");
+            element.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
+        }
+    }
+    else if(type == "defense")
+    {
         if(result == 0 || result == 1 || result == 2)
         {
-            defense_roll.style.backgroundImage = "url('https://i.imgur.com/cu8tNhe.png')";
+            element.style.backgroundImage = "url('https://i.imgur.com/cu8tNhe.png')";
         }
         else if(result == 3 || result == 4)
         {
-            defense_roll.style.backgroundImage = "url('https://i.imgur.com/jQTOGFS.png')";
+            element.style.backgroundImage = "url('https://i.imgur.com/jQTOGFS.png')";
         }
         else if(result == 5 || result == 6 || result== 7)
         {
-            defense_roll.style.backgroundImage = "url('https://i.imgur.com/yErNyy7.png')";
+            element.style.backgroundImage = "url('https://i.imgur.com/yErNyy7.png')";
         }
         else
         {
             document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine outcome of defense die, setting to zero.";
             show_pop_up("Notification-pop-up");
-            defense_roll.style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
+            element .style.backgroundImage = "url('https://i.imgur.com/1aiuMrA.png')";
         }
-        document.getElementById("defending-dice-results").appendChild(defense_roll);
-    } 
-    show_pop_up('dice-results-pop-up');
+    }
+    else
+    {
+        alert("ERROR: Unable to determine dice type.")
+    }
 }
 
 function remove_dice()
