@@ -3,25 +3,16 @@ Simon TODO
 - Implement multiplayer system.
 - Come up with the database schema for loading and saving games.
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 2c81729498dd41c8a085cbc246051b0c7eb4c1ee
 -Change the difference between YT-1300 and Yt-1300 special.
 
 - I need clearer rules when it comes to when one can change their pilot skill.
 
-<<<<<<< HEAD
-=======
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
->>>>>>> 2c81729498dd41c8a085cbc246051b0c7eb4c1ee
 -Make a surrender button. If a team decides to surrender the game will end.
 
 -When you use a unique pilot, make sure to remove their unique upgrade from selection choices.
 
-<<<<<<< HEAD
 -Add color sync to each stat in game so that the numbers to not get confused.
 
 -Add left and right arrow key bindings when looking through team for target locks and searching.
@@ -36,12 +27,3 @@ Add tools button with the following tools:
 1. Add new ship mid-game
 2. Dice for other phases of the game besides the attack phase
 3. Notepad/reminders for player
-=======
--Add reroll button for dice.
-
--If you choose to search a friendly ship, have their chosen manuever pop up.
-
--Need a workaround for slam action.
-
--Critical hit cards are not loading correctly from the load game.
->>>>>>> 2c81729498dd41c8a085cbc246051b0c7eb4c1ee
