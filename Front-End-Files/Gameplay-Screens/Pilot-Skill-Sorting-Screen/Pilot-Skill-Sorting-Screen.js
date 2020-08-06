@@ -53,11 +53,14 @@ for(var i = selected_index; i < buckets.length;i++)
     }
 }
 
+
+
 //This function will make all of the pilot images appear in the unordered list box "unsorted pilots".
 buckets[selected_index].roster_numbers.forEach(roster_num=>{//Go through each roster number of the selected bucket.
    all_teams.forEach(team=>{
       if(buckets[selected_index].name == team.team_name)//Make sure we are working with ships on the same team.
       {
+         let isMobile = window.matchMedia("(max-width: 414px)").matches;
          let ship = team.ship_list[team.ship_list.map(function(e){return e.roster_number}).indexOf(roster_num)];
          console.log(ship);
          var ship_image = document.createElement("div");
@@ -66,9 +69,10 @@ buckets[selected_index].roster_numbers.forEach(roster_num=>{//Go through each ro
          ship_image.style.border = "1px solid white";
          ship_image.style.backgroundRepeat = "no-repeat";
          ship_image.style.backgroundSize = "100% 100%";
-         ship_image.style.height = "65vh";
+         ship_image.style.height = "65vh"
+         isMobile ? ship_image.style.flex = "0 0 55%" : ship_image.style.flex = "0 0 35%"; //Width is here.
          ship_image.style.display = "block";
-         ship_image.style.flex = "0 0 35%";//Width is here.
+
          ship_image.style.marginLeft = "3%";
          ship_image.style.marginRight = "3%";
          ship_image.style.display = "grid";

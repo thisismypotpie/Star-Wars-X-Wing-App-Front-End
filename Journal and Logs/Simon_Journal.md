@@ -1,5 +1,10 @@
 # Simon's CS495P Project Journal
 
+### Links
+Front end repo: https://github.com/thisismypotpie/Star-Wars-X-Wing-App-Front-End
+
+Back end repo: https://github.com/thisismypotpie/Star-Wars-X-Wing-App-Back-End
+
 ### Log
 
 7/2/20
@@ -63,3 +68,24 @@ For tomorrow: get the media queries for 'View Team' and 'Remove Ship' screens on
 I worked through a huge final stretch of media queries today. Got the remaining team options screen mobile friendly as well skill bucket view screen.
 
 Next up I am going to review Node and begin hw3 so that I can refresh my back end knowledge, and then I would like to start helping with functional testing and perhaps implementing additional backend features.
+
+7/29/20
+After a few days off for mental sanity purposes and ploughing through the many lectures and skimming the React reading more and completing Homework 3, I'm back at it. Tonight I'm going to begin chipping away at media queries for manuever screen. This will be difficult and many elements will need major tweaking for this to work. On second thought, just fixed a small issue.
+
+8/2/20
+Capstone work completed; Back to media queries. Finished pilot skill sorting screen, chipped away at meanuever screen.
+
+8/3/20
+Unfortunately multiplayer system seems out of scope for the class at this point. More maneuver screen mobilization.
+
+I ended up hand drawing an image of the current maneuver screen and labeling the ids of specific elements. I then drew another image, where some elements are hidden and can be revealed via buttons on mobile. I hope to implement this tomorrow.
+
+8/4/20
+Beginning implentation of maneuver screen...
+
+ OK, about 4.5 hours and one dinner later, I've implemented my master plan. On mobile basically the right-most third of elements on the maneuver screen start out as hidden. This includes the card-box and team-mate-maneuvers. Two buttons appear on mobile that create pop-up that displays those elements. Last step is to figure out the z-index such that when the card-box pop-up appears, then pop-up window that THAT window can create needs to appear at the forefront. Super close, but I'm happy the whole game is just about mobile friendly. There are several minor additional tweaks that will need to be addressed such as font sizes and just getting the images to look right in some cases.
+
+ OK, even later, addressed some of the minor tweaks. I need to rest and obtain fresh eyes before continuing.
+
+ 8/5/20
+ I had to research z-index quite a bit to figure out that the order of elements in HTML actually matters for z-indexing. After this little discovery, I made some small modifications and maneuver screen is now fully mobile friendly!
