@@ -87,4 +87,5 @@ Beginning implentation of maneuver screen...
 
  OK, even later, addressed some of the minor tweaks. I need to rest and obtain fresh eyes before continuing.
 
- 
+ 8/5/20
+ I had to research z-index quite a bit to figure out that the order of elements in HTML actually matters for z-indexing. After this little discovery, I made some small modifications and maneuver screen is now fully mobile friendly!

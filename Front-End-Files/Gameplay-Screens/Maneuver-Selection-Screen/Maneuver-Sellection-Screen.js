@@ -786,7 +786,7 @@ if (isMobile) {
     cardBoxBtn.style.gridColumn = "9/12";
 
     let hideCardBoxBtn = document.createElement('button');
-    styleButton(hideCardBoxBtn, 'hide-button', 'Hide pop up!');
+    styleButton(hideCardBoxBtn, 'hide-button', 'Hide');
     hideCardBoxBtn.style.gridRow = "11/13";
     hideCardBoxBtn.style.gridColumn = "11/13";
 
@@ -832,7 +832,7 @@ if (isMobile) {
     revealTeammateManeuversBtn.style.gridColumn = "13/16";
 
     let hideTeamMoveBtn = document.createElement('button');
-    styleButton(hideTeamMoveBtn, 'hide-button', 'Hide pop up!');
+    styleButton(hideTeamMoveBtn, 'hide-button', 'Hide');
     hideTeamMoveBtn.style.gridRow = "11/13";
     hideTeamMoveBtn.style.gridColumn = "11/13";
 
