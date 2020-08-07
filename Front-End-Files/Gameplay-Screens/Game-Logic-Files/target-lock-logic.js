@@ -269,7 +269,7 @@ function discard_related_target_locks()
         return;
     }
 
-    for(var i=0; i < locks.length;i++)
+    for(var i=(locks.length-1); i >= 0;i--)
     {
         if((dead_ship.team_name == locks[i].targetting_team && locks[i].targetting_roster == dead_ship.roster_number)||
             (dead_ship.team_name == locks[i].targetted_team && locks[i].targetted_roster == dead_ship.roster_number))
