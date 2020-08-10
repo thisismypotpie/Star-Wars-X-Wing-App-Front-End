@@ -27,3 +27,5 @@ Add tools button with the following tools:
 1. Add new ship mid-game
 2. Dice for other phases of the game besides the attack phase
 3. Notepad/reminders for player
+
+-Ships with dual sided upgrades, their orientation is not saved into the game.

@@ -18,7 +18,7 @@ if(JSON.parse(sessionStorage.getItem("game_data")!= null && JSON.parse(sessionSt
 else //Make a call to the back end and get game data.
 {
 //Load the game data and store it in session Storage.
-var url = "http://localhost:3000/get_data";//"https://star-wars-x-wing-back-end.herokuapp.com/get_data";
+var url = /*"http://localhost:3000/get_data";*/"https://star-wars-x-wing-back-end.herokuapp.com/get_data";
 var game_data = undefined;
 fetch(url)
 .catch(function(error) {
@@ -97,7 +97,7 @@ function get_load_data()
         input = input.replace(/'/g, '');
         alert("New name: "+input);
     }
-    var url = "http://localhost:3000/get_game_names";//"https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";
+    var url = /*"http://localhost:3000/get_game_names";*/"https://star-wars-x-wing-back-end.herokuapp.com/get_game_names";
     fetch(url)
 .catch(function(error) {
 console.log(error);
@@ -114,7 +114,7 @@ alert("Something went wrong trying to get saved game names. "+error)
         {
           match_found = true;
           document.getElementById('loading-container-header').textContent = "Game Found!  Game loading, please wait ....";
-           var url ="http://localhost:3000/load_game";//"https://star-wars-x-wing-back-end.herokuapp.com/load_game"
+           var url =/*"http://localhost:3000/load_game";*/"https://star-wars-x-wing-back-end.herokuapp.com/load_game"
            fetch(url,{
             method: 'POST',
             body:JSON.stringify([game_names[i]])
