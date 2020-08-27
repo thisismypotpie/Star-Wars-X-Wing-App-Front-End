@@ -29,3 +29,19 @@ Add tools button with the following tools:
 3. Notepad/reminders for player
 
 -Ships with dual sided upgrades, their orientation is not saved into the game.
+
+-When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
+
+-Make is so when the pilot screen show all pilots, have an algorithm that will sort pilots by pilot skill so that it does not rely on order to work. 
+
+-Upgrade updates in the db have removed characteristics and therefore have borken dual sided upgrades across the app, I need to fix this.
+
+
+
+
+
+
+
+
+
+

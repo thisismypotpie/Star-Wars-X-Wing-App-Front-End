@@ -106,7 +106,7 @@ let grid_items = document.getElementsByClassName("grid-item");
 document.getElementById("next-selection").id = "empty";
 chosen_ship.upgrades.forEach(upgrade =>{
    let element = document.getElementById("empty");
-   if(upgrade.characteristics != null && upgrade.characteristics.includes("Dual"))//If it is a dual upgrade, show the first side of that upgrade.
+   if(upgrade.is_dual_sided == true)//If it is a dual upgrade, show the first side of that upgrade.
    {
     element.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
     element.style.border = "3px solid red";
@@ -121,7 +121,7 @@ chosen_ship.upgrades.forEach(upgrade =>{
       overlay.style.opacity = 1;
       upgrade_removal_box.style.visibility = "visible";
       overlay.style.pointerEvents = "all";
-      if(upgrade.characteristics != null && upgrade.characteristics.includes("Dual"))//If a dual sided upgrade is being deleted, split path to get only first side of upgrade.
+      if(upgrade.is_dual_sided == true)//If a dual sided upgrade is being deleted, split path to get only first side of upgrade.
       {
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
         document.getElementById("upgrade-photo").style.border = "3px solid red";

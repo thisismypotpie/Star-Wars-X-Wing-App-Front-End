@@ -327,7 +327,7 @@ function cycle_button_click()
         all_teams[team_index].ship_list[selected_ship_index].upgrades.forEach(upgrade=>{
             var upgrade_div = document.createElement("div");
             upgrade_div.className = "card-type-image";
-            if(upgrade.characteristics != null && upgrade.characteristics.split("*").includes("Dual"))
+            if(upgrade.is_dual_sided == true)
             {
                 upgrade_div.style.border = "3px solid red";
                 if (upgrade.orientation == "front")
@@ -396,8 +396,7 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     let yes_button = document.getElementById("yes-remove-button");//Used to set the type of card and index of that card if the yes button is pressed.
     if(card_type == "Upgrades")
     {
-        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics!= null &&
-           all_teams[team_index].ship_list[selected_ship_index].upgrades[index].characteristics.includes("Dual"))
+        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].is_dual_sided == true)
         {
             removal_image.style.border = "3px solid red";
             document.getElementById("flip-button-for-removal-pop-up").style.visibility ="Visible";

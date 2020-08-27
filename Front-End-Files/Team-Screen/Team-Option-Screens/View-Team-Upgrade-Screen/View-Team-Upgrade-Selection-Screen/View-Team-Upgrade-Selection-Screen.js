@@ -7,68 +7,8 @@
   var grid_container = document.getElementById("grid-container");
   let Chosen_Team_Ship = JSON.parse(sessionStorage.getItem("Chosen_Team_Ship"));
 
-  //Get the list of upgrades of the correct upgrade type.
-  game_data.all_upgrades.forEach(upgrade => {
-      if(upgrade.type == upgrade_type)
-      {
-        selected_upgrades.push(upgrade);
-      }
-  });
-  console.log(selected_upgrades);
-  
-  //This will remove all used up limited and unique upgrades.
-  //I used a traditional for loop in reverse as array index removal tends to run into less problems if going in reverse. 
-    for(var i = selected_upgrades.length-1;i>=0;i--)
-  {
-    var upgrade = selected_upgrades[i];
-    var characteristics = [];
-    if(upgrade.characteristics != null)//Get characteristics to see if any of them are unique or limited.
-    {
-      characteristics = upgrade.characteristics.split('*');
-    }
-      //console.log("characteristics for "+upgrade.name+": "+characteristics);
-      if (characteristics.includes("Limited"))
-      {
-        if(Does_this_ship_have_this_upgrade(upgrade,Chosen_Team_Ship)== true)
-        {
-          console.log("Removing: "+upgrade.name);
-           selected_upgrades.splice(i,1);//Remove any limited upgrade as soon as the user has selected it.
-        }
-      }
-      else if(characteristics.includes("Unique"))//Remove unique upgrades each team is using.
-      {
-        //console.log(upgrade.name + " is unique.");
-      
-        //Remove each unique upgrade the ship in progress is using.
-        if(Does_this_ship_have_this_upgrade(upgrade,Chosen_Team_Ship)== true)
-        {
-          console.log("Removing: "+upgrade.name);
-           selected_upgrades.splice(i,1);//Remove any unique upgrade as soon as the user has selected it.
-        }
-        //Go through every team and seperate the team being edited. This is to prevent upgrades that have been removed from being removed from selected upgrades as the team has not been updated with the new ship.
-        JSON.parse(sessionStorage.getItem("all_teams")).forEach(team=>{
-            if(team.team_name == Chosen_Team_Ship.team_name)//Current Team
-            {
-              team.ship_list.forEach(ship=>{
-                if(ship.roster_number != Chosen_Team_Ship.roster_number && Does_this_ship_have_this_upgrade(upgrade,ship)==true)//Since we already did the ship in progress, remove unique upgrades used by any other ship on that team.
-                {
-                  console.log("Removing: "+upgrade.name);
-                  selected_upgrades.splice(i,1);
-                }
-              })
-            }
-            else//every other team
-            {
-              if(Does_anyone_on_this_team_have_this_upgrade(upgrade,team)==true)
-              {
-                console.log("Removing: "+upgrade.name);
-                selected_upgrades.splice(i,1);
-              }
-            }
-        })
-      }
-  }
-
+    //Filter out upgrades the current ship cannot have or use.
+    selected_upgrades = masterUpgradeFilter(Chosen_Team_Ship,upgrade_type);
  
   //Make a div for each upgrade.
  selected_upgrades.forEach(upgrade =>
@@ -80,7 +20,7 @@
       upgrade_item_click(new_upgrade_slot.id);
     })
     //This if statement is to deal with upgrades that are dual sided.
-    if(upgrade.characteristics != null && upgrade.characteristics.includes("Dual"))
+    if(upgrade.is_dual_sided == true)
     {
       //Add style and append the first side of the dual upgrade.
       let image_paths = upgrade.image_path.split('\n');

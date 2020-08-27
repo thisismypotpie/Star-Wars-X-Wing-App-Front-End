@@ -262,6 +262,23 @@ Gtihub Repo(back end): {{\field{\*\fldinst{HYPERLINK https://github.com/thisismy
 - The documentation has been updated to include all new features used in this quarter.\par
 8/6/2020:\par
 - While pushing to heroku, I needed to re-clone the entire front end due to an error with a file that refused to be deleted and then kept preventing pushes.\par
+8/20/2020 - 8/23/2020\par
+- I added a bunch of upgrades to the database.\par
+8/24/2020\par
+- I updated the upgrade table to accomidate for filtering based on whether or not a ship can select an upgrade based on ship size, limited, unique, ship specificity, and faction.\par
+- The database integration is now complete and the back-end integration works for the new upgrade format. Now I must begin making some filter functions.\par
+8/25/2020\par
+- I altered the ship specific column to use ship ID's rather than names. The ship table had not ID's to I added those as well.\par
+- I have begun to add the extra pilots from the custom pilots. All that remains are uploading and attaching their images.\par
+- I have updated the back-end to working ID's. They now create arrays of integers.\par
+- There is still an error with the upgrade ship specificity filter.\par
+8/26/2020\par
+- I added all pilot images to imgur and the database, now I need to work on pilots and upgrades that need editing.\par
+- I have fixed upgrade filters for ship specificity and finished size specificity. \par
+- The rest of the filters are in place and have been  slightly tested. Now I need to impliment each spot where the filter list is going to be used.\par
+- Each upgrade selection spot has been updated, the next error I need to work on is a direct results of this upgrade change. The characteristic data does not exist any more. The dual sided upgrades relied on this for seeing if an upgrade was dual sided or not. Now I must go over each file and change for this search that no longer exists.\par
+-Dual sided upgrades fixed in upgrade selection screens.\par
+- Dual upgrades have been fixed.\par
 \par
 \par
 \par
