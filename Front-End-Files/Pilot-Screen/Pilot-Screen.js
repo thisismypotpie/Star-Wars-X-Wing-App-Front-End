@@ -36,11 +36,11 @@ document.getElementById("back-button").addEventListener("click", function(){
   let chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[shipName, faction, size]
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   console.log(chosen_ship);
-  var display_pilots = [];
+  var display_pilots = sort_pilots_for_viewing(chosen_ship[0],chosen_ship[1]);
   let selection_index = 0;//This will be the index that will determine which pilot is chosen.
 
 //Get the each pilot of the chosen ship.
-game_data.all_pilots.forEach(pilot => {
+/*game_data.all_pilots.forEach(pilot => {
       console.log("Comparing: "+pilot.faction+" to "+chosen_ship[1]+" \n and "+
       pilot.ship_name.ship_name+" to "+chosen_ship[0]);
       if(pilot.ship_name.ship_name == chosen_ship[0]
@@ -50,7 +50,7 @@ game_data.all_pilots.forEach(pilot => {
       }
 
 });
-console.log(display_pilots);
+console.log(display_pilots);*/
 
 //display maneuvers and pilot card
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";

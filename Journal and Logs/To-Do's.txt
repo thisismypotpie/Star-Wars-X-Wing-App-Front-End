@@ -1,17 +1,8 @@
-Simon TODO
-- Media queries.
-- Implement multiplayer system.
-- Come up with the database schema for loading and saving games.
-
--Change the difference between YT-1300 and Yt-1300 special.
-
 - I need clearer rules when it comes to when one can change their pilot skill.
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
 -Make a surrender button. If a team decides to surrender the game will end.
-
--When you use a unique pilot, make sure to remove their unique upgrade from selection choices.
 
 -Add color sync to each stat in game so that the numbers to not get confused.
 
@@ -32,10 +23,7 @@ Add tools button with the following tools:
 
 -When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
 
--Make is so when the pilot screen show all pilots, have an algorithm that will sort pilots by pilot skill so that it does not rely on order to work. 
-
--Upgrade updates in the db have removed characteristics and therefore have borken dual sided upgrades across the app, I need to fix this.
-
+-Convert as many alert messages as you can into the notification pop-up.
 
 
 

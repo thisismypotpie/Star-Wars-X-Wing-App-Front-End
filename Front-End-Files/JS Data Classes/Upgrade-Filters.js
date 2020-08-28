@@ -8,8 +8,37 @@
     upgrade_list = filter_out_factions(upgrade_list,ship_to_add);
     upgrade_list = filter_out_limited(upgrade_list,ship_to_add);
     upgrade_list = filter_out_unique(upgrade_list,ship_to_add);
+    upgrade_list = filter_out_unique_by_pilot(upgrade_list,ship_to_add);
     return upgrade_list;
  }
+
+function filter_out_unique_by_pilot(upgrade_list,ship_to_add)
+{
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+    for(var i=upgrade_list.length -1; i>=0;i--)
+    {
+        if(upgrade_list[i].is_unique == true)
+        {   
+            for(var j = 0; j < all_teams.length;j++)//Check all teams
+            {
+                for(var k= all_teams[j].ship_list.length-1;k>=0;k--)
+                {
+                        if(upgrade_list[i].name == all_teams[j].ship_list[k].chosen_pilot.pilot_name)
+                        {
+                            console.log("Removing upgrade: "+upgrade_list[i].name+" by unique pilot filter.")
+                            upgrade_list.splice(i,1);
+                        }
+                }
+            }
+                if(ship_to_add.chosen_pilot.pilot_name == upgrade_list[i].name)
+                {
+                    console.log("Removing upgrade: "+upgrade_list[i].name+" by unique pilot filter.")
+                    upgrade_list.splice(i,1);
+                }
+        }
+    }
+    return upgrade_list;
+}
 
  function filter_out_limited(upgrade_list,ship_to_add)
  {
