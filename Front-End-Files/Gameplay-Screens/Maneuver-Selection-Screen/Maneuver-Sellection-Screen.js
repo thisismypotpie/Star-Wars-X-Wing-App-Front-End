@@ -43,6 +43,8 @@ sessionStorage.getItem("searching") != undefined)
     document.getElementById('maneuver-type').style.visibility = "hidden";
     document.getElementById('maneuver-range').style.visibility = "hidden";
     document.getElementById('maneuver-energy').style.visibility = "hidden";
+    document.getElementById('reveal-button').style.visibility = "visible";
+    document.getElementById('reveal-button').textContent = "Reveal Maneuver";
 
         //Update maneuver card.
     document.getElementById('maneuver-card-display').style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.card+")";

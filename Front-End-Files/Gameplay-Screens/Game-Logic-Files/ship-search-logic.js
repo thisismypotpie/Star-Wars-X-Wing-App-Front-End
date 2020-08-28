@@ -45,3 +45,35 @@ function return_to_main_screen()
     sessionStorage.removeItem("searching");
     location.reload();
 }
+
+
+function reveal_button_click()
+{
+    var team_index = sessionStorage.getItem("team_index");
+    var ship_index = sessionStorage.getItem("saved_ship_index");
+    var chosen_ship = all_teams[team_index].ship_list[ship_index];
+    if(document.getElementById("reveal-button").textContent == "Reveal Maneuver")
+    {
+        if(chosen_ship.chosen_maneuver != null)
+        {
+            document.getElementById("maneuver-type").style.visibility = "visible";
+            document.getElementById("maneuver-type").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].maneuver_symbol_path+")";
+            document.getElementById("maneuver-range").style.visibility = "visible";
+            document.getElementById("maneuver-type").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].range_symbol_path+")";
+            document.getElementById("reveal-button").textContent = "Reveal Chart"
+            document.getElementById("maneuver-card-display").style.visibility = "hidden";
+        }
+        else
+        {
+            //pop-up saying the ship has no chosen maneuver yet.
+        }
+
+    }
+    else
+    {
+        document.getElementById("reveal-button").textContent = "Reveal Maneuver"
+        document.getElementById("maneuver-card-display").style.visibility = "visible";
+        document.getElementById("maneuver-type").style.visibility = "hidden";
+        document.getElementById("maneuver-range").style.visibility = "hidden";
+    }
+}

@@ -8,8 +8,6 @@
 
 -Add left and right arrow key bindings when looking through team for target locks and searching.
 
--Add enter key binding when selecting search or target lock.
-
 -Add ordnance tokens to upgrades.
 
 -In the movement and attack phase, if you look up another ship, have a "reveal" button that will reveal that ship's chosen maneuver.
@@ -24,6 +22,8 @@ Add tools button with the following tools:
 -When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
 
 -Convert as many alert messages as you can into the notification pop-up.
+
+- Add key bindings for the token and stat change pop-ups. These will be a bit harder as they will not fit comfortably into the button-bindings.js page.
 
 
 

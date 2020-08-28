@@ -193,6 +193,12 @@ Buttons
     grid-column: 8/20;
 }
 
+#reveal-button{
+    grid-row:1;
+    grid-column: 7/20;
+    visibility: hidden;
+}
+
 .test-div-border{
     /*border: 1px solid white;*/
 
@@ -227,6 +233,7 @@ Stat and images for stats next to the pilot card.
 }
 #roster-text{
     grid-row: 4;
+    color:lightgray
 }
 #pilot-skill-image{
     background-image: url("https://i.imgur.com/Y43E97x.png");
@@ -234,6 +241,7 @@ Stat and images for stats next to the pilot card.
 }
 #pilot-skill-text{
     grid-row: 5;
+    color: orangered;
 }
 #attack-image{
     background-image: url("https://i.imgur.com/Y39TqgA.png");
@@ -241,6 +249,7 @@ Stat and images for stats next to the pilot card.
 }
 #attack-text{
     grid-row: 6;
+    color: red
 }
 #agility-image{
     background-image: url("https://i.imgur.com/M7lUR6Z.png");
@@ -248,6 +257,7 @@ Stat and images for stats next to the pilot card.
 }
 #agility-text{
     grid-row: 7;
+    color:lime
 }
 #hull-image{
     background-image: url("https://i.imgur.com/OMjodS4.png");
@@ -255,6 +265,7 @@ Stat and images for stats next to the pilot card.
 }
 #hull-text{
     grid-row: 8;
+    color:yellow
 }
 #shield-image{
     background-image: url("https://i.imgur.com/Aa8z8rX.png");
@@ -262,6 +273,7 @@ Stat and images for stats next to the pilot card.
 }
 #shield-text{
     grid-row:9;
+    color:cyan
 }
 #energy-image{
     background-image: url("https://i.imgur.com/21ZF1eI.png");
@@ -281,7 +293,7 @@ Maneuver card shown when player is searching.
     background-color: transparent;
     border: none;
     grid-column: 9/15;
-    grid-row: 4/12;
+    grid-row: 4/10;
     visibility: hidden;
 }
 
