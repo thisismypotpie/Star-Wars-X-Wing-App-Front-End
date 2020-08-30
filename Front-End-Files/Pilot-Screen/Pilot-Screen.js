@@ -175,3 +175,20 @@ function update_image_available()
   document.getElementById("roster_number_assigned").style.visibility = "hidden";
 
 }
+
+
+//Key bindings for this screen.
+document.onkeyup = function(e) {
+  if(e.keyCode == 13)
+  {
+    
+  }
+  else if(e.keyCode == 39)
+  {
+
+  }
+  else if(e.keyCode == 37)
+  {
+
+  }
+  }

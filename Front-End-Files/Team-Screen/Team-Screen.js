@@ -365,4 +365,16 @@ function go_to_team_view()
     window.location.href = './Team-Option-Screens/View-Team-Screen/View-Team.html';
   }
 }
+
+//Key bindings for this screen.
+document.onkeyup = function(e) {
+if(e.keyCode == 27 && document.getElementById("team-options-box").style.visibility == "visible")
+{
+  closeOption();
+}
+if(e.KeyCode == 27 && document.getElementById("team-name-box").style.visibility == "visible")
+{
+  //team name box
+}
+}
   

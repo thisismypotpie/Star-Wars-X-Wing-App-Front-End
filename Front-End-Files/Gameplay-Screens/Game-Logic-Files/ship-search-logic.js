@@ -50,7 +50,7 @@ function return_to_main_screen()
 function reveal_button_click()
 {
     var team_index = sessionStorage.getItem("team_index");
-    var ship_index = sessionStorage.getItem("saved_ship_index");
+    var ship_index = sessionStorage.getItem("selected_ship_index");
     var chosen_ship = all_teams[team_index].ship_list[ship_index];
     if(document.getElementById("reveal-button").textContent == "Reveal Maneuver")
     {
@@ -59,13 +59,20 @@ function reveal_button_click()
             document.getElementById("maneuver-type").style.visibility = "visible";
             document.getElementById("maneuver-type").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].maneuver_symbol_path+")";
             document.getElementById("maneuver-range").style.visibility = "visible";
-            document.getElementById("maneuver-type").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].range_symbol_path+")";
+            document.getElementById("maneuver-range").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].range_symbol_path+")";
             document.getElementById("reveal-button").textContent = "Reveal Chart"
             document.getElementById("maneuver-card-display").style.visibility = "hidden";
+            if(chosen_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard"||
+            chosen_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                document.getElementById("maneuver-energy").style.visibility = "visible";
+                document.getElementById("maneuver-energy").style.backgroundImage = "url("+chosen_ship.chosen_pilot.ship_name.maneuvers[chosen_ship.chosen_maneuver].energy_symbol_path+")";
+            }
         }
         else
         {
-            //pop-up saying the ship has no chosen maneuver yet.
+            document.getElementById('notification-pop-up-title').textContent = "This ship has no chosen maneuver.";
+            show_pop_up("Notification-pop-up");
         }
 
     }
@@ -75,5 +82,7 @@ function reveal_button_click()
         document.getElementById("maneuver-card-display").style.visibility = "visible";
         document.getElementById("maneuver-type").style.visibility = "hidden";
         document.getElementById("maneuver-range").style.visibility = "hidden";
+        document.getElementById("maneuver-energy").style.visibility = "hidden";
+
     }
 }

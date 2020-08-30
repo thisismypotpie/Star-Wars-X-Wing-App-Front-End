@@ -241,7 +241,7 @@ Stat and images for stats next to the pilot card.
 }
 #pilot-skill-text{
     grid-row: 5;
-    color: orangered;
+    color: orange;
 }
 #attack-image{
     background-image: url("https://i.imgur.com/Y39TqgA.png");
@@ -283,6 +283,7 @@ Stat and images for stats next to the pilot card.
 #energy-text{
     grid-row: 10;
     visibility: hidden;
+    color: pink
 }
 /*
 Maneuver card shown when player is searching.

@@ -27,7 +27,7 @@ else if(document.getElementById("search-pop-up").style.visibility == "visible")/
     }
     else if(e.keyCode == 37)//previous key
     {
-        next_team_button_click('target-team-search');
+        previous_team_button_click('target-team-search');
     }
     else if(e.keyCode == 13)//Enter key
     {
@@ -37,6 +37,14 @@ else if(document.getElementById("search-pop-up").style.visibility == "visible")/
     {
         hide_pop_up('search-pop-up');
     }
+}
+
+else if(document.getElementById("Notification-pop-up").style.visibility == "visible")
+{
+    if(e.keyCode == 13)//Enter key
+    {
+        hide_pop_up('Notification-pop-up');
+    } 
 }
 
 else if(document.getElementById("return-button").style.visibility == "visible")//return button when searching for a ship.

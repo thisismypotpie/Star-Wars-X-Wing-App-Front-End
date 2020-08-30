@@ -4,13 +4,7 @@
 
 -Make a surrender button. If a team decides to surrender the game will end.
 
--Add color sync to each stat in game so that the numbers to not get confused.
-
--Add left and right arrow key bindings when looking through team for target locks and searching.
-
 -Add ordnance tokens to upgrades.
-
--In the movement and attack phase, if you look up another ship, have a "reveal" button that will reveal that ship's chosen maneuver.
 
 Add tools button with the following tools:
 1. Add new ship mid-game
@@ -24,6 +18,16 @@ Add tools button with the following tools:
 -Convert as many alert messages as you can into the notification pop-up.
 
 - Add key bindings for the token and stat change pop-ups. These will be a bit harder as they will not fit comfortably into the button-bindings.js page.
+
+- Add key bindings to the team options list.
+
+- Add key bindings to the roster number entry pop-up.
+
+- Add key bindings for the done button on the pilot sorting screen.
+
+-I need to find a way to deal with upgrades that add maneuvers to a ship.
+
+- Add key bindings for the team view and bucket view screens.
 
 
 

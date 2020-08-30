@@ -198,7 +198,10 @@ function set_up_team_mate_maneuvers()
             range_div.style.width = "30%";
             range_div.style.height = "100%";
             range_div.style.marginRight = "5%";
-            range_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].range_symbol_path+"')";
+            if(all_teams[team_index].ship_list[i].chosen_maneuver != null)
+            {
+                range_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].range_symbol_path+"')";
+            }
             if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
             all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
             {
@@ -215,7 +218,10 @@ function set_up_team_mate_maneuvers()
             maneuver_div.style.width = "30%";
             maneuver_div.style.height = "100%";
             maneuver_div.style.marginRight = "5%";
-            maneuver_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].maneuver_symbol_path+"')";
+            if(all_teams[team_index].ship_list[i].chosen_maneuver != null)
+            {
+                maneuver_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].maneuver_symbol_path+"')";
+            }
             if(all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeTwoCard"||
             all_teams[team_index].ship_list[i].chosen_pilot.ship_name.ship_type == "largeOneCard")
             {
@@ -234,7 +240,10 @@ function set_up_team_mate_maneuvers()
                 energy_div.style.backgroundSize = "100% 100%";
                 energy_div.style.width = "25%";
                 energy_div.style.height = "100%";
-                energy_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].energy_symbol_path+"')"; 
+                if(all_teams[team_index].ship_list[i].chosen_maneuver != null)
+                {
+                    energy_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[i].chosen_pilot.ship_name.maneuvers[all_teams[team_index].ship_list[i].chosen_maneuver].energy_symbol_path+"')"; 
+                }           
                 team_mate_maneuver_container.appendChild(energy_div);
             }
 
