@@ -1,35 +1,3 @@
-//Back button functionality. 
-document.getElementById("back-button").addEventListener("click", function(){
-    sessionStorage.removeItem("chosenShip");
-    window.location.href = "../Selection-Screen/Selection-Screen.html";
-  });
-
-  //This function will happen if you press the select button.
-  document.getElementById("select-button").addEventListener("click", function(){
-    //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
-    let team_name = JSON.parse(sessionStorage.getItem("new_team")).team_name;
-    if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
-    {
-      sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index],team_name)));
-    }
-    else// if the ship is large, delacre the correct type of large in-game ship.
-    {
-      if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largeonecard")//large ship one card.
-      {
-        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index],team_name)));
-      }
-      else if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")//large ship two card.
-      {
-        sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index],team_name)));
-      }
-      else
-      {
-        console.log("ERROR: The ship size of the selected ship is not valid.");
-      }
-    }
-    window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
-  });
-
   var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
 
   //Get the chosen ship and game data from the session storage.
@@ -56,27 +24,6 @@ console.log(display_pilots);*/
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
 update_pilot_image();//Updates the image to see if the pilot is available or not.
-//Create functionality for the next button.
-document.getElementById("next-btn").addEventListener("click", function(){
-  selection_index ++;
-  if(selection_index >= display_pilots.length)
-  {
-    selection_index = 0;
-  }
-  document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
-  update_pilot_image();//Updates the image to see if the pilot is available or not.
-});
-
-//creat functionality for the previous button
-document.getElementById("previous-btn").addEventListener("click", function(){
-  selection_index --;
-  if(selection_index < 0)
-  {
-    selection_index = display_pilots.length-1;
-  }
-  document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
-  update_pilot_image();//Updates the image to see if the pilot is available or not.
-});
 
 //create functionality for the flip button
 if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
@@ -176,19 +123,76 @@ function update_image_available()
 
 }
 
+function next_button_click()
+{
+    selection_index ++;
+    if(selection_index >= display_pilots.length)
+    {
+      selection_index = 0;
+    }
+    document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+    update_pilot_image();//Updates the image to see if the pilot is available or not.
+}
+
+function previous_button_click()
+{
+  selection_index --;
+  if(selection_index < 0)
+  {
+    selection_index = display_pilots.length-1;
+  }
+  document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+  update_pilot_image();//Updates the image to see if the pilot is available or not.
+}
+
+function back_button_click()
+{
+  sessionStorage.removeItem("chosenShip");
+  window.location.href = "../Selection-Screen/Selection-Screen.html";
+}
+
+function select_button_click()
+{
+      //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
+      let team_name = JSON.parse(sessionStorage.getItem("new_team")).team_name;
+      if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
+      {
+        sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index],team_name)));
+      }
+      else// if the ship is large, delacre the correct type of large in-game ship.
+      {
+        if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largeonecard")//large ship one card.
+        {
+          sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_one_card_in_game_ship_status(display_pilots[selection_index],team_name)));
+        }
+        else if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")//large ship two card.
+        {
+          sessionStorage.setItem("ship_in_progress",JSON.stringify(new large_two_card_in_game_ship_status(display_pilots[selection_index],team_name)));
+        }
+        else
+        {
+          console.log("ERROR: The ship size of the selected ship is not valid.");
+        }
+      }
+      window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
+}
 
 //Key bindings for this screen.
 document.onkeyup = function(e) {
   if(e.keyCode == 13)
   {
-    
+    select_button_click();
   }
   else if(e.keyCode == 39)
   {
-
+    next_button_click();
   }
   else if(e.keyCode == 37)
   {
-
+    previous_button_click();
+  }
+  else if(e.keyCode == 27)
+  {
+    back_button_click();
   }
   }

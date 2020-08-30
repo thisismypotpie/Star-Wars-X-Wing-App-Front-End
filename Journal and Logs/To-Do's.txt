@@ -19,15 +19,9 @@ Add tools button with the following tools:
 
 - Add key bindings for the token and stat change pop-ups. These will be a bit harder as they will not fit comfortably into the button-bindings.js page.
 
-- Add key bindings to the team options list.
-
-- Add key bindings to the roster number entry pop-up.
-
-- Add key bindings for the done button on the pilot sorting screen.
-
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 
-- Add key bindings for the team view and bucket view screens.
+Add key bindings for the the entire app.
 
 
 

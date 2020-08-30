@@ -72,45 +72,6 @@ document.getElementById("new-team-button").addEventListener("click", function(){
     document.getElementById("team-name-input").focus();
     
   });
-  //go to main screen.
-  document.getElementById("back-button").addEventListener("click", function(){
-    let game_data = JSON.parse(sessionStorage.getItem("game_data"));
-    sessionStorage.clear();
-    sessionStorage.setItem("game_data",JSON.stringify(game_data));
-    window.location.href = "../Title-Screen(Main Menu)/index.html";
-  });
-  //go to next screen and set the team to be created.
-  document.getElementById("ok-button").addEventListener("click", function(){
-    let input = document.getElementById("team-name-input").value;
-    if(!input.replace(/\s/g, '').length)//team name only contains white space.
-    {
-      alert("team name cannot be only whitespace.");
-      document.getElementById("team-name-input").value = "";
-      return;
-    }
-    else if(input.length == 0)//team name has no length.
-    {
-      alert("team name is empty.");
-      return;
-    }
-    else if(name_exists_check(input) == false)
-    {
-      alert("That name is already taken, please choose another name.");
-      document.getElementById("team-name-input").value = "";
-      return;
-    }
-    sessionStorage.setItem("new_team",JSON.stringify(new team(input)));
-    window.location.href = "../Selection-Screen/Selection-Screen.html";
-  });
-  //Takes away the team name pop-up.
-  document.getElementById("close-button").addEventListener("click", function(){
-    let overlay = document.getElementById("overlay");
-    let team_name_box = document.getElementById("team-name-box");
-    document.getElementById("team-name-input").value = "";
-    overlay.style.opacity = 0;
-    team_name_box.style.visibility = "hidden";
-    overlay.style.pointerEvents = "none";
-  });
 
   //Click event to make sure all of the correct items are highlighted.
   let box_items = document.getElementsByClassName("list-box-item");
@@ -366,15 +327,69 @@ function go_to_team_view()
   }
 }
 
+function close_team_name_pop_up()
+{
+  let overlay = document.getElementById("overlay");
+  let team_name_box = document.getElementById("team-name-box");
+  document.getElementById("team-name-input").value = "";
+  overlay.style.opacity = 0;
+  team_name_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+}
+
+function go_to_ship_selection()
+{
+  let input = document.getElementById("team-name-input").value;
+  if(!input.replace(/\s/g, '').length)//team name only contains white space.
+  {
+    alert("team name cannot be only whitespace.");
+    document.getElementById("team-name-input").value = "";
+    return;
+  }
+  else if(input.length == 0)//team name has no length.
+  {
+    alert("team name is empty.");
+    return;
+  }
+  else if(name_exists_check(input) == false)
+  {
+    alert("That name is already taken, please choose another name.");
+    document.getElementById("team-name-input").value = "";
+    return;
+  }
+  sessionStorage.setItem("new_team",JSON.stringify(new team(input)));
+  window.location.href = "../Selection-Screen/Selection-Screen.html";
+}
+
+function go_back_to_main_menu()
+{
+      let game_data = JSON.parse(sessionStorage.getItem("game_data"));
+      sessionStorage.clear();
+      sessionStorage.setItem("game_data",JSON.stringify(game_data));
+      window.location.href = "../Title-Screen(Main Menu)/index.html";
+}
+
 //Key bindings for this screen.
 document.onkeyup = function(e) {
+//Get out of the team options pop-up by pressing the escape key.
 if(e.keyCode == 27 && document.getElementById("team-options-box").style.visibility == "visible")
 {
   closeOption();
 }
-if(e.KeyCode == 27 && document.getElementById("team-name-box").style.visibility == "visible")
+//Get out to the team name box by pressing the escape key.
+else if(e.keyCode == 27 && document.getElementById("team-name-box").style.visibility == "visible")
 {
-  //team name box
+  close_team_name_pop_up();
+}
+//Go to the ship selection screen by pressing the enter key 
+else if(e.keyCode == 13 && document.getElementById("team-name-box").style.visibility == "visible")
+{
+  go_to_ship_selection();
+}
+//Go back to main menu using the escape key.
+else if(e.keyCode == 27)
+{
+  go_back_to_main_menu();
 }
 }
   
