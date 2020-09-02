@@ -21,7 +21,15 @@ Add tools button with the following tools:
 
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 
-Add key bindings for the the entire app.
+Add key bindings for the the entire app:
+1. All screen for adding a new team (x)
+2. All team screen options()
+3. All screens for adding a new ship to an existing team()
+4. Team sorting()
+5. Maneuver screen()
+6. Extra maneuver screen screens()
+
+- There was a crash when Alex's team was eliminated.
 
 
 

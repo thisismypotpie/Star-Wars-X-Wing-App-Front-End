@@ -164,3 +164,19 @@ function flip_button_click()
         aft_image_showing = false;
     }
 }
+
+//Key bindings for this screen.
+document.onkeyup = function(e) {
+    if(e.keyCode == 39)//next key.
+    {
+        next_button();
+    }
+    else if(e.keyCode == 37)//previous key.
+    {
+        previous_button();
+    }
+    else if(e.keyCode == 27)//escape key.
+    {
+        back_button();
+    }
+}

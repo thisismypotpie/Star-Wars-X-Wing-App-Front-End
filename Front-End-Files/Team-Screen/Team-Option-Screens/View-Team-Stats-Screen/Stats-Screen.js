@@ -381,3 +381,10 @@ function create_team_role_diversity_graph()
 /*
 End graph creation functions.
 */
+
+document.onkeyup = function(e) {
+if(e.keyCode == 27)
+{
+    backButtonClick();
+}
+}

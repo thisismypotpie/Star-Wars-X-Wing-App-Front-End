@@ -54,6 +54,17 @@ else if(document.getElementById("return-button").style.visibility == "visible")/
         return_to_main_screen();
     } 
 }
+else
+{
+    if(e.keyCode == 39)//next maneuver.
+    {
+        next_maneuver_click();
+    }
+    if(e.keyCode == 37)//previous maneuver.
+    {
+        previous_maneuver_click();
+    }
+}
 
 }
 

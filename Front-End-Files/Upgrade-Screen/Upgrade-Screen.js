@@ -1,60 +1,5 @@
 var flipped = false;//keeps track if front or back or large ship is showing.
 
-//Back to previous form.
-document.getElementById("back-button").addEventListener("click", function(){
-    sessionStorage.removeItem("ship_in_progress");
-    window.location.href = "../Pilot-Screen/Pilot-Screen.html";
-  });
-  //Make roster number form show up.
-  document.getElementById("done-button").addEventListener("click", function(){
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("roster-number-box");
-    overlay.style.opacity = 1;
-    roster_number_box.style.visibility = "visible";
-    overlay.style.pointerEvents = "all";
-    document.getElementById("roster-number-input").focus();
-  });
-  //Add roster number to ship and add new team to all teams.
-  document.getElementById("ok-button").addEventListener("click", function(){
-       //Validate input and then add roster number to ship in progress.
-       if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
-       {
-          alert("Please only input positive numbers. No other input will be accepted.");
-          document.getElementById("roster-number-input").value = "";
-          return;
-       }
-       else
-       {
-          ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
-       }
-       // Add ship to the new team, then add the new team to all teams.
-       let new_team = JSON.parse(sessionStorage.getItem("new_team"));
-       new_team.ship_list.push(ship_in_progress);
-       let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-       all_teams.push(new_team);
-       console.log(all_teams);
-       sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
-
-       //remove all items that are no longer being used.
-       sessionStorage.removeItem("chosenShip");
-       sessionStorage.removeItem("new_team");
-       sessionStorage.removeItem("ship_in_progress");
-       window.location.href = "../Team-Screen/Team-Screen.html";
-
-       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
-
-  });
-//close the roster number pop up.
-document.getElementById("close-button").addEventListener("click", function(){
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("roster-number-box");
-    document.getElementById("roster-number-input").value = "";
-    overlay.style.opacity = 0;
-    roster_number_box.style.visibility = "hidden";
-    overlay.style.pointerEvents = "none";
-
-});
-
 
   //Get data objects needed for this page.
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
@@ -191,3 +136,89 @@ function flip_ship(){
     flipped = false;
   }
 }
+
+
+function back_button_push()
+{
+  sessionStorage.removeItem("ship_in_progress");
+  window.location.href = "../Pilot-Screen/Pilot-Screen.html";
+}
+
+function done_button_push()
+{
+  let overlay = document.getElementById("overlay");
+  let roster_number_box = document.getElementById("roster-number-box");
+  overlay.style.opacity = 1;
+  roster_number_box.style.visibility = "visible";
+  overlay.style.pointerEvents = "all";
+  document.getElementById("roster-number-input").focus();
+}
+
+function ok_button_push()
+{
+    //Add roster number to ship and add new team to all teams.
+      //Validate input and then add roster number to ship in progress.
+      if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
+      {
+         alert("Please only input positive numbers. No other input will be accepted.");
+         document.getElementById("roster-number-input").value = "";
+         return;
+      }
+      else
+      {
+         ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
+      }
+      // Add ship to the new team, then add the new team to all teams.
+      let new_team = JSON.parse(sessionStorage.getItem("new_team"));
+      new_team.ship_list.push(ship_in_progress);
+      let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+      all_teams.push(new_team);
+      console.log(all_teams);
+      sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
+
+      //remove all items that are no longer being used.
+      sessionStorage.removeItem("chosenShip");
+      sessionStorage.removeItem("new_team");
+      sessionStorage.removeItem("ship_in_progress");
+      window.location.href = "../Team-Screen/Team-Screen.html";
+
+      var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
+}
+
+function close_button_push()//close the roster number pop-up.
+{
+  let overlay = document.getElementById("overlay");
+  let roster_number_box = document.getElementById("roster-number-box");
+  document.getElementById("roster-number-input").value = "";
+  overlay.style.opacity = 0;
+  roster_number_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+
+}
+
+//Key bindings
+document.onkeyup = function(e) {
+if(document.getElementById("roster-number-box").style.visibility == "visible")
+{ 
+  if(e.keyCode == 13)//enter
+  {
+    ok_button_push();
+  }
+  else if(e.keyCode == 27)//escape key
+  {
+    close_button_push();
+  } 
+}
+else
+{
+  if(e.keyCode == 13)//enter
+  {
+    done_button_push();
+  }
+  else if(e.keyCode == 27)//escape key
+  {
+    back_button_push();
+  }
+}
+}
+

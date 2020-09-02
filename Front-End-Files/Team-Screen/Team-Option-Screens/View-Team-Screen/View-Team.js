@@ -290,3 +290,19 @@ function close_stat_popup()
     roster_number_box.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
 }
+
+//Key bindings for this screen.
+document.onkeyup = function(e) {
+    if(e.keyCode == 39)//next key.
+    {
+        next_button();
+    }
+    else if(e.keyCode == 37)//previous key.
+    {
+        previous_button();
+    }
+    else if(e.keyCode == 27)//escape key.
+    {
+        back_button();
+    }
+}

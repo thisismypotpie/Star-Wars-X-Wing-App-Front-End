@@ -1,7 +1,3 @@
-document.getElementById("back-button").addEventListener("click", function(){
-  sessionStorage.removeItem("chosen_team_name");
-  window.location.href = "../../Team-Screen/Team-Screen.html";
-});
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
 
 let faction_options = document.getElementsByClassName("faction-option");
@@ -187,4 +183,19 @@ function getShipsToDisplay()
            count++;
   });
   return display_list;
+}
+
+
+function back_button_push()
+{
+    sessionStorage.removeItem("chosen_team_name");
+    window.location.href = "../../Team-Screen/Team-Screen.html";
+}
+
+//Key bindings for this screen.
+document.onkeyup = function(e) {
+  if(e.keyCode == 27)//escape key.
+  {
+    back_button_push();
+  }
 }

@@ -371,20 +371,46 @@ function go_back_to_main_menu()
 
 //Key bindings for this screen.
 document.onkeyup = function(e) {
-//Get out of the team options pop-up by pressing the escape key.
-if(e.keyCode == 27 && document.getElementById("team-options-box").style.visibility == "visible")
+
+//team options key bindings.
+  if(document.getElementById("team-options-box").style.visibility == "visible")
 {
-  closeOption();
+  if(e.keyCode ==49 || e.keyCode == 97)//one key s
+  {
+    addNewShip();
+  }
+  else if(e.keyCode == 50 || e.keyCode == 98)//two keys
+  {
+    removeShipScreen();
+  }
+  else if(e.keyCode == 51 || e.keyCode == 99)//three keys
+  {
+    go_to_team_view();
+  }
+  else if(e.keyCode == 52 || e.keyCode == 100)//four keys
+  {
+    ViewStatistics();
+  }
+  else if(e.keyCode == 53 || e.keyCode == 101)//five keys
+  {
+    removeTeam();
+  }
+  else if(e.keyCode == 102 || e.keyCode== 54)//escape or 6 keys.
+  {
+    closeOption();
+  }
 }
-//Get out to the team name box by pressing the escape key.
-else if(e.keyCode == 27 && document.getElementById("team-name-box").style.visibility == "visible")
+// Team name pop-up key bindings.
+else if(document.getElementById("team-name-box").style.visibility == "visible")
 {
-  close_team_name_pop_up();
-}
-//Go to the ship selection screen by pressing the enter key 
-else if(e.keyCode == 13 && document.getElementById("team-name-box").style.visibility == "visible")
-{
-  go_to_ship_selection();
+  if(e.keyCode == 27 )//escape key
+  {
+    close_team_name_pop_up();
+  }
+  else if(e.keyCode == 13)//enter key.
+  {
+    go_to_ship_selection();
+  }
 }
 //Go back to main menu using the escape key.
 else if(e.keyCode == 27)
