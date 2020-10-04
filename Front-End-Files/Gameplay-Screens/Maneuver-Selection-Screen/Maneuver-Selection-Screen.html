@@ -27,6 +27,17 @@
         tabindex="3"
         role="listbox"></ul>
 
+        <!--This is the section for the options button to get dice or maneuver or adding a ship.-->
+        <div class ="option-drop-down">
+        <button type = "button" class = "long-button" id = "options-button"onclick = "toggle_drop_down('options-drop-down-area')">Options</button>
+        <div id = "options-drop-down-area"  class = "drop-down-area">
+        <a class = "drop-down-option" id="maneuver-module-option" onclick="maneuver_click()">Maneuvers<br></a>
+        <a class = "drop-down-option" id="dice-module-option" onclick="dice_click()">Dice<br></a>
+        <a class = "drop-down-option" id="notes-module-option" onclick="notes_click()">Notes<br></a>
+        <a class = "drop-down-option" id="add-new-ship-option" onclick="add_new_ship_click()">Add New Ship<br></a>
+        </div>
+        </div>
+
         <button type = "button" class = "long-button" id = "search-button" onclick="target_lock_and_search_index = 0;show_pop_up('search-pop-up');document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name; document.getElementById('roster-number-input-search').focus();">Search</button>
         <button type = "button" class = "long-button" id = "cycle-button" onclick="cycle_button_click()">Cycle</button>
         <button type = "button" class = "long-button" id = "add-target-lock-button" onclick="show_pop_up('target-lock-pop-up');target_lock_and_search_index = 0;document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;document.getElementById('roster-number-input-target-lock').focus();">Add</button>
@@ -253,6 +264,7 @@
     <script type="text/javascript" src="../Game-Logic-Files/ship-death-logic.js"></script>
     <script type="text/javascript" src="../Game-Logic-Files/upgrade_condition_crit_hit_logic.js"></script>
     <script type="text/javascript" src="../Game-Logic-Files/target-lock-logic.js"></script>
+    <script type = "text/javascript" src="../Game-Logic-Files/drop-down-menu-logic.js"></script>
     <script type="text/javascript" src="../../JS Data Classes/Save-input-detector.js"></script>
     <script type="text/javascript" src="../../JS Data Classes/Pilot-Sorter.js"></script>
     <script type="text/javascript" src="../../JS Data Classes/In-Game-Variants.js"></script>

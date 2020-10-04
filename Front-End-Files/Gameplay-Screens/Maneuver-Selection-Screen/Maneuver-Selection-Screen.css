@@ -1016,6 +1016,35 @@ display: flex;
     height: 50px;
 }
 
+/* Section on options drop down menu.*/
+.option-drop-down{
+    grid-column: 22/25;
+    grid-row: 1/3;
+}
+#options-button{
+    width: 100%;
+    height: 100%;
+}
+.drop-down-area{
+    visibility: hidden;
+    background-color: black;
+
+}
+
+#options-drop-down-area{
+    display: inline-block;
+}
+
+.drop-down-option{
+    color: white;
+    width: 100%;
+    font-size: xx-large;
+}
+
+.drop-down-option:hover{
+    background-color: cyan;
+}
+
 @media screen and (max-width: 768px){
     #removal-image {
         width: 95%;
@@ -1031,9 +1060,22 @@ display: flex;
     .pop-up-container {
         width: 85%;
     }
+    
+    .drop-down-option{
+        color: white;
+        width: 100%;
+        font-size: large;
+    }
 }
 
 @media screen and (max-width: 414px){
+
+    .drop-down-option{
+        color: white;
+        width: 100%;
+        font-size: medium;
+    }
+
     body{
         margin: 0;
     }
