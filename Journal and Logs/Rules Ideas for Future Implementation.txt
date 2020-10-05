@@ -1,0 +1,9 @@
+RULES FOR CHANING PILOT SKILL:
+- THE PROBLEM: When I go to change pilot skill. If I change it in the  middle of a round, then there is a possibility that they will be seen again if their new pilot skil bucket has not gone yet.
+- RULE: When changing the pilot skill of a pilot, they are added to the back of their pilot skill bucket.
+
+-possible rules:
+1. Make it so when pilot skill is changed, it takes effect at the end of a phase.(might be difficule to implement).
+
+RULES FOR ADDING NEW SHIPS:
+- RULE: When a new ship is being added, their chosen maneuver for that round will always be the deploy maneuver.

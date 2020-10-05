@@ -1,10 +1,6 @@
 var drop_down_active = false;
 var drop_down_just_happened = false;
 
-document.getElementById('options-drop-down-area').addEventListener('blur',event=>{
-    drop_down_active = false;
-    document.getElementById(drop_down_id).style.visibility = "hidden";
-})
 
 function toggle_drop_down(drop_down_id)
 {
@@ -14,6 +10,11 @@ function toggle_drop_down(drop_down_id)
         drop_down_just_happened = true;
         document.getElementById(drop_down_id).style.visibility = "visible";
         document.getElementById(drop_down_id).focus();
+    }
+    else
+    {
+        document.getElementById(drop_down_id).style.visibility = "hidden";
+        drop_down_active = false;
     }
 }
 
@@ -40,6 +41,8 @@ function maneuver_click()
         document.getElementById("next-maneuver-button").style.visibility = "visible";
         document.getElementById("previous-maneuver-button").style.visibility = "visible";
     }
+    document.getElementById(drop_down_id).style.visibility = "hidden";
+    drop_down_active = false;
 }
 
 function dice_click()
@@ -54,18 +57,29 @@ function dice_click()
     document.getElementById("defender-dice-image").style.visibility = "visible";
     document.getElementById("number-of-attacking-dice").style.visibility = "visible";
     document.getElementById("number-of-defending-dice").style.visibility = "visible";
+    document.getElementById(drop_down_id).style.visibility = "hidden";
+    drop_down_active = false;
+
 }
 
 function notes_click()
 {   
-    clear_modules();
     alert("notes click!")
+    document.getElementById(drop_down_id).style.visibility = "hidden";
+    drop_down_active = false;
+
 }
 
 function add_new_ship_click()
 {
-    clear_modules();
     alert("add new ship click")
+    document.getElementById(drop_down_id).style.visibility = "hidden";
+    drop_down_active = false;
+}
+
+function surrender_click()
+{
+    alert("Surrender!");
 }
 
 function clear_modules()
