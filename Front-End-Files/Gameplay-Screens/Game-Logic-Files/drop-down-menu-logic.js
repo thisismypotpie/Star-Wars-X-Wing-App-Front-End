@@ -41,7 +41,7 @@ function maneuver_click()
         document.getElementById("next-maneuver-button").style.visibility = "visible";
         document.getElementById("previous-maneuver-button").style.visibility = "visible";
     }
-    document.getElementById(drop_down_id).style.visibility = "hidden";
+    document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
 }
 
@@ -57,7 +57,7 @@ function dice_click()
     document.getElementById("defender-dice-image").style.visibility = "visible";
     document.getElementById("number-of-attacking-dice").style.visibility = "visible";
     document.getElementById("number-of-defending-dice").style.visibility = "visible";
-    document.getElementById(drop_down_id).style.visibility = "hidden";
+    document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
 
 }
@@ -65,7 +65,7 @@ function dice_click()
 function notes_click()
 {   
     alert("notes click!")
-    document.getElementById(drop_down_id).style.visibility = "hidden";
+    document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
 
 }
@@ -73,13 +73,18 @@ function notes_click()
 function add_new_ship_click()
 {
     alert("add new ship click")
-    document.getElementById(drop_down_id).style.visibility = "hidden";
+    document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
 }
 
 function surrender_click()
 {
-    alert("Surrender!");
+    document.getElementById('options-drop-down-area').style.visibility = "hidden";
+    if(confirm_surrender() == true)
+    {
+        surrender_team(sessionStorage.getItem("team_index"));
+    }
+
 }
 
 function clear_modules()

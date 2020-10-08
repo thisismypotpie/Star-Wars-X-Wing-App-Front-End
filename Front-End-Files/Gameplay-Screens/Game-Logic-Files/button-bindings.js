@@ -7,7 +7,7 @@ if(e.keyCode == 79)//'O' key
     return;
 }
 //drop down menu for options button.
-if(document.getElementById("options-drop-down-area").style.visibility == "visible")
+else if(document.getElementById("options-drop-down-area").style.visibility == "visible")
 {
 
     if(e.keyCode == 77)//M key.
@@ -28,7 +28,29 @@ if(document.getElementById("options-drop-down-area").style.visibility == "visibl
     }
     else if(e.keyCode ==  83)//S key.
     {
-        surrender_click();
+        if(sessionStorage.getItem("searching")!= null || sessionStorage.getItem("searching")!= undefined)
+        {
+            alert("You cannot save your game while you are doing a search, exit search to save.");
+            return;
+        }
+        //Create overlay dynamically.
+        if(document.getElementById('overlay')==null || document.getElementById('overlay')==undefined)
+        {
+            create_overlay_dynamically();
+        }
+            let overlay = document.getElementById("overlay");
+            overlay.style.opacity = 1;
+            overlay.style.pointerEvents = "all";
+        //bring up save game form.
+        if(document.getElementById('save_game_pop_up')==null || document.getElementById('save_game_pop_up')==undefined)
+        {
+            create_save_game_form_dynamically();
+        }
+            document.getElementById('save_game_pop_up').style.visibility = "visible";
+            document.getElementById('save_game_input').focus();
+            setTimeout(() => {
+                document.getElementById('save_game_input').value = "";
+            },25);//This timeout is here because otherwise there will be a "`" key pressed into the value and I was not able to find another way to delete it without a timeout.
     }
     
     document.getElementById("options-drop-down-area").style.visibility = "hidden";
@@ -36,7 +58,7 @@ if(document.getElementById("options-drop-down-area").style.visibility == "visibl
 }
 
 //Bindings for target lock pop-up.
-if(document.getElementById("target-lock-pop-up").style.visibility =="visible")//target lock pop-up visible.
+else if(document.getElementById("target-lock-pop-up").style.visibility =="visible")//target lock pop-up visible.
 {
     if(e.keyCode == 39)//next key
     {
@@ -89,6 +111,19 @@ else if(document.getElementById("return-button").style.visibility == "visible")/
     {
         return_to_main_screen();
     } 
+}
+//Save game screen
+else if(document.getElementById('save_game_pop_up').style.visibility == "visible")
+{
+    if(e.keyCode == 13)//enter key
+    {
+        validate_save_name();
+    }
+    else if(e.keyCode == 27)//escape key
+    {
+        close_pop_up();
+    }
+    return;
 }
 //Maneuver selection buttons.
 else

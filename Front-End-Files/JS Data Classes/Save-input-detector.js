@@ -1,5 +1,5 @@
 document.addEventListener("keydown", function(event){ //press s to save game.
-    if (event.keyCode == 192)//this is f5179)
+    if (event.keyCode == 192)//this is tilde key)
     {
         if(sessionStorage.getItem("searching")!= null || sessionStorage.getItem("searching")!= undefined)
         {
