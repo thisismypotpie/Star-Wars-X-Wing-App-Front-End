@@ -31,6 +31,8 @@ Add key bindings for the the entire app:
 
 - There was a crash when Alex's team was eliminated.
 
+- There is an error with the key binding in the maneuver selection screen revolving around pressing the enter button to go to the next ship. It works fine in maneuver selection but gets stuck on the same ship when doing movement or attack phase.
+
 
 
 

@@ -113,7 +113,7 @@ else if(document.getElementById("return-button").style.visibility == "visible")/
     } 
 }
 //Save game screen
-else if(document.getElementById('save_game_pop_up').style.visibility == "visible")
+else if(document.getElementById('save_game_pop_up') != null && document.getElementById('save_game_pop_up').style.visibility == "visible")
 {
     if(e.keyCode == 13)//enter key
     {
@@ -132,9 +132,27 @@ else
     {
         next_maneuver_click();
     }
-    if(e.keyCode == 37)//previous maneuver.
+    else if(e.keyCode == 37)//previous maneuver.
     {
         previous_maneuver_click();
+    }
+    else if(e.keyCode == 13)//enter key
+    {
+        go_to_next_ship_maneuver_selection()
+    }
+    else if(e.keyCode == 27)//escape key
+    {
+        if(sessionStorage.getItem("team_index") == 0 )
+        {
+            if(sessionStorage.getItem("selected_ship_index") != 0)
+            {
+                main_back_button_click();
+            }
+        }
+        else
+        {
+            main_back_button_click();
+        }
     }
 }
 
