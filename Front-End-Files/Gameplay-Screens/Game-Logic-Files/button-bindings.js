@@ -1,4 +1,4 @@
-document.onkeyup = function(e) {
+window.onkeyup= function(e) {
 //Options button click.
 if(e.keyCode == 79)//'O' key
 {
@@ -125,22 +125,75 @@ else if(document.getElementById('save_game_pop_up') != null && document.getEleme
     }
     return;
 }
+else if(document.getElementById("dice-container").style.visibility == "visible")//Dice module
+{
+    if(e.keyCode == 39 && document.getElementById("add-attacker-dice").style.visibility == "visible")//add attacker die
+    {
+        add_attack_die();
+    }
+    else if(e.keyCode == 39 && document.getElementById("add-attacker-dice").style.visibility == "visible")//add attacker die
+    {
+        add_attack_die();
+    }
+    else if(e.keyCode == 37 && document.getElementById("minus-attacker-dice").style.visibility == "visible")//subtract attacker die
+    {
+        subtract_attack_die();
+    }
+    else if(e.keyCode == 38 && document.getElementById("add-defender-dice").style.visibility == "visible")//add defender die
+    {
+        add_defense_die();
+    }
+    else if(e.keyCode == 40 && document.getElementById("minus-defender-dice").style.visibility == "visible")//subtract defender die
+    {
+        subtract_defense_die();
+    }
+    else if(e.keycode == 82/*r key*/ && document.getElementById("roll-dice").style.visibility == "visible" )//roll dice
+    {
+        roll_dice_click();
+    }
+    else if(e.keycode == 13 && document.getElementById("dice-results-pop-up").style.visibility == "visible")//close dice results
+    {
+        hide_pop_up('dice-results-pop-up');
+        remove_dice();
+        return;
+    }
+}
 //Maneuver selection buttons.
 else
 {
-    if(e.keyCode == 39)//next maneuver.
+    //maneuver selection if visible.
+    if(e.keyCode == 39 && document.getElementById("next-maneuver-button").style.visibility == "visible")//next maneuver.
     {
         next_maneuver_click();
     }
-    else if(e.keyCode == 37)//previous maneuver.
+    else if(e.keyCode == 37 && document.getElementById("previous-maneuver-button").style.visibility == "visible")//previous maneuver.
     {
         previous_maneuver_click();
     }
-    else if(e.keyCode == 13)//enter key
+    //next ship
+    else if(e.keyCode == 13 && 1 ==2)//enter key
     {
-        go_to_next_ship_maneuver_selection()
+        if(sessionStorage.getItem("phase")!= null)
+        {
+            if(sessionStorage.getItem("phase") == "movement")
+            {
+                go_to_next_ship_movement_phase();
+            }
+            else if(sessionStorage.getItem("phase") == "attack")
+            {
+                go_to_next_ship_attack_phase();
+            }
+            else
+            {
+                alert("ERROR: Key binding for movement selection came back as: "+sessionStorage.getItem("phase"));
+            }
+        }
+        else
+        {
+            go_to_next_ship_maneuver_selection();
+        }
     }
-    else if(e.keyCode == 27)//escape key
+    else if(e.keyCode == 27 || e.keyCode == 8)//escape key
     {
         if(sessionStorage.getItem("team_index") == 0 )
         {
