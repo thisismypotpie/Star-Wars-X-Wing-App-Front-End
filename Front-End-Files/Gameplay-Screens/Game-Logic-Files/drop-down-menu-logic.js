@@ -58,6 +58,7 @@ function dice_click()
     document.getElementById("number-of-attacking-dice").style.visibility = "visible";
     document.getElementById("number-of-defending-dice").style.visibility = "visible";
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
+    document.getElementById("dice-container").style.visibility = "visible"
     drop_down_active = false;
 
 }
@@ -104,4 +105,5 @@ function clear_modules()
     document.getElementById("defender-dice-image").style.visibility = "hidden";
     document.getElementById("number-of-attacking-dice").style.visibility = "hidden";
     document.getElementById("number-of-defending-dice").style.visibility = "hidden";
+    document.getElementById("dice-container").style.visibility = "hidden"
 }

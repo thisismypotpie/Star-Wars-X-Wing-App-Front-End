@@ -147,11 +147,11 @@ else if(document.getElementById("dice-container").style.visibility == "visible")
     {
         subtract_defense_die();
     }
-    else if(e.keycode == 82/*r key*/ && document.getElementById("roll-dice").style.visibility == "visible" )//roll dice
+    else if(e.keyCode == 82/*r key*/ && document.getElementById("roll-dice").style.visibility == "visible")//roll dice
     {
         roll_dice_click();
     }
-    else if(e.keycode == 13 && document.getElementById("dice-results-pop-up").style.visibility == "visible")//close dice results
+    else if(e.keyCode == 13 && document.getElementById("dice-results-pop-up").style.visibility == "visible")//close dice results
     {
         hide_pop_up('dice-results-pop-up');
         remove_dice();
