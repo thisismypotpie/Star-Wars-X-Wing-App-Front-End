@@ -48,6 +48,67 @@ function bucket_sort_pilots_by_skill(all_teams)
     return {sorted_buckets:sorted_buckets,sorting_needed:sorting_needed};//Retrun a struct with sorted buckets and whether or not sorting is needed.
 }
 
+function get_movement_attack_index_of_ship_whos_turn_it_is(team_index,Ship_index)
+{
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams")); 
+    var pilot_skill_buckets = [{skill:0,ships:[]},{skill:1,ships:[]},{skill:2,ships:[]},{skill:3,ships:[]},{skill:4,ships:[]},{skill:5,ships:[]},{skill:6,ships:[]},{skill:7,ships:[]},{skill:8,ships:[]},{skill:9,ships:[]},{skill:10,ships:[]},{skill:11,ships:[]},{skill:12,ships:[]}];
+    var initiative_index = 0;
+    var ordered_ships  = [];
+    var chosen_ship_index = -1;
+    var chosen_team_index = -1;
+    var ship_we_are_searching_for = all_teams[team_index].ship_list[Ship_index];
+    //Get the index of the team that has initiative.
+    for(var i=0; i < all_teams.length;i++)
+    {
+        if(all_teams[i].has_initiative_token == true)
+        {
+            initiative_index = i;
+            break;
+        }
+    }
+    //Sort all teams from the first team to the end.
+    for(var i=initiative_index;i<all_teams.length;i++)
+    {
+        all_teams[i].ship_list.forEach(ship=>{
+            pilot_skill_buckets.forEach(bucket=>{
+                if(bucket.skill == ship.current_pilot_skill)
+                {
+                    bucket.ships.push(ship);
+                }
+            })
+        })
+    }
+    //Sort all teams before initiative index.
+    for(var i=0; i < initiative_index;i++)
+    {
+        all_teams[i].ship_list.forEach(ship=>{
+            pilot_skill_buckets.forEach(bucket=>{
+                if(bucket.skill == ship.current_pilot_skill)
+                {
+                    bucket.ships.push(ship);
+                }
+            })
+        })
+    }
+    pilot_skill_buckets.forEach(bucket=>{//combine buckets to get a list of all ordered ships.
+        bucket.ships.forEach(bucket_ship=>{
+            ordered_ships.push(bucket_ship);
+        })
+    })
+    
+    //Search through the bucket list to get the movement attack index for who's turn it is.
+    for(var i=0; i < ordered_ships.length;i++)
+    {
+        if(ordered_ships[i].team_name == ship_we_are_searching_for.team_name &&
+           ordered_ships[i].roster_number == ship_we_are_searching_for.roster_number)
+           {
+               return i;
+           }
+    }
+    alert("ERROR: Could not find the manevuer attack index for the input ship.");
+    return 0;
+}
+
 //This function will line up all of the ships in order for the movement and attack phase and then return the team index and selected ship index of who's turn it is.
 function get_pilot_whos_turn_it_is(index_of_whos_turn_it_is,all_teams)
 {
@@ -78,7 +139,7 @@ function get_pilot_whos_turn_it_is(index_of_whos_turn_it_is,all_teams)
         })
     }
 
-    for(var i=0; i < initiative_index;i++)//Sort all teamd before initiative index.
+    for(var i=0; i < initiative_index;i++)//Sort all teams before initiative index.
     {
         all_teams[i].ship_list.forEach(ship=>{
             pilot_skill_buckets.forEach(bucket=>{

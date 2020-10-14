@@ -147,7 +147,7 @@ document.getElementById("new-team-button").addEventListener("click", function(){
       var chosen_roster_numbers = [];
       var team_name = "Test Team";
       let new_team = undefined;// new team(team_name);
-      let team_size = Math.floor(Math.random() * 10)+5;
+      let team_size = Math.floor(Math.random())+3;
       var current_ship = undefined;
       var team_number = 1;//I will Add this to the team name and chose the first unused number as the team name.
       var team_name_formulated = false;

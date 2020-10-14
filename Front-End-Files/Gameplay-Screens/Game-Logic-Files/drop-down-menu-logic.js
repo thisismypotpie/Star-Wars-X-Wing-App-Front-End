@@ -81,11 +81,7 @@ function add_new_ship_click()
 function surrender_click()
 {
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
-    if(confirm_surrender() == true)
-    {
-        surrender_team(sessionStorage.getItem("team_index"));
-    }
-
+    surrender_team(sessionStorage.getItem("team_index"));
 }
 
 function clear_modules()
