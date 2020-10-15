@@ -67,6 +67,7 @@ function surrender_team(team_index)
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
                                     alert(surrender_team_name+" has surrendered!");
                                     location.reload();
+                                    check_if_game_over();
                                     return;
                                 }
                             }
@@ -83,8 +84,45 @@ function surrender_team(team_index)
                 var movement_attack_index = (get_total_ships(all_teams)-1);
                 var start_index = get_pilot_whos_turn_it_is(movement_attack_index,all_teams);
                 var pilot_in_question = all_teams[start_index[0]].ship_list[start_index[1]];
+                searching = 0;
+                //Go to attack phase and look for each ship in reverse order.
+                while(surrender_team_name == pilot_in_question.team_name && (movement_attack_index - searching)>= 0)
+                {
+                    searching++;
+                    //Get the indecies of the next pilot we will be looking at.
+                    var team_and_ship_indecies = get_pilot_whos_turn_it_is((movement_attack_index-searching),all_teams);
+                    pilot_in_question = all_teams[team_and_ship_indecies[0]].ship_list[team_and_ship_indecies[1]].team_name;
+                    //If we find a team that does not equal the surrender team name, then we have our pilot to go to next.
+                    if(pilot_in_question != surrender_team_name)
+                    {
+                        //Replace name of the team with the ship iteself.
+                        pilot_in_question = all_teams[team_and_ship_indecies[0]].ship_list[team_and_ship_indecies[1]];
+                        //Remove the team that surrendered.
+                        all_teams.splice(team_index,1);
+                        sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+                        for(var i=0; i < all_teams.length;i++) 
+                        {
+                            for(var j=0; j < all_teams[i].ship_list.length;j++)
+                            {
+                                if(all_teams[i].ship_list[j].team_name == pilot_in_question.team_name &&
+                                    all_teams[i].ship_list[j].roster_number == pilot_in_question.roster_number)
+                                {
+                                    sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
+                                    alert(surrender_team_name+" has surrendered!");
+                                    location.reload();
+                                    check_if_game_over();
+                                    return;
+                                }
+                            }
+                        }
+                        alert("ERROR: Next ship was not able to be found!");
+                        return;
+                    }
+                }
+                alert("ERROR: Unable to get next ship, all ships have been searched and there is no possible next ship.");
 
             }
+            //If a team surrenders in the attack phase.
             else if(sessionStorage.getItem("phase") == "attack")//attack phase.
             {
                 if(1==1)//Go to end of round if the last ship in the movement phase is surrrendering.
@@ -102,13 +140,19 @@ function surrender_team(team_index)
                 return;
             }
         }
-        if(all_teams.length == 1)
-        {
-            alert("winner!")
-        }
-        else if(all_teams.length == 0)
-        {
-            alert("No teams, remain. Game over.")
-        }
+    }
+}
+
+
+function check_if_game_over()
+{
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+    if(all_teams.length == 1)
+    {
+        alert("winner!")
+    }
+    else if(all_teams.length == 0)
+    {
+        alert("No teams, remain. Game over.")
     }
 }
