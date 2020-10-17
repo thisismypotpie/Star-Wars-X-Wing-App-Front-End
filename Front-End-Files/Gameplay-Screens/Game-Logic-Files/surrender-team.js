@@ -207,6 +207,7 @@ function surrender_team(team_index)
                 sessionStorage.removeItem("team_index");
                 sessionStorage.removeItem("selected_ship_index");
                 end_of_round_procedures();
+                location.reload();
             }
             else//throw error.
             {

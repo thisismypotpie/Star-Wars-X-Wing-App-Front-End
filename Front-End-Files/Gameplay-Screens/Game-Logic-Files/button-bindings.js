@@ -207,6 +207,10 @@ else
             main_back_button_click();
         }
     }
+    else if(e.keyCode == 67)//c key for cycling through card types.
+    {
+        cycle_button_click();
+    }
 }
 
 }

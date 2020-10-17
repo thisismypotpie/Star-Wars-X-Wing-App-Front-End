@@ -5,6 +5,7 @@ function findCommonElements(arr1, arr2) //Compares two arrays and returns true i
 
 function clear_tokens()//Clear evade and focus tokens unless someone has an upgrade saying otherwise.
 {
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
     all_teams.forEach(team=>{
         team.ship_list.forEach(ship=>{
             var upgrade_ids = ship.upgrades.map(function(e){return e.id});
@@ -39,6 +40,7 @@ function end_of_round_procedures()
 
 function assign_new_round_initiative_token()
 {
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
     for(var i=0; i < all_teams.length;i++)
     {
         if(all_teams[i].has_initiative_token == true)
