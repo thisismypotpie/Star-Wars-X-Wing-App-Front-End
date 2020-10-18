@@ -66,7 +66,7 @@
       selected_upgrades.forEach(upgrade =>{
         if(upgrade.name == id)
         {
-          ship_in_progress.upgrades.push(upgrade);
+          ship_in_progress.upgrades.push(new in_game_upgrade(upgrade));
         }
       })
       sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
