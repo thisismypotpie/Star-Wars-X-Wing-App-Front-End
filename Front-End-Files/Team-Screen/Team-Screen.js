@@ -191,7 +191,8 @@ document.getElementById("new-team-button").addEventListener("click", function(){
         for(var j =0; j < number_of_upgrades;j++)
         {
           var upgrade_index = Math.floor(Math.random()*game_data.all_upgrades.length);
-          current_ship.upgrades.push(game_data.all_upgrades[upgrade_index]);
+          var upgrade_to_add = new in_game_upgrade(game_data.all_upgrades[upgrade_index])
+          current_ship.upgrades.push(upgrade_to_add);
         }
         //Add unique roster number to ship.
         var random_roster_number = Math.ceil(Math.random()*200);

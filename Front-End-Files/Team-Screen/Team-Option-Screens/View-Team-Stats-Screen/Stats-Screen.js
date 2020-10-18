@@ -61,7 +61,7 @@ function get_total_upgrade_Cost()
     var upgrade_cost = 0;
     team_chosen.ship_list.forEach(ship =>{
         ship.upgrades.forEach(upgrade=>{
-            upgrade_cost += upgrade.cost;
+            upgrade_cost += upgrade.upgrade.cost;
         })
     })
     return upgrade_cost;

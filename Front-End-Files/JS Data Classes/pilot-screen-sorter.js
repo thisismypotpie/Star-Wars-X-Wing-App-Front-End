@@ -1,5 +1,3 @@
-const { pilot } = require("../../../Final-Project-Back-End/JS Data Classes/Pilot-Variants");
-
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
 function sort_pilots_for_viewing(ship_name, faction)
 {

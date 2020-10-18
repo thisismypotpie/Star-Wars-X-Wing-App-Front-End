@@ -65,7 +65,7 @@
       selected_upgrades.forEach(upgrade =>{
         if(upgrade.name == id)
         {
-          Chosen_Team_Ship.upgrades.push(upgrade);
+          Chosen_Team_Ship.upgrades.push(new in_game_upgrade(upgrade));
         }
       })
       sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(Chosen_Team_Ship));

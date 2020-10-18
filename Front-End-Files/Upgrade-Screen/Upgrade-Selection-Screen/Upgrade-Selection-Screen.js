@@ -65,7 +65,7 @@
       selected_upgrades.forEach(upgrade =>{
         if(upgrade.name == id)
         {
-          ship_in_progress.upgrades.push(upgrade);
+          ship_in_progress.upgrades.push(new in_game_upgrade(upgrade));
         }
       })
       sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));

@@ -12,6 +12,16 @@ class target_lock{
     }
 }
 
+//This constructor will keep track of an upgrade's orientation and number of ordnance tokens.
+class in_game_upgrade{
+    constructor(incoming_upgrade)
+    {
+        this.upgrade = incoming_upgrade;
+        this.orientation = "front";
+        this.ordnance_tokens = 0;
+    }
+}
+
 class in_game_ship_status{
     //This constructor will set a default state based on the pilot sent to it.
     constructor(incoming_pilot, team_name)
@@ -77,7 +87,7 @@ function Calculate_cost_of_ship(to_calculate)
     cost += to_calculate.chosen_pilot.cost;
     //Add cost of each upgrade.
     to_calculate.upgrades.forEach(upgrade =>{
-    cost+= upgrade.cost;
+    cost+= upgrade.upgrade.cost;
     })
     return cost;
 }

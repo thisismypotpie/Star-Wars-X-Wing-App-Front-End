@@ -106,16 +106,16 @@ function set_all_items()
     upgrade_box.innerHTML="";
     all_teams[chosen_team_index].ship_list[selection_index].upgrades.forEach(upgrade=>{
         console.log(upgrade);
-        console.log("path: "+upgrade.image_path);
+        console.log("path: "+upgrade.upgrade.image_path);
         var upgrade_image = document.createElement("div");
-        if(upgrade.is_dual_sided == true)
+        if(upgrade.upgrade.is_dual_sided == true)
         {
-            upgrade_image.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";       
+            upgrade_image.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";       
             upgrade_image.style.border = "3px solid red";    
         }
         else
         {
-            upgrade_image.style.backgroundImage = "url('"+upgrade.image_path+"')";
+            upgrade_image.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
             upgrade_image.style.border = "1px solid white";
         }
         upgrade_image.style.width = "95%";
