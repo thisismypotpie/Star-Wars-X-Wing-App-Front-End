@@ -102,22 +102,29 @@ function set_all_items()
      energy_icon.style.visibility = "hidden";
      energy.style.visibility = "hidden";
  }
-    //Set the upgrade images of each upgrade.
-    upgrade_box.innerHTML="";
-    chosen_team.ship_list[selection_index].upgrades.forEach(upgrade=>{
-        console.log(upgrade);
-        console.log("path: "+upgrade.image_path);
-        var upgrade_image = document.createElement("div");
-        upgrade_image.style.border = "1px solid white";
-        upgrade_image.style.width = "95%";
-        upgrade_image.style.height = "45vh";
-        upgrade_image.style.margin = "3%";
-        upgrade_image.style.backgroundImage = "url('"+upgrade.image_path+"')";
-        upgrade_image.style.backgroundRepeat = "no-repeat";
-        upgrade_image.style.backgroundSize = "100% 100%";
-        upgrade_box.appendChild(upgrade_image);
+ upgrade_box.innerHTML="";
+ chosen_team.ship_list[selection_index].upgrades.forEach(upgrade=>{
+     console.log(upgrade);
+     console.log("path: "+upgrade.upgrade.image_path);
+     var upgrade_image = document.createElement("div");
+     if(upgrade.upgrade.is_dual_sided == true)
+     {
+         upgrade_image.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";       
+         upgrade_image.style.border = "3px solid red";    
+     }
+     else
+     {
+         upgrade_image.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
+         upgrade_image.style.border = "1px solid white";
+     }
+     upgrade_image.style.width = "95%";
+     upgrade_image.style.height = "45vh";
+     upgrade_image.style.margin = "3%";
+     upgrade_image.style.backgroundRepeat = "no-repeat";
+     upgrade_image.style.backgroundSize = "100% 100%";
+     upgrade_box.appendChild(upgrade_image);
 
-    })
+ })
 }
 
 function remove_ship_button()

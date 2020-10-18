@@ -338,16 +338,16 @@ function cycle_button_click()
         all_teams[team_index].ship_list[selected_ship_index].upgrades.forEach(upgrade=>{
             var upgrade_div = document.createElement("div");
             upgrade_div.className = "card-type-image";
-            if(upgrade.is_dual_sided == true)
+            if(upgrade.upgrade.is_dual_sided == true)
             {
                 upgrade_div.style.border = "3px solid red";
                 if (upgrade.orientation == "front")
                 {
-                    upgrade_div.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";
                 }
                 else if(upgrade.orientation  == "back")
                 {
-                    upgrade_div.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[1]+"')";
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[1]+"')";
                 }
                 else
                 {
@@ -357,7 +357,7 @@ function cycle_button_click()
             }
             else
             {
-                upgrade_div.style.backgroundImage = "url('"+upgrade.image_path+"')";
+                upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
                 upgrade_div.style.border = "1px solid white";
             }
             upgrade_div.style.backgroundRepeat = "no-repeat";
@@ -407,18 +407,18 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     let yes_button = document.getElementById("yes-remove-button");//Used to set the type of card and index of that card if the yes button is pressed.
     if(card_type == "Upgrades")
     {
-        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].is_dual_sided == true)
+        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.is_dual_sided == true)
         {
             removal_image.style.border = "3px solid red";
             document.getElementById("flip-button-for-removal-pop-up").style.visibility ="Visible";
             document.getElementById("flip-button-for-removal-pop-up").onclick = function(){flip_button_click_for_dual_sided_upgrades('removal-image',index)};
             if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "front")
             {
-                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[0]+"')";
+                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path.split("\n")[0]+"')";
             }
             else if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "back")
             {
-                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split("\n")[1]+"')";
+                removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path.split("\n")[1]+"')";
             }
             else
             {
@@ -429,7 +429,7 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
         }
         else
         {
-            removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path+"')";
+            removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path+"')";
         }
         yes_button.onclick = function(){remove_card(card_type,index)};
     }
@@ -555,7 +555,7 @@ function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,inde
     let image_div = document.getElementById(flip_button_element_name);
     if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "front")
     {
-            image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split('\n')[1]+"')";
+            image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path.split('\n')[1]+"')";
             all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation = "back";
             card_type_label.textContent = "Conditions";
             cycle_button_click();
@@ -563,7 +563,7 @@ function flip_button_click_for_dual_sided_upgrades(flip_button_element_name,inde
     }
     else if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation == "back")
     {
-        image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].image_path.split('\n')[0]+"')";
+        image_div.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path.split('\n')[0]+"')";
         all_teams[team_index].ship_list[selected_ship_index].upgrades[index].orientation = "front";
         card_type_label.textContent = "Conditions";
         cycle_button_click();

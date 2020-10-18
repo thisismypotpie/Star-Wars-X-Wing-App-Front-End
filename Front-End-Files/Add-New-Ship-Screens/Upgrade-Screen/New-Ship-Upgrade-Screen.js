@@ -71,7 +71,6 @@ document.getElementById("close-button").addEventListener("click", function(){
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   console.log(ship_in_progress);
-  var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
 //Check if flip button is visible or not.
@@ -86,14 +85,14 @@ let grid_items = document.getElementsByClassName("grid-item");
 document.getElementById("next-selection").id = "empty";
 ship_in_progress.upgrades.forEach(upgrade =>{
    let element = document.getElementById("empty");
-   if(upgrade.is_dual_sided == true)//If it is a dual upgrade, show the first side of that upgrade.
+   if(upgrade.upgrade.is_dual_sided == true)//If it is a dual upgrade, show the first side of that upgrade.
    {
-    element.style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
+    element.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";
     element.style.border = "3px solid red";
    }
    else
    {
-    element.style.backgroundImage = "url('"+upgrade.image_path+"')";
+    element.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
    }
    element.addEventListener("click",function(){ //When you click each taken upgrade, you will be asked if you want to delete the upgrade.
       let overlay = document.getElementById("overlay");
@@ -101,18 +100,18 @@ ship_in_progress.upgrades.forEach(upgrade =>{
       overlay.style.opacity = 1;
       upgrade_removal_box.style.visibility = "visible";
       overlay.style.pointerEvents = "all";
-      if(upgrade.is_dual_sided == true)//If a dual sided upgrade is being deleted, split path to get only first side of upgrade.
+      if(upgrade.upgrade.is_dual_sided == true)//If a dual sided upgrade is being deleted, split path to get only first side of upgrade.
       {
-        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path.split("\n")[0]+"')";
+        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";
         document.getElementById("upgrade-photo").style.border = "3px solid red";
         document.getElementById("flip-button").style.visibility = "visible";
       }
       else
       {
-        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.image_path+"')";
+        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
         document.getElementById("upgrade-photo").style.border = "1px solid white";
       }
-      document.getElementById("upgrade-photo").setAttribute('name', upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.
+      document.getElementById("upgrade-photo").setAttribute('name', upgrade.upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.
    })
    element.id = "taken";
 })
@@ -150,7 +149,7 @@ document.getElementById("yes-button").addEventListener("click",function(){
   let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
   for(var i =0; i < ship_in_progress.upgrades.length;i++)
   {
-    if(ship_in_progress.upgrades[i].name == upgrade_name)
+    if(ship_in_progress.upgrades[i].upgrade.name == upgrade_name)
     {
      ship_in_progress.upgrades.splice(i,1);
      break;
@@ -185,33 +184,26 @@ function is_roster_number_taken(input_number)
 
 function flip_button_click()
 {
-  if(dual_card_back_showing == false)
-  {
     let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
     for(var i =0; i < ship_in_progress.upgrades.length;i++)
     {
-      if(ship_in_progress.upgrades[i].name == upgrade_name)
+      if(ship_in_progress.upgrades[i].upgrade.name == upgrade_name)
       {
-        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].image_path.split("\n")[1]+"')";
-        dual_card_back_showing = true;
+        if(ship_in_progress.upgrades[i].orientation == "front")
+        {
+          document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].upgrade.image_path.split("\n")[1]+"')";
+          ship_in_progress.upgrades[i].orientation = "back";
+        }
+        else
+        {
+          document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].upgrade.image_path.split("\n")[0]+"')";
+          ship_in_progress.upgrades[i].orientation = "front"
+        }
        break;
       }
     }
-  }
-  else
-  {
-    let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
-    for(var i =0; i < ship_in_progress.upgrades.length;i++)
-    {
-      if(ship_in_progress.upgrades[i].name == upgrade_name)
-      {
-        document.getElementById("upgrade-photo").style.backgroundImage = "url('"+ship_in_progress.upgrades[i].image_path.split("\n")[0]+"')";
-        dual_card_back_showing = false;
-       break;
-      }
-    }
-  }
 }
+
 
 //Flips the ship in the pilot picture.
 function flip_ship(){
