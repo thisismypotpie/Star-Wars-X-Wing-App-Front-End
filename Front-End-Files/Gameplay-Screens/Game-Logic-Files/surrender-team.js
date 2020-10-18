@@ -26,7 +26,8 @@ function surrender_team(team_index)
                     //move to movement phase.
                     sessionStorage.setItem("phase","movement");
                     sessionStorage.setItem("movement_attack_index",0);
-                    location.reload();
+                    check_if_game_over();
+                    //location.reload();
                     alert(name + "has surrendered.");
                 }
                 else
@@ -41,8 +42,9 @@ function surrender_team(team_index)
                     all_teams.splice(team_index,1);
                     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
                     sessionStorage.setItem("selected_ship_index",0);
-                    location.reload();
                     alert(name + "has surrendered.");
+                    check_if_game_over();
+                    //location.reload();
                 }
             }
             else if(sessionStorage.getItem("phase") == "movement")//movement phase.
@@ -84,8 +86,8 @@ function surrender_team(team_index)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
                                     alert(surrender_team_name+" has surrendered!");
-                                    location.reload();
                                     check_if_game_over();
+                                    //location.reload();
                                     return;
                                 }
                             }
@@ -132,8 +134,8 @@ function surrender_team(team_index)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
                                     alert(surrender_team_name+" has surrendered!");
-                                    location.reload();
                                     check_if_game_over();
+                                    //location.reload();
                                     return;
                                 }
                             }
@@ -184,8 +186,8 @@ function surrender_team(team_index)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
                                     alert(surrender_team_name+" has surrendered!");
-                                    location.reload();
                                     check_if_game_over();
+                                    //location.reload();
                                     return;
                                 }
                             }
@@ -207,7 +209,8 @@ function surrender_team(team_index)
                 sessionStorage.removeItem("team_index");
                 sessionStorage.removeItem("selected_ship_index");
                 end_of_round_procedures();
-                location.reload();
+                check_if_game_over();
+                //location.reload();
             }
             else//throw error.
             {
@@ -215,21 +218,45 @@ function surrender_team(team_index)
                 return;
             }
         }
+        else
+        {
+            var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+            all_teams.splice(team_index,1);
+            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            check_if_game_over();
+        }
     }
 }
 
 
 function check_if_game_over()
 {
+
     var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
     if(all_teams.length == 1)
     {
-        alert("winner!")
+        document.getElementById('notification-pop-up-title').textContent = all_teams[0].team_name+" is victorious! \n GAME OVER!";
+        show_pop_up("Notification-pop-up");
+        document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
+        var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+        sessionStorage.clear();
+        sessionStorage.setItem("game_data",JSON.stringify(game_data))
+
     }
     else if(all_teams.length == 0)
     {
-        alert("No teams, remain. Game over.")
+        document.getElementById('notification-pop-up-title').textContent = "All teams eliminated! \n GAME OVER!";
+        show_pop_up("Notification-pop-up");
+        document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
+        var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+        sessionStorage.clear();
+        sessionStorage.setItem("game_data",JSON.stringify(game_data))
     }
+    else
+    {
+        location.reload();
+    }
+    
 }
 
 function move_initiative_token_if_needed(team_index)
