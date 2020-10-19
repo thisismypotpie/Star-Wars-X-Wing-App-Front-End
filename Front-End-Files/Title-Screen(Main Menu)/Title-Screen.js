@@ -289,13 +289,14 @@ function add_ships_to_team(raw_data,all_teams)
         ship_in_progress.weapons_disabled_tokens = raw_ship.WeaponsDisabledTokens;
         
         //Still need to do upgrades, crit hits, and conditions.
-        ship_in_progress.upgrades = get_upgrades_for_ship(ship_in_progress,raw_ship);
+        //ship_in_progress.upgrades = get_upgrades_for_ship(ship_in_progress,raw_ship,raw_data.upgrade_data);
         ship_in_progress.conditions = get_conditions_for_ship(ship_in_progress,raw_ship);
         ship_in_progress.critical_hit_cards = get_crit_hit_cards_for_ship(ship_in_progress,raw_ship);
         //Add ship to correct team.
         all_teams[all_teams_map.indexOf(ship_in_progress.team_name)].ship_list.push(ship_in_progress);
         
     })
+    all_teams = get_upgrades_for_all_ships(all_teams,raw_data.upgrade_data);
     return all_teams;
 }
 
@@ -331,9 +332,39 @@ function determine_turn_info(raw_data)
   }
 }
 
-function get_upgrades_for_ship(ship,raw_ship)
+function get_upgrades_for_all_ships(all_teams,upgrade_data)
 {
-  if(raw_ship.Upgrades == null || raw_ship.Upgrades == undefined || raw_ship.Upgrades.length <= 0)//If there are no upgrades.
+  var all_upgrades = JSON.parse(sessionStorage.getItem("game_data")).all_upgrades;
+  var current_upgrade = undefined;
+  var current_roster = undefined;
+  var current_team_name = undefined;
+  upgrade_data.forEach(upgrade=>{
+    //Create the current upgrade.
+    current_upgrade = new in_game_upgrade(all_upgrades[upgrade_data.UpgradeID+1]);
+    current_upgrade.ordnance_tokens = upgrade.OrdnanceTokens;
+    current_upgrade.orientation = upgrade.orientation;
+
+    //Find the correct ship to give the upgrade to.
+    current_roster = upgrade.RosterNumber;
+    current_team_name = upgrade.TeamName;
+    for(var i=0; i < all_teams.length;i++)
+    {
+      if(current_team_name == all_teams.team_name)
+      {
+        for(var j=0;j < all_teams[i].ship_list.length;j++)
+        {
+           if(all_teams[i].ship_list[j].roster_number == current_roster)
+           {
+             all_teams[i].ship_list[j].upgrades.push(current_upgrade);
+             break;
+           }
+        }
+        break;
+      }
+    }
+  })
+  return all_teams;
+  /*if(raw_ship.Upgrades == null || raw_ship.Upgrades == undefined || raw_ship.Upgrades.length <= 0)//If there are no upgrades.
   {
     return [];
   }
@@ -349,7 +380,7 @@ function get_upgrades_for_ship(ship,raw_ship)
     console.log("index is: "+ upgrade_map.indexOf(current_id));
     upgrades.push(game_data.all_upgrades[upgrade_map.indexOf(current_id)]);
   })
-  return upgrades;
+  return upgrades;*/
 }
 
 function get_conditions_for_ship(ship,raw_ship)
