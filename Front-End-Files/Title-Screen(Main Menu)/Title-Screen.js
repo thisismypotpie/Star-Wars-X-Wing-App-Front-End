@@ -340,16 +340,16 @@ function get_upgrades_for_all_ships(all_teams,upgrade_data)
   var current_team_name = undefined;
   upgrade_data.forEach(upgrade=>{
     //Create the current upgrade.
-    current_upgrade = new in_game_upgrade(all_upgrades[upgrade_data.UpgradeID+1]);
+    current_upgrade = new in_game_upgrade(all_upgrades[upgrade.UpgradeID-1]);
     current_upgrade.ordnance_tokens = upgrade.OrdnanceTokens;
-    current_upgrade.orientation = upgrade.orientation;
+    current_upgrade.orientation = upgrade.Orientation;
 
     //Find the correct ship to give the upgrade to.
     current_roster = upgrade.RosterNumber;
     current_team_name = upgrade.TeamName;
     for(var i=0; i < all_teams.length;i++)
     {
-      if(current_team_name == all_teams.team_name)
+      if(current_team_name == all_teams[i].team_name)
       {
         for(var j=0;j < all_teams[i].ship_list.length;j++)
         {
