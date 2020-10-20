@@ -46,11 +46,18 @@
   
 <!--This is the code for the upgrade removal popup.-->
 <div class = "upgrade-removal-container" id = "upgrade-removal-box">
-  <div class = "upgrade-removal-header" >Remove This Upgrade?</div>
+  <div class = "upgrade-removal-header" >Upgrade Options</div>
   <button type = "button" class = "flip " id = "flip-button" onclick = "flip_button_click()">Flip</button>
   <div class = "upgrade-photo" id="upgrade-photo"></div>
-    <button type = "button" class = "no btn pop-up " id = "no-button">No</button>>
-    <button type = "button" class = "yes btn pop-up " id = "yes-button">Yes</button>>
+    <button type = "button" class = "no btn pop-up " id = "no-button" onclick="close_remove_upgrade_pop_up()">Back </button>>
+    <button type = "button" class = "yes btn pop-up " id = "yes-button" onclick="remove_upgrade()">Remove</button>>
+    <div id="ordnance-upgrade-container">
+      <button type="button" class = "btn pop-up" id = "subtract-ordnance-token">-</button>
+      <button type="button" class = "btn pop-up" id = "add-ordnance-token">+</button>
+      <div id ="ordnace-token-picture">
+        <div id = "token-quantity">X0</div>
+      </div>
+    </div>
 </div>
   </body>
   <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>

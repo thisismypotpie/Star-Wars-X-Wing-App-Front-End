@@ -40,6 +40,20 @@ ship_in_progress.upgrades.forEach(upgrade =>{
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
         document.getElementById("upgrade-photo").style.border = "1px solid white";
       }
+      //Checks to see if the upgrade you are bringing up is in the right category to have ordnance tokens.
+      if(upgrade.upgrade.type == "Bombs" || upgrade.upgrade.type == "Torpedoes" || upgrade.upgrade.type == "Missiles")
+      {
+         document.getElementById("ordnance-upgrade-container").style.visibility = "visible";
+
+         //Set the buttons so the correct upgrade stats are displayed and can be altered.
+         document.getElementById("token-quantity").textContent = "X"+upgrade.ordnance_tokens;
+         document.getElementById("subtract-ordnance-token").onclick =function(){subract_ordnance_token(upgrade)};
+         document.getElementById("add-ordnance-token").onclick =function(){add_ordnance_token(upgrade)};
+      }
+      else
+      {
+         document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
+      }
       document.getElementById("upgrade-photo").setAttribute('name', upgrade.upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.upgrade.
    })
    element.id = "taken";
@@ -56,37 +70,43 @@ next_upgrade_slot.addEventListener("click",function(){
   window.location.href = "./Upgrade-Type-Selection-Screen/upgrade-type-selection-screen.html";
 })
 
+function close_remove_upgrade_pop_up()
+{
+  let overlay = document.getElementById("overlay");
+  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+  overlay.style.opacity = 0;
+  upgrade_removal_box.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
+  document.getElementById("flip-button").style.visibility = "hidden";
+  document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
+  sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
+}
 
-//If you press the no button when asked if you want to delete an upgrade.upgrade.
-document.getElementById("no-button").addEventListener("click",function(){
-  let overlay = document.getElementById("overlay");
-  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-  overlay.style.opacity = 0;
-  upgrade_removal_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
-  document.getElementById("flip-button").style.visibility = "hidden";
-})
-//If you press the yes button when asked if you want to delete an upgrade.upgrade.
-document.getElementById("yes-button").addEventListener("click",function(){
-  let overlay = document.getElementById("overlay");
-  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-  overlay.style.opacity = 0;
-  upgrade_removal_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
-  document.getElementById("flip-button").style.visibility = "hidden";
-  //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
-  let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
-  for(var i =0; i < ship_in_progress.upgrades.length;i++)
-  {
-    if(ship_in_progress.upgrades[i].upgrade.name == upgrade_name)
-    {
-     ship_in_progress.upgrades.splice(i,1);
-     break;
-    }
-  }
+
+function remove_upgrade()
+{
+    let overlay = document.getElementById("overlay");
+    let upgrade_removal_box = document.getElementById("upgrade-removal-box");
+   overlay.style.opacity = 0;
+   upgrade_removal_box.style.visibility = "hidden";
+   overlay.style.pointerEvents = "none";
+   document.getElementById("flip-button").style.visibility = "hidden";
+   document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
+   //get the name of the upgrade, remove it from the ship's list of upgrades, then reload the page.
+   let upgrade_name = document.getElementById("upgrade-photo").getAttribute("name");
+   for(var i =0; i < ship_in_progress.upgrades.length;i++)
+   {
+     if(ship_in_progress.upgrades[i].upgrade.name == upgrade_name)
+     {
+      ship_in_progress.upgrades.splice(i,1);
+      break;
+     }
+   }
     sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-window.location.reload();
-})
+   window.location.reload();
+}
+
+
 //Check if flip button is visible or not.
 if(ship_in_progress.chosen_pilot.ship_name.ship_type == "largeTwoCard")
 {
@@ -186,6 +206,25 @@ function close_button_push()//close the roster number pop-up.
   roster_number_box.style.visibility = "hidden";
   overlay.style.pointerEvents = "none";
 
+}
+
+function subract_ordnance_token(upgrade)
+{
+  if(upgrade.ordnance_tokens > 0)
+  {
+    upgrade.ordnance_tokens--;
+
+  }
+  else
+  {
+    upgrade.ordnance_tokens = 0;
+  }
+  document.getElementById("token-quantity").textContent = "X"+upgrade.ordnance_tokens;
+}
+function add_ordnance_token(upgrade)
+{
+    upgrade.ordnance_tokens++;
+    document.getElementById("token-quantity").textContent = "X"+upgrade.ordnance_tokens;
 }
 
 //Key bindings
