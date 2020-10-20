@@ -122,6 +122,27 @@ function set_all_items()
      upgrade_image.style.margin = "3%";
      upgrade_image.style.backgroundRepeat = "no-repeat";
      upgrade_image.style.backgroundSize = "100% 100%";
+     upgrade_image.style.display = "grid";
+     upgrade_image.style.gridTemplateColumns = "repeat(2,calc(100%/2))";
+     upgrade_image.style.gridTemplateRows = "repeat(3,calc(100%/3))";
+
+        //Add ordnance tokens if they have any.
+        if(upgrade.ordnance_tokens > 0)
+        {
+            var ordnance_token_quantity = document.createElement("div");
+            ordnance_token_quantity.style.gridRow = "1";
+            ordnance_token_quantity.style.gridColumn = "2";
+            ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+            ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+            ordnance_token_quantity.style.backgroundSize = "100% 100%";
+            ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+            ordnance_token_quantity.style.fontSize = "xx-large";
+            ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+            ordnance_token_quantity.style.textAlign = "right"
+            ordnance_token_quantity.style.color = "white";
+            upgrade_image.appendChild(ordnance_token_quantity);
+        }
+
      upgrade_box.appendChild(upgrade_image);
 
  })
