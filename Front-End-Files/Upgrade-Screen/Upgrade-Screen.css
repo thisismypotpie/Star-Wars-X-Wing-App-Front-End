@@ -48,6 +48,9 @@ body{
     margin-left: 20%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: repeat(2,calc(100%/2));
+    grid-template-rows: repeat(3,calc(100%/3));
 }
 
 .button{
@@ -356,6 +359,9 @@ body{
         height: 35vh;
         width: 40vw;
         margin: 0%;
+        display: grid;
+        grid-template-columns: repeat(2,calc(100%/2));
+        grid-template-rows: repeat(3,calc(100%/3));
     }
 
     .one{

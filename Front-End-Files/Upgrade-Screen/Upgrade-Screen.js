@@ -22,6 +22,26 @@ ship_in_progress.upgrades.forEach(upgrade =>{
    else
    {
     element.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
+    if(upgrade.ordnance_tokens > 0)
+    {
+      if(document.getElementById("ordnance-token-quantity") != null)
+      {
+        document.getElementById("ordnance-token-quantity");
+      }
+      var ordnance_token_quantity = document.createElement("div");
+      ordnance_token_quantity.id = "ordnance-token-quantity"
+      ordnance_token_quantity.style.gridRow = "1";
+      ordnance_token_quantity.style.gridColumn = "2";
+      ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+      ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+      ordnance_token_quantity.style.backgroundSize = "100% 100%";
+      ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+      ordnance_token_quantity.style.fontSize = "xx-large";
+      ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+      ordnance_token_quantity.style.textAlign = "right"
+      ordnance_token_quantity.style.color = "white";
+      element.appendChild(ordnance_token_quantity);
+    }
    }
    element.addEventListener("click",function(){ //When you click each taken upgrade, you will be asked if you want to delete the upgrade.upgrade.
       let overlay = document.getElementById("overlay");
@@ -49,6 +69,27 @@ ship_in_progress.upgrades.forEach(upgrade =>{
          document.getElementById("token-quantity").textContent = "X"+upgrade.ordnance_tokens;
          document.getElementById("subtract-ordnance-token").onclick =function(){subract_ordnance_token(upgrade)};
          document.getElementById("add-ordnance-token").onclick =function(){add_ordnance_token(upgrade)};
+
+         //Show number of ordnance tokens on each affected upgrades.
+         if(upgrade.ordnance_tokens > 0)
+         {
+          if(document.getElementById("ordnance-token-quantity") != null)
+          {
+            document.getElementById("ordnance-token-quantity");
+          }
+           var ordnance_token_quantity = document.createElement("div");
+           ordnance_token_quantity.style.gridRow = "1";
+           ordnance_token_quantity.style.gridColumn = "2";
+           ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+           ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+           ordnance_token_quantity.style.backgroundSize = "100% 100%";
+           ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+           ordnance_token_quantity.style.fontSize = "xx-large";
+           ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+           ordnance_token_quantity.style.textAlign = "right"
+           ordnance_token_quantity.style.color = "white";
+           element.appendChild(ordnance_token_quantity);
+         }
       }
       else
       {
@@ -80,6 +121,7 @@ function close_remove_upgrade_pop_up()
   document.getElementById("flip-button").style.visibility = "hidden";
   document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
   sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
+  location.reload();
 }
 
 
