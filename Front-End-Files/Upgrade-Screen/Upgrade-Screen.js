@@ -22,27 +22,29 @@ ship_in_progress.upgrades.forEach(upgrade =>{
    else
    {
     element.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
-    if(upgrade.ordnance_tokens > 0)
-    {
-      if(document.getElementById("ordnance-token-quantity") != null)
-      {
-        document.getElementById("ordnance-token-quantity");
-      }
-      var ordnance_token_quantity = document.createElement("div");
-      ordnance_token_quantity.id = "ordnance-token-quantity"
-      ordnance_token_quantity.style.gridRow = "1";
-      ordnance_token_quantity.style.gridColumn = "2";
-      ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
-      ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
-      ordnance_token_quantity.style.backgroundSize = "100% 100%";
-      ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
-      ordnance_token_quantity.style.fontSize = "xx-large";
-      ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
-      ordnance_token_quantity.style.textAlign = "right"
-      ordnance_token_quantity.style.color = "white";
-      element.appendChild(ordnance_token_quantity);
-    }
    }
+   //Add orndance tokens if an upgrade has them.
+   if(upgrade.ordnance_tokens > 0)
+   {
+     if(document.getElementById("ordnance-token-quantity") != null)
+     {
+       document.getElementById("ordnance-token-quantity");
+     }
+     var ordnance_token_quantity = document.createElement("div");
+     ordnance_token_quantity.id = "ordnance-token-quantity"
+     ordnance_token_quantity.style.gridRow = "1";
+     ordnance_token_quantity.style.gridColumn = "2";
+     ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+     ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+     ordnance_token_quantity.style.backgroundSize = "100% 100%";
+     ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+     ordnance_token_quantity.style.fontSize = "xx-large";
+     ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+     ordnance_token_quantity.style.textAlign = "right"
+     ordnance_token_quantity.style.color = "white";
+     element.appendChild(ordnance_token_quantity);
+   }
+
    element.addEventListener("click",function(){ //When you click each taken upgrade, you will be asked if you want to delete the upgrade.upgrade.
       let overlay = document.getElementById("overlay");
       let upgrade_removal_box = document.getElementById("upgrade-removal-box");

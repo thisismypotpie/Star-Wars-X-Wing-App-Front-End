@@ -2,14 +2,11 @@
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
--Make a surrender button. If a team decides to surrender the game will end.
-
 -Add ordnance tokens to upgrades.
 
 Add tools button with the following tools:
 1. Add new ship mid-game
-2. Dice for other phases of the game besides the attack phase
-3. Notepad/reminders for player
+2. Notepad/reminders for player
 
 -Ships with dual sided upgrades, their orientation is not saved into the game.
 
