@@ -365,9 +365,27 @@ function cycle_button_click()
             upgrade_div.style.margin = "3%";
             upgrade_div.style.height = "75%";
             upgrade_div.style.flex = "0 0 90%";//Width is here.
+            upgrade_div.style.display = "grid";
+            upgrade_div.style.gridTemplateColumns = "repeat(2,calc(100%/2))";
+            upgrade_div.style.gridTemplateRows = "repeat(3,calc(100%/3))";
             let input_index = index_attribute;//I did that beccase as index attribute changed, it moved all of the previous cards to the same number rather than each card having its own index number.
             upgrade_div.onclick =function(){show_pop_up_with_card_type_and_index("card-removal-pop-up",input_index,card_type_label.textContent);};
             upgrade_div.setAttribute("index",index_attribute);
+            if(upgrade.ordnance_tokens > 0)
+            {
+                var ordnance_token_quantity = document.createElement("div");
+                ordnance_token_quantity.style.gridRow = "1";
+                ordnance_token_quantity.style.gridColumn = "2";
+                ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+                ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+                ordnance_token_quantity.style.backgroundSize = "100% 100%";
+                ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+                ordnance_token_quantity.style.fontSize = "xx-large";
+                ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+                ordnance_token_quantity.style.textAlign = "right"
+                ordnance_token_quantity.style.color = "white";
+                upgrade_div.appendChild(ordnance_token_quantity);
+            }
             card_list.appendChild(upgrade_div);
             index_attribute++;
         })
