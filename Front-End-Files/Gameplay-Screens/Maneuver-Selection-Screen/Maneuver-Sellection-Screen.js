@@ -415,7 +415,13 @@ function hide_pop_up(pop_up_id)
     overlay.style.opacity = 0;
     pop_up.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
+    if(pop_up_id == "card-removal-pop-up" && document.getElementById("ordnance-token-container").style.visibility == "visible")
+    {
+        document.getElementById("ordnance-token-container").style.visibility = "hidden";
+        location.reload();
+    }
 }
+
 //This function will make a pop up visible and have the card in question to remove or flip if it is a two sided upgrade.
 function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
 {
@@ -425,6 +431,7 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
     let yes_button = document.getElementById("yes-remove-button");//Used to set the type of card and index of that card if the yes button is pressed.
     if(card_type == "Upgrades")
     {
+
         if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.is_dual_sided == true)
         {
             removal_image.style.border = "3px solid red";
@@ -449,6 +456,45 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
         {
             removal_image.style.backgroundImage = "url('"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.image_path+"')";
         }
+        //If the current upgrade is eligable for an ordnance token.
+        if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.type == "Bombs" ||
+           all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.type == "Missiles" ||
+           all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.type == "Torpedoes")
+        {
+
+            document.getElementById("ordnance-token-container").style.visibility = "visible";
+
+            //Set the buttons so the correct upgrade stats are displayed and can be altered.
+            document.getElementById("token-quantity").textContent = "X"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens;
+            document.getElementById("subtract-ordnance-token").onclick =function(){subract_ordnance_token(index)};
+            document.getElementById("add-ordnance-token").onclick =function(){add_ordnance_token(index)};
+   
+            //Show number of ordnance tokens on each affected upgrades.
+            if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens > 0)
+            {
+             if(document.getElementById("ordnance-token-quantity") != null)
+             {
+               document.getElementById("ordnance-token-quantity");
+             }
+              var ordnance_token_quantity = document.createElement("div");
+              ordnance_token_quantity.style.gridRow = "2";
+              ordnance_token_quantity.style.gridColumn = "2";
+              //ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+              ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+              ordnance_token_quantity.style.backgroundSize = "100% 100%";
+              ordnance_token_quantity.textContent = "X"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens;
+              ordnance_token_quantity.style.fontSize = "xx-large";
+              ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+              //ordnance_token_quantity.style.textAlign = "right"
+              ordnance_token_quantity.style.color = "white";
+              ordnance_token_quantity.id = "token-quantity";
+              document.getElementById("ordnance-token-image").appendChild(ordnance_token_quantity);
+            }
+         }
+         else
+         {
+            document.getElementById("ordnance-token-container").style.visibility = "hidden";
+         }
         yes_button.onclick = function(){remove_card(card_type,index)};
     }
     else if(card_type == "Conditions")
@@ -898,4 +944,26 @@ if (isMobile) {
 
     revealTeammateManeuversBtn.onclick = revealTeamManeuvers;
     gridContainer.appendChild(revealTeammateManeuversBtn);
+
+}
+
+function subract_ordnance_token(index)
+{
+  if(    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens > 0)
+  {
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens--;
+
+  }
+  else
+  {
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens = 0;
+  }
+  document.getElementById("token-quantity").textContent = "X"+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens;
+  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+function add_ordnance_token(index)
+{
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens++;
+    document.getElementById("token-quantity").textContent = "X"+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens;
+    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }

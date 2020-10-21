@@ -533,7 +533,7 @@ Overlay and pop-up screens
     height: 50vh;
     width: 40%;
     margin-left: 5%;
-    margin-right: 30%;
+    margin-right: 2%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
@@ -554,6 +554,35 @@ Overlay and pop-up screens
 
 .removal-container-so-flip-button-and-image-can-be-inline{
     display: flex;
+}
+
+#ordnance-token-container{
+    display:grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(28,calc(100%/28));
+    width:30%;
+    visibility: hidden;
+}
+
+#add-ordnance-token{
+    grid-column: 4/9;
+    grid-row: 5/9;
+}
+
+#ordnance-token-image{
+    background-image: url("https://i.imgur.com/DztMvcD.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    grid-template-columns: repeat(2,calc(100%/2));
+    grid-template-rows: repeat(2,calc(100%/2));
+    display: grid;
+    grid-column: 3/10;
+    grid-row: 10/17;
+}
+
+#subtract-ordnance-token{
+    grid-column: 4/9;
+    grid-row: 18/22;
 }
 
 #flip-button-for-removal-pop-up{
