@@ -289,6 +289,7 @@ function start_game_button_click()
   {
     var buckets = bucket_sort_pilots_by_skill(all_teams);
     sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+    all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
     if(buckets.sorting_needed == true)
     {
       sessionStorage.setItem("buckets",JSON.stringify(buckets.sorted_buckets));
@@ -297,11 +298,17 @@ function start_game_button_click()
     else
     {
       sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+      all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
       var initiative_assignment = Math.floor(Math.random() * all_teams.length);
       all_teams[initiative_assignment].has_initiative_token = true;
       sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-      alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
-      window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+      show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
+
+      //Close the notification with this line of code.
+      document.getElementById("notification-ok-button").addEventListener("click",function(){
+        close_notification_pop_up();
+        window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+      })
     }
   }
 }
