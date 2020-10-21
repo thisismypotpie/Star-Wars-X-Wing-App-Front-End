@@ -2,13 +2,10 @@
 
 - Potentially add a reminder function that will keep reminders for the end of the round.
 
--Add ordnance tokens to upgrades.
 
 Add tools button with the following tools:
 1. Add new ship mid-game
-2. Notepad/reminders for player
-
--Ships with dual sided upgrades, their orientation is not saved into the game.
+2. Notepad/reminders for players
 
 -When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
 
@@ -21,6 +18,8 @@ Add tools button with the following tools:
 - There was a crash when Alex's team was eliminated.
 
 - There is an error with the key binding in the maneuver selection screen revolving around pressing the enter button to go to the next ship. It works fine in maneuver selection but gets stuck on the same ship when doing movement or attack phase.
+
+-Have dual sided upgrades change orietation on each upgrade screen and view as the flip button is pressed.
 
 
 
