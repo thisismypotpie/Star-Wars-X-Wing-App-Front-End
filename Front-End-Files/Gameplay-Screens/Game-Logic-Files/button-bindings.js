@@ -158,20 +158,36 @@ else if(document.getElementById("dice-container").style.visibility == "visible")
         return;
     }
 }
+else if(document.getElementById("token-quantity-pop-up").style.visibility == "visible")
+{
+    if(e.keyCode == 13)//close token augmentation pop up/enter-key
+    {
+        hide_pop_up('token-quantity-pop-up');
+        check_for_death();
+    }
+    else if(e.keyCode == e.keyCode == 68 || e.keyCode == 39)//increase token by one/-> key or a-key
+    {
+        //need to find a way to complete this.
+    }
+    else if(e.keyCode == 65 || e.keyCode == 37)//decrease token by one/-> key or d-key)
+    {
+        //need to find a way to complete this.
+    }
+
+}
 //Maneuver selection buttons.
 else
 {
     //maneuver selection if visible.
-    if(e.keyCode == 39 && document.getElementById("next-maneuver-button").style.visibility == "visible")//next maneuver.
+    if((e.keyCode == 68 || e.keyCode == 39)&& document.getElementById("next-maneuver-button").style.visibility != "hidden")//Next maneuver/d-key or -> key
     {
         next_maneuver_click();
     }
-    else if(e.keyCode == 37 && document.getElementById("previous-maneuver-button").style.visibility == "visible")//previous maneuver.
+    else if((e.keyCode == 65 || e.keyCode == 37)&& document.getElementById("previous-maneuver-button").style.visibility != "hidden")//previous maneuver/a-key of <- key.
     {
         previous_maneuver_click();
     }
-    //next ship
-    else if(e.keyCode == 13 && 1 ==2)//enter key
+    else if(e.keyCode == 13)//go to next ship/enter-key
     {
         if(sessionStorage.getItem("phase")!= null)
         {
@@ -193,7 +209,7 @@ else
             go_to_next_ship_maneuver_selection();
         }
     }
-    else if(e.keyCode == 27 || e.keyCode == 8)//escape key
+    else if(e.keyCode == 27 || e.keyCode == 8)//go to previous ship/escape-key or backspace
     {
         if(sessionStorage.getItem("team_index") == 0 )
         {
@@ -207,10 +223,64 @@ else
             main_back_button_click();
         }
     }
-    else if(e.keyCode == 67)//c key for cycling through card types.
+    else if(e.keyCode == 67)//cycle card type/c-key
     {
         cycle_button_click();
     }
+    else if(e.keyCode == 84)//target lock/t-key
+    {
+        show_pop_up('target-lock-pop-up');
+        target_lock_and_search_index = 0;
+        document.getElementById('target-team').textContent=all_teams[target_lock_and_search_index].team_name;
+        document.getElementById('roster-number-input-target-lock').focus();
+    }
+    else if(e.keyCode == 83)//search for ship/s-key
+    {
+        target_lock_and_search_index = 0;
+        show_pop_up('search-pop-up');
+        document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name;
+        document.getElementById('roster-number-input-search').focus();
+    }
+
+    //Key bindings for each of the tokens.
+    else if(e.keyCode == 49)//augment focus tokens/1-key
+    {
+        augment_token_quantity('focus_tokens','focus-token');
+    }
+    else if(e.keyCode == 50)//augment ion tokens/2-key
+    {
+        augment_token_quantity('ion_tokens','ion-token');
+    }
+    else if(e.keyCode == 51)//augment cloak tokens/3-key
+    {
+        augment_token_quantity('cloak_tokens','cloak-token');
+    }
+    else if(e.keyCode == 52)//augment evade tokens/4-key
+    {
+        augment_token_quantity('evade_tokens','evade-token');
+    }
+    else if(e.keyCode == 53)//augment jam tokens/5-key
+    {
+        augment_token_quantity('jam_tokens','jam-token');
+    }
+    else if(e.keyCode == 54)//augment reinforce tokens/6-key
+    {
+        augment_token_quantity('reinforce_tokens','reinforce-token');
+    }
+    else if(e.keyCode == 55)//augment stress tokens/7-key
+    {
+        augment_token_quantity('stress_tokens','stress-token');
+    }
+    else if(e.keyCode == 56)//augment weapons disabled tokens/8-key
+    {
+        augment_token_quantity('weapons_disabled_tokens','weapons-disabled-token');
+    }
+    else if(e.keyCode == 57)//augment tractor beam tokens/9-key
+    {
+        augment_token_quantity('tractor_beam_tokens','tractor-beam-token');
+    }
+
+
 }
 
 }

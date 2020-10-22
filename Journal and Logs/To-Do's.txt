@@ -6,18 +6,15 @@
 Add tools button with the following tools:
 1. Add new ship mid-game
 2. Notepad/reminders for players
+3. Going back to the main menu from the options tab.
 
 -When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
-
--Convert as many alert messages as you can into the notification pop-up.
 
 - Add key bindings for the token and stat change pop-ups. These will be a bit harder as they will not fit comfortably into the button-bindings.js page.
 
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 
 - There was a crash when Alex's team was eliminated.
-
-- There is an error with the key binding in the maneuver selection screen revolving around pressing the enter button to go to the next ship. It works fine in maneuver selection but gets stuck on the same ship when doing movement or attack phase.
 
 -Have dual sided upgrades change orietation on each upgrade screen and view as the flip button is pressed.
 
