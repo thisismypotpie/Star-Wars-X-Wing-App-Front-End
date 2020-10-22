@@ -238,7 +238,6 @@ function ok_button_push()
       sessionStorage.removeItem("ship_in_progress");
       window.location.href = "../../Maneuver-Selection-Screen/Maneuver-Sellection-Screen.js";
 
-      var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 }
 
 function close_button_push()//close the roster number pop-up.

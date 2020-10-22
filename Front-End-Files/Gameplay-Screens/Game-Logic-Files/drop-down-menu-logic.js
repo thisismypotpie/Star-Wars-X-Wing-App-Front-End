@@ -73,9 +73,9 @@ function notes_click()
 
 function add_new_ship_click()
 {
-    alert("add new ship click")
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
+    window.location.href = "../Add-New-Ship-In-Game/Ship-Selection-In-Game/Ship-Selection-In-Game.html";
 }
 
 function surrender_click()

@@ -142,7 +142,8 @@ window.location.href = "../Ship-Selection-In-Game/Ship-Selection-In-Game.html";
 function select_button_click()
 {
     //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
-    let team_name = JSON.parse(sessionStorage.getItem("new_team")).team_name;
+    let team_index = parseInt(sessionStorage.getItem("team_index"),10);
+    let team_name = JSON.parse(sessionStorage.getItem("all_teams"))[team_index].team_name;
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
       sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index],team_name)));
