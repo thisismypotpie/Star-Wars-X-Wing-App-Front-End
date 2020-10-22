@@ -33,22 +33,30 @@ for(var i = selected_index; i < buckets.length;i++)
     }
     if(i >= buckets.length-1)
     {
-        var sorting_done = confirm("Soring is complete, continue to maneuver selection?");
-        if(sorting_done == true)
-        {
+        move_translate_vectors_for_confirmation_pop_up(75,-750);
+        show_confirmation_pop_up("Sorting Complete. Would you like to begin the game?");
+        //Set up confirmation yes button to see if the user wants to move to maneuver selection.
+        document.getElementById("confirmation-yes-button").onclick = ()=>{
+            close_confirmation_pop_up();
             sort_pilots_by_skill_and_overwrite_all_teams(buckets);
             all_teams = JSON.parse(sessionStorage.getItem("all_teams"));//This is to set all teams to the version manipulated by the function on the previous line.
             sessionStorage.removeItem("buckets");
             sessionStorage.removeItem("indecies");
             var initiative_assignment = Math.floor(Math.random() * all_teams.length);
             all_teams[initiative_assignment].has_initiative_token = true;
-            alert(all_teams[initiative_assignment].team_name + " has been given first initiative!");
+
+            //Notify the user that the game has begun.
+            move_translate_vectors_for_notification_pop_up(75,-800);
+            show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
+              document.getElementById("notification-ok-button").onclick = function(){
+              close_notification_pop_up();
+              window.location.href = "../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+            }
             sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-            window.location.href = "../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
         }
-        else
-        {
-            back_button_click();
+        //Set up confirmation no button.
+        document.getElementById("confirmation-no-button").onclick = ()=>{
+            close_confirmation_pop_up();
         }
     }
 }
@@ -104,7 +112,13 @@ function done_button_click()
 {
     if(document.getElementsByClassName("unsorted-ship-image").length > 0)
     {
-        alert("Please sort all ships before continuing.");
+        //Notify the user that the game has begun.
+        move_translate_vectors_for_notification_pop_up(75,-800);
+        show_notification_pop_up("Please sort all ships before continuing.");
+        document.getElementById("notification-ok-button").onclick = function(){
+            close_notification_pop_up();
+          }
+        //alert("Please sort all ships before continuing.");
     }
     else
     {

@@ -71,3 +71,8 @@ function close_notification_pop_up()
     document.getElementById("notification-pop-up-container").style.visibility = "hidden";
     document.getElementById("notification-overlay").style.pointerEvents = "none";
 }
+
+function move_translate_vectors_for_notification_pop_up(one,two)
+{
+    document.getElementById("notification-pop-up-container").style.transform = "translate("+one+"%,"+two+"%)";
+}

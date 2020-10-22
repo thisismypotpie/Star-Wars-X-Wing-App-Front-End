@@ -305,10 +305,10 @@ function start_game_button_click()
       show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
 
       //Close the notification with this line of code.
-      document.getElementById("notification-ok-button").addEventListener("click",function(){
+        document.getElementById("notification-ok-button").onclick = function(){
         close_notification_pop_up();
         window.location.href = "../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
-      })
+      }
     }
   }
 }
