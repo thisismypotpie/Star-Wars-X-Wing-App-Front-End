@@ -31,6 +31,8 @@ function augment_stat_quantity(token_type,parent_image,parent_text)
     let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
     eval(eval_string);
     show_pop_up('token-quantity-pop-up');
+    token_type_for_key_bindings = token_type;
+    parent_id_for_key_bindings = parent_text;
     document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_text)};
     document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_text)};
 }

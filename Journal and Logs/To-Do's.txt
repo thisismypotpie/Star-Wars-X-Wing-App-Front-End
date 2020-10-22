@@ -1,16 +1,9 @@
 - I need clearer rules when it comes to when one can change their pilot skill.
 
-- Potentially add a reminder function that will keep reminders for the end of the round.
-
-
 Add tools button with the following tools:
 1. Add new ship mid-game
 2. Notepad/reminders for players
 3. Going back to the main menu from the options tab.
-
--When a ship is crippled, make it show up when you hit zero hull instead of havnig to press the flip button twice.
-
-- Add key bindings for the token and stat change pop-ups. These will be a bit harder as they will not fit comfortably into the button-bindings.js page.
 
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 

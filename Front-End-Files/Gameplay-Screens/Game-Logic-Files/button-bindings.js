@@ -268,6 +268,10 @@ else
         document.getElementById('target-team-search').textContent=all_teams[target_lock_and_search_index].team_name;
         document.getElementById('roster-number-input-search').focus();
     }
+    else if(e.keyCode == 70 && document.getElementById("flip-button").style.visibility == "visible")
+    {
+        flip_button_click_for_large_ships('pilot-image')
+    }
 
     //Key bindings for each of the tokens.
     else if(e.keyCode == 49)//augment focus tokens/1-key
