@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="Selection-Screen.css" />
+    <title>Star Wars X-Wing</title>
+
+    <div class = "flex-item title">Ship Selection</div>
+
+    <div class = "subtitles">
+        <span class = "list-box-title Faction">Faction</span>
+        <span class = "list-box-title Ship-Size">Ship Size</span>
+        <span class = "list-box-title Ship">Ship</span>
+    </div>
+
+    <section class="list-box-container">
+        
+        <div class = "list-box faction-box">
+      <ul class = "list-box-items faction-items"
+            role="listbox"
+            aria-labelledby="Faction"
+            aria-activedescendant="empire">
+        <li class = "list_options faction-option" tabindex ="0" role = "option" id = "imperial">Galactic Empire</li>
+        <li class = "list_options faction-option" tabindex ="1" role = "option" id = "rebels">Rebel Alliance</li>
+        <li class = "list_options faction-option" tabindex ="2" role = "option" id = "scum">Scum and Villainy</li>
+        </ul>
+        </div>
+       
+        <div class = "list-box size-box">
+            <ul class = "list-box-items size-items"
+            role="listbox"
+            aria-labelledby="Ship-Size">
+            <li class = "list_options ship-size-option" tabindex ="3" role = "option" id ="small">Small</li>
+            <li class = "list_options ship-size-option" tabindex ="4" role = "option" id = "medium">Medium</li>
+            <li class = "list_options ship-size-option" tabindex ="5" role = "option" id = "large">Large</li>
+        </ul>
+        </div>
+       
+        <div class = "list-box ship-box">
+            <ul class = "list-box-items ship-items"
+            id = "ship-box-list"
+            role="listbox"
+            aria-labelledby="Ship"></ul>
+        </div>
+    </section>
+
+    <button type="button" class = "button back" id = "back-button">Back</button>
+
+  </head>
+  <script type="text/javascript" src="../../../JS Data Classes/In-Game-Variants.js"></script>
+  <script type="text/javascript" src="Ship-Selection-In-Game.js"></script>
+  <body>
+
+  </body>
+</html>

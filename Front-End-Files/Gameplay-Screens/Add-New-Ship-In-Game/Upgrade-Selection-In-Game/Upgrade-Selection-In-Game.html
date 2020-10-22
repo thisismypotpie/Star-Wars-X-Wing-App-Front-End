@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="Upgrade-Screen.css" />
+    <title>Star Wars X-Wing</title>
+
+  </head>
+  <body>
+    <div class = "title">Upgrade Selection</div>
+
+    <section class = "flex-container">
+      <div class = "picture pilot-picture" id = "pilot-picture"></div>
+      <section class="grid-container">
+        <div class = "grid-item one" id = "next-selection"></div>
+        <div class = "grid-item two"id = "empty"></div>
+        <div class = "grid-item three"id = "empty"></div>
+        <div class = "grid-item four"id = "empty"></div>
+        <div class = "grid-item five"id = "empty"></div>
+        <div class = "grid-item six"id = "empty"></div>
+        <div class = "grid-item seven"id = "empty"></div>
+        <div class = "grid-item eight"id = "empty"></div>
+        <div class = "grid-item nine"id = "empty"></div>
+        <div class = "grid-item ten"id = "empty"></div>
+        <div class = "grid-item eleven"id = "empty"></div>
+        <div class = "grid-item twelve"id = "empty"></div>
+      </section>
+      <button type="button" class = "button back" id = "back-button" onclick="back_button_push()"> Back</button>
+      <button type="button" class = "button done" id = "done-button" onclick ="done_button_push()">Done</button>
+      <button type="button" class = "button main-flip" id = "main-flip-button" onclick="flip_ship()">Flip</button>
+    </section>
+<!-- This is the code for the roster number popup.-->
+  <div class = "roster-number-container" id = "roster-number-box">
+    <div class = roster-number-header>Roster Number</div>
+    <input type = "text"
+    id = "roster-number-input" />
+    <div id = "pop-up-button-container">
+      <button type = "button" class = "btn pop-up close" id = "close-button" onclick="close_button_push()">Close</button>
+      <button type = "button" class = "btn pop-up ok" id="ok-button" onclick = "ok_button_push()">OK</button>
+    </div>
+  </div>
+  <!--This is the code for the overlay.-->
+  <div id = "overlay"></div>
+  
+<!--This is the code for the upgrade removal popup.-->
+<div class = "upgrade-removal-container" id = "upgrade-removal-box">
+  <div class = "upgrade-removal-header" >Upgrade Options</div>
+  <button type = "button" class = "flip " id = "flip-button" onclick = "flip_button_click()">Flip</button>
+  <div class = "upgrade-photo" id="upgrade-photo"></div>
+    <button type = "button" class = "no btn pop-up " id = "no-button" onclick="close_remove_upgrade_pop_up()">Back </button>>
+    <button type = "button" class = "yes btn pop-up " id = "yes-button" onclick="remove_upgrade()">Remove</button>>
+    <div id="ordnance-upgrade-container">
+      <button type="button" class = "btn pop-up" id = "subtract-ordnance-token">-</button>
+      <button type="button" class = "btn pop-up" id = "add-ordnance-token">+</button>
+      <div id ="ordnace-token-picture">
+        <div id = "token-quantity">X0</div>
+      </div>
+    </div>
+</div>
+  </body>
+  <script type="text/javascript" src="../../../JS Data Classes/In-Game-Variants.js"></script>
+  <script type="text/javascript" src="./Upgrade-Selection-In-Game.js"></script>
+</html>
