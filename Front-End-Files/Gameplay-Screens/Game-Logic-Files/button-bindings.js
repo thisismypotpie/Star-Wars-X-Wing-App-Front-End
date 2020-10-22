@@ -158,6 +158,33 @@ else if(document.getElementById("dice-container").style.visibility == "visible")
         return;
     }
 }
+else if(document.getElementById("card-removal-pop-up").style.visibility == "visible")
+{
+    if(e.keyCode == 27 || e.keyCode == 8)//go back from card removeal pop-up/esc-key or backspace
+    {
+        hide_pop_up('card-removal-pop-up');
+        document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';
+        document.getElementById('removal-image').style.border = '1px solid white'
+    }
+    else if(document.getElementById("flip-button-for-removal-pop-up").style.visibility == "visible"
+            && e.keyCode == 70)//flip dual sided upgrade/f-key
+    {
+        //flip_button_upgrade_index_for_key_bindings is defined at the top of the maneuver selection screen .js.
+        flip_button_click_for_dual_sided_upgrades('removal-image',upgrade_index_for_key_bindings);
+    }
+    //To increase/decrease ordnance tokens.
+    else if(document.getElementById("ordnance-token-container").style.visibility == "visible")
+    {
+        if(e.keyCode == 38 || e.keyCode == 87) //Add ordnance tokens/ Up arrow or w-key.
+        {
+            add_ordnance_token(upgrade_index_for_key_bindings);
+        }
+        else if(e.keyCode == 40 || e.keyCode == 83)//Subtract ordnance tokens/ down arrow or s-key.
+        {
+            subract_ordnance_token(upgrade_index_for_key_bindings);
+        }
+    }
+}
 else if(document.getElementById("token-quantity-pop-up").style.visibility == "visible")
 {
     if(e.keyCode == 13)//close token augmentation pop up/enter-key
@@ -165,13 +192,13 @@ else if(document.getElementById("token-quantity-pop-up").style.visibility == "vi
         hide_pop_up('token-quantity-pop-up');
         check_for_death();
     }
-    else if(e.keyCode == e.keyCode == 68 || e.keyCode == 39)//increase token by one/-> key or a-key
+    else if(e.keyCode == 68 || e.keyCode == 39)//increase token by one/-> key or a-key
     {
-        //need to find a way to complete this.
+        plus_button_click(token_type_for_key_bindings,parent_id_for_key_bindings);
     }
     else if(e.keyCode == 65 || e.keyCode == 37)//decrease token by one/-> key or d-key)
     {
-        //need to find a way to complete this.
+        minus_button_click(token_type_for_key_bindings,parent_id_for_key_bindings);
     }
 
 }

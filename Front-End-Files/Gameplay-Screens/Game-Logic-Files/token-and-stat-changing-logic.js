@@ -8,6 +8,8 @@ function augment_token_quantity(token_type,parent_id)
     let eval_string = "document.getElementById('token-quantity').textContent = 'x'+all_teams[team_index].ship_list[selected_ship_index]."+token_type;
     eval(eval_string);
     show_pop_up('token-quantity-pop-up');
+    token_type_for_key_bindings = token_type;
+    parent_id_for_key_bindings = parent_id;
     document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_id)};
     document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_id)};
 

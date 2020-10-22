@@ -9,6 +9,11 @@ var team_index = sessionStorage.getItem("team_index");//Used to determine what t
 var condition_index = 0;//Used when selecting a conditions to add to a ship.
 var target_lock_and_search_index = 0;//Used when the target lock pop up is used to show which team is being displayed.
 
+//These are the variables needed to grab for key bindings.
+var upgrade_index_for_key_bindings = undefined;//used for upgrade flip and ordnance tokens.
+var token_type_for_key_bindings = undefined;//used for augmenting tokens.
+var parent_id_for_key_bindings = undefined;//used for autmenting tokens.
+
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
@@ -425,6 +430,9 @@ function hide_pop_up(pop_up_id)
 //This function will make a pop up visible and have the card in question to remove or flip if it is a two sided upgrade.
 function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
 {
+    //for key bindings.
+    upgrade_index_for_key_bindings = index;
+
     let pop_up = document.getElementById(pop_up_id);
     let overlay = document.getElementById("overlay");
     let removal_image = document.getElementById("removal-image");
@@ -470,8 +478,6 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
             document.getElementById("add-ordnance-token").onclick =function(){add_ordnance_token(index)};
    
             //Show number of ordnance tokens on each affected upgrades.
-            if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens > 0)
-            {
              if(document.getElementById("ordnance-token-quantity") != null)
              {
                document.getElementById("ordnance-token-quantity");
@@ -489,7 +495,6 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
               ordnance_token_quantity.style.color = "white";
               ordnance_token_quantity.id = "token-quantity";
               document.getElementById("ordnance-token-image").appendChild(ordnance_token_quantity);
-            }
          }
          else
          {
