@@ -212,6 +212,8 @@ function done_button_push()
 
 function ok_button_push()
 {
+     var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+     var roster_number_in_progress = parseInt(document.getElementById("roster-number-input").value,10);
     //Add roster number to ship and add new team to all teams.
       //Validate input and then add roster number to ship in progress.
       if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
@@ -222,22 +224,40 @@ function ok_button_push()
       }
       else
       {
-         ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
+         //Check roster number to see if it already exists on this team.
+         let team_index = parseInt(sessionStorage.getItem("team_index"),10);
+         all_teams[team_index].ship_list.forEach(ship=>{
+          if(ship.roster_number == roster_number_in_progress)
+          {
+             alert("That roster number is already in use.")
+             document.getElementById("roster-number-input").value = "";
+             return;
+          }
+        })
+        ship_in_progress.roster_number = roster_number_in_progress;
+        //Add your ship to the correct pilot skill area.
+        var ship_inserted = false;
+        for(var i=0; i < all_teams[team_index].ship_list.length;i++)
+        {
+          if(all_teams[team_index].ship_list[i].current_pilot_skill > ship_in_progress.current_pilot_skill)
+          {
+            all_teams[team_index].ship_list.splice(i,0,ship_in_progress);
+            ship_inserted = true;
+            break;
+          }
+        }
+        if(ship_inserted == false)
+        {
+          all_teams[team_index].ship_list.push(ship_in_progress);
+        }
+        sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
+
+        //remove all items that are no longer being used.
+        sessionStorage.removeItem("chosenShip");
+        sessionStorage.removeItem("new_team");
+        sessionStorage.removeItem("ship_in_progress");
+        window.location.href = "../../Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
       }
-      // Add ship to the new team, then add the new team to all teams.
-      let new_team = JSON.parse(sessionStorage.getItem("new_team"));
-      new_team.ship_list.push(ship_in_progress);
-      let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-      all_teams.push(new_team);
-      console.log(all_teams);
-      sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
-
-      //remove all items that are no longer being used.
-      sessionStorage.removeItem("chosenShip");
-      sessionStorage.removeItem("new_team");
-      sessionStorage.removeItem("ship_in_progress");
-      window.location.href = "../../Maneuver-Selection-Screen/Maneuver-Sellection-Screen.js";
-
 }
 
 function close_button_push()//close the roster number pop-up.

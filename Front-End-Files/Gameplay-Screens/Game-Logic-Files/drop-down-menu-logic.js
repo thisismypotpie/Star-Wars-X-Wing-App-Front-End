@@ -103,3 +103,18 @@ function clear_modules()
     document.getElementById("number-of-defending-dice").style.visibility = "hidden";
     document.getElementById("dice-container").style.visibility = "hidden"
 }
+
+function go_back_to_main_menu()
+{
+    show_confirmation_pop_up("Go back to main menu? All unsaved progress will be lost!");
+    document.getElementById("confirmation-yes-button").onclick = ()=>{
+        close_confirmation_pop_up();
+        var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+        sessionStorage.clear();
+        sessionStorage.setItem("game_data",JSON.stringify(game_data));
+        window.location.href = "../../Title-Screen(Main Menu)/index.html";
+    }
+    document.getElementById("confirmation-no-button").onclick =  ()=>{
+        close_confirmation_pop_up();
+    }
+}

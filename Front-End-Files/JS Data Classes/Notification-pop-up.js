@@ -76,3 +76,13 @@ function move_translate_vectors_for_notification_pop_up(one,two)
 {
     document.getElementById("notification-pop-up-container").style.transform = "translate("+one+"%,"+two+"%)";
 }
+
+function change_z_index_of_notification_container(newZIndex)
+{
+    document.getElementById("notification-pop-up-container").style.zIndex = toString(newZIndex)
+}
+
+function change_z_index_of_notification_overlay(newZIndex)
+{
+    document.getElementById("notification-overlay").style.zIndex = toString(newZIndex)
+}
