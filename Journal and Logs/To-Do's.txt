@@ -1,9 +1,7 @@
 - I need clearer rules when it comes to when one can change their pilot skill.
 
 Add tools button with the following tools:
-1. Add new ship mid-game
 2. Notepad/reminders for players
-3. Going back to the main menu from the options tab.
 
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 
