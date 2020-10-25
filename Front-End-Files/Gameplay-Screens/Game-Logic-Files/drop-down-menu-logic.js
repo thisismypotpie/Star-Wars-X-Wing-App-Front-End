@@ -65,7 +65,6 @@ function dice_click()
 
 function notes_click()
 {   
-    alert("notes click!")
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
     show_reminder_pop_up();
