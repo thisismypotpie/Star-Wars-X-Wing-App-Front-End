@@ -72,18 +72,46 @@ checkbox_container.appendChild(checkbox_title);
 //Create each option
 for(var i=0; i < 8;i++)
 {
-    var new_option = document.createElement("input")
-    new_option.type = "checkbox";
-    new_option.id = "check-option"+(i+1);
-    new_option.gridColumn= "1";
-    new_option.gridRow = (i+2).toString();
-    new_option.style.border = "1px solid brown";
-    new_option.style.fontFamily = "Impact, Charcoal, sans-serif";
-    new_option.style.color = "white"
-    new_option.style.fontSize = "1.5vw";
-    new_option.innerHTML = "test";
-    checkbox_container.appendChild(new_option);
+    var option_container = document.createElement("div");
+    option_container.id = "option-container";
+    option_container.style.display = "grid";
+    option_container.style.gridTemplateColumns = "repeat(10,calc(100%/10))"
+    option_container.style.gridTemplateRows = "repeat(1,calc(100%/1))";
+    option_container.gridColumn= "1";
+    option_container.gridRow = (i+2).toString();
+
+
+    var option_checkbox = document.createElement("input")
+    option_checkbox.type = "checkbox";
+    option_checkbox.id = "check-option"+(i+1);
+    option_checkbox.style.gridRow = "1";
+    option_checkbox.style.gridColumn = "1";
+    option_container.appendChild(option_checkbox);
+    
+    var option_label = document.createElement('div');
+    option_label.style.border = "1px solid brown";
+    option_label.id = "check-label"+(i+1);
+    option_label.style.fontFamily = "Impact, Charcoal, sans-serif";
+    option_label.style.color = "white"
+    option_label.style.fontSize = "1.5vw";
+    option_label.textContent = "test";
+    option_label.style.gridRow = "1";
+    option_label.style.gridColumn = "2/11";
+    option_label.style.textAlign = "left";
+    option_container.appendChild(option_label);
+
+
+    checkbox_container.appendChild(option_container);
 }
+document.getElementById("check-label1").textContent = "When it's this ship's turn";
+document.getElementById("check-label2").textContent = "When this ship is Targetted";
+document.getElementById("check-label3").textContent = "End of Maneuver Selection Phase";
+document.getElementById("check-label4").textContent = "Beginning of Movement Phase";
+document.getElementById("check-label5").textContent = "End of Movement Phase";
+document.getElementById("check-label6").textContent = "Beginning of Attack Phase";
+document.getElementById("check-label7").textContent = "End of Round";
+document.getElementById("check-label8").textContent = "Beginning of Round";
+
 
 
 //Create back button
@@ -108,12 +136,52 @@ create_button.textContent = "Create";
 container.appendChild(create_button);
 
 //Create message div
-var message = document.createElement("div");
-message.id = "message-box";
-message.style.border = "1px solid orange";
-message.style.gridColumn = "10/24";
-message.style.gridRow = "4/21";
-container.appendChild(message);
+var message_container = document.createElement("div");
+message_container.id = "message-container";
+message_container.style.border = "1px solid orange";
+message_container.style.gridColumn = "10/24";
+message_container.style.gridRow = "4/21";
+message_container.style.display = "grid";
+message_container.style.gridTemplateColumns = "repeat(12,calc(100%/12))"
+message_container.style.gridTemplateRows = "repeat(12,calc(100%/12))"
+container.appendChild(message_container);
+
+//Create new reminder title
+var add_reminder_title = document.createElement("div");
+add_reminder_title.style.gridRow = "1";
+add_reminder_title.style.gridColumn = "1/13";
+add_reminder_title.style.border = "1px solid cyan";
+add_reminder_title.style.fontFamily = "Impact, Charcoal, sans-serif";
+add_reminder_title.style.fontSize = "2.5vw";
+add_reminder_title.style.color = "white"
+add_reminder_title.textContent = "Add A Reminder"
+message_container.appendChild(add_reminder_title);
+
+//Player title
+var team_title = document.createElement("div");
+team_title.style.gridRow = "2";
+team_title.style.gridColumn = "1/3";
+team_title.style.border = "1px solid cyan";
+team_title.style.fontFamily = "Impact, Charcoal, sans-serif";
+team_title.style.fontSize = "2vw";
+team_title.style.color = "white"
+team_title.textContent = "Team: "
+team_title.style.textAlign = "left"
+message_container.appendChild(team_title);
+
+//Reminder team name
+var reminder_team_name = document.createElement("div");
+reminder_team_name.style.gridRow = "2";
+reminder_team_name.style.gridColumn = "3/8";
+reminder_team_name.style.border = "1px solid brown";
+reminder_team_name.style.fontFamily = "Impact, Charcoal, sans-serif";
+reminder_team_name.style.fontSize = "2vw";
+reminder_team_name.style.color = "white"
+reminder_team_name.textContent = "test test test test"
+reminder_team_name.style.textAlign = "left"
+message_container.appendChild(reminder_team_name);
+
+
 
 function show_reminder_pop_up()
 {
