@@ -172,7 +172,7 @@ message_container.appendChild(team_title);
 //Reminder team name
 var reminder_team_name = document.createElement("div");
 reminder_team_name.style.gridRow = "2";
-reminder_team_name.style.gridColumn = "3/8";
+reminder_team_name.style.gridColumn = "3/9";
 reminder_team_name.style.border = "1px solid brown";
 reminder_team_name.style.fontFamily = "Impact, Charcoal, sans-serif";
 reminder_team_name.style.fontSize = "2vw";
@@ -181,6 +181,30 @@ reminder_team_name.textContent = "test test test test"
 reminder_team_name.style.textAlign = "left"
 message_container.appendChild(reminder_team_name);
 
+//Add roster number title
+var roster_number_title = document.createElement("div");
+roster_number_title.style.gridRow = "2";
+roster_number_title.style.gridColumn = "9/11";
+roster_number_title.style.border = "1px solid brown";
+roster_number_title.style.fontFamily = "Impact, Charcoal, sans-serif";
+roster_number_title.style.fontSize = "2vw";
+roster_number_title.style.color = "white"
+roster_number_title.textContent = "Roster:"
+roster_number_title.style.textAlign = "center"
+message_container.appendChild(roster_number_title);
+
+//Add roster number input
+var roster_entry = document.createElement("input");
+roster_entry.id = "roster-entry";
+roster_entry.type = "text";
+roster_entry.style.backgroundColor = "black";
+roster_entry.style.color = "white";
+roster_entry.style.fontFamily = "Impact, Charcoal, sans-serif";
+roster_entry.style.fontSize = "2vw";
+roster_entry.style.textAlign ="center";
+roster_entry.style.gridRow = "2";
+roster_entry.style.gridColumn = "11/13";
+message_container.appendChild(roster_entry);
 
 
 function show_reminder_pop_up()

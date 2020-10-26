@@ -202,6 +202,10 @@ else if(document.getElementById("token-quantity-pop-up").style.visibility == "vi
     }
 
 }
+else if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
+{
+    return;
+}
 //Maneuver selection buttons.
 else
 {
