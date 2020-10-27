@@ -9,7 +9,7 @@ overlay.style.right = "0";
 overlay.style.bottom = "0";
 overlay.style.backgroundColor = "rgba(0,0,0,.5)";
 overlay.style.pointerEvents = "none";
-overlay.style.zIndex = "0";
+overlay.style.zIndex = "200";
 document.body.appendChild(overlay);
 
 
@@ -21,11 +21,12 @@ container.style.left = "50%";
 container.style.top = "50%";
 container.style.transform = "translate(75%,-225%)";
 container.style.border = "5px solid white";
-container.style.zIndex = "100";
+container.style.zIndex = "250";
 container.style.background = "url('https://i.imgur.com/nIM4P1r.jpg')";
 container.style.width = "40%";
 container.style.visibility = "hidden";
 container.style.textAlign = "center";
+container.style.position = "absolute";
 document.body.appendChild(container);
 
 //Create notification message.

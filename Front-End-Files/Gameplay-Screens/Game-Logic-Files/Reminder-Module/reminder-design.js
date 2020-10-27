@@ -15,10 +15,10 @@ document.body.appendChild(overlay);
 //Create reminder pop-up-container
 var container = document.createElement("div");
 container.id="reminder-pop-up-container";
-container.style.position = "relative";
+container.style.position = "absolute";
 container.style.left = "50%";
 container.style.top = "50%";
-container.style.transform = "translate(-50%,-125%)";
+container.style.transform = "translate(-50%,-50%)";
 container.style.border = "5px solid white";
 container.style.zIndex = "150";
 container.style.background = "url('https://i.imgur.com/nIM4P1r.jpg')";
@@ -133,6 +133,7 @@ create_button.style.gridRow = "22/24";
 create_button.style.gridColumn = "15/22";
 create_button.style.fontFamily = "Impact, Charcoal, sans-serif";
 create_button.textContent = "Create";
+create_button.onclick =  function(){create_new_reminder()};
 container.appendChild(create_button);
 
 //Create message div
@@ -221,6 +222,7 @@ message_container.appendChild(message_title);
 
 //Message text area
 var text_area = document.createElement("textarea");
+text_area.id = "reminder-text-area";
 text_area.style.gridRow = "7/13";
 text_area.style.gridColumn = "1/13";
 text_area.style.backgroundColor = "black";

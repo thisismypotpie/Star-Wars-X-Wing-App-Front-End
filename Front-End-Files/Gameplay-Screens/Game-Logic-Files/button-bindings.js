@@ -6,6 +6,13 @@ if(e.keyCode == 79)//'O' key
 
     return;
 }
+else if(document.getElementById("notification-pop-up-container").style.visibility == "visible")
+{
+    if(e.keyCode == 13)
+    {
+        document.getElementById("notification-ok-button").click();
+    }
+}
 //drop down menu for options button.
 else if(document.getElementById("options-drop-down-area").style.visibility == "visible")
 {
