@@ -46,7 +46,7 @@ for(var i = selected_index; i < buckets.length;i++)
             all_teams[initiative_assignment].has_initiative_token = true;
 
             //Notify the user that the game has begun.
-            move_translate_vectors_for_notification_pop_up(75,-800);
+            move_translate_vectors_for_notification_pop_up(-55,-60);
             show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
               document.getElementById("notification-ok-button").onclick = function(){
               close_notification_pop_up();

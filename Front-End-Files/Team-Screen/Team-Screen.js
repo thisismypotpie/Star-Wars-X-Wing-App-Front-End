@@ -302,6 +302,7 @@ function start_game_button_click()
       var initiative_assignment = Math.floor(Math.random() * all_teams.length);
       all_teams[initiative_assignment].has_initiative_token = true;
       sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+      move_translate_vectors_for_notification_pop_up(-60,-60);
       show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
 
       //Close the notification with this line of code.
