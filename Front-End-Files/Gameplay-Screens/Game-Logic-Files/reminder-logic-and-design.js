@@ -39,7 +39,7 @@ title.style.fontFamily = "Impact, Charcoal, sans-serif";
 title.style.fontSize = "3vw";
 title.style.color = "white";
 title.textContent = "Set a Reminder";
-title.style.border = "1px solid green";
+//title.style.border = "1px solid green";
 title.style.gridRow = "1/3";
 title.style.gridColumn = "1/25";
 title.style.textAlign = "center";
@@ -48,7 +48,7 @@ container.appendChild(title);
 //Create checkbox container
 var checkbox_container = document.createElement("div");
 checkbox_container.id = "checkbox-container"
-checkbox_container.style.border = "1px solid red";
+checkbox_container.style.border = "3px solid white";
 checkbox_container.style.gridRow = "3/21";
 checkbox_container.style.gridColumn = "2/9";
 checkbox_container.style.display = "grid";
@@ -66,7 +66,7 @@ checkbox_title.style.gridRow = "1";
 checkbox_title.textContent = "Reminder Options"
 checkbox_title.style.fontSize = "2.5vw";
 checkbox_title.style.textAlign = "center";
-checkbox_title.style.border = "1px solid purple";
+//checkbox_title.style.border = "1px solid purple";
 checkbox_container.appendChild(checkbox_title);
 
 //Create each option
@@ -89,11 +89,11 @@ for(var i=0; i < 8;i++)
     option_container.appendChild(option_checkbox);
     
     var option_label = document.createElement('div');
-    option_label.style.border = "1px solid brown";
+    //option_label.style.border = "1px solid brown";
     option_label.id = "check-label"+(i+1);
     option_label.style.fontFamily = "Impact, Charcoal, sans-serif";
     option_label.style.color = "white"
-    option_label.style.fontSize = "1.5vw";
+    option_label.style.fontSize = "medium";
     option_label.textContent = "test";
     option_label.style.gridRow = "1";
     option_label.style.gridColumn = "2/11";
@@ -138,7 +138,7 @@ container.appendChild(create_button);
 //Create message div
 var message_container = document.createElement("div");
 message_container.id = "message-container";
-message_container.style.border = "1px solid orange";
+//message_container.style.border = "1px solid orange";
 message_container.style.gridColumn = "10/24";
 message_container.style.gridRow = "4/21";
 message_container.style.display = "grid";
@@ -150,7 +150,7 @@ container.appendChild(message_container);
 var add_reminder_title = document.createElement("div");
 add_reminder_title.style.gridRow = "1";
 add_reminder_title.style.gridColumn = "1/13";
-add_reminder_title.style.border = "1px solid cyan";
+//add_reminder_title.style.border = "1px solid cyan";
 add_reminder_title.style.fontFamily = "Impact, Charcoal, sans-serif";
 add_reminder_title.style.fontSize = "2.5vw";
 add_reminder_title.style.color = "white"
@@ -159,9 +159,9 @@ message_container.appendChild(add_reminder_title);
 
 //Player title
 var team_title = document.createElement("div");
-team_title.style.gridRow = "2";
+team_title.style.gridRow = "3";
 team_title.style.gridColumn = "1/3";
-team_title.style.border = "1px solid cyan";
+//team_title.style.border = "1px solid cyan";
 team_title.style.fontFamily = "Impact, Charcoal, sans-serif";
 team_title.style.fontSize = "2vw";
 team_title.style.color = "white"
@@ -171,9 +171,9 @@ message_container.appendChild(team_title);
 
 //Reminder team name
 var reminder_team_name = document.createElement("div");
-reminder_team_name.style.gridRow = "2";
+reminder_team_name.style.gridRow = "3";
 reminder_team_name.style.gridColumn = "3/9";
-reminder_team_name.style.border = "1px solid brown";
+//reminder_team_name.style.border = "1px solid brown";
 reminder_team_name.style.fontFamily = "Impact, Charcoal, sans-serif";
 reminder_team_name.style.fontSize = "2vw";
 reminder_team_name.style.color = "white"
@@ -183,9 +183,9 @@ message_container.appendChild(reminder_team_name);
 
 //Add roster number title
 var roster_number_title = document.createElement("div");
-roster_number_title.style.gridRow = "2";
+roster_number_title.style.gridRow = "3";
 roster_number_title.style.gridColumn = "9/11";
-roster_number_title.style.border = "1px solid brown";
+//roster_number_title.style.border = "1px solid brown";
 roster_number_title.style.fontFamily = "Impact, Charcoal, sans-serif";
 roster_number_title.style.fontSize = "2vw";
 roster_number_title.style.color = "white"
@@ -202,10 +202,31 @@ roster_entry.style.color = "white";
 roster_entry.style.fontFamily = "Impact, Charcoal, sans-serif";
 roster_entry.style.fontSize = "2vw";
 roster_entry.style.textAlign ="center";
-roster_entry.style.gridRow = "2";
+roster_entry.style.gridRow = "3";
 roster_entry.style.gridColumn = "11/13";
 message_container.appendChild(roster_entry);
 
+//Message Title
+var message_title = document.createElement("div")
+message_title.style.gridRow = "5";
+message_title.style.gridColumn = "1/13";
+//message_title.style.border = "1px solid lime";
+message_title.style.fontFamily = "Impact, Charcoal, sans-serif";
+message_title.style.fontSize = "2.5vw";
+message_title.style.color = "white"
+message_title.textContent = "Message"
+message_title.style.textAlign = "beginning";
+message_container.appendChild(message_title);
+
+//Message text area
+var text_area = document.createElement("textarea");
+text_area.style.gridRow = "7/13";
+text_area.style.gridColumn = "1/13";
+text_area.style.backgroundColor = "black";
+text_area.style.color = "white";
+text_area.style.fontFamily = "Impact, Charcoal, sans-serif";
+text_area.style.fontSize = "x-large";
+message_container.appendChild(text_area);
 
 function show_reminder_pop_up()
 {
