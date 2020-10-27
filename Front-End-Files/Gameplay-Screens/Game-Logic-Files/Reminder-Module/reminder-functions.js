@@ -21,7 +21,7 @@ function show_reminder_pop_up(team_name)
     document.getElementById("reminder-overlay").style.opacity = 1;
     document.getElementById("reminder-pop-up-container").style.visibility = "visible";
     document.getElementById("reminder-overlay").style.pointerEvents = "all";
-    document.getElementById("reminder-pop-up-container").focus();
+    document.getElementById("reminder-text-area").focus();
 }
 
 function hide_reminder_pop_up()
@@ -141,8 +141,53 @@ function create_new_reminder()
 
                 move_translate_vectors_for_notification_pop_up(-50,-60);
                 show_notification_pop_up("New Reminder Created!");
-                document.getElementById("notification-ok-button").onclick = function(){hide_reminder_pop_up(); close_notification_pop_up();};
+                document.getElementById("notification-ok-button").onclick = function(){hide_reminder_pop_up(); close_notification_pop_up()};
             }
         }
     }
+}
+
+function search_for_reminders(type_of_reminder_to_search_for)
+{
+    var reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
+    if(reminders == null ||
+        reminders == undefined || 
+        reminders == "")
+    {
+        return;
+    }
+    reminders.forEach(reminder=>{
+        if(type_of_reminder_to_search_for == 1 && reminder.when_ships_turn == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 2 && reminder.when_targeted == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 3 && reminder.end_of_maneuver_selection == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 4 && reminder.beginning_of_movement_phase == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 5 && reminder.end_of_movement_phase == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 6 && reminder.beginning_of_attack_phase == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 7 && reminder.end_of_round == true)
+        {
+
+        }
+        else if(type_of_reminder_to_search_for == 8 && reminder.beginning_of_round == true)
+        {
+
+        }
+    })
 }

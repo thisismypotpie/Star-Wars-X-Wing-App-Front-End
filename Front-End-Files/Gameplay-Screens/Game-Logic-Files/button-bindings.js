@@ -1,6 +1,18 @@
 window.onkeyup= function(e) {
 //Options button click.
-if(e.keyCode == 79)//'O' key
+if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
+{
+    if(e.keyCode == 13)//create reminder/enter-key.
+    {
+        create_new_reminder();
+    }
+    else if(e.keyCode == 27)//go back/escape-key.
+    {
+        hide_reminder_pop_up()
+    }
+    return;
+}
+else if(e.keyCode == 79)//'O' key
 {
     toggle_drop_down('options-drop-down-area');
 
@@ -11,6 +23,13 @@ else if(document.getElementById("notification-pop-up-container").style.visibilit
     if(e.keyCode == 13)
     {
         document.getElementById("notification-ok-button").click();
+    }
+}
+else if(document.getElementById("reminder-notification-pop-up-container").style.visibility == "visible")
+{
+    if(e.keyCode == 13)
+    {
+        close_reminder_notification_pop_up();
     }
 }
 //drop down menu for options button.
@@ -208,17 +227,6 @@ else if(document.getElementById("token-quantity-pop-up").style.visibility == "vi
         minus_button_click(token_type_for_key_bindings,parent_id_for_key_bindings);
     }
 
-}
-else if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
-{
-    if(e.keyCode == 13)//create reminder/enter-key.
-    {
-        create_new_reminder();
-    }
-    else if(e.keyCode == 27)//go back/escape-key.
-    {
-        hide_reminder_pop_up()
-    }
 }
 //Maneuver selection buttons.
 else
