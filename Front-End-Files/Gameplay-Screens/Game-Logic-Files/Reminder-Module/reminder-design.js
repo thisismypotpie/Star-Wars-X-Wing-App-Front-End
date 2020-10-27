@@ -171,6 +171,7 @@ message_container.appendChild(team_title);
 
 //Reminder team name
 var reminder_team_name = document.createElement("div");
+reminder_team_name.id = "reminder-team-name";
 reminder_team_name.style.gridRow = "3";
 reminder_team_name.style.gridColumn = "3/9";
 //reminder_team_name.style.border = "1px solid brown";
@@ -227,18 +228,3 @@ text_area.style.color = "white";
 text_area.style.fontFamily = "Impact, Charcoal, sans-serif";
 text_area.style.fontSize = "x-large";
 message_container.appendChild(text_area);
-
-function show_reminder_pop_up()
-{
-    document.getElementById("reminder-overlay").style.opacity = 1;
-    document.getElementById("reminder-pop-up-container").style.visibility = "visible";
-    document.getElementById("reminder-overlay").style.pointerEvents = "all";
-    document.getElementById("reminder-pop-up-container").focus();
-}
-
-function hide_reminder_pop_up()
-{
-    document.getElementById("reminder-overlay").style.opacity = 0;
-    document.getElementById("reminder-pop-up-container").style.visibility = "hidden";
-    document.getElementById("reminder-overlay").style.pointerEvents = "none";
-}

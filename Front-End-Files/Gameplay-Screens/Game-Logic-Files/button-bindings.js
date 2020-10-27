@@ -204,7 +204,14 @@ else if(document.getElementById("token-quantity-pop-up").style.visibility == "vi
 }
 else if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
 {
-    return;
+    if(e.keyCode == 13)//create reminder/enter-key.
+    {
+        create_new_reminder();
+    }
+    else if(e.keyCode == 27)//go back/escape-key.
+    {
+        hide_reminder_pop_up()
+    }
 }
 //Maneuver selection buttons.
 else
