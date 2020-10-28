@@ -97,7 +97,7 @@ reminder_ok_btn.style.fontSize = "2vw";
 reminder_ok_btn.style.textAlign = "center";
 reminder_ok_btn.style.gridColumn = "8/11";
 reminder_ok_btn.style.gridRow = "10/13";
-reminder_ok_btn.onclick = function(){close_reminder_notification_pop_up()}
+//reminder_ok_btn.onclick = function(){close_reminder_notification_pop_up()}
 reminder_container.appendChild(reminder_ok_btn);
 
 //Create checkbox container
@@ -132,9 +132,8 @@ delete_label.onclick = function(){toggle_checkbox("delete-reminder-checkbox")};
 checkbox_container.appendChild(delete_label);
 
 
-function show_reminder_notification_pop_up(reminder,index)
+function show_reminder_notification_pop_up(reminder)
 {
-    current_reminder_index = index;
     document.getElementById("reminder-notification-overlay").style.opacity = 1;
     document.getElementById("reminder-notification-pop-up-container").style.visibility = "visible";
     document.getElementById("reminder-notification-overlay").style.pointerEvents = "all";

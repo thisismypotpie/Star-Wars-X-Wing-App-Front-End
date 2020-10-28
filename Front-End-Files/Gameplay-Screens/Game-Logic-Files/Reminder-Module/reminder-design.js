@@ -53,7 +53,7 @@ checkbox_container.style.gridRow = "3/21";
 checkbox_container.style.gridColumn = "2/9";
 checkbox_container.style.display = "grid";
 checkbox_container.style.gridTemplateColumns = "repeat(1,calc(100%/1))"
-checkbox_container.style.gridTemplateRows = "repeat(9,calc(100%/9))";
+checkbox_container.style.gridTemplateRows = "repeat(8,calc(100%/8))";
 container.appendChild(checkbox_container);
 
 //Create checbox title
@@ -70,7 +70,7 @@ checkbox_title.style.textAlign = "center";
 checkbox_container.appendChild(checkbox_title);
 
 //Create each option
-for(var i=0; i < 8;i++)
+for(var i=0; i < 7;i++)
 {
     var option_container = document.createElement("div");
     option_container.id = "option-container";
@@ -103,29 +103,26 @@ for(var i=0; i < 8;i++)
 
     checkbox_container.appendChild(option_container);
 }
-document.getElementById("check-label1").textContent = "When it's this ship's turn";
+document.getElementById("check-label1").textContent = "When it's This Ship's Turn (Maneuver Selection)";
 document.getElementById("check-label1").onclick = function(){toggle_checkbox("check-option1")};
 
-document.getElementById("check-label2").textContent = "When this ship is Targetted";
+document.getElementById("check-label2").textContent = "When it's This Ship's Turn (Movement Phase)";
 document.getElementById("check-label2").onclick = function(){toggle_checkbox("check-option2")};
 
-document.getElementById("check-label3").textContent = "End of Maneuver Selection Phase"
-document.getElementById("check-label3").onclick = function(){toggle_checkbox("check-option3")};;
+document.getElementById("check-label3").textContent = "When it's This Ship's Turn (Attack Phase)";
+document.getElementById("check-label3").onclick = function(){toggle_checkbox("check-option3")};
 
-document.getElementById("check-label4").textContent = "Beginning of Movement Phase";
+document.getElementById("check-label4").textContent = "When This Ship is Targeted";
 document.getElementById("check-label4").onclick = function(){toggle_checkbox("check-option4")};
 
-document.getElementById("check-label5").textContent = "End of Movement Phase";
-document.getElementById("check-label5").onclick = function(){toggle_checkbox("check-option5")};
+document.getElementById("check-label5").textContent = "Between Maneuver Selection & Movement Phase"
+document.getElementById("check-label5").onclick = function(){toggle_checkbox("check-option5")};;
 
-document.getElementById("check-label6").textContent = "Beginning of Attack Phase";
+document.getElementById("check-label6").textContent = "Between Movement & Attack Phase";
 document.getElementById("check-label6").onclick = function(){toggle_checkbox("check-option6")};
 
-document.getElementById("check-label7").textContent = "End of Round";
+document.getElementById("check-label7").textContent = "Between Rounds";
 document.getElementById("check-label7").onclick = function(){toggle_checkbox("check-option7")};
-
-document.getElementById("check-label8").textContent = "Beginning of Round";
-document.getElementById("check-label8").onclick = function(){toggle_checkbox("check-option8")};
 
 
 

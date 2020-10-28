@@ -3,14 +3,13 @@ class reminder{
         this.message = message;
         this.team = team;
         this.roster = roster;
-        this.when_ships_turn = false;
+        this.when_ships_turn_maneuver_selection = false;
+        this.when_ships_turn_movement_phase = false;
+        this.when_ships_turn_attack_phase = false;
         this.when_targeted = false;
-        this.end_of_maneuver_selection = false;
-        this.beginning_of_movement_phase = false;
-        this.end_of_movement_phase = false;
-        this.beginning_of_attack_phase = false;
-        this.end_of_round = false;
-        this.beginning_of_round = false;
+        this.between_select_and_movement_phase = false;
+        this.between_movement_and_attack_phase = false;
+        this.between_rounds= false;
     }
 }
 
@@ -41,7 +40,6 @@ function clear_reminder_pop_up()
     document.getElementById("check-option5").checked = false;
     document.getElementById("check-option6").checked = false;
     document.getElementById("check-option7").checked = false;
-    document.getElementById("check-option8").checked = false;
     document.getElementById("roster-entry").value = "";
     document.getElementById("reminder-text-area").value = "";
 }
@@ -78,70 +76,78 @@ function create_new_reminder()
             document.getElementById("check-option4").checked == false &&
             document.getElementById("check-option5").checked == false &&
             document.getElementById("check-option6").checked == false &&
-            document.getElementById("check-option7").checked == false &&
-            document.getElementById("check-option8").checked == false)
+            document.getElementById("check-option7").checked == false)
             {
                 move_translate_vectors_for_notification_pop_up(-50,-60);
-                show_notification_pop_up("Ypu must have at least one option box checked.");
+                show_notification_pop_up("You must have at least one option box checked.");
                 document.getElementById("notification-ok-button").onclick = function(){close_notification_pop_up();};
                                                                                        
             }
             else
             {
-                //See if roster number is used or not.
-                if(document.getElementById("roster-entry").value != NaN &&
-                document.getElementById("roster-entry").value != null &&
-                document.getElementById("roster-entry").value != "")
+                //Make sure if roster number is null, that there is not checkmark for options needing a roster number.
+                //Also checks to see if the input roster number is valid.
+                if((document.getElementById("roster-entry").value == NaN ||
+                document.getElementById("roster-entry").value == null ||
+                document.getElementById("roster-entry").value == "")&&(
+                document.getElementById("check-option1").checked == true ||
+                document.getElementById("check-option2").checked == true ||
+                document.getElementById("check-option3").checked == true ||
+                document.getElementById("check-option4").checked == true))
                 {
-                    roster = parseInt(document.getElementById("roster-entry").value,10);
+                    move_translate_vectors_for_notification_pop_up(-50,-60);
+                    show_notification_pop_up("Please enter a valid roster number in order to select the first, second, third, or fourth option.");
+                    document.getElementById("notification-ok-button").onclick = function(){close_notification_pop_up();};
                 }
-                var new_reminder = new reminder(team,roster,message);
-                //See which checkmarks are checked.
-                if(document.getElementById("check-option1").checked == true)
+                else
                 {
-                    new_reminder.when_ships_turn = true;
+                    //See if roster number is used or not.
+                    if(document.getElementById("roster-entry").value != NaN &&
+                    document.getElementById("roster-entry").value != null &&
+                    document.getElementById("roster-entry").value != "")
+                    {
+                        roster = parseInt(document.getElementById("roster-entry").value,10);
+                    }
+                    var new_reminder = new reminder(team,roster,message);
+                    //See which checkmarks are checked.
+                    if(document.getElementById("check-option1").checked == true)
+                    {
+                        new_reminder.when_ships_turn_maneuver_selection = true;
+                    }
+                    if(document.getElementById("check-option2").checked == true)
+                    {
+                        new_reminder.when_ships_turn_movement_phase = true;
+                    }
+                    if(document.getElementById("check-option3").checked == true)
+                    {
+                        new_reminder.when_ships_turn_attack_phase = true;
+                    }
+                    if(document.getElementById("check-option5").checked == true)
+                    {
+                        new_reminder.between_select_and_movement_phase = true;
+                    }
+                    if(document.getElementById("check-option6").checked == true)
+                    {
+                        new_reminder.between_movement_and_attack_phase = true;
+                    }
+                    if(document.getElementById("check-option7").checked == true)
+                    {
+                        new_reminder.between_rounds = true;
+                    }
+    
+                    //Set up all reminders if needed, else add to already existing new reminders.
+                    if(sessionStorage.getItem("all_reminders") == null)
+                    {
+                        sessionStorage.setItem("all_reminders",JSON.stringify([]))
+                    }
+                    var reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
+                    reminders.push(new_reminder)
+                    sessionStorage.setItem("all_reminders",JSON.stringify(reminders));
+    
+                    move_translate_vectors_for_notification_pop_up(-50,-60);
+                    show_notification_pop_up("New Reminder Created!");
+                    document.getElementById("notification-ok-button").onclick = function(){hide_reminder_pop_up(); close_notification_pop_up()};
                 }
-                if(document.getElementById("check-option2").checked == true)
-                {
-                    new_reminder.when_targeted = true;
-                }
-                if(document.getElementById("check-option3").checked == true)
-                {
-                    new_reminder.end_of_maneuver_selection = true;
-                }
-                if(document.getElementById("check-option4").checked == true)
-                {
-                    new_reminder.beginning_of_movement_phase = true;
-                }
-                if(document.getElementById("check-option5").checked == true)
-                {
-                    new_reminder.end_of_movement_phase = true;
-                }
-                if(document.getElementById("check-option6").checked == true)
-                {
-                    new_reminder.beginning_of_attack_phase = true;
-                }
-                if(document.getElementById("check-option7").checked == true)
-                {
-                    new_reminder.end_of_round = true;
-                }
-                if(document.getElementById("check-option8").checked == true)
-                {
-                    new_reminder.beginning_of_round = true;
-                }
-
-                //Set up all reminders if needed, else add to already existing new reminders.
-                if(sessionStorage.getItem("all_reminders") == null)
-                {
-                    sessionStorage.setItem("all_reminders",JSON.stringify([]))
-                }
-                var reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
-                reminders.push(new_reminder)
-                sessionStorage.setItem("all_reminders",JSON.stringify(reminders));
-
-                move_translate_vectors_for_notification_pop_up(-50,-60);
-                show_notification_pop_up("New Reminder Created!");
-                document.getElementById("notification-ok-button").onclick = function(){hide_reminder_pop_up(); close_notification_pop_up()};
             }
         }
     }
@@ -150,6 +156,7 @@ function create_new_reminder()
 function search_for_reminders(type_of_reminder_to_search_for)
 {
     var reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
+    var reminder_active = false;
     if(reminders == null ||
         reminders == undefined || 
         reminders == "")
@@ -157,37 +164,64 @@ function search_for_reminders(type_of_reminder_to_search_for)
         return;
     }
     reminders.forEach(reminder=>{
-        if(type_of_reminder_to_search_for == 1 && reminder.when_ships_turn == true)
+        if(type_of_reminder_to_search_for == 1 && reminder.when_ships_turn_maneuver_selection == true &&
+           sessionStorage.getItem("phase") == null)
         {
-
+            var selected_index = parseInt(JSON.parse(sessionStorage.getItem("selected_ship_index")),10);
+            var team_index = parseInt(JSON.parse(sessionStorage.getItem("team_index")),10)
+            var index_roster = all_teams[team_index].ship_list[selected_index].roster_number;
+            var index_team = all_teams[team_index].team_name;
+            if(index_roster == reminder.roster && index_team == reminder.team)
+            {
+                show_reminder_notification_pop_up(reminder);
+                reminder_active  = true;
+            }
+        }
+        else if(type_of_reminder_to_search_for == 1 && reminder.when_ships_turn_movement_phase == true &&
+                sessionStorage.getItem("phase") == "movement")
+        {
+            var selected_index = parseInt(JSON.parse(sessionStorage.getItem("selected_ship_index")),10);
+            var team_index = parseInt(JSON.parse(sessionStorage.getItem("team_index")),10)
+            var index_roster = all_teams[team_index].ship_list[selected_index].roster_number;
+            var index_team = all_teams[team_index].team_name;
+            if(index_roster == reminder.roster && index_team == reminder.team)
+            {
+                show_reminder_notification_pop_up(reminder);
+                reminder_active  = true;
+            }
+        }
+        else if(type_of_reminder_to_search_for == 1 && reminder.when_ships_turn_attack_phase == true &&
+                sessionStorage.getItem("phase") == "attack")
+        {
+            var selected_index = parseInt(JSON.parse(sessionStorage.getItem("selected_ship_index")),10);
+            var team_index = parseInt(JSON.parse(sessionStorage.getItem("team_index")),10)
+            var index_roster = all_teams[team_index].ship_list[selected_index].roster_number;
+            var index_team = all_teams[team_index].team_name;
+            if(index_roster == reminder.roster && index_team == reminder.team)
+            {
+                show_reminder_notification_pop_up(reminder);
+                reminder_active  = true;
+            }
         }
         else if(type_of_reminder_to_search_for == 2 && reminder.when_targeted == true)
         {
 
         }
-        else if(type_of_reminder_to_search_for == 3 && reminder.end_of_maneuver_selection == true)
+        else if(type_of_reminder_to_search_for == 3 && reminder.between_select_and_movement_phase == true)
         {
-
+            show_reminder_notification_pop_up(reminder);
+            reminder_active  = true;
         }
-        else if(type_of_reminder_to_search_for == 4 && reminder.beginning_of_movement_phase == true)
+        else if(type_of_reminder_to_search_for == 4 && reminder.between_movement_and_attack_phase == true)
         {
-
+            show_reminder_notification_pop_up(reminder);
+            reminder_active  = true;
         }
-        else if(type_of_reminder_to_search_for == 5 && reminder.end_of_movement_phase == true)
+        else if(type_of_reminder_to_search_for == 5 && reminder.between_rounds == true)
         {
-
-        }
-        else if(type_of_reminder_to_search_for == 6 && reminder.beginning_of_attack_phase == true)
-        {
-
-        }
-        else if(type_of_reminder_to_search_for == 7 && reminder.end_of_round == true)
-        {
-
-        }
-        else if(type_of_reminder_to_search_for == 8 && reminder.beginning_of_round == true)
-        {
-
+            show_reminder_notification_pop_up(reminder);
+            reminder_active  = true;
         }
     })
+    return reminder_active;
 }

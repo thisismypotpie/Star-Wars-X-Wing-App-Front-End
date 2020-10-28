@@ -54,7 +54,9 @@ sessionStorage.getItem("searching") != undefined)
         //Update maneuver card.
     document.getElementById('maneuver-card-display').style.backgroundImage = "url("+all_teams[team_index].ship_list[selected_ship_index].chosen_pilot.ship_name.card+")";
     document.getElementById('maneuver-card-display').style.visibility = "visible";
-    
+    //Look for reminders and set the ok button.
+    search_for_reminders(2);
+    document.getElementById("reminder-notification-ok-button").onclick = function(){close_reminder_notification_pop_up();}
 }
 
 
@@ -99,7 +101,9 @@ set_up_team_mate_maneuvers();
 check_for_death();//This is to make sure that if a large ship has a crippled aft/fore, it will show up immediately.
 check_for_conditions();//displats conditions first if a ship has them.
 check_for_crit_hits();//Displays crit hits first if a ship has them.
-
+//Search for ship reminders and set the ok button for the reminder notification.
+search_for_reminders(1);
+document.getElementById("reminder-notification-ok-button").onclick = function(){close_reminder_notification_pop_up();}
 
 
 //Set initiative token to be visible or not.
@@ -664,15 +668,28 @@ function go_to_next_ship_movement_phase()
     })
     if(maneuver_attack_index >= total_ships_left)//Go to attack phase.
     {
-        sessionStorage.setItem("phase","attack");
-        maneuver_attack_index --;
-        sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+        if(search_for_reminders(4)==true)//look for reminders between movement and attack.
+        {
+            document.getElementById("reminder-notification-ok-button").onclick = function(){
+                sessionStorage.setItem("phase","attack");
+                maneuver_attack_index --;
+                sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+                location.reload();
+            }
+        }
+        else
+        {
+            sessionStorage.setItem("phase","attack");
+            maneuver_attack_index --;
+            sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+            location.reload();
+        }
     }
     else
     {
         sessionStorage.setItem("movement_attack_index",maneuver_attack_index);
+        location.reload();
     }
-    location.reload();
 }
 
 function go_to_next_ship_attack_phase()
@@ -686,7 +703,14 @@ function go_to_next_ship_attack_phase()
         sessionStorage.removeItem("movement_attack_index");
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
-        end_of_round_procedures();
+        if(search_for_reminders(5)== true)
+        {
+            document.getElementById("reminder-notification-ok-button").onclick = function(){close_reminder_notification_pop_up();end_of_round_procedures();}
+        }
+        else
+        {
+            end_of_round_procedures();
+        }
     }
     else
     {
@@ -711,9 +735,20 @@ function go_to_next_ship_maneuver_selection()
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
         //move to movement phase.
-        sessionStorage.setItem("phase","movement");
-        sessionStorage.setItem("movement_attack_index",0);
-        location.reload();
+        if(search_for_reminders(3)==true)
+        {
+            document.getElementById("reminder-notification-ok-button").onclick = function(){
+                sessionStorage.setItem("phase","movement");
+                sessionStorage.setItem("movement_attack_index",0);
+                location.reload();
+            }
+        }
+        else
+        {
+            sessionStorage.setItem("phase","movement");
+            sessionStorage.setItem("movement_attack_index",0);
+            location.reload();
+        }
     }
     else
     {
