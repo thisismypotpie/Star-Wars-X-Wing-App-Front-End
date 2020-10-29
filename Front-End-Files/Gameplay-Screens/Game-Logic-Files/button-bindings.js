@@ -29,7 +29,7 @@ else if(document.getElementById("reminder-notification-pop-up-container").style.
 {
     if(e.keyCode == 13)
     {
-        close_reminder_notification_pop_up();
+        document.getElementById("reminder-notification-ok-button").click();
     }
 }
 //drop down menu for options button.
