@@ -1,39 +1,31 @@
 window.onkeyup= function(e) {
-//Options button click.
-if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
-{
-    if(e.keyCode == 13)//create reminder/enter-key.
-    {
-        create_new_reminder();
-    }
-    else if(e.keyCode == 27)//go back/escape-key.
-    {
-        hide_reminder_pop_up()
-    }
-    return;
-}
-else if(e.keyCode == 79)//'O' key
-{
-    toggle_drop_down('options-drop-down-area');
-
-    return;
-}
-else if(document.getElementById("notification-pop-up-container").style.visibility == "visible")
+//Open the reminder pop up but not if the notitfication telling the user a new reminder as been created is open.
+if(document.getElementById("notification-pop-up-container").style.visibility == "visible" &&(
+    e.keyCode == 13 || e.keyCode == 68))
 {
     if(e.keyCode == 13)
     {
         document.getElementById("notification-ok-button").click();
     }
 }
-else if(document.getElementById("reminder-notification-pop-up-container").style.visibility == "visible")
+else if(document.getElementById("reminder-notification-pop-up-container").style.visibility == "visible" &&(
+        e.keyCode == 68))
 {
-    if(e.keyCode == 13)
+    if(e.keyCode == 68)//check delete button/ 'D' key
     {
-        document.getElementById("reminder-notification-ok-button").click();
+        if(document.getElementById("delete-reminder-checkbox").checked == false)
+        {
+            document.getElementById("delete-reminder-checkbox").checked = true;
+        }
+        else
+        {
+            document.getElementById("delete-reminder-checkbox").checked = false;
+        }
     }
 }
 //drop down menu for options button.
-else if(document.getElementById("options-drop-down-area").style.visibility == "visible")
+else if(document.getElementById("options-drop-down-area").style.visibility == "visible"&&(
+e.keyCode == 77 || e.keyCode == 68 || e.keyCode == 78 || e.keyCode == 65 || e.keyCode == 83))
 {
 
     if(e.keyCode == 77)//M key.
@@ -84,7 +76,8 @@ else if(document.getElementById("options-drop-down-area").style.visibility == "v
 }
 
 //Bindings for target lock pop-up.
-else if(document.getElementById("target-lock-pop-up").style.visibility =="visible")//target lock pop-up visible.
+else if(document.getElementById("target-lock-pop-up").style.visibility =="visible" &&(
+    e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 13 || e.keyCode == 27))//target lock pop-up visible.
 {
     if(e.keyCode == 39)//next key
     {
@@ -104,7 +97,8 @@ else if(document.getElementById("target-lock-pop-up").style.visibility =="visibl
     }
 }
 //Bindings for search pop-up.
-else if(document.getElementById("search-pop-up").style.visibility == "visible")//search po-up-visible.
+else if(document.getElementById("search-pop-up").style.visibility == "visible" &&(
+    e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 13 || e.keyCode == 27))//search po-up-visible.
 {
     if(e.keyCode == 39)//next key
     {
@@ -124,11 +118,13 @@ else if(document.getElementById("search-pop-up").style.visibility == "visible")/
     }
 }
 //Bindings for notification pop-up.
-else if(document.getElementById("Notification-pop-up").style.visibility == "visible")
+else if(document.getElementById("Notification-pop-up").style.visibility == "visible" &&(
+    e.keyCode == 13 || e.keyCode == 27
+))
 {
     if(e.keyCode == 13)//Enter key
     {
-        hide_pop_up('Notification-pop-up');
+        document.getElementById("notificatin-ok-button").click();
     } 
 }
 else if(document.getElementById("return-button").style.visibility == "visible")//return button when searching for a ship.
@@ -139,7 +135,9 @@ else if(document.getElementById("return-button").style.visibility == "visible")/
     } 
 }
 //Save game screen
-else if(document.getElementById('save_game_pop_up') != null && document.getElementById('save_game_pop_up').style.visibility == "visible")
+else if(document.getElementById('save_game_pop_up') != null && document.getElementById('save_game_pop_up').style.visibility == "visible" &&(
+    e.keyCode == 13 || e.keyCode == 27
+))
 {
     if(e.keyCode == 13)//enter key
     {
@@ -151,40 +149,41 @@ else if(document.getElementById('save_game_pop_up') != null && document.getEleme
     }
     return;
 }
-else if(document.getElementById("dice-container").style.visibility == "visible")//Dice module
+else if(document.getElementById("dice-container").style.visibility == "visible" &&(
+    e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 40 || e.keyCode == 82
+))//Dice module
 {
-    if(e.keyCode == 39 && document.getElementById("add-attacker-dice").style.visibility == "visible")//add attacker die
+    if(e.keyCode == 39 && document.getElementById("add-attacker-dice").style.visibility != "hidden")//add attacker die
     {
         add_attack_die();
     }
-    else if(e.keyCode == 39 && document.getElementById("add-attacker-dice").style.visibility == "visible")//add attacker die
-    {
-        add_attack_die();
-    }
-    else if(e.keyCode == 37 && document.getElementById("minus-attacker-dice").style.visibility == "visible")//subtract attacker die
+    else if(e.keyCode == 37 && document.getElementById("minus-attacker-dice").style.visibility != "hidden")//subtract attacker die
     {
         subtract_attack_die();
     }
-    else if(e.keyCode == 38 && document.getElementById("add-defender-dice").style.visibility == "visible")//add defender die
+    else if(e.keyCode == 38 && document.getElementById("add-defender-dice").style.visibility != "hidden")//add defender die
     {
         add_defense_die();
     }
-    else if(e.keyCode == 40 && document.getElementById("minus-defender-dice").style.visibility == "visible")//subtract defender die
+    else if(e.keyCode == 40 && document.getElementById("minus-defender-dice").style.visibility != "hidden")//subtract defender die
     {
         subtract_defense_die();
     }
-    else if(e.keyCode == 82/*r key*/ && document.getElementById("roll-dice").style.visibility == "visible")//roll dice
+    else if(e.keyCode == 82/*r key*/ && document.getElementById("roll-dice").style.visibility != "hidden")//roll dice
     {
         roll_dice_click();
     }
-    else if(e.keyCode == 13 && document.getElementById("dice-results-pop-up").style.visibility == "visible")//close dice results
-    {
-        hide_pop_up('dice-results-pop-up');
-        remove_dice();
-        return;
-    }
 }
-else if(document.getElementById("card-removal-pop-up").style.visibility == "visible")
+//dice result conatiner.
+else if(e.keyCode == 13 && document.getElementById("dice-results-pop-up").style.visibility != "hidden")
+{
+    hide_pop_up('dice-results-pop-up');
+    remove_dice();
+    return;
+}
+else if(document.getElementById("card-removal-pop-up").style.visibility == "visible" &&(
+    e.keyCode == 27 || e.keyCode == 8 ||e.keyCode == 70 || e.keyCode == 38 || e.keyCode ==87 || e.keyCode ==40 ||e.keyCode == 83
+))
 {
     if(e.keyCode == 27 || e.keyCode == 8)//go back from card removeal pop-up/esc-key or backspace
     {
@@ -211,7 +210,9 @@ else if(document.getElementById("card-removal-pop-up").style.visibility == "visi
         }
     }
 }
-else if(document.getElementById("token-quantity-pop-up").style.visibility == "visible")
+else if(document.getElementById("token-quantity-pop-up").style.visibility == "visible" &&(
+    e.keyCode == 13 || e.keyCode == 68 ||  e.keyCode == 39 || e.keyCode == 65 || e.keyCode == 37
+))
 {
     if(e.keyCode == 13)//close token augmentation pop up/enter-key
     {
@@ -239,6 +240,10 @@ else
     else if((e.keyCode == 65 || e.keyCode == 37)&& document.getElementById("previous-maneuver-button").style.visibility != "hidden")//previous maneuver/a-key of <- key.
     {
         previous_maneuver_click();
+    }
+    else if(e.keyCode == 79)//toggle drop down options/'O' key
+    {
+        toggle_drop_down('options-drop-down-area');
     }
     else if(e.keyCode == 13)//go to next ship/enter-key
     {
