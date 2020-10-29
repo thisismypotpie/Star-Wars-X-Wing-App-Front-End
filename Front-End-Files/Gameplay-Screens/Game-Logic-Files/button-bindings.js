@@ -8,6 +8,23 @@ if(document.getElementById("notification-pop-up-container").style.visibility == 
         document.getElementById("notification-ok-button").click();
     }
 }
+//Key bindings for reminder creation pop up.
+//Since you must type here, there is not check for which key is pressed.
+else if(document.getElementById("reminder-pop-up-container").style.visibility == "visible")
+{
+    if(e.keyCode == 27)//exit rmeinder creation screen/escape key
+    {
+        document.getElementById("reminder-back-button").click();
+    }
+    else if(e.keyCode == 38)//go to roster entry / up arrow key
+    {
+            document.getElementById("roster-entry").focus();
+    }
+    else if(e.keyCode == 40)//go to text area / down arrow.
+    {
+        document.getElementById("reminder-text-area").focus();
+    }
+}
 else if(document.getElementById("reminder-notification-pop-up-container").style.visibility == "visible" &&(
         e.keyCode == 68))
 {

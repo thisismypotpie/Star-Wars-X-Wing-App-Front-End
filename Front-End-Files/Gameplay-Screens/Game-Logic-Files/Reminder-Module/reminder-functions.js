@@ -14,8 +14,9 @@ class reminder{
 }
 
 
-function show_reminder_pop_up(team_name)
+function show_reminder_pop_up(team_name,current_roster)
 {
+    document.getElementById("roster-entry").value = current_roster;
     document.getElementById("reminder-team-name").textContent = team_name;
     document.getElementById("reminder-overlay").style.opacity = 1;
     document.getElementById("reminder-pop-up-container").style.visibility = "visible";

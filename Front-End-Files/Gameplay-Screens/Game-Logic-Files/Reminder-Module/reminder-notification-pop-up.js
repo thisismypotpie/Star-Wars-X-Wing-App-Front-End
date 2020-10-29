@@ -188,7 +188,7 @@ function toggle_checkbox(name)
     {
         document.getElementById(name).checked = false;
     }
-    document.getElementById("reminder-notification-pop-up-container").focus();
+    document.getElementById("reminder-text-area").focus();
 }
 
 function check_if_reminder_needs_to_be_deleted(current_reminder_index)
