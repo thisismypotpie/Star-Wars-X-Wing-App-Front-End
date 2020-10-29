@@ -793,6 +793,13 @@ function go_to_next_ship_maneuver_selection()
         else
         {
             document.getElementById("reminder-notification-ok-button").onclick = function(){
+                if(check_if_reminder_needs_to_be_deleted(reminder_index)  == true)
+                {
+                    if(reminder_index > 0)
+                    {
+                        reminder_index--;
+                    }
+                }
                 reminder_index = search_for_reminders(3,reminder_index+1);
                 if(reminder_index == -1)
                 {

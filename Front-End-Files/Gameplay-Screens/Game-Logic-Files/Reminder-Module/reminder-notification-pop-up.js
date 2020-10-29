@@ -1,4 +1,3 @@
-var current_reminder_index = undefined;
 
 //Create overlay 
 var reminder_overlay = document.createElement("div");
@@ -123,7 +122,7 @@ var delete_label = document.createElement('div');
 delete_label.id = "delete-checkbox-label";
 delete_label.style.fontFamily = "Impact, Charcoal, sans-serif";
 delete_label.style.color = "white"
-delete_label.style.fontSize = "medium";
+delete_label.style.fontSize = "x-large";
 delete_label.textContent = "Delete Reminder";
 delete_label.style.gridRow = "1";
 delete_label.style.gridColumn = "2/11";
@@ -139,6 +138,7 @@ function show_reminder_notification_pop_up(reminder)
     document.getElementById("reminder-notification-overlay").style.pointerEvents = "all";
     document.getElementById("reminder-notification-message").textContent = reminder.message;
     document.getElementById("reminder-notification-player").textContent = "Team: "+reminder.team;
+    document.getElementById("delete-reminder-checkbox").checked = false;
     if(parseInt(reminder.roster,10) != -1)
     {
         document.getElementById("reminder-notification-roster").textContent = "Roster: "+reminder.roster;
@@ -160,13 +160,6 @@ function close_reminder_notification_pop_up()
     document.getElementById("reminder-notification-message").textContent = "";
     document.getElementById("reminder-notification-player").textContent = "";
     document.getElementById("reminder-notification-roster").textContent = "";
-    if(document.getElementById("delete-reminder-checkbox").checked == true)
-    {
-        var all_reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
-        all_reminders.splice(current_reminder_index,0);
-        sessionStorage.setItem("all_reminders",JSON.stringify(all_reminders));
-        alert("Reminder deleted!")
-    }
     document.getElementById("delete-reminder-checkbox").checked = false;
 }
 
@@ -196,4 +189,18 @@ function toggle_checkbox(name)
         document.getElementById(name).checked = false;
     }
     document.getElementById("reminder-notification-pop-up-container").focus();
+}
+
+function check_if_reminder_needs_to_be_deleted(current_reminder_index)
+{
+    var deleted = false;
+    if(document.getElementById("delete-reminder-checkbox").checked == true)
+    {
+        alert("Deleting reminder at index: "+current_reminder_index)
+        var all_reminders = JSON.parse(sessionStorage.getItem("all_reminders"));
+        all_reminders.splice(current_reminder_index,1);
+        sessionStorage.setItem("all_reminders",JSON.stringify(all_reminders));
+        deleted = true;
+    }
+    return deleted;
 }
