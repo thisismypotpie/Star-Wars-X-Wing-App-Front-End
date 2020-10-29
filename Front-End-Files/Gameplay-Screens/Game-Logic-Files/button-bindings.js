@@ -25,6 +25,13 @@ else if(document.getElementById("reminder-pop-up-container").style.visibility ==
         document.getElementById("reminder-text-area").focus();
     }
 }
+else if(document.getElementById("reminder-notification-pop-up-container").style.visibility != "hidden")
+{
+    if(e.keyCode == 13)
+    {
+        document.getElementById("reminder-notification-ok-button").click();
+    }
+}
 else if(document.getElementById("reminder-notification-pop-up-container").style.visibility == "visible" &&(
         e.keyCode == 68))
 {
