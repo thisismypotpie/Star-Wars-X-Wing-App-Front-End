@@ -744,7 +744,7 @@ function go_to_next_ship_attack_phase()
         sessionStorage.removeItem("team_index");
         sessionStorage.removeItem("selected_ship_index");
         reminder_index = search_for_reminders(5,0);
-        if(search_for_reminders(5)== true)
+        if(reminder_index == -1)
         {
             end_of_round_procedures();
         }
