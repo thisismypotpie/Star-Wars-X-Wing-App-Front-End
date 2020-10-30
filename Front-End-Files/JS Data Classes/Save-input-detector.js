@@ -168,7 +168,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                         //overwrite game.
                         var url = "http://localhost:3000/overwrite_game";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
                         var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                        all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks"))});//Put name of game and game phase into the request.
+                        all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});//Put name of game and game phase into the request.
                         fetch(url,{
                             method: 'POST',
                             body:JSON.stringify(all_teams)
@@ -192,7 +192,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                 var url = "http://localhost:3000/save_game";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game";
                 //Add name to all teams.
                 var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks"))});
+                all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});
                 fetch(url,{
                     method: 'POST',
                     body:JSON.stringify(all_teams)

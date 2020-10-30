@@ -1,7 +1,13 @@
 window.onkeyup= function(e) {
+//If the save game is open, don't take in any other button commands on this page.
+if(document.getElementById("save_game_pop_up") != null && 
+   document.getElementById("save_game_pop_up").style.visibility == "visible")
+{
+    return;
+}
 //Open the reminder pop up but not if the notitfication telling the user a new reminder as been created is open.
-if(document.getElementById("notification-pop-up-container").style.visibility == "visible" &&(
-    e.keyCode == 13 || e.keyCode == 68))
+else if(document.getElementById("notification-pop-up-container").style.visibility == "visible" &&(
+    e.keyCode == 13))
 {
     if(e.keyCode == 13)
     {
