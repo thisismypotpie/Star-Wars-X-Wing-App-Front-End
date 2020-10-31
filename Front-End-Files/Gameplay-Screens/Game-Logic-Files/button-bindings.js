@@ -263,11 +263,11 @@ else if(document.getElementById("token-quantity-pop-up").style.visibility == "vi
 else
 {
     //maneuver selection if visible.
-    if((e.keyCode == 68 || e.keyCode == 39)&& document.getElementById("next-maneuver-button").style.visibility != "hidden")//Next maneuver/d-key or -> key
+    if( e.keyCode == 39 && document.getElementById("next-maneuver-button").style.visibility != "hidden")//Next maneuver/d-key or -> key
     {
         next_maneuver_click();
     }
-    else if((e.keyCode == 65 || e.keyCode == 37)&& document.getElementById("previous-maneuver-button").style.visibility != "hidden")//previous maneuver/a-key of <- key.
+    else if(e.keyCode == 37 && document.getElementById("previous-maneuver-button").style.visibility != "hidden")//previous maneuver/a-key of <- key.
     {
         previous_maneuver_click();
     }
@@ -370,6 +370,32 @@ else
     else if(e.keyCode == 57)//augment tractor beam tokens/9-key
     {
         augment_token_quantity('tractor_beam_tokens','tractor-beam-token');
+    }
+
+    //Keybindings for each of the stats.
+    else if(e.keyCode == 65)//augment attack/a-key
+    {
+        augment_stat_quantity('current_attack','attack-image','attack-text')
+    }
+    else if(e.keyCode == 71)//augment agility/g-key
+    {
+        augment_stat_quantity('current_agility','agility-image','agility-text')
+    }
+    else if(e.keyCode == 72)//augment hull/h-key
+    {
+        augment_stat_quantity('current_hull','hull-image','hull-text')
+    }
+    else if(e.keyCode == 73)//augment shields/i-key
+    {
+        augment_stat_quantity('current_sheilds','shield-image','shield-text')
+    }
+    else if(e.keyCode == 69 && document.getElementById("energy-image").style.visibility == "visible")//augment energy/e-key
+    {
+        augment_stat_quantity('current_energy','energy-image','energy-text')
+    }
+    else if(e.keyCode == 80)//augment pilot skill/p-key
+    {
+        augment_stat_quantity('current_pilot_skill','pilot-skill-image','pilot-skill-text');
     }
 
 
