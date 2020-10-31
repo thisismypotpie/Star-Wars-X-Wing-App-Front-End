@@ -143,6 +143,7 @@ function set_all_items()
             ordnance_token_quantity.style.color = "white";
             upgrade_image.appendChild(ordnance_token_quantity);
         }
+        //Add energy tokens if there are any.
         if(upgrade.energy_allocated > 0)
         {
             var ordnance_token_quantity = document.createElement("div");

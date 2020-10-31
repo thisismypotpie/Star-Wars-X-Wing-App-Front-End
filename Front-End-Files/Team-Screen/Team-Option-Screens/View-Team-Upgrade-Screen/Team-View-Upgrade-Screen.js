@@ -70,6 +70,8 @@ function close_remove_upgrade_pop_up()
   document.getElementById("flip-button").style.visibility = "hidden";
   overlay.style.pointerEvents = "none";
   document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
+  document.getElementById("energy-allocation-container").style.visibility = "hidden";
+
   sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(chosen_ship));
   location.reload();
 }
@@ -127,10 +129,6 @@ chosen_ship.upgrades.forEach(upgrade =>{
    //Add orndance tokens if an upgrade has them.
    if(upgrade.ordnance_tokens > 0)
    {
-     if(document.getElementById("ordnance-token-quantity") != null)
-     {
-       document.getElementById("ordnance-token-quantity");
-     }
      var ordnance_token_quantity = document.createElement("div");
      ordnance_token_quantity.id = "ordnance-token-quantity"
      ordnance_token_quantity.style.gridRow = "1";
@@ -144,6 +142,23 @@ chosen_ship.upgrades.forEach(upgrade =>{
      ordnance_token_quantity.style.textAlign = "right"
      ordnance_token_quantity.style.color = "white";
      element.appendChild(ordnance_token_quantity);
+   }
+
+   //Add energy tokens
+   if(upgrade.energy_allocated > 0)
+   {
+    var energy_token_quantity = document.createElement("div");
+    energy_token_quantity.style.gridRow = "1";
+    energy_token_quantity.style.gridColumn = "2";
+    energy_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+    energy_token_quantity.style.backgroundRepeat = "no-repeat";
+    energy_token_quantity.style.backgroundSize = "100% 100%";
+    energy_token_quantity.textContent = "X"+upgrade.energy_allocated;
+    energy_token_quantity.style.fontSize = "xx-large";
+    energy_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+    energy_token_quantity.style.textAlign = "right"
+    energy_token_quantity.style.color = "white";
+    element.appendChild(energy_token_quantity);
    }
 
    element.addEventListener("click",function(){ //When you click each taken upgrade, you will be asked if you want to delete the upgrade.
@@ -177,10 +192,6 @@ chosen_ship.upgrades.forEach(upgrade =>{
          //Show number of ordnance tokens on each affected upgrades.
          if(upgrade.ordnance_tokens > 0)
          {
-          if(document.getElementById("ordnance-token-quantity") != null)
-          {
-            document.getElementById("ordnance-token-quantity");
-          }
            var ordnance_token_quantity = document.createElement("div");
            ordnance_token_quantity.style.gridRow = "1";
            ordnance_token_quantity.style.gridColumn = "2";
@@ -195,9 +206,36 @@ chosen_ship.upgrades.forEach(upgrade =>{
            element.appendChild(ordnance_token_quantity);
          }
       }
+      else if(upgrade.upgrade.type == "Hardpoint" || upgrade.upgrade.id == 47)//Ionization reaction also can store energy.
+      {
+        document.getElementById("energy-allocation-container").style.visibility = "visible";
+
+        //Set the buttons so the correct upgrade stats are displayed and can be altered.
+        document.getElementById("energy-quantity").textContent = "X"+upgrade.energy_allocated;
+        document.getElementById("subtract-energy-token").onclick =function(){subract_energy_token(upgrade)};
+        document.getElementById("add-energy-token").onclick =function(){add_energy_token(upgrade)};
+
+        //Show number of ordnance tokens on each affected upgrades.
+        if(upgrade.energy_allocated > 0)
+        {
+          var energy_token_quantity = document.createElement("div");
+          energy_token_quantity.style.gridRow = "1";
+          energy_token_quantity.style.gridColumn = "2";
+          energy_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+          energy_token_quantity.style.backgroundRepeat = "no-repeat";
+          energy_token_quantity.style.backgroundSize = "100% 100%";
+          energy_token_quantity.textContent = "X"+upgrade.energy_allocated;
+          energy_token_quantity.style.fontSize = "xx-large";
+          energy_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+          energy_token_quantity.style.textAlign = "right"
+          energy_token_quantity.style.color = "white";
+          element.appendChild(energy_token_quantity);
+        }
+      }
       else
       {
          document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
+         document.getElementById("energy-allocation-container").style.visibility = "hidden";
       }
 
       document.getElementById("upgrade-photo").setAttribute('name', upgrade.upgrade.name);//This is so when a user presses yes to delete, we can get the name of the upgrade.
@@ -271,6 +309,27 @@ function add_ordnance_token(upgrade)
 {
     upgrade.ordnance_tokens++;
     document.getElementById("token-quantity").textContent = "X"+upgrade.ordnance_tokens;
+}
+
+function add_energy_token(upgrade)
+{
+  upgrade.energy_allocated++;
+  document.getElementById("energy-quantity").textContent = "X"+upgrade.energy_allocated;
+
+}
+
+function subract_energy_token(upgrade)
+{
+  if(upgrade.energy_allocated > 0)
+  {
+    upgrade.energy_allocated--;
+
+  }
+  else
+  {
+    upgrade.energy_allocated = 0;
+  }
+  document.getElementById("energy-quantity").textContent = "X"+upgrade.energy_allocated;
 }
 
 
