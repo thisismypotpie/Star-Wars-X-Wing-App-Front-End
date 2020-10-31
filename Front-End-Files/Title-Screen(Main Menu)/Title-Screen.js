@@ -143,6 +143,7 @@ function parse_load_data(raw_data)
   {
     determine_turn_info(raw_data);
     add_target_locks_to_game(raw_data);
+    add_reminders_to_game(raw_data);
     close_load_info_screen();//close loading screen.
     //go to maneuver selection screen
     window.location.href ="../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
@@ -330,6 +331,50 @@ function determine_turn_info(raw_data)
   {
       alert("ERROR: Unable to determine what phase the game is in.")
   }
+}
+
+function add_reminders_to_game(raw_data)
+{
+  if(raw_data.reminders == null ||
+     raw_data.reminders.length == 0)
+     {
+       return;
+     }
+   var all_reminders = [];
+   var new_reminder = undefined;
+   raw_data.reminders.forEach(current_reminder=>{
+      new_reminder = new reminder(current_reminder.Team,current_reminder.RosterNumber,current_reminder.Message);
+      if(current_reminder.ShipTurnManeuverSelection==1)
+      {
+        new_reminder.when_ships_turn_maneuver_selection =true;
+      }
+      if(current_reminder.ShipTurnMovementPhase==1)
+      {
+        new_reminder.when_ships_turn_movement_phase=true;
+      }
+      if(current_reminder.ShipTurnAttackPhase==1)
+      {
+        new_reminder.when_ships_turn_attack_phase=true;
+      }
+      if(current_reminder.WhenTargeted==1)
+      {
+        new_reminder.when_targeted=true;
+      }
+      if(current_reminder.BetweenManeuverAndMovement==1)
+      {
+        new_reminder.between_select_and_movement_phase=true;
+      }
+      if(current_reminder.BetweenMovementAndAttack==1)
+      {
+        new_reminder.between_movement_and_attack_phase=true;
+      }
+      if(current_reminder.BetweenRounds==1)
+      {
+        new_reminder.between_rounds=true;
+      }
+      all_reminders.push(new_reminder);
+   })
+   sessionStorage.setItem("all_reminders",JSON.stringify(all_reminders));
 }
 
 function get_upgrades_for_all_ships(all_teams,upgrade_data)
