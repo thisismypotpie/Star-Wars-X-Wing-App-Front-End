@@ -143,6 +143,21 @@ function set_all_items()
             ordnance_token_quantity.style.color = "white";
             upgrade_image.appendChild(ordnance_token_quantity);
         }
+        if(upgrade.energy_allocated > 0)
+        {
+            var ordnance_token_quantity = document.createElement("div");
+            ordnance_token_quantity.style.gridRow = "1";
+            ordnance_token_quantity.style.gridColumn = "2";
+            ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+            ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+            ordnance_token_quantity.style.backgroundSize = "100% 100%";
+            ordnance_token_quantity.textContent = "X"+upgrade.energy_allocated;
+            ordnance_token_quantity.style.fontSize = "xx-large";
+            ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+            ordnance_token_quantity.style.textAlign = "right"
+            ordnance_token_quantity.style.color = "white";
+            upgrade_image.appendChild(ordnance_token_quantity);
+        }
         
         upgrade_box.appendChild(upgrade_image);
         

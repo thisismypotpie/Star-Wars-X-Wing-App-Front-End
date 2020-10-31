@@ -19,7 +19,7 @@ class in_game_upgrade{
         this.upgrade = incoming_upgrade;
         this.orientation = "front";
         this.ordnance_tokens = 0;
-        this.allocated_energy = 0;
+        this.energy_allocated = 0;
     }
 }
 
