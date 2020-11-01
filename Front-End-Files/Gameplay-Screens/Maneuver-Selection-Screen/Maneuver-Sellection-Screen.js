@@ -430,6 +430,22 @@ function cycle_button_click()
                 ordnance_token_quantity.style.color = "white";
                 upgrade_div.appendChild(ordnance_token_quantity);
             }
+            //Add energy tokens
+            if(upgrade.energy_allocated > 0)
+            {
+                var energy_token_quantity = document.createElement("div");
+                energy_token_quantity.style.gridRow = "1";
+                energy_token_quantity.style.gridColumn = "2";
+                energy_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+                energy_token_quantity.style.backgroundRepeat = "no-repeat";
+                energy_token_quantity.style.backgroundSize = "100% 100%";
+                energy_token_quantity.textContent = "X"+upgrade.energy_allocated;
+                energy_token_quantity.style.fontSize = "xx-large";
+                energy_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+                energy_token_quantity.style.textAlign = "right"
+                energy_token_quantity.style.color = "white";
+                upgrade_div.appendChild(energy_token_quantity);
+            }
             card_list.appendChild(upgrade_div);
             index_attribute++;
         })
@@ -464,6 +480,12 @@ function hide_pop_up(pop_up_id)
         document.getElementById("ordnance-token-container").style.visibility = "hidden";
         location.reload();
     }
+    if(pop_up_id == "card-removal-pop-up" && document.getElementById("energy-allocation-container").style.visibility == "visible")
+    {
+        document.getElementById("energy-allocation-container").style.visibility = "hidden";
+        location.reload();
+    }
+
 }
 
 //This function will make a pop up visible and have the card in question to remove or flip if it is a two sided upgrade.
@@ -517,10 +539,6 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
             document.getElementById("add-ordnance-token").onclick =function(){add_ordnance_token(index)};
    
             //Show number of ordnance tokens on each affected upgrades.
-             if(document.getElementById("ordnance-token-quantity") != null)
-             {
-               document.getElementById("ordnance-token-quantity");
-             }
               var ordnance_token_quantity = document.createElement("div");
               ordnance_token_quantity.style.gridRow = "2";
               ordnance_token_quantity.style.gridColumn = "2";
@@ -535,9 +553,35 @@ function show_pop_up_with_card_type_and_index(pop_up_id, index, card_type)
               ordnance_token_quantity.id = "token-quantity";
               document.getElementById("ordnance-token-image").appendChild(ordnance_token_quantity);
          }
+         else if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.type  == "Hardpoint" ||  
+                 all_teams[team_index].ship_list[selected_ship_index].upgrades[index].upgrade.id == 47)//Ionization reaction also can store energy.
+         {
+           document.getElementById("energy-allocation-container").style.visibility = "visible";
+   
+           //Set the buttons so the correct upgrade stats are displayed and can be altered.
+           document.getElementById("token-quantity").textContent = "X"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated;
+           document.getElementById("subtract-energy-token").onclick =function(){subract_energy_token(index)};
+           document.getElementById("add-energy-token").onclick =function(){add_energy_token(index)};
+   
+           //Show number of ordnance tokens on each affected upgrades.
+             var energy_token_quantity = document.createElement("div");
+             energy_token_quantity.style.gridRow = "1";
+             energy_token_quantity.style.gridColumn = "2";
+             //energy_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+             energy_token_quantity.style.backgroundRepeat = "no-repeat";
+             energy_token_quantity.style.backgroundSize = "100% 100%";
+             energy_token_quantity.textContent = "X"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated;
+             energy_token_quantity.style.fontSize = "xx-large";
+             energy_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+             //energy_token_quantity.style.textAlign = "right"
+             energy_token_quantity.style.color = "white";
+             energy_token_quantity.id = "token-quantity";
+             document.getElementById("energy-token-picture").appendChild(energy_token_quantity);
+         }
          else
          {
             document.getElementById("ordnance-token-container").style.visibility = "hidden";
+            document.getElementById("energy-allocation-container").style.visibility = "hidden";
          }
         yes_button.onclick = function(){remove_card(card_type,index)};
     }
@@ -1066,4 +1110,26 @@ function add_ordnance_token(index)
     all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens++;
     document.getElementById("token-quantity").textContent = "X"+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].ordnance_tokens;
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+function add_energy_token(index)
+{
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated++;
+  document.getElementById("token-quantity").textContent = "X"+ all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated;
+  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+}
+
+function subract_energy_token(index)
+{
+  if(all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated > 0)
+  {
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated--;
+
+  }
+  else
+  {
+    all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated = 0;
+  }
+  document.getElementById("token-quantity").textContent = "X"+all_teams[team_index].ship_list[selected_ship_index].upgrades[index].energy_allocated;
+  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
 }

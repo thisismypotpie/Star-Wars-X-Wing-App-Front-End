@@ -585,6 +585,45 @@ Overlay and pop-up screens
     grid-row: 18/22;
 }
 
+/*energy allocation container*/
+#energy-allocation-container{
+    display:grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(28,calc(100%/28));
+    width:30%;
+    visibility: hidden;
+}
+
+#subtract-energy-token{
+    grid-column: 4/9;
+    grid-row: 18/22;
+}
+
+#energy-token-picture{
+    background-image: url("https://i.imgur.com/21ZF1eI.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    grid-template-columns: repeat(2,calc(100%/2));
+    grid-template-rows: repeat(2,calc(100%/2));
+    display: grid;
+    grid-column: 3/10;
+    grid-row: 10/17;
+}
+
+#add-energy-token{
+    grid-column: 4/9;
+    grid-row: 5/9;
+}
+/*
+#energy-quantity{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3vw;
+    color: white;
+    align-items: center;
+}*/
+
 #flip-button-for-removal-pop-up{
     width: 15%;
     height: 15vh;

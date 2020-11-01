@@ -157,11 +157,19 @@
       <div class = "removal-container-so-flip-button-and-image-can-be-inline">
         <button type = "button" class = "button" id = "flip-button-for-removal-pop-up">flip</button>
         <div class = "pop-up-image" id = "removal-image"></div>
+        
         <div id = "ordnance-token-container">
           <button type = "button" class = "button" id = "add-ordnance-token">+</button>
           <div id = "ordnance-token-image"></div>
           <button type = "button" class = "button" id = "subtract-ordnance-token">-</button>
         </div>
+
+        <div id="energy-allocation-container">
+          <button type="button" class = "button" id = "subtract-energy-token">-</button>
+          <div id ="energy-token-picture"></div>
+          <button type="button" class = "button" id = "add-energy-token">+</button>
+        </div>
+
       </div>
       <button type = "button" class = "long-button no-button" id ="no-remove-button" onclick="hide_pop_up('card-removal-pop-up');document.getElementById('flip-button-for-removal-pop-up').style.visibility ='Hidden';document.getElementById('removal-image').style.border = '1px solid white'">Back</button>
       <button type = "button" class = "long-button yes-button" id = "yes-remove-button">Remove</button>
