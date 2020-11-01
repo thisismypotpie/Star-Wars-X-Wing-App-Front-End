@@ -1,6 +1,27 @@
-document.getElementById("new-game-button").addEventListener("click", function(){
-    window.location.href = "../Team-Screen/Team-Screen.html";
-  });
+//Freeplay button
+function freeplay_button_click()
+{
+  window.location.href = "../Team-Screen/Team-Screen.html";
+}
+//galactic conquest button
+function galactic_conquest_click()
+{
+  alert("This feature is in progress!");
+}
+//back button
+function back_button_click()
+{
+  document.getElementById("overlay").style.pointerEvents = "none";
+  document.getElementById("overlay").style.opacity = 0;
+  document.getElementById("choosing-game-type-popup").style.visibility = "hidden";
+}
+//New game button
+function new_game_button_click()
+{
+  document.getElementById("overlay").style.pointerEvents = "all";
+  document.getElementById("overlay").style.opacity = 1;
+  document.getElementById("choosing-game-type-popup").style.visibility = "visible";
+}
 
 
 //If game data is already populated, then you do not need to call to the back end to get it again.

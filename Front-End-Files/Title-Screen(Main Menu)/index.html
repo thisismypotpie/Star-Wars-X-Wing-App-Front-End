@@ -9,7 +9,7 @@
     <body>
     <section class="flex-container">
       <div class= "TitleImage" ></div>
-      <button type="button" class = "button NewGame" id = "new-game-button">New Game</button>
+      <button type="button" class = "button NewGame" id = "new-game-button" onclick="new_game_button_click()">New Game</button>
       <button type="button" class = "button LoadGame" onclick="load_game()">Load Game</button>
       <button type="button" class = "galaxy" onclick="window.location.href='../Galactic-Conquest-Screens/Galaxy-Map/Galaxy-Map.html'">Galaxy Map</button>
     </section>
@@ -26,6 +26,13 @@
         <input type="text" id="load-name-input" name="load-name-input"></input>
         <button type="button" class = "pop-up-button" id = "back-button-load-pop-up" onclick="close_load_game_pop_up()">Back</button>
         <button type="button" class = "pop-up-button" id = "ok-button-load-pop-up" onclick="get_load_data()">OK</button>
+      </div>
+
+      <div id = "choosing-game-type-popup">
+        <div id = "game-type-title">What kind of game would you like to play?</div>
+        <button type="button" class = "game-selection-button" id = "freeplay-button" onclick="freeplay_button_click()">Freeplay</button>
+        <button type="button" class = "game-selection-button" id = "galactic-conquest-button" onclick="galactic_conquest_click()">Galactic Conquest</button>
+        <button type="button" class = "game-selection-button" id = "game-type-back-button" onclick="back_button_click()">Back</button>
       </div>
   <script type="text/javascript" src="Title-Screen.js"></script>
   <script type="text/javascript" src="../Gameplay-Screens/Game-Logic-Files/Reminder-Module/reminder-functions.js"></script><!--This page is needed because it has the definition for reminder class in it. -->
