@@ -1,19 +1,8 @@
-- I need clearer rules when it comes to when one can change their pilot skill.
-
 -I need to find a way to deal with upgrades that add maneuvers to a ship.
 
 - There was a crash when Alex's team was eliminated.
 
 -Have dual sided upgrades change orietation on each upgrade screen and view as the flip button is pressed.
-
-
-Steps for adding energy allocation tokens to each hardpoint and ionization reactor.
-1. add the energy-allocation-container code to html page.
-2. add the css for energy related elements.
-3. REMOVE UNEEDED CODE FROM ORDNANCE TOKEN CODE"
-4. Add element module.
-5. Add    document.getElementById("energy-allocation-container").style.visibility = "hidden"; to when an upgrade is closed and when it is removed. 
-
 
 
 
