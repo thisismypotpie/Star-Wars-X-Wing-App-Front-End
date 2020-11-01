@@ -388,6 +388,7 @@ function get_upgrades_for_all_ships(all_teams,upgrade_data)
     current_upgrade = new in_game_upgrade(all_upgrades[upgrade.UpgradeID-1]);
     current_upgrade.ordnance_tokens = upgrade.OrdnanceTokens;
     current_upgrade.orientation = upgrade.Orientation;
+    current_upgrade.energy_allocated = upgrade.AllocatedEnergy;
 
     //Find the correct ship to give the upgrade to.
     current_roster = upgrade.RosterNumber;
