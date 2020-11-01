@@ -371,7 +371,18 @@ else
     {
         augment_token_quantity('tractor_beam_tokens','tractor-beam-token');
     }
-
+    else if(e.keyCode == 48)//add and upgrade/ 0 key
+    {
+        go_to_upgrade_screen();
+    }
+    else if(e.keycode == 189)//add a critical hit/- key
+    {
+        choose_which_crit_hit_screen_appears()
+    }
+    else if(e.keycode == 187)//add a condition/=key
+    {
+        show_pop_up('condition-pop-up');
+    }
     //Keybindings for each of the stats.
     else if(e.keyCode == 65)//augment attack/a-key
     {
