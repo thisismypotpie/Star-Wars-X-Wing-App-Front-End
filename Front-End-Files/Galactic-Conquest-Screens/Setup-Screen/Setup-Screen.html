@@ -11,6 +11,9 @@
 
     <div id="faction-container">
       <div class="sub-title" id="faction-title">Faction</div>
+      <div class = "faction-image" id="rebel-faction-image"></div>
+      <div id="or">OR</div>
+      <div class = "faction-image" id="imperial-faction-image"></div>
     </div>
 
     <div id="planet-assignment-container">
@@ -19,18 +22,52 @@
 
     <div id="location-container">
       <div class="sub-title" id="location-title">Location</div>
+      <input list="drop-down-selection" name="all-sectors" id="all-sectors"> 
+      <datalist id="drop-down-selection">
+        <option value="Galaxy-Wide">
+        <option value="More-Options-Coming-Soon">
+      </datalist>
     </div>
 
     <div id="resource-container">
       <div class="sub-title" id="resource-title">Resources</div>
+  <div id ="resource-radio-container">
+      <input type="radio" id="full-resource-radio" name="resource-option" value="full-resources">
+      <label for="full-resource-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;">Full Resources</label><br>
+      <input type="radio" id="currency-only-radio" name="resource-option" value="currency-only">
+      <label for="currency-only-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;">Currency Only</label><br>
     </div>
+  </div>
 
     <div id="starting-planets-container">
-      <div class="sub-title" id="starting-planet-title">Starting Planets</div>
+      <div class="sub-title" id="starting-planet-title">Planet Count</div>
+      <input type="range" min="1" max="5" value="5" id="start-planets-slider">
+      <div id="one-count">Few</div>
+      <div id="two-count">Some</div>
+      <div id="three-count">Average</div>
+      <div id="four-count">Many</div>
+      <div id="five-count">All</div>
     </div>
 
     <div id="pirate-options-container">
       <div class="sub-title" id="pirate-options-title">Pirate Options</div>
+      <input type="radio" id="pirate-radio" name="pirate-option" value="on">
+      <label for="pirate-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;">Pirates</label><br>
+      <input type="radio" id="no-pirate-radio" name="pirate-option" value="off">
+      <label for="no-pirate-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;">No Pirates</label><br>
+      <button type="button" class = "long-button" id = "pirate-options-button" onclick="">Pirate Options</button>
     </div>
 
     <button type="button" class = "long-button" id = "gc-play-button" onclick="">Play</button>
