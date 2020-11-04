@@ -18,12 +18,12 @@
 
     <div id="planet-assignment-container">
       <div class="sub-title" id="planet-assignment-title">Planet Assignment</div>
-      <input type="radio" id="random-assignment-radio" name="planet-assignment" value="random" onclick="button_blur_for_planet_assignment()">
+      <input type="radio" id="random-assignment-radio" name="planet-assignment" onclick="button_blur_for_planet_assignment()">
       <label for="random-assignment-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Random Assignment</label><br>
-      <input type="radio" id="manual-assignment-radio" name="planet-assignment" value="manual" checked onclick="button_focus_for_planet_assignment()">
+      <input type="radio" id="manual-assignment-radio" name="planet-assignment" checked onclick="button_focus_for_planet_assignment()">
       <label for="manual-assignment-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
@@ -36,7 +36,7 @@
     <div id="location-container">
       <div class="sub-title" id="location-title">Location</div>
       <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
-      <select id="all-sectors">
+      <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value">
         <option>Galaxy Wide</option>
         </select>
     </div>
@@ -44,12 +44,12 @@
     <div id="resource-container">
       <div class="sub-title" id="resource-title">Resources</div>
   <div id ="resource-radio-container">
-      <input type="radio" id="full-resource-radio" name="resource-option" value="full-resources" checked>
+      <input type="radio" id="full-resource-radio" name="resource-option" checked onclick = "gc_setup_data.resources_chosen='full'">
       <label for="full-resource-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Full Resources</label><br>
-      <input type="radio" id="currency-only-radio" name="resource-option" value="currency-only">
+      <input type="radio" id="currency-only-radio" name="resource-option" onclick = "gc_setup_data.resources_chosen ='currency' ">
       <label for="currency-only-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
@@ -59,7 +59,7 @@
 
     <div id="starting-planets-container">
       <div class="sub-title" id="starting-planet-title">Planet Count</div>
-      <input type="range" min="1" max="5" value="5" id="start-planets-slider">
+      <input type="range" min="1" max="5" value="5" id="start-planets-slider" onchange="gc_setup_data.planet_count = document.getElementById('start-planets-slider').value;">
       <div id="slider-label-container">
       <div class="slider-label" id="one-count">Few</div>
       <div class="slider-label" id="two-count">Some</div>
@@ -71,16 +71,20 @@
 
     <div id="pirate-options-container">
       <div class="sub-title" id="pirate-options-title">Pirate Options</div>
-      <input type="radio" id="pirate-radio" name="pirate-option" value="pirates" checked onclick="button_focus_for_pirates()">
+      <input type="radio" id="pirate-radio" name="pirate-option" checked onclick="button_focus_for_pirates()">
       <label for="pirate-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
-      font-size: 2vw;">Pirates</label><br>
-      <input type="radio" id="no-pirate-radio" name="pirate-option" value="no-pirates" onclick="button_blur_for_pirates()">
+      font-size: 2vw;
+      grid-column: 2;
+      grid-row: 3;">Pirates</label><br>
+      <input type="radio" id="no-pirate-radio" name="pirate-option" onclick="button_blur_for_pirates()">
       <label for="no-pirate-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
-      font-size: 2vw;">No Pirates</label><br>
+      font-size: 2vw;
+      grid-column: 2;
+      grid-row: 5;">No Pirates</label><br>
       <button type="button" class = "long-button" id = "pirate-options-button" onclick="piriate_button_click()">Pirate Options</button>
     </div>
 
