@@ -1,10 +1,10 @@
 var gc_setup_data = {
-    faction_chosen:"",//
+    faction_chosen:"",
     resources_chosen:"full",
-    planet_count:5, //
-    pirate_faction:"on",//
-    planet_assignment:"manual",//
-    location:"Galaxy Wide"//
+    planet_count:5, 
+    pirate_faction:"on",
+    planet_assignment:"manual",
+    location:"Galaxy Wide"
   };
 
 function go_to_main_menu()
@@ -31,7 +31,8 @@ function button_focus_for_pirates()
 
 function piriate_button_click()
 {
-    alert("pirate click")
+    sessionStorage.setItem("gc-setup-data",JSON.stringify(gc_setup_data));
+    window.location.href = "./Pirate-Options-Screen/Pirate-Options.html";
 }
 
 function button_blur_for_planet_assignment()
