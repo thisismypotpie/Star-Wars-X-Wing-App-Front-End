@@ -11,28 +11,40 @@
 
     <div id="faction-container">
       <div class="sub-title" id="faction-title">Faction</div>
-      <div class = "faction-image" id="rebel-faction-image"></div>
+      <div class = "faction-image" id="rebel-faction-image" onclick="rebel_faction_click()"></div>
       <div id="or">OR</div>
-      <div class = "faction-image" id="imperial-faction-image"></div>
+      <div class = "faction-image" id="imperial-faction-image" onclick="imperial_faction_click()"></div>
     </div>
 
     <div id="planet-assignment-container">
       <div class="sub-title" id="planet-assignment-title">Planet Assignment</div>
+      <input type="radio" id="random-assignment-radio" name="planet-assignment" value="random" onclick="button_blur_for_planet_assignment()">
+      <label for="random-assignment-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;">Random Assignment</label><br>
+      <input type="radio" id="manual-assignment-radio" name="planet-assignment" value="manual" checked onclick="button_focus_for_planet_assignment()">
+      <label for="manual-assignment-radio" style="
+      color: white;
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 2vw;
+      grid-column:2;
+      grid-row: 6;">Manual Assignment</label><br>
+      <button type="button" class = "long-button" id = "planet-assignment-button" onclick="planet_assignment_click()">Planet Assignment</button>
     </div>
 
     <div id="location-container">
       <div class="sub-title" id="location-title">Location</div>
-      <input list="drop-down-selection" name="all-sectors" id="all-sectors"> 
-      <datalist id="drop-down-selection">
-        <option value="Galaxy-Wide">
-        <option value="More-Options-Coming-Soon">
-      </datalist>
+      <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
+      <select id="all-sectors">
+        <option>Galaxy Wide</option>
+        </select>
     </div>
 
     <div id="resource-container">
       <div class="sub-title" id="resource-title">Resources</div>
   <div id ="resource-radio-container">
-      <input type="radio" id="full-resource-radio" name="resource-option" value="full-resources">
+      <input type="radio" id="full-resource-radio" name="resource-option" value="full-resources" checked>
       <label for="full-resource-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
@@ -48,26 +60,28 @@
     <div id="starting-planets-container">
       <div class="sub-title" id="starting-planet-title">Planet Count</div>
       <input type="range" min="1" max="5" value="5" id="start-planets-slider">
-      <div id="one-count">Few</div>
-      <div id="two-count">Some</div>
-      <div id="three-count">Average</div>
-      <div id="four-count">Many</div>
-      <div id="five-count">All</div>
+      <div id="slider-label-container">
+      <div class="slider-label" id="one-count">Few</div>
+      <div class="slider-label" id="two-count">Some</div>
+      <div class="slider-label" id="three-count">Average</div>
+      <div class="slider-label" id="four-count">Many</div>
+      <div class="slider-label" id="five-count">All</div>
+    </div>
     </div>
 
     <div id="pirate-options-container">
       <div class="sub-title" id="pirate-options-title">Pirate Options</div>
-      <input type="radio" id="pirate-radio" name="pirate-option" value="on">
+      <input type="radio" id="pirate-radio" name="pirate-option" value="pirates" checked onclick="button_focus_for_pirates()">
       <label for="pirate-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Pirates</label><br>
-      <input type="radio" id="no-pirate-radio" name="pirate-option" value="off">
+      <input type="radio" id="no-pirate-radio" name="pirate-option" value="no-pirates" onclick="button_blur_for_pirates()">
       <label for="no-pirate-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">No Pirates</label><br>
-      <button type="button" class = "long-button" id = "pirate-options-button" onclick="">Pirate Options</button>
+      <button type="button" class = "long-button" id = "pirate-options-button" onclick="piriate_button_click()">Pirate Options</button>
     </div>
 
     <button type="button" class = "long-button" id = "gc-play-button" onclick="">Play</button>
