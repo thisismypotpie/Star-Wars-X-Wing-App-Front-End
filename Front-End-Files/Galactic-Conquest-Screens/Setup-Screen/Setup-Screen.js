@@ -7,6 +7,47 @@ var gc_setup_data = {
     location:"Galaxy Wide"
   };
 
+//if 
+if(sessionStorage.getItem("gc-setup-data")!= null)
+{
+    let data = JSON.parse(sessionStorage.getItem("gc-setup-data"));
+    //Set correct faction.
+    if(data.faction_chosen == "Rebels")
+    {
+        rebel_faction_click();
+    }
+    else if(data.faction_chosen == "Imperial")
+    {
+        imperial_faction_click();
+    }
+    //Set correct resources
+    if(data.resources_chosen == "currency")
+    {
+        document.getElementById("currency-only-radio").click();
+    }
+    //Set planet count
+    document.getElementById("start-planets-slider").value = data.planet_count;
+    //Set if pirates are on or off.
+    if(data.pirate_faction == "off")
+    {
+        button_blur_for_pirates();
+    }
+    //Set planet assignment
+    if(data.planet_assignment == "random")
+    {
+        button_blur_for_planet_assignment();
+    }
+    //Set location
+    for(var i=0; i < document.getElementById("all-sectors").options.length;i++)
+    {
+        if(data.location == document.getElementById("all-sectors")[i].text)
+        {
+            document.getElementById("all-sectors")[i].selected = "selected";
+            break;
+        }
+    }
+}
+
 function go_to_main_menu()
 {
     let game_data = JSON.parse(sessionStorage.getItem("game_data"));

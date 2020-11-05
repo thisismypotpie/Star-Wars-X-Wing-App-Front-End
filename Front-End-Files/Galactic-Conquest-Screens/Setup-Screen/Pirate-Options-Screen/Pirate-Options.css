@@ -38,7 +38,7 @@ body{
 }
 
 #pirate-options-back-button{
-    grid-column: 20/24;
+    grid-column: 15/19;
     grid-row: 19/24;
     font-size: x-large;
 }
@@ -130,4 +130,14 @@ body{
 #ship-quantity-18{
     grid-row: 12/15;
     grid-column:14/19;
+}
+
+.ship-number-display{
+    background-color: black;
+    border: 1px solid white;
+    color:white;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: center;
+    grid-column: 4/6;
+    grid-row: 2;
 }
