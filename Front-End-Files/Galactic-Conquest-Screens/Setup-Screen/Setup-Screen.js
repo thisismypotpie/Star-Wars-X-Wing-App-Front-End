@@ -4,7 +4,8 @@ var gc_setup_data = {
     planet_count:5, 
     pirate_faction:"on",
     planet_assignment:"manual",
-    location:"Galaxy Wide"
+    location:"Galaxy Wide",
+    include_unknown_region:"no"
   };
 
 //if 
@@ -45,6 +46,11 @@ if(sessionStorage.getItem("gc-setup-data")!= null)
             document.getElementById("all-sectors")[i].selected = "selected";
             break;
         }
+    }
+    //Set unknown region.
+    if(data.include_unknown_region == "yes")
+    {
+        document.getElementById("unknown-region").checked = true;
     }
 }
 
@@ -111,4 +117,16 @@ function imperial_faction_click()
     document.getElementById("rebel-faction-image").style.border = "none";
     document.getElementById("rebel-faction-image").style.opacity = "0.3";
     gc_setup_data.faction_chosen = "Imperial";
+}
+
+function see_if_include_unknown_regions()
+{
+    if(document.getElementById("unknown-region").checked)
+    {
+        gc_setup_data.include_unknown_region = "yes";
+    }
+    else
+    {
+        gc_setup_data.include_unknown_region = "no";
+    }
 }

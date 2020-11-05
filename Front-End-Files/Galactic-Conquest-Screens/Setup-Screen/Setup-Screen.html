@@ -34,13 +34,24 @@
     </div>
 
     <div id="location-container">
-      <div class="sub-title" id="location-title">Location</div>
+      <div class="sub-title" id="location-title">Boundry</div>
       <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
       <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value">
         <option>Galaxy Wide</option>
-        <option>test one</option>
-        <option>test two</option>
+        <option>Mid-Rim</option>
+        <option>Expansion Region</option>
+        <option>Inner Rim</option>
+        <option>Colonies</option>
+        <option>Core</option>
         </select>
+        <input type="checkbox" id="unknown-region" name="unknown-region-checkbox" onchange="see_if_include_unknown_regions()">
+        <label for="unknown-region" style="
+        color: white;
+        font-family: Impact, Charcoal, sans-serif;
+        font-size: 1.25vw;
+        grid-column: 5/9;
+        text-align: right;
+        grid-row: 4;"> Include Unknown Regions?</label><br>
     </div>
 
     <div id="resource-container">

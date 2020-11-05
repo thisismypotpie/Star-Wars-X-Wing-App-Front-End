@@ -136,6 +136,12 @@ body{
     font-family: Impact, Charcoal, sans-serif;
 }
 
+#unknown-region{
+    color: white;
+    grid-row: 4;
+    grid-column: 5;
+}
+
 #browser{
     grid-row:3;
 }
