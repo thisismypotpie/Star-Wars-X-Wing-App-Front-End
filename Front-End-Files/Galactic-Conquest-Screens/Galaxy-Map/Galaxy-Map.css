@@ -63,6 +63,12 @@ body{
     background-repeat: no-repeat;
     background-color: black;
 }
+
+#sector-option-container{
+    background-color: gray;
+    border: 1px solid white;
+}
+
 @media screen and (max-width: 1024px){
     .pop-up-text{
         font-size: x-large;

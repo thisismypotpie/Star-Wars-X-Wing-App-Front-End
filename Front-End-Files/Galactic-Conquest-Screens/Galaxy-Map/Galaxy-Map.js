@@ -29,7 +29,7 @@ document.addEventListener("keydown", function(event){
          grid_coordinate.style.backgroundSize = "100%  100%";
          grid_coordinate.style.backgroundRepeat = "no-repeat";
          grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid red";planet_check(e);};
-         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none"; document.getElementById("planet-info-pop-up").style.visibility = "hidden";};
+         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none"; document.getElementById("planet-info-pop-up").style.visibility = "hidden";get_border_color(e.target.id)};
          document.getElementById('grid-container').appendChild(grid_coordinate);
      }
   }
@@ -77,7 +77,7 @@ function planet_check(mouse_event)
 }
 
 var rejected_ids = [];
-add_path_dots();
+//add_path_dots();
 function add_path_dots()
 {
   var game_data = JSON.parse(sessionStorage.getItem("game_data"));
@@ -104,7 +104,75 @@ function add_path_dots()
           {
               var id = planet.x_coordinate+"_"+planet.y_coordinate;
               document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
+              if(planet.sector == "Core")
+              {
+                document.getElementById(id).style.border = "1px solid green";
+              }
+              else if(planet.sector == "Colonies")
+              {
+                document.getElementById(id).style.border = "1px solid purple";
+              }
+              else if(planet.sector == "Expansion")
+              {
+                document.getElementById(id).style.border = "1px solid orange";
+              }
+              else if(planet.sector == "Inner Rim")
+              {
+                document.getElementById(id).style.border = "1px solid yellow";
+              }
+              else if(planet.sector == "Mid Rim")
+              {
+                document.getElementById(id).style.border = "1px solid red";
+              }
+              else if(planet.sector == "Outer Rim")
+              {
+                document.getElementById(id).style.border = "1px solid white";
+              }
+              else if(planet.sector == "Western Reaches")
+              {
+                document.getElementById(id).style.border = "1px solid Black";
+              }
+              else if(planet.sector == "Unknown Regions")
+              {
+                document.getElementById(id).style.border = "1px solid brown";
+              }
               document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
           }
       })
+  }
+
+  function get_border_color(id)
+  {
+    if(planet.sector == "Core")
+    {
+      document.getElementById(id).style.border = "1px solid green";
+    }
+    else if(planet.sector == "Colonies")
+    {
+      document.getElementById(id).style.border = "1px solid purple";
+    }
+    else if(planet.sector == "Expansion")
+    {
+      document.getElementById(id).style.border = "1px solid orange";
+    }
+    else if(planet.sector == "Inner Rim")
+    {
+      document.getElementById(id).style.border = "1px solid yellow";
+    }
+    else if(planet.sector == "Mid Rim")
+    {
+      document.getElementById(id).style.border = "1px solid red";
+    }
+    else if(planet.sector == "Outer Rim")
+    {
+      document.getElementById(id).style.border = "1px solid white";
+    }
+    else if(planet.sector == "Western Reaches")
+    {
+      document.getElementById(id).style.border = "1px solid Black";
+    }
+    else if(planet.sector == "Unknown Regions")
+    {
+      document.getElementById(id).style.border = "1px solid brown";
+    }
   }
