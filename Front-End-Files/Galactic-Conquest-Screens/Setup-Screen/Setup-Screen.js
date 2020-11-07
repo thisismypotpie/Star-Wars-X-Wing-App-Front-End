@@ -130,3 +130,8 @@ function see_if_include_unknown_regions()
         gc_setup_data.include_unknown_region = "no";
     }
 }
+
+function play_button_click()
+{
+    window.location.href= "../Gameplay-Screens/gameplay-screen.html";
+}
