@@ -41,8 +41,32 @@ body{
     height: 80vh;
     left: 10px;
     top:10%;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(24,calc(100%/24));
 }
 
 .btn{
-    
+    background-image: url("https://i.imgur.com/RkyE0Xv.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: transparent;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 1.2vw;
+    border:none;
+}
+
+#options-button{
+    grid-column: 2/12;
+    grid-row: 2/8;
+}
+
+#next-phase-button{
+    grid-column: 2/12;
+    grid-row: 10/16;
+}
+
+#map-button{
+    grid-column: 2/12;
+    grid-row: 18/24;
 }
