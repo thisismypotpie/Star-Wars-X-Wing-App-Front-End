@@ -133,5 +133,6 @@ function see_if_include_unknown_regions()
 
 function play_button_click()
 {
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
     window.location.href= "../Gameplay-Screens/gameplay-screen.html";
 }

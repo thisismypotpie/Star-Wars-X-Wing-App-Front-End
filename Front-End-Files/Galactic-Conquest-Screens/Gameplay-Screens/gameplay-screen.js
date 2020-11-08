@@ -1,6 +1,11 @@
-  var saved_x_coordinate_for_map_return = undefined;
-  var saved_y_coordinate_for_map_return = undefined;
+  var saved_x_coordinate_for_map_return = 3000;
+  var saved_y_coordinate_for_map_return = 2500;
+  var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+  var active_planets = undefined;
   
+  //get a list of all active planets.
+  get_active_planets();
+
   //grid-click system.
   var coordinates = [];
   for(var x=1; x < 101;x++)
@@ -40,6 +45,10 @@ var rejected_ids = [];
       })
   }
 
+  setTimeout(() => {
+    window.focus();
+    window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
+}, 200); 
 
   function map_button_click()
   {
@@ -63,5 +72,10 @@ var rejected_ids = [];
         window.focus();
         window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
     }, 200); 
+  }
+
+  function get_active_planets()
+  {
+     
   }
 
