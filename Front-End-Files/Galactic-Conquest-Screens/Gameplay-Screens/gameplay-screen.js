@@ -1,18 +1,6 @@
-
-
-document.addEventListener("keydown", function(event){ 
-    console.log(event.keyCode);
-    if (event.keyCode == 107 || event.keyCode == 187)//zoom in
-    {
-        
-    }
-    else if(event.keyCode == 187)//zoom out
-    {
-
-    }
-  });
-
-
+  var saved_x_coordinate_for_map_return = undefined;
+  var saved_y_coordinate_for_map_return = undefined;
+  
   //grid-click system.
   var coordinates = [];
   for(var x=1; x < 101;x++)
@@ -51,3 +39,29 @@ var rejected_ids = [];
           }
       })
   }
+
+
+  function map_button_click()
+  {
+      saved_x_coordinate_for_map_return = window.pageXOffset;
+      saved_y_coordinate_for_map_return = window.pageYOffset;
+      document.body.style.backgroundSize = "100% 98vh";
+      window.scrollTo(0,0);
+      document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(100%/100))";
+      document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(98vh/100))";
+      document.getElementById("map-button").onclick = function(){exit_map();};
+  } 
+
+  function exit_map()
+  {
+    document.body.style.backgroundSize = "500% 800vh";
+    window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
+    document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(500%/100))";
+    document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(800vh/100))";
+    document.getElementById("map-button").onclick = function(){map_button_click()};
+    setTimeout(() => {
+        window.focus();
+        window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
+    }, 200); 
+  }
+
