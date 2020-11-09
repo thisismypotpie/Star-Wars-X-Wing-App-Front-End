@@ -1,10 +1,8 @@
-  var saved_x_coordinate_for_map_return = 3000;
-  var saved_y_coordinate_for_map_return = 2500;
+  var saved_x_coordinate_for_map_return = document.body.scrollHeight/2;
+  var saved_y_coordinate_for_map_return = document.body.scrollHeight/2;
   var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
-  var active_planets = undefined;
-  
-  //get a list of all active planets.
-  get_active_planets();
+  var active_planets = [];
+  var border_color_place_holder;
 
   //grid-click system.
   var coordinates = [];
@@ -21,8 +19,8 @@
          grid_coordinate.style.gridRow = (y).toString();
          grid_coordinate.style.backgroundSize = "100%  100%";
          grid_coordinate.style.backgroundRepeat = "no-repeat";
-         grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid red";};
-         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";};
+         grid_coordinate.onmouseenter = function(e){border_color_place_holder = document.getElementById(e.target.id).style.border;document.getElementById(e.target.id).style.border = "1px solid green";};
+         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = border_color_place_holder;};
          document.getElementById('grid-container').appendChild(grid_coordinate);
      }
   }
@@ -31,51 +29,79 @@ var rejected_ids = [];
 
 //Load planets onto galaxy map.
   load_planets();
-  function load_planets()
-  {
-      var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-      game_data.all_planets.forEach(planet=>{
-          if(planet.x_coordinate !=null && planet.y_coordinate !=null)
-          {
-              var id = planet.x_coordinate+"_"+planet.y_coordinate;
-              document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
-              document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
-              document.getElementById(id).onclick = function(){alert(planet.name)};
-          }
-      })
-  }
 
+//highlight controlled planets.
+highlight_planets();
+
+//Scroll to correct area.
   setTimeout(() => {
     window.focus();
     window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
 }, 200); 
 
-  function map_button_click()
+function load_planets()
+{
+    var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+    game_data.all_planets.forEach(planet=>{
+        if(planet.x_coordinate !=null && planet.y_coordinate !=null)
+        {
+            var id = planet.x_coordinate+"_"+planet.y_coordinate;
+            document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
+            document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
+            document.getElementById(id).onclick = function(){alert(planet.name)};
+            active_planets.push(new in_game_planet(planet));
+        }
+    })
+}
+
+
+  function zoom_button_click()
   {
       saved_x_coordinate_for_map_return = window.pageXOffset;
       saved_y_coordinate_for_map_return = window.pageYOffset;
-      document.body.style.backgroundSize = "100% 98vh";
-      window.scrollTo(0,0);
-      document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(100%/100))";
-      document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(98vh/100))";
-      document.getElementById("map-button").onclick = function(){exit_map();};
+      document.body.style.backgroundSize = "200% 196vh";
+      window.scrollTo((document.body.scrollHeight/2),(document.body.scrollHeight/2));
+      document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(200%/100))";
+      document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(196vh/100))";
+      //document.getElementById("main-title").style.visibility = "hidden";
+      document.getElementById("zoom-button").textContent = "Zoom In"
+      document.getElementById("zoom-button").onclick = function(){exit_zoom();};
   } 
 
-  function exit_map()
+  function exit_zoom()
   {
     document.body.style.backgroundSize = "500% 800vh";
     window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
     document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(500%/100))";
     document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(800vh/100))";
-    document.getElementById("map-button").onclick = function(){map_button_click()};
+    document.getElementById("zoom-button").onclick = function(){zoom_button_click()};
+    document.getElementById("zoom-button").textContent = "Zoom Out"
+    //document.getElementById("main-title").style.visibility = "visible";
     setTimeout(() => {
         window.focus();
         window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
     }, 200); 
   }
 
-  function get_active_planets()
+  function highlight_planets()
   {
-     
+      active_planets[42].controlling_faction = "Imperial";
+      active_planets[91].controlling_faction = "Rebels";
+
+      active_planets.forEach(planet=>{
+        var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
+        if(planet.controlling_faction == "Rebels")
+        {
+          document.getElementById(id).style.border = "3px solid red";
+        }
+        else if(planet.controlling_faction == "Imperial")
+        {
+          document.getElementById(id).style.border = "3px solid black";
+        }
+        else
+        {
+          document.getElementById(id).style.border ="none";
+        }
+      })
   }
 

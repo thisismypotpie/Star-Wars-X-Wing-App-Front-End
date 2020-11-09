@@ -66,7 +66,7 @@ body{
     grid-row: 10/16;
 }
 
-#map-button{
+#zoom-button{
     grid-column: 2/12;
     grid-row: 18/24;
 }
