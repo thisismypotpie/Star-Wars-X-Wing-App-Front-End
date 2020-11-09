@@ -1,18 +1,3 @@
-
-
-document.addEventListener("keydown", function(event){ 
-    console.log(event.keyCode);
-    if (event.keyCode == 107 || event.keyCode == 187)//zoom in
-    {
-        
-    }
-    else if(event.keyCode == 187)//zoom out
-    {
-
-    }
-  });
-
-
   //grid-click system.
   var coordinates = [];
   for(var x=1; x < 101;x++)
@@ -29,7 +14,7 @@ document.addEventListener("keydown", function(event){
          grid_coordinate.style.backgroundSize = "100%  100%";
          grid_coordinate.style.backgroundRepeat = "no-repeat";
          grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid red";planet_check(e);};
-         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none"; document.getElementById("planet-info-pop-up").style.visibility = "hidden";get_border_color(e.target.id)};
+         grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none"; document.getElementById("planet-info-pop-up").style.visibility = "hidden";};
          document.getElementById('grid-container').appendChild(grid_coordinate);
      }
   }

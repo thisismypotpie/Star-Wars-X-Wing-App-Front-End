@@ -85,9 +85,6 @@ function load_planets()
 
   function highlight_planets()
   {
-      active_planets[42].controlling_faction = "Imperial";
-      active_planets[91].controlling_faction = "Rebels";
-
       active_planets.forEach(planet=>{
         var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
         if(planet.controlling_faction == "Rebels")
