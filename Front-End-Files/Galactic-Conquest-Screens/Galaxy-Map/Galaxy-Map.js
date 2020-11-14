@@ -1,6 +1,6 @@
   //grid-click system.
   var coordinates = [];
-  for(var x=1; x < 101;x++)
+  for(var x=1; x < 201;x++)
   {
      for(var y=1; y<101;y++)
      {
@@ -88,76 +88,76 @@ function add_path_dots()
           if(planet.x_coordinate !=null && planet.y_coordinate !=null)
           {
               var id = planet.x_coordinate+"_"+planet.y_coordinate;
-              document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
+              //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
               if(planet.sector == "Core")
               {
-                document.getElementById(id).style.border = "1px solid green";
+                document.getElementById(id).style.backgroundColor = "blue";
               }
               else if(planet.sector == "Colonies")
               {
-                document.getElementById(id).style.border = "1px solid purple";
-              }
-              else if(planet.sector == "Expansion")
-              {
-                document.getElementById(id).style.border = "1px solid orange";
+                document.getElementById(id).style.backgroundColor = "red";
               }
               else if(planet.sector == "Inner Rim")
               {
-                document.getElementById(id).style.border = "1px solid yellow";
+                document.getElementById(id).style.backgroundColor = "green";
+              }
+              else if(planet.sector == "Expansion")
+              {
+                document.getElementById(id).style.backgroundColor = "yellow";
               }
               else if(planet.sector == "Mid Rim")
               {
-                document.getElementById(id).style.border = "1px solid red";
+                document.getElementById(id).style.backgroundColor = "purple";
               }
               else if(planet.sector == "Outer Rim")
               {
-                document.getElementById(id).style.border = "1px solid white";
+                document.getElementById(id).style.backgroundColor = "orange";
               }
-              else if(planet.sector == "Western Reaches")
+              else if(planet.sector == "Hutt Space")
               {
-                document.getElementById(id).style.border = "1px solid Black";
+                document.getElementById(id).style.backgroundColor = "grey";
+              }
+              else if(planet.sector == "Wild Space")
+              {
+                document.getElementById(id).style.backgroundColor = "cyan";
               }
               else if(planet.sector == "Unknown Regions")
               {
-                document.getElementById(id).style.border = "1px solid brown";
+                document.getElementById(id).style.backgroundColor = "brown";
               }
+              else
+              {
+                document.getElementById(id).style.backgroundColor = "black";
+              }
+
               document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
           }
       })
   }
 
-  function get_border_color(id)
-  {
-    if(planet.sector == "Core")
-    {
-      document.getElementById(id).style.border = "1px solid green";
-    }
-    else if(planet.sector == "Colonies")
-    {
-      document.getElementById(id).style.border = "1px solid purple";
-    }
-    else if(planet.sector == "Expansion")
-    {
-      document.getElementById(id).style.border = "1px solid orange";
-    }
-    else if(planet.sector == "Inner Rim")
-    {
-      document.getElementById(id).style.border = "1px solid yellow";
-    }
-    else if(planet.sector == "Mid Rim")
-    {
-      document.getElementById(id).style.border = "1px solid red";
-    }
-    else if(planet.sector == "Outer Rim")
-    {
-      document.getElementById(id).style.border = "1px solid white";
-    }
-    else if(planet.sector == "Western Reaches")
-    {
-      document.getElementById(id).style.border = "1px solid Black";
-    }
-    else if(planet.sector == "Unknown Regions")
-    {
-      document.getElementById(id).style.border = "1px solid brown";
-    }
+  document.onkeyup = function(e) {
+      if(e.keyCode == 82)
+      {
+        //Load the game data and store it in session Storage.
+        var url = "http://localhost:3000/get_data";//"https://star-wars-x-wing-back-end.herokuapp.com/get_data";
+        var game_data = undefined;
+        fetch(url)
+        .catch(function(error) {
+          console.log(error);
+          alert("LOADING ERROR: PLEASE CHECK LOGS")
+        })
+        .then(response =>response.json())
+        .then(data => game_data = data)
+        .then(() => sessionStorage.setItem("game_data",JSON.stringify(game_data)))
+        .then(()=>{
+        if(JSON.parse(sessionStorage.getItem("game_data") == null || JSON.parse(sessionStorage.getItem("game_data") == undefined)))
+        {
+          alert("LOADING ERROR: PLEASE CHECK LOGS")
+        }
+        else
+        {
+          window.location.reload();
+        }
+        }); 
+      }
   }
