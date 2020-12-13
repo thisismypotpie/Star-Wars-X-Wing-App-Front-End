@@ -62,7 +62,7 @@ function planet_check(mouse_event)
 }
 
 var rejected_ids = [];
-//add_path_dots();
+add_path_dots();
 function add_path_dots()
 {
   var game_data = JSON.parse(sessionStorage.getItem("game_data"));
@@ -85,11 +85,11 @@ function add_path_dots()
   {
       var game_data = JSON.parse(sessionStorage.getItem("game_data"));
       game_data.all_planets.forEach(planet=>{
-          if(planet.x_coordinate !=null && planet.y_coordinate !=null)
+          if(planet.x_coordinate !=null && planet.y_coordinate !=null )
           {
               var id = planet.x_coordinate+"_"+planet.y_coordinate;
               //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
-              if(planet.sector == "Core")
+              /*if(planet.sector == "Core")
               {
                 document.getElementById(id).style.backgroundColor = "blue";
               }
@@ -128,8 +128,28 @@ function add_path_dots()
               else
               {
                 document.getElementById(id).style.backgroundColor = "black";
+              }*/
+              document.getElementById(id).style.backgroundColor = "blue"
+              if(planet.priority !=null && planet.priority == 1)
+              {
+                document.getElementById(id).style.backgroundColor = "red"
               }
-
+              else if(planet.priority !=null && planet.priority == 2)
+              {
+                document.getElementById(id).style.backgroundColor = "yellow";
+              }
+              else if(planet.priority !=null && planet.priority == 3)
+              {
+                document.getElementById(id).style.backgroundColor = "cyan";
+              }
+              else if(planet.priority !=null && planet.priority == 4)
+              {
+                document.getElementById(id).style.backgroundColor = "purple";
+              }
+              else if(planet.priority !=null && planet.priority == 5)
+              {
+                document.getElementById(id).style.backgroundColor = "green";
+              }
               document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
           }
       })

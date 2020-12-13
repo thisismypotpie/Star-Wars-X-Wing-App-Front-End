@@ -3,12 +3,32 @@ var gc_setup_data = {
     resources_chosen:"full",
     planet_count:5, 
     pirate_faction:"on",
+    pirate_options:{
+    total_ships:0,
+    hwk_290:0,
+    kihraxz:0,
+    m3_a:0,
+    kimongila:0,
+    g_1a:0,
+    protecterate:0,
+    quadjumper:0,
+    scurrg:0,
+    starviper:0,
+    y_wing:0,
+    z_95:0,
+    firespray:0,
+    hounds_tooth:0,
+    aggressor:0,
+    jump_master:0,
+    lancer_pursuit:0,
+    yt_1300:0,
+    c_roc:0
+    },
     planet_assignment:"manual",
     location:"Galaxy Wide",
-    include_unknown_region:"no"
   };
 
-//if 
+//set options if they are already selected.
 if(sessionStorage.getItem("gc-setup-data")!= null)
 {
     let data = JSON.parse(sessionStorage.getItem("gc-setup-data"));
@@ -47,11 +67,8 @@ if(sessionStorage.getItem("gc-setup-data")!= null)
             break;
         }
     }
-    //Set unknown region.
-    if(data.include_unknown_region == "yes")
-    {
-        document.getElementById("unknown-region").checked = true;
-    }
+    //set pirate ship quantities
+    gc_setup_data = data;
 }
 
 function go_to_main_menu()
@@ -119,24 +136,20 @@ function imperial_faction_click()
     gc_setup_data.faction_chosen = "Imperial";
 }
 
-function see_if_include_unknown_regions()
+function play_button_click()
 {
-    if(document.getElementById("unknown-region").checked)
+    //var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+    if(gc_setup_data.faction_chosen == "")
     {
-        gc_setup_data.include_unknown_region = "yes";
+        alert("Please select a faction before proceeding.");
+    }
+    else if(gc_setup_data.pirate_faction == "on" && gc_setup_data.pirate_options.total_ships == 0)
+    {
+        alert("Please enter pirate parameters or turn pirates off before proceeding.");
     }
     else
     {
-        gc_setup_data.include_unknown_region = "no";
+        sessionStorage.setItem("gc_setup_data",gc_setup_data)
+        window.location.href= "../Gameplay-Screens/gameplay-screen.html";
     }
-}
-
-function play_button_click()
-{
-    var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-    var location = gc_setup_data.location;
-    game_data.all_planets.forEach(planet=>{
-        
-    })
-    window.location.href= "../Gameplay-Screens/gameplay-screen.html";
 }

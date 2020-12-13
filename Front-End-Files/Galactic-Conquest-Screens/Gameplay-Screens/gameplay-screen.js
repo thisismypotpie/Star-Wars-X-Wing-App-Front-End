@@ -6,7 +6,7 @@
 
   //grid-click system.
   var coordinates = [];
-  for(var x=1; x < 101;x++)
+  for(var x=1; x < 201;x++)
   {
      for(var y=1; y<101;y++)
      {
