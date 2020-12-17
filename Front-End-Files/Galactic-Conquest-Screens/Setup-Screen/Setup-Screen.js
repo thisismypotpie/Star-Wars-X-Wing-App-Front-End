@@ -1,37 +1,9 @@
-var gc_setup_data = {
-    faction_chosen:"",
-    resources_chosen:"full",
-    planet_count:5, 
-    pirate_faction:"on",
-    pirate_options:{
-    total_ships:0,
-    hwk_290:0,
-    kihraxz:0,
-    m3_a:0,
-    kimongila:0,
-    g_1a:0,
-    protecterate:0,
-    quadjumper:0,
-    scurrg:0,
-    starviper:0,
-    y_wing:0,
-    z_95:0,
-    firespray:0,
-    hounds_tooth:0,
-    aggressor:0,
-    jump_master:0,
-    lancer_pursuit:0,
-    yt_1300:0,
-    c_roc:0
-    },
-    planet_assignment:"manual",
-    location:"Galaxy Wide",
-  };
+var gc_setup_data;
 
-//set options if they are already selected.
-if(sessionStorage.getItem("gc-setup-data")!= null)
+//Set options if gc setup already existed.
+if(sessionStorage.getItem("gc_setup_data")!= null)
 {
-    let data = JSON.parse(sessionStorage.getItem("gc-setup-data"));
+    let data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     //Set correct faction.
     if(data.faction_chosen == "Rebels")
     {
@@ -70,6 +42,45 @@ if(sessionStorage.getItem("gc-setup-data")!= null)
     //set pirate ship quantities
     gc_setup_data = data;
 }
+else //Set up a fresh gc_setup.
+{
+        gc_setup_data = {
+        faction_chosen:"",
+        resources_chosen:"full",
+        planet_count:5, 
+        pirate_faction:"on",
+        pirate_options:{
+        total_ships:
+            "gc_setup_data.pirate_options.HWK_290+gc_setup_data.pirate_options.Kihraxz_Fighter+gc_setup_data.pirate_options.M3_A_Interceptor+gc_setup_data.pirate_options.M12_L_Kimongila_Fighter+gc_setup_data.pirate_options.G_1A_Starfighter+"+
+            "gc_setup_data.pirate_options.Protectorate_Starfighter+gc_setup_data.pirate_options.Quadjumper+gc_setup_data.pirate_options.Scurrg_H_6_Bomber+gc_setup_data.pirate_options.StarViper+gc_setup_data.pirate_options.Y_Wing+"+
+            "gc_setup_data.pirate_options.Z_95_Headhunter+gc_setup_data.pirate_options.Firespray_31+gc_setup_data.pirate_options.Hounds_Tooth+gc_setup_data.pirate_options.Aggressor+gc_setup_data.pirate_options.Jump_Master_5000+"+
+            "gc_setup_data.pirate_options.Lancer_Class_Pusuit_Craft+gc_setup_data.pirate_options.YT_1300+gc_setup_data.pirate_options.C_ROC_Cruiser;",
+        HWK_290: 0,
+        Kihraxz_Fighter:0,
+        M3_A_Interceptor:0,
+        M12_L_Kimongila_Fighter:0,
+        G_1A_Starfighter:0,
+        Protectorate_Starfighter:0,
+        Quadjumper:0,
+        Scurrg_H_6_Bomber:0,
+        StarViper:0,
+        Y_Wing:0,
+        Z_95_Headhunter:0,
+        Firespray_31:0,
+        Hounds_Tooth:0,
+        Aggressor:0,
+        Jump_Master_5000:0,
+        Lancer_Class_Pusuit_Craft:0,
+        YT_1300:0,
+        C_ROC_Cruiser:0
+        },
+        planet_assignment:"manual",
+        location:"Galaxy Wide",
+      };
+      sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
+}
+
+alert("Total Ships: "+eval(gc_setup_data.pirate_options.total_ships));
 
 function go_to_main_menu()
 {
@@ -84,6 +95,7 @@ function button_blur_for_pirates()
     document.getElementById("pirate-options-button").style.opacity = "0.3";
     document.getElementById("pirate-options-button").onclick = null;
     gc_setup_data.pirate_faction = "off";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function button_focus_for_pirates()
@@ -91,11 +103,12 @@ function button_focus_for_pirates()
     document.getElementById("pirate-options-button").style.opacity = "1.0";
     document.getElementById("pirate-options-button").onclick = function(){piriate_button_click();};
     gc_setup_data.pirate_faction = "on";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function piriate_button_click()
 {
-    sessionStorage.setItem("gc-setup-data",JSON.stringify(gc_setup_data));
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
     window.location.href = "./Pirate-Options-Screen/Pirate-Options.html";
 }
 
@@ -103,14 +116,16 @@ function button_blur_for_planet_assignment()
 {
     document.getElementById("planet-assignment-button").style.opacity = "0.3";
     document.getElementById("planet-assignment-button").onclick = null;
-    gc_setup_data.planet_assignment = "random"
+    gc_setup_data.planet_assignment = "random";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function button_focus_for_planet_assignment()
 {
     document.getElementById("planet-assignment-button").style.opacity = "1.0";
     document.getElementById("planet-assignment-button").onclick = function(){planet_assignment_click()};
-    gc_setup_data.planet_assignment = "manual"
+    gc_setup_data.planet_assignment = "manual";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function planet_assignment_click()
@@ -125,6 +140,7 @@ function rebel_faction_click()
     document.getElementById("imperial-faction-image").style.border = "none";
     document.getElementById("imperial-faction-image").style.opacity = "0.3";
     gc_setup_data.faction_chosen = "Rebels";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function imperial_faction_click()
@@ -134,6 +150,7 @@ function imperial_faction_click()
     document.getElementById("rebel-faction-image").style.border = "none";
     document.getElementById("rebel-faction-image").style.opacity = "0.3";
     gc_setup_data.faction_chosen = "Imperial";
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function play_button_click()

@@ -36,7 +36,7 @@
     <div id="location-container">
       <div class="sub-title" id="location-title">Boundry</div>
       <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
-      <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value">
+      <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value; sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
         <option>Galaxy Wide</option>
         <option>Mid-Rim</option>
         <option>Expansion Region</option>
@@ -49,12 +49,12 @@
     <div id="resource-container">
       <div class="sub-title" id="resource-title">Resources</div>
   <div id ="resource-radio-container">
-      <input type="radio" id="full-resource-radio" name="resource-option" checked onclick = "gc_setup_data.resources_chosen='full'">
+      <input type="radio" id="full-resource-radio" name="resource-option" checked onclick = "gc_setup_data.resources_chosen='full';sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
       <label for="full-resource-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Full Resources</label><br>
-      <input type="radio" id="currency-only-radio" name="resource-option" onclick = "gc_setup_data.resources_chosen ='currency' ">
+      <input type="radio" id="currency-only-radio" name="resource-option" onclick = "gc_setup_data.resources_chosen ='currency';sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
       <label for="currency-only-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
@@ -64,7 +64,7 @@
 
     <div id="starting-planets-container">
       <div class="sub-title" id="starting-planet-title">Planet Count</div>
-      <input type="range" min="1" max="5" value="5" id="start-planets-slider" onchange="gc_setup_data.planet_count = document.getElementById('start-planets-slider').value;">
+      <input type="range" min="1" max="5" value="5" id="start-planets-slider" onchange="gc_setup_data.planet_count = parseInt(document.getElementById('start-planets-slider').value,10);sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
       <div id="slider-label-container">
       <div class="slider-label" id="one-count">Few</div>
       <div class="slider-label" id="two-count">Some</div>
