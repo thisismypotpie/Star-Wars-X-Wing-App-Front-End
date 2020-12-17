@@ -3,44 +3,42 @@ var gc_setup_data;
 //Set options if gc setup already existed.
 if(sessionStorage.getItem("gc_setup_data")!= null)
 {
-    let data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+    gc_setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     //Set correct faction.
-    if(data.faction_chosen == "Rebels")
+    if(gc_setup_data.faction_chosen == "Rebels")
     {
         rebel_faction_click();
     }
-    else if(data.faction_chosen == "Imperial")
+    else if(gc_setup_data.faction_chosen == "Imperial")
     {
         imperial_faction_click();
     }
     //Set correct resources
-    if(data.resources_chosen == "currency")
+    if(gc_setup_data.resources_chosen == "currency")
     {
         document.getElementById("currency-only-radio").click();
     }
     //Set planet count
-    document.getElementById("start-planets-slider").value = data.planet_count;
+    document.getElementById("start-planets-slider").value = gc_setup_data.planet_count;
     //Set if pirates are on or off.
-    if(data.pirate_faction == "off")
+    if(gc_setup_data.pirate_faction == "off")
     {
         button_blur_for_pirates();
     }
     //Set planet assignment
-    if(data.planet_assignment == "random")
+    if(gc_setup_data.planet_assignment == "random")
     {
         button_blur_for_planet_assignment();
     }
     //Set location
     for(var i=0; i < document.getElementById("all-sectors").options.length;i++)
     {
-        if(data.location == document.getElementById("all-sectors")[i].text)
+        if(gc_setup_data.location == document.getElementById("all-sectors")[i].text)
         {
             document.getElementById("all-sectors")[i].selected = "selected";
             break;
         }
     }
-    //set pirate ship quantities
-    gc_setup_data = data;
 }
 else //Set up a fresh gc_setup.
 {
@@ -80,7 +78,7 @@ else //Set up a fresh gc_setup.
       sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
-alert("Total Ships: "+eval(gc_setup_data.pirate_options.total_ships));
+//alert("Total Ships: "+eval(gc_setup_data.pirate_options.total_ships));
 
 function go_to_main_menu()
 {
@@ -160,13 +158,13 @@ function play_button_click()
     {
         alert("Please select a faction before proceeding.");
     }
-    else if(gc_setup_data.pirate_faction == "on" && gc_setup_data.pirate_options.total_ships == 0)
+    else if(gc_setup_data.pirate_faction == "on" && eval(gc_setup_data.pirate_options.total_ships) == 0)
     {
         alert("Please enter pirate parameters or turn pirates off before proceeding.");
     }
     else
     {
-        sessionStorage.setItem("gc_setup_data",gc_setup_data)
+        //sessionStorage.setItem("gc_setup_data",gc_setup_data);
         window.location.href= "../Gameplay-Screens/gameplay-screen.html";
     }
 }
