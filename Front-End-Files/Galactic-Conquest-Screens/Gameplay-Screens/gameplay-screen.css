@@ -1,8 +1,9 @@
 body{
     background-image: url('https://i.imgur.com/k1Che8s.jpg');
-    background-size: 500% 800vh;
+    background-size: 100% 98vh;
     background-repeat: no-repeat;
     overflow: scroll;
+    background-color: black;
 }
 
 *:focus {
@@ -11,8 +12,8 @@ body{
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(100,calc(500%/100));
-    grid-template-rows: repeat(100,calc(800vh/100));
+    grid-template-columns: repeat(200,calc(100%/200));
+    grid-template-rows: repeat(100,calc(98vh/100));
 }
 
 #main-title{
