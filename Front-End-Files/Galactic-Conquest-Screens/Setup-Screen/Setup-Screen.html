@@ -22,7 +22,9 @@
       <label for="random-assignment-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
-      font-size: 2vw;">Random Assignment</label><br>
+      font-size: 2vw;
+      grid-column:2;
+      grid-row: 3;">Random Assignment</label><br>
       <input type="radio" id="manual-assignment-radio" name="planet-assignment" checked onclick="button_focus_for_planet_assignment()">
       <label for="manual-assignment-radio" style="
       color: white;
@@ -38,29 +40,28 @@
       <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
       <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value; sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
         <option>Galaxy Wide</option>
-        <option>Mid-Rim</option>
-        <option>Expansion Region</option>
+        <option>Mid Rim</option>
+        <option>Expansion</option>
         <option>Inner Rim</option>
         <option>Colonies</option>
         <option>Core</option>
         </select>
     </div>
-
     <div id="resource-container">
       <div class="sub-title" id="resource-title">Resources</div>
   <div id ="resource-radio-container">
-      <input type="radio" id="full-resource-radio" name="resource-option" checked onclick = "gc_setup_data.resources_chosen='full';sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
+      <input type="radio" id="full-resource-radio" name="resource-option" checked onclick = " full_resources_click();">
       <label for="full-resource-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Full Resources</label><br>
-      <input type="radio" id="currency-only-radio" name="resource-option" onclick = "gc_setup_data.resources_chosen ='currency';sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
+      <input type="radio" id="currency-only-radio" name="resource-option" onclick = "currency_only_click();">
       <label for="currency-only-radio" style="
       color: white;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 2vw;">Currency Only</label><br>
     </div>
-  </div>
+  </div>  
 
     <div id="starting-planets-container">
       <div class="sub-title" id="starting-planet-title">Planet Count</div>

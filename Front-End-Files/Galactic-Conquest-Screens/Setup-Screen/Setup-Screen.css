@@ -108,6 +108,11 @@ body{
     grid-row: 6;
 }
 
+#random-assignment-radio{
+    grid-column: 1;
+    grid-row: 3;
+}
+
 #planet-assignment-button{
     grid-column: 6/12;
     grid-row:4/7;

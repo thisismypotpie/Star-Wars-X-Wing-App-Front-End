@@ -151,6 +151,18 @@ function imperial_faction_click()
     sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
+function currency_only_click()
+{
+    gc_setup_data.resources_chosen ='currency';
+    sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+}
+
+function full_resources_click()
+{
+    gc_setup_data.resources_chosen='full';
+    sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+}
+
 function play_button_click()
 {
     //var game_data = JSON.parse(sessionStorage.getItem("game_data"));

@@ -47,7 +47,7 @@ function load_planets()
 
     game_data.all_planets.forEach(planet=>{
         //Only load planets that have the correct priority set by the user in the setup page.
-        if(planet.x_coordinate !=null && planet.y_coordinate !=null && planet.priority <= player_priority)
+        if(planet.x_coordinate !=null && planet.y_coordinate !=null && planet.priority <= player_priority && check_boundry(planet) == true)
         {
             var id = planet.x_coordinate+"_"+planet.y_coordinate;
             //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
@@ -76,7 +76,7 @@ function load_planets()
             document.getElementById(id).onclick = function(){alert(planet.name)};
             active_planets.push(new in_game_planet(planet));
         }
-        else if (planet.priority <=3)
+        else if (planet.priority <=3)//make sure planets with prio 4 or 5 are not converted, as they are planets not connected to any path.
         {
            converted_planets.push(planet);
         }
@@ -151,5 +151,39 @@ function add_path_dots()
           document.getElementById(id).style.border ="none";
         }
       })
+  }
+
+  function check_boundry(incoming_planet)//checks incoming planet to see if it is positioned within the player set boundry.
+  {
+     var boundry = setup_data.location;
+     var sector = incoming_planet.sector;
+     if(boundry == sector)
+     {
+       return true;
+     }
+     else if(boundry == "Galaxy Wide")
+     {
+       return true;
+     }
+     else if(boundry == "Mid Rim" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim" || sector == "Expansion"))
+     {
+        return true;
+     }
+     else if(boundry == "Expansion" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim"))
+     {
+        return true;
+     }
+     else if(boundry == "Inner Rim" &&(sector == "Core" || sector == "Colonies"))
+     {
+        return true;
+     }
+     else if(boundry == "Colonies" &&(sector == "Core"))
+     {
+        return true;
+     }
+     else
+     {
+       return false;
+     }
   }
 
