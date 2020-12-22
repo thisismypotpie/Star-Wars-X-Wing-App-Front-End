@@ -28,6 +28,7 @@ class in_game_planet{
     {
         this.controlling_faction= undefined;
         this.planet = planet;
+        this.resource = undefined;
     }
 }
 

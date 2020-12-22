@@ -30,6 +30,10 @@ if(sessionStorage.getItem("gc_setup_data")!= null)
     {
         button_blur_for_planet_assignment();
     }
+    else
+    {
+        button_focus_for_planet_assignment();
+    }
     //Set location
     for(var i=0; i < document.getElementById("all-sectors").options.length;i++)
     {
@@ -74,6 +78,7 @@ else //Set up a fresh gc_setup.
         },
         planet_assignment:"manual",
         location:"Galaxy Wide",
+        assigned_planet_faction:[]// two elements, name and faction.
       };
       sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
@@ -128,7 +133,8 @@ function button_focus_for_planet_assignment()
 
 function planet_assignment_click()
 {
-    alert("planet click")
+    sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+    window.location.href="./Planet-Assignment-Screen/planet-assignment.html";
 }
 
 function rebel_faction_click()
