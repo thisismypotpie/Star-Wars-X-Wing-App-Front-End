@@ -72,3 +72,19 @@ body{
     grid-column: 2/12;
     grid-row: 18/24;
 }
+
+#planet-info-pop-up{
+    background-color: gray;
+    width: 20%;
+    height: 20vh;
+    position: fixed;
+    top:0%;
+    left:0%;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(100%/12));
+    color: white;
+    visibility: hidden;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: left;
+}

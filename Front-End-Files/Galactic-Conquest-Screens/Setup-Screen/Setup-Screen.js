@@ -78,9 +78,10 @@ else //Set up a fresh gc_setup.
         },
         planet_assignment:"manual",
         location:"Galaxy Wide",
-        active_planets:[]
+        active_planets:[],
+        converted_planets:[]
       };
-      gc_setup_data.active_planets = set_active_planets();
+      set_active_planets();
       sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
@@ -98,6 +99,7 @@ function set_active_planets()
 {
     var all_planets = JSON.parse(sessionStorage.getItem("game_data")).all_planets;
     var new_active_planets = [];
+    var new_converted_planets = [];
     //Add already existing planets from the old active planets.
     gc_setup_data.active_planets.forEach(planet=>{
         if(planet.priority <= gc_setup_data.planet_count && check_boundry(planet)==true)
@@ -111,9 +113,14 @@ function set_active_planets()
         {   var new_planet = new in_game_planet(planet);
             new_active_planets.push(new_planet);
         }
+        else if(planet.priority <=3)
+        {
+            new_converted_planets.push(planet);
+        }
     })
     // ship.upgrades.map(function(e){return e.id})
     gc_setup_data.active_planets = new_active_planets;
+    gc_setup_data.converted_planets = new_converted_planets;
     sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 

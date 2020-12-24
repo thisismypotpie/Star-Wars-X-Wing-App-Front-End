@@ -1,6 +1,6 @@
 var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-var converted_planets = [];//planets that were turned into path dots.
+var converted_planets = setup_data.converted_planets;
 
 //grid-click system.
 var coordinates = [];
@@ -30,23 +30,57 @@ add_path_dots();
 
 function load_planets()
 {
-  var player_priority = setup_data.planet_count;
-
-  game_data.all_planets.forEach(planet=>{
-      //Only load planets that have the correct priority set by the user in the setup page.
-      if(planet.x_coordinate !=null && planet.y_coordinate !=null && planet.priority <= player_priority && check_boundry(planet) == true)
-      {
-          var id = planet.x_coordinate+"_"+planet.y_coordinate;
+  setup_data.active_planets.forEach(planet=>{
+          var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
           //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
-          document.getElementById(id).style.backgroundColor = "blue"
-          document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
-          document.getElementById(id).setAttribute("Faction",load_planet_faction(planet));
-          document.getElementById(id).onclick = function(){change_faction()};
-      }
-      else if (planet.priority <=3)//make sure planets with prio 4 or 5 are not converted, as they are planets not connected to any path.
-      {
-         converted_planets.push(planet);
-      }
+          if(planet.controlling_faction == "Unaligned")
+          {
+            document.getElementById(id).style.backgroundColor = "blue"
+          }
+          else if(planet.controlling_faction == "Rebels")
+          {
+            document.getElementById(id).style.backgroundColor = "red"
+          }
+          else if(planet.controlling_faction == "Imperial")
+          {
+            document.getElementById(id).style.backgroundColor = "grey"
+          }
+          else
+          {
+            alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
+            document.getElementById(id).style.backgroundColor = "black";
+          }
+          document.getElementById(id).setAttribute("Planet",JSON.stringify(planet.name));
+          //document.getElementById(id).setAttribute("Faction",planet.controlling_faction);
+          document.getElementById(id).onclick = function(e)
+          {
+            //var planet_name = e.currentTarget.getAttribute("Planet");
+            //alert(planet_name);
+            planet.controlling_faction = change_faction(id,planet);
+            sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
+          };
+          document.getElementById(id).onmouseenter = function(e)
+          {
+
+            if(planet.planet.x_coordinate > 150)
+            {
+              document.getElementById("planet-info-pop-up").style.left = (e.clientX - document.getElementById('planet-info-pop-up').clientWidth)+"px";
+            }
+            else if(planet.planet.y_coordinate > 75)
+            {
+              document.getElementById("planet-info-pop-up").style.top = (e.clientY - document.getElementById('planet-info-pop-up').clientHeight)+"px";
+            }
+            else
+            {
+              document.getElementById("planet-info-pop-up").style.top = e.clientY+"px";
+              document.getElementById("planet-info-pop-up").style.left = e.clientX+"px";
+            }
+            document.getElementById("planet-info-pop-up").style.visibility = "visible";
+          };
+          document.getElementById(id).onmouseleave = function(e)
+          {
+            document.getElementById("planet-info-pop-up").style.visibility = "hidden";
+          };
   })
 }
 
@@ -101,47 +135,21 @@ function exit_zoom()
   }, 200); 
 }
 
-function check_boundry(incoming_planet)//checks incoming planet to see if it is positioned within the player set boundry.
+function change_faction(id,planet)
 {
-   var boundry = setup_data.location;
-   var sector = incoming_planet.sector;
-   if(boundry == sector)
-   {
-     return true;
-   }
-   else if(boundry == "Galaxy Wide")
-   {
-     return true;
-   }
-   else if(boundry == "Mid Rim" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim" || sector == "Expansion"))
-   {
-      return true;
-   }
-   else if(boundry == "Expansion" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim"))
-   {
-      return true;
-   }
-   else if(boundry == "Inner Rim" &&(sector == "Core" || sector == "Colonies"))
-   {
-      return true;
-   }
-   else if(boundry == "Colonies" &&(sector == "Core"))
-   {
-      return true;
-   }
-   else
-   {
-     return false;
-   }
+  if(document.getElementById(id).style.backgroundColor == "blue")
+  {
+    document.getElementById(id).style.backgroundColor = "red";
+    return "Rebels";
+  }
+  else if(document.getElementById(id).style.backgroundColor == "red")
+  {
+    document.getElementById(id).style.backgroundColor = "grey";
+    return "Imperial";
+  }
+  else
+  {
+    document.getElementById(id).style.backgroundColor = "blue";
+    return "Unaligned";
+  }
 }
-
-function change_faction()
-{
-  //cycle between unaligned, rebel, and imperial.
-}
-
-function load_planet_faction()
-{
-  //check planet to see if it is in faction list.
-}
-
