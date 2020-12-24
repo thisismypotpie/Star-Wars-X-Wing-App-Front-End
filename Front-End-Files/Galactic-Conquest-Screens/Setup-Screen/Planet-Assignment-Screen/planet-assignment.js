@@ -1,6 +1,5 @@
 var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-var active_planets = [];
 var converted_planets = [];//planets that were turned into path dots.
 
 //grid-click system.
@@ -41,8 +40,8 @@ function load_planets()
           //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
           document.getElementById(id).style.backgroundColor = "blue"
           document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
-          document.getElementById(id).onclick = function(){alert(planet.name)};
-          active_planets.push(new in_game_planet(planet));
+          document.getElementById(id).setAttribute("Faction",load_planet_faction(planet));
+          document.getElementById(id).onclick = function(){change_faction()};
       }
       else if (planet.priority <=3)//make sure planets with prio 4 or 5 are not converted, as they are planets not connected to any path.
       {
@@ -134,5 +133,15 @@ function check_boundry(incoming_planet)//checks incoming planet to see if it is 
    {
      return false;
    }
+}
+
+function change_faction()
+{
+  //cycle between unaligned, rebel, and imperial.
+}
+
+function load_planet_faction()
+{
+  //check planet to see if it is in faction list.
 }
 

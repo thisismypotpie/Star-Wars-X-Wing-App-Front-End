@@ -58,17 +58,17 @@ body{
     border:none;
 }
 
-#options-button{
+#zoom-button{
     grid-column: 2/12;
     grid-row: 2/8;
 }
 
-#next-phase-button{
+#reset-button{
     grid-column: 2/12;
     grid-row: 10/16;
 }
 
-#zoom-button{
+#back-button{
     grid-column: 2/12;
     grid-row: 18/24;
 }

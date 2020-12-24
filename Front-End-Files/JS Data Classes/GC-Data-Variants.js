@@ -26,7 +26,7 @@ class gc_team{
 class in_game_planet{
     constructor(planet)
     {
-        this.controlling_faction= undefined;
+        this.controlling_faction= "Unaligned";
         this.planet = planet;
         this.resource = undefined;
     }

@@ -78,8 +78,9 @@ else //Set up a fresh gc_setup.
         },
         planet_assignment:"manual",
         location:"Galaxy Wide",
-        assigned_planet_faction:[]// two elements, name and faction.
+        active_planets:[]
       };
+      gc_setup_data.active_planets = set_active_planets();
       sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
@@ -91,6 +92,29 @@ function go_to_main_menu()
     sessionStorage.clear();
     sessionStorage.setItem("game_data",JSON.stringify(game_data));
     window.location.href = "../../Title-Screen(Main Menu)/index.html";
+}
+
+function set_active_planets()
+{
+    var all_planets = JSON.parse(sessionStorage.getItem("game_data")).all_planets;
+    var new_active_planets = [];
+    //Add already existing planets from the old active planets.
+    gc_setup_data.active_planets.forEach(planet=>{
+        if(planet.priority <= gc_setup_data.planet_count && check_boundry(planet)==true)
+        {
+            new_active_planets.push(planet);
+        }
+    })
+    //Add any new planets that have been added due to new parameters.
+    all_planets.forEach(planet=>{
+        if(planet.priority <= gc_setup_data.planet_count && check_boundry(planet)==true && ( gc_setup_data.active_planets.map(function(e){return e.name}).includes(planet.name))==false)
+        {   var new_planet = new in_game_planet(planet);
+            new_active_planets.push(new_planet);
+        }
+    })
+    // ship.upgrades.map(function(e){return e.id})
+    gc_setup_data.active_planets = new_active_planets;
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
 }
 
 function button_blur_for_pirates()
@@ -185,4 +209,52 @@ function play_button_click()
         //sessionStorage.setItem("gc_setup_data",gc_setup_data);
         window.location.href= "../Gameplay-Screens/gameplay-screen.html";
     }
+}
+
+function check_boundry(incoming_planet)//checks incoming planet to see if it is positioned within the player set boundry.
+{
+   var boundry = gc_setup_data.location;
+   var sector = incoming_planet.sector;
+   if(boundry == sector)
+   {
+     return true;
+   }
+   else if(boundry == "Galaxy Wide")
+   {
+     return true;
+   }
+   else if(boundry == "Mid Rim" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim" || sector == "Expansion"))
+   {
+      return true;
+   }
+   else if(boundry == "Expansion" &&(sector == "Core" || sector == "Colonies" || sector == "Inner Rim"))
+   {
+      return true;
+   }
+   else if(boundry == "Inner Rim" &&(sector == "Core" || sector == "Colonies"))
+   {
+      return true;
+   }
+   else if(boundry == "Colonies" &&(sector == "Core"))
+   {
+      return true;
+   }
+   else
+   {
+     return false;
+   }
+}
+
+function change_planet_priority()
+{
+    gc_setup_data.planet_count = parseInt(document.getElementById('start-planets-slider').value,10);
+    set_active_planets();
+    //sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+}
+
+function change_galactic_boundry()
+{
+    gc_setup_data.location = document.getElementById('all-sectors').value;
+    set_active_planets();
+    //sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
 }

@@ -38,7 +38,7 @@
     <div id="location-container">
       <div class="sub-title" id="location-title">Boundry</div>
       <!--<input list="drop-down-selection" name="all-sectors" id="all-sectors"> -->
-      <select id="all-sectors" onchange="gc_setup_data.location = document.getElementById('all-sectors').value; sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
+      <select id="all-sectors" onchange="change_galactic_boundry();">
         <option>Galaxy Wide</option>
         <option>Mid Rim</option>
         <option>Expansion</option>
@@ -65,7 +65,7 @@
 
     <div id="starting-planets-container">
       <div class="sub-title" id="starting-planet-title">Planet Count</div>
-      <input type="range" min="1" max="5" value="5" id="start-planets-slider" onchange="gc_setup_data.planet_count = parseInt(document.getElementById('start-planets-slider').value,10);sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));">
+      <input type="range" min="1" max="5" value="5" id="start-planets-slider" onchange="change_planet_priority()">
       <div id="slider-label-container">
       <div class="slider-label" id="one-count">Few</div>
       <div class="slider-label" id="two-count">Some</div>
