@@ -50,7 +50,7 @@ function load_planets()
             alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
             document.getElementById(id).style.backgroundColor = "black";
           }
-          document.getElementById(id).setAttribute("Planet",JSON.stringify(planet.name));
+          document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
           //document.getElementById(id).setAttribute("Faction",planet.controlling_faction);
           document.getElementById(id).onclick = function(e)
           {
@@ -61,7 +61,8 @@ function load_planets()
           };
           document.getElementById(id).onmouseenter = function(e)
           {
-
+            //border_color_place_holder = document.getElementById(e.target.id).style.border;
+            document.getElementById(e.target.id).style.border = "1px solid green";
             if(planet.planet.x_coordinate > 150)
             {
               document.getElementById("planet-info-pop-up").style.left = (e.clientX - document.getElementById('planet-info-pop-up').clientWidth)+"px";
@@ -79,6 +80,8 @@ function load_planets()
           };
           document.getElementById(id).onmouseleave = function(e)
           {
+            //border_color_place_holder = document.getElementById(e.target.id).style.border;
+            document.getElementById(e.target.id).style.border = "none";
             document.getElementById("planet-info-pop-up").style.visibility = "hidden";
           };
   })

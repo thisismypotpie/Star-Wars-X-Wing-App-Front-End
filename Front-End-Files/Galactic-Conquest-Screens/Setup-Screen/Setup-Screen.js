@@ -26,13 +26,13 @@ if(sessionStorage.getItem("gc_setup_data")!= null)
         button_blur_for_pirates();
     }
     //Set planet assignment
-    if(gc_setup_data.planet_assignment == "random")
+    if(gc_setup_data.planet_assignment == "manual")
     {
-        button_blur_for_planet_assignment();
+         document.getElementById("manual-assignment-radio").click();
     }
     else
     {
-        button_focus_for_planet_assignment();
+        document.getElementById("random-assignment-radio").click();
     }
     //Set location
     for(var i=0; i < document.getElementById("all-sectors").options.length;i++)
