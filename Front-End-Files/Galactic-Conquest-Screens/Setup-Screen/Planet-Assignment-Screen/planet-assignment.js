@@ -112,30 +112,24 @@ converted_planets.forEach(dot=>{//Turn each non-included planet into a path dot 
 
 function zoom_out_button_click()
 {
-    saved_x_coordinate_for_map_return = window.pageXOffset;
-    saved_y_coordinate_for_map_return = window.pageYOffset;
-    document.body.style.backgroundSize = "200% 196vh";
-    window.scrollTo((document.body.scrollHeight/2),(document.body.scrollHeight/2));
-    document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(100%/100))";
-    document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(196vh/100))";
-    //document.getElementById("main-title").style.visibility = "hidden";
+    document.body.style.backgroundSize = "100% 98vh";
+    //window.scrollTo((document.body.scrollHeight/2),(document.body.scrollHeight/2));
+    document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(100%/200))";
+    document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(98vh/100))";
+    document.getElementById("grid-container").style.backgroundSize = "100% 98vh";
     document.getElementById("zoom-button").textContent = "Zoom In"
-    document.getElementById("zoom-button").onclick = function(){exit_zoom();};
+    document.getElementById("zoom-button").onclick = function(){zoom_in_button_click()};
 } 
 
-function exit_zoom()
+function zoom_in_button_click()
 {
-  document.body.style.backgroundSize = "500% 800vh";
-  window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
-  document.getElementById("grid-container").style.gridTemplateColumns = "repeat(100,calc(500%/100))";
-  document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(800vh/100))";
-  document.getElementById("zoom-button").onclick = function(){zoom_button_click()};
+  document.body.style.backgroundSize = "200% 196vh";
+  //window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
+  document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(200%/200))";
+  document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(196vh/100))";
+  document.getElementById("grid-container").style.backgroundSize = "200% 196vh";
+  document.getElementById("zoom-button").onclick = function(){zoom_out_button_click()};
   document.getElementById("zoom-button").textContent = "Zoom Out"
-  //document.getElementById("main-title").style.visibility = "visible";
-  setTimeout(() => {
-      window.focus();
-      window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
-  }, 200); 
 }
 
 function change_faction(id,planet)
@@ -155,4 +149,14 @@ function change_faction(id,planet)
     document.getElementById(id).style.backgroundColor = "blue";
     return "Unaligned";
   }
+}
+
+function reset_factions()
+{
+   setup_data.active_planets.forEach(planet=>{
+    var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
+     planet.controlling_faction = "Unaligned";
+     document.getElementById(id).style.backgroundColor = "blue";    
+   })
+   sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
 }
