@@ -1,6 +1,9 @@
 body{
     overflow: scroll;
     background-color: black;
+    background-image: url('https://i.imgur.com/k1Che8s.jpg');
+    background-repeat: no-repeat;
+    background-size: 102% 130vh;
 }
 
 *:focus {
@@ -11,9 +14,6 @@ body{
     display: grid;
     grid-template-columns: repeat(200,calc(100%/200));
     grid-template-rows: repeat(100,calc(98vh/100));
-    background-image: url('https://i.imgur.com/k1Che8s.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 98vh;
     transform: translate(0, 15%);
 }
 

@@ -112,22 +112,26 @@ converted_planets.forEach(dot=>{//Turn each non-included planet into a path dot 
 
 function zoom_out_button_click()
 {
-    document.body.style.backgroundSize = "100% 98vh";
+    document.body.style.backgroundSize = "102% 130vh";
     //window.scrollTo((document.body.scrollHeight/2),(document.body.scrollHeight/2));
     document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(100%/200))";
     document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(98vh/100))";
-    document.getElementById("grid-container").style.backgroundSize = "100% 98vh";
-    document.getElementById("zoom-button").textContent = "Zoom In"
+    /*document.getElementById("grid-container").style.backgroundSize = "100% 98vh";
+    document.getElementById("grid-container").style.width = "100%";
+    document.getElementById("grid-container").style.height = "98vh";*/
+    document.getElementById("zoom-button").textContent = "Zoom In";
     document.getElementById("zoom-button").onclick = function(){zoom_in_button_click()};
 } 
 
 function zoom_in_button_click()
 {
-  document.body.style.backgroundSize = "200% 196vh";
+  document.body.style.backgroundSize = "204% 260vh";
   //window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
   document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(200%/200))";
   document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(196vh/100))";
-  document.getElementById("grid-container").style.backgroundSize = "200% 196vh";
+  /*document.getElementById("grid-container").style.backgroundSize = "100% 196vh";
+  document.getElementById("grid-container").style.width = "auto";
+  document.getElementById("grid-container").style.height = "196vh";*/
   document.getElementById("zoom-button").onclick = function(){zoom_out_button_click()};
   document.getElementById("zoom-button").textContent = "Zoom Out"
 }
