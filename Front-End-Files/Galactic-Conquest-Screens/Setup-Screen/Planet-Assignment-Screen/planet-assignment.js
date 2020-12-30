@@ -60,28 +60,25 @@ function load_planets()
             planet.controlling_faction = change_faction(id,planet);
             sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
           };
-          document.getElementById(id).onmouseenter = function(e)
+          document.getElementById(id).onmouseover= function(e)
           {
+            //document.getElementById("planet-info-pop-up").style.visibility = "visible";
             document.getElementById(e.target.id).style.border = "1px solid green";
-
-            document.getElementById("planet-info-pop-up").style.top = e.clientY+document.getElementById(id).clientWidth+"px";
-            document.getElementById("planet-info-pop-up").style.left = e.clientX+document.getElementById(id).clientHeight+"px";
-            if(planet.planet.x_coordinate > 150)
+            /*if(planet.planet.x_coordinate > 150)
             {
-              document.getElementById("planet-info-pop-up").style.left = e.clientX- document.getElementById("planet-info-pop-up").clientWidth-document.getElementById(id).clientHeight+"px";
+              document.getElementById("planet-info-pop-up").style.left = document.getElementById(id).left- document.getElementById("planet-info-pop-up").clientWidth-document.getElementById(id).clientHeight+"px";
             }
             else if(planet.planet.y_coordinate > 75)
             {
-              document.getElementById("planet-info-pop-up").style.top = e.clientY-document.getElementById("planet-info-pop-up").clientHeight-document.getElementById(id).clientWidth+"px";
+              document.getElementById("planet-info-pop-up").style.top = document.getElementById(id).top-document.getElementById("planet-info-pop-up").clientHeight-document.getElementById(id).clientWidth+"px";
             }
             else
             {
-              document.getElementById("planet-info-pop-up").style.top = e.clientY+"px";
-              document.getElementById("planet-info-pop-up").style.left = e.clientX+"px";
-            }
+              document.getElementById("planet-info-pop-up").style.top = document.getElementById(id).top+document.getElementById(id).clientWidth+"px";
+              document.getElementById("planet-info-pop-up").style.left = document.getElementById(id).left+document.getElementById(id).clientHeight+"px";
+            }*/
             document.getElementById("planet-name").textContent = planet.planet.name;
             document.getElementById("planet-image").style.backgroundImage = "url('"+planet.planet.image_path+"')";
-            document.getElementById("planet-info-pop-up").style.visibility = "visible";
             if(planet.controlling_faction == "Unaligned")
             {
               document.getElementById("faction-image").style.backgroundImage = "";
@@ -102,7 +99,10 @@ function load_planets()
           document.getElementById(id).onmouseleave = function(e)
           {
             document.getElementById(e.target.id).style.border = "none";
-            document.getElementById("planet-info-pop-up").style.visibility = "hidden";
+            document.getElementById("faction-image").style.backgroundImage ="";
+            document.getElementById("planet-image").style.backgroundImage ="";
+            document.getElementById("planet-name").textContent = "Planet";
+            //document.getElementById("planet-info-pop-up").style.visibility = "hidden";
           };
   })
 }

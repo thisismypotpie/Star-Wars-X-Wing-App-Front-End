@@ -84,9 +84,12 @@ body{
     grid-template-columns: repeat(12,calc(100%/12));
     grid-template-rows: repeat(12,calc(100%/12));
     color: white;
-    visibility: hidden;
     font-family: Impact, Charcoal, sans-serif;
     text-align: left;
+    width: 20%;
+    height:20vh;
+    top:10px;
+    left:77.5%;
 }
 
 #planet-name{
@@ -102,6 +105,7 @@ body{
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    border: 1px solid white;
 }
 
 #faction-image{
