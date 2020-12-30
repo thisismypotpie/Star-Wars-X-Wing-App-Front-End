@@ -88,3 +88,33 @@ body{
     font-family: Impact, Charcoal, sans-serif;
     text-align: left;
 }
+
+#planet-name{
+    grid-row: 1/4;
+    grid-column: 6/12;
+    text-align: center;
+    color: white;
+}
+
+#planet-image{
+    grid-column: 6/12;
+    grid-row: 3/12;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+#faction-image{
+    border: 1px solid white;
+    grid-row: 5/10;
+    grid-column: 2/5;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#faction-label{
+    text-align: center;
+    color: white;
+    grid-column: 2/5;
+    grid-row: 2;
+}

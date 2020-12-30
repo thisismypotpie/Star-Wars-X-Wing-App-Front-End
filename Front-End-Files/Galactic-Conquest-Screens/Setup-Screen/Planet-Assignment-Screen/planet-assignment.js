@@ -35,15 +35,18 @@ function load_planets()
           //document.getElementById(id).style.backgroundImage = "url('"+planet.image_path+"')";
           if(planet.controlling_faction == "Unaligned")
           {
-            document.getElementById(id).style.backgroundColor = "blue"
+            document.getElementById(id).style.backgroundColor = "blue";
+            document.getElementById("faction-image").style.backgroundImage = "";
           }
           else if(planet.controlling_faction == "Rebels")
           {
-            document.getElementById(id).style.backgroundColor = "red"
+            document.getElementById(id).style.backgroundColor = "red";
+            document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
           }
           else if(planet.controlling_faction == "Imperial")
           {
-            document.getElementById(id).style.backgroundColor = "grey"
+            document.getElementById(id).style.backgroundColor = "grey";
+            document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
           }
           else
           {
@@ -54,33 +57,50 @@ function load_planets()
           //document.getElementById(id).setAttribute("Faction",planet.controlling_faction);
           document.getElementById(id).onclick = function(e)
           {
-            //var planet_name = e.currentTarget.getAttribute("Planet");
-            //alert(planet_name);
             planet.controlling_faction = change_faction(id,planet);
             sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
           };
           document.getElementById(id).onmouseenter = function(e)
           {
-            //border_color_place_holder = document.getElementById(e.target.id).style.border;
             document.getElementById(e.target.id).style.border = "1px solid green";
+
+            document.getElementById("planet-info-pop-up").style.top = e.clientY+document.getElementById(id).clientWidth+"px";
+            document.getElementById("planet-info-pop-up").style.left = e.clientX+document.getElementById(id).clientHeight+"px";
             if(planet.planet.x_coordinate > 150)
             {
-              document.getElementById("planet-info-pop-up").style.left = (e.clientX - document.getElementById('planet-info-pop-up').clientWidth)+"px";
+              document.getElementById("planet-info-pop-up").style.left = e.clientX- document.getElementById("planet-info-pop-up").clientWidth-document.getElementById(id).clientHeight+"px";
             }
             else if(planet.planet.y_coordinate > 75)
             {
-              document.getElementById("planet-info-pop-up").style.top = (e.clientY - document.getElementById('planet-info-pop-up').clientHeight)+"px";
+              document.getElementById("planet-info-pop-up").style.top = e.clientY-document.getElementById("planet-info-pop-up").clientHeight-document.getElementById(id).clientWidth+"px";
             }
             else
             {
               document.getElementById("planet-info-pop-up").style.top = e.clientY+"px";
               document.getElementById("planet-info-pop-up").style.left = e.clientX+"px";
             }
+            document.getElementById("planet-name").textContent = planet.planet.name;
+            document.getElementById("planet-image").style.backgroundImage = "url('"+planet.planet.image_path+"')";
             document.getElementById("planet-info-pop-up").style.visibility = "visible";
+            if(planet.controlling_faction == "Unaligned")
+            {
+              document.getElementById("faction-image").style.backgroundImage = "";
+            }
+            else if(planet.controlling_faction == "Rebels")
+            {
+              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
+            }
+            else if(planet.controlling_faction == "Imperial")
+            {
+              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
+            }
+            else
+            {
+              alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
+            }
           };
           document.getElementById(id).onmouseleave = function(e)
           {
-            //border_color_place_holder = document.getElementById(e.target.id).style.border;
             document.getElementById(e.target.id).style.border = "none";
             document.getElementById("planet-info-pop-up").style.visibility = "hidden";
           };
@@ -141,16 +161,19 @@ function change_faction(id,planet)
   if(document.getElementById(id).style.backgroundColor == "blue")
   {
     document.getElementById(id).style.backgroundColor = "red";
+    document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
     return "Rebels";
   }
   else if(document.getElementById(id).style.backgroundColor == "red")
   {
     document.getElementById(id).style.backgroundColor = "grey";
+    document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
     return "Imperial";
   }
   else
   {
     document.getElementById(id).style.backgroundColor = "blue";
+    document.getElementById("faction-image").style.backgroundImage = "";
     return "Unaligned";
   }
 }
