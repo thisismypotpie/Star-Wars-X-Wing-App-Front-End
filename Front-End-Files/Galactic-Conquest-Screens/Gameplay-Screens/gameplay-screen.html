@@ -12,15 +12,41 @@
     <section class = "grid-container" id = "grid-container">
     </section>
 
-        <div id="main-title">Test Title</div>
+        <div id="main-title">Placement Phase</div>
         <div id ="button-container">
-            <button type="button" class = "btn" id = "options-button">Options</button>
-            <button type="button" class = "btn" id = "next-phase-button">Gather Phase</button>
-            <button type="button" class = "btn" id = "zoom-button" onclick="zoom_out_button_click()">Zoom Out</button>
+            <button type="button" class = "btn" id = "zoom-button"onclick = "zoom_in_button_click()">Zoom In</button>
+            <button type="button" class = "btn" id = "reset-button" onclick=""></button>
+            <button type="button" class = "btn" id = "back-button" onclick=""></button>
         </div>
+              <!--Used for planet info pop-up.-->
+      <div id="planet-info-pop-up">
+        <div id="planet-name" class = "pop-up-text">Planet</div>
+        <div id="planet-image" class = "pop-up-image"></div>
+        <div id="faction-image" class = "pop-up-image"></div>
+        <div id="faction-label" class = "pop-up-text">Faction</div>
+        <div id="resource-image" class = "pop-up-image"></div>
+        <div id="resource-label" class = "pop-up-text">x0</div>
+      </div>
+
+      <div id="resource-pop-up">
+        <div id="faction-image-resource-counter" class = "pop-up-image"></div>
+        
+        <div id="money-image-resource-counter" class = "pop-up-image"></div>
+        <div id="money-quantity-label"></div>
+
+        <div id="tibanna-image-resource-counter" class = "pop-up-image"></div>
+        <div id="electronics-image-resource-counter" class = "pop-up-image"></div>
+        <div id="durasteel-image-resource-counter" class = "pop-up-image"></div>
+        <div id="fuel-image-resource-counter" class = "pop-up-image"></div>
+        <div id="parts-image-resource-counter" class = "pop-up-image"></div>
+      </div>
 
   </head>
   <script type="text/javascript" src="../../JS Data Classes/GC-Data-Variants.js"></script>
   <script type="text/javascript" src="./gameplay-screen.js"></script>
+  <script type="text/javascript" src="./Phase-Logic/placement-phase/placement-phase.js"></script>
+  <script type="text/javascript" src="./Phase-Logic/combat-phase.js"></script>
+  <script type="text/javascript" src="./Phase-Logic/gathering-phase.js"></script>
+  <script type="text/javascript" src="./Phase-Logic/movement-phase.js"></script>
   </body>
 </html>

@@ -23,7 +23,13 @@ if(sessionStorage.getItem("gc_setup_data")!= null)
     //Set if pirates are on or off.
     if(gc_setup_data.pirate_faction == "off")
     {
+        document.getElementById("no-pirate-radio").click();
         button_blur_for_pirates();
+    }
+    else if(gc_setup_data.pirate_faction == "on")
+    {
+        document.getElementById("pirate-radio").click();
+        button_focus_for_pirates();
     }
     //Set planet assignment
     if(gc_setup_data.planet_assignment == "manual")
@@ -50,7 +56,7 @@ else //Set up a fresh gc_setup.
         faction_chosen:"",
         resources_chosen:"full",
         planet_count:5, 
-        pirate_faction:"on",
+        pirate_faction:"off",
         pirate_options:{
         total_ships:
             "gc_setup_data.pirate_options.HWK_290+gc_setup_data.pirate_options.Kihraxz_Fighter+gc_setup_data.pirate_options.M3_A_Interceptor+gc_setup_data.pirate_options.M12_L_Kimongila_Fighter+gc_setup_data.pirate_options.G_1A_Starfighter+"+
@@ -76,7 +82,7 @@ else //Set up a fresh gc_setup.
         YT_1300:0,
         C_ROC_Cruiser:0
         },
-        planet_assignment:"manual",
+        planet_assignment:"random",
         location:"Galaxy Wide",
         active_planets:[],
         converted_planets:[]
@@ -214,6 +220,13 @@ function play_button_click()
     else
     {
         //sessionStorage.setItem("gc_setup_data",gc_setup_data);
+        start_and_populate_game_resources();
+        if(gc_setup_data.planet_assignment == "random")
+        {
+            assign_random_planets();
+        }
+        sessionStorage.setItem("gc_phase","placement");
+        sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
         window.location.href= "../Gameplay-Screens/gameplay-screen.html";
     }
 }
@@ -264,4 +277,44 @@ function change_galactic_boundry()
     gc_setup_data.location = document.getElementById('all-sectors').value;
     set_active_planets();
     //sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+}
+
+//Creates each faction, sets starting currency, then saves it in local storage.
+function start_and_populate_game_resources()
+{
+    var faction = [];
+    faction.push(new gc_team("Rebels"));
+    faction.push(new gc_team("Imperial"));
+    faction[0].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+    faction[1].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+}
+
+function assign_random_planets()
+{
+//generate a random number between three and half the total number of planets to assigned to each faction.
+  var planets_per_faction = Math.floor(Math.random() * (((gc_setup_data.active_planets.length)/2) - 3) + 3);
+  var planets_assigned = 0;
+  var current_index = 0;
+  //Assign rebel planets.
+  while(planets_assigned <= planets_per_faction)
+  {
+    current_index = Math.floor(Math.random() * (((gc_setup_data.active_planets.length)-1)));
+    if(gc_setup_data.active_planets[current_index].controlling_faction =="Unaligned")
+    {
+      gc_setup_data.active_planets[current_index].controlling_faction = "Rebels";
+      planets_assigned++;
+    }
+  }
+  planets_assigned = 0;
+  //Assign imperial planets.
+  while(planets_assigned <= planets_per_faction)
+  {
+    current_index = Math.floor(Math.random() * (((gc_setup_data.active_planets.length)-1)));
+    if(gc_setup_data.active_planets[current_index].controlling_faction =="Unaligned")
+    {
+      gc_setup_data.active_planets[current_index].controlling_faction = "Imperial";
+      planets_assigned++;
+    }
+  }
+
 }

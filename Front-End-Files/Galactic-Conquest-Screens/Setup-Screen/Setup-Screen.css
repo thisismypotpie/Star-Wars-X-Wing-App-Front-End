@@ -227,6 +227,7 @@ body{
     grid-row: 4/7;
     grid-column: 4/9;
     font-size: 2vw;
+    opacity: 0.3;
 }
 
 #pirate-radio{

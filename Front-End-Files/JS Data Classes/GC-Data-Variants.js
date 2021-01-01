@@ -1,4 +1,3 @@
-
 class ship_group{
     constructor(classification,faction)
     {
@@ -6,9 +5,10 @@ class ship_group{
         this.faction = faction;
         this.image = get_correct_image(classification,faction);
         this.fuel = 0;
-        this.alloy = 0;
+        this.durasteel = 0;
         this.parts = 0;
         this.electronics = 0;
+        this.tibanna = 0;
         this.team = [];
     }
 }
@@ -19,7 +19,6 @@ class gc_team{
         this.faction = faction;
         this.armada = [];
         this.currency = 0;
-        this.blueprints = [];
     }
 }
 

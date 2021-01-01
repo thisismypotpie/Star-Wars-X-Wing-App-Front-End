@@ -1,6 +1,9 @@
 body{
     overflow: scroll;
     background-color: black;
+    background-image: url('https://i.imgur.com/k1Che8s.jpg');
+    background-repeat: no-repeat;
+    background-size: 102% 130vh;
 }
 
 *:focus {
@@ -11,9 +14,6 @@ body{
     display: grid;
     grid-template-columns: repeat(200,calc(100%/200));
     grid-template-rows: repeat(100,calc(98vh/100));
-    background-image: url('https://i.imgur.com/k1Che8s.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 98vh;
     transform: translate(0, 15%);
 }
 
@@ -42,7 +42,7 @@ body{
     width: 15%;
     height: 80vh;
     left: 10px;
-    top:10%;
+    top:15%;
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));
     grid-template-rows: repeat(24,calc(100%/24));
@@ -58,17 +58,113 @@ body{
     border:none;
 }
 
-#options-button{
+#zoom-button{
     grid-column: 2/12;
     grid-row: 2/8;
 }
 
-#next-phase-button{
+#reset-button{
     grid-column: 2/12;
     grid-row: 10/16;
 }
 
-#zoom-button{
+#back-button{
     grid-column: 2/12;
     grid-row: 18/24;
+}
+
+#planet-info-pop-up{
+    background-color: black;
+    border: 1px solid white;
+    width: 20%;
+    height: 20vh;
+    position: fixed;
+    top:0%;
+    left:0%;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(100%/12));
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    text-align: left;
+    width: 20%;
+    height:20vh;
+    top:10px;
+    left:77.5%;
+}
+
+.pop-up-image{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border: 1px solid white;
+}
+
+#planet-name{
+    grid-row: 1/4;
+    grid-column: 6/12;
+    text-align: center;
+    color: white;
+}
+
+#planet-image{
+    grid-column: 6/12;
+    grid-row: 3/12;
+    background-position: center;
+}
+
+#faction-image{
+    grid-row: 3/8;
+    grid-column: 2/5;
+}
+
+#faction-label{
+    text-align: center;
+    color: white;
+    grid-column: 2/5;
+    grid-row: 1;
+}
+
+#resource-image{
+    grid-row: 9/12;
+    grid-column: 2/4;
+}
+
+#resource-label{
+    grid-row: 9;
+    grid-column: 4/6;
+    text-align: center;
+    font-size: xx-large;
+}
+
+#resource-pop-up{
+    display: grid;
+    position: fixed;
+    background-color: black;
+    border: 1px solid white;
+    width: 23%;
+    height: 11vh;
+    top: 2%;
+    left: 1%;
+    grid-template-columns: repeat(24,calc(100%/24));
+    grid-template-rows: repeat(12,calc(100%/12));
+}
+
+#faction-image-resource-counter{
+    grid-row: 2/12;
+    grid-column: 2/8;
+    border: 1px solid white;
+}
+
+#money-image-resource-counter{
+    grid-row: 2/12;
+    grid-column: 9/15;
+    border: 1px solid white;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+}
+
+#money-quantity-label
+{
+    grid-row: 2/12;
+    grid-column: 15/21;
+    border: 1px solid white;
 }
