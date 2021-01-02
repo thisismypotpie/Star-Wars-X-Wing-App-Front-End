@@ -27,7 +27,12 @@ class in_game_planet{
     {
         this.controlling_faction= "Unaligned";
         this.planet = planet;
-        this.resource = undefined;
+        this.resource = {
+            name: undefined,
+            image_path: undefined,
+            quantity: 0,
+            spawn_chance: 0
+        };
     }
 }
 

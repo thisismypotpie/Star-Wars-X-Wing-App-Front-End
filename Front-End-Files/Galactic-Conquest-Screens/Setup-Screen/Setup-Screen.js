@@ -282,11 +282,78 @@ function change_galactic_boundry()
 //Creates each faction, sets starting currency, then saves it in local storage.
 function start_and_populate_game_resources()
 {
+    //Set up and save both the rebel and imperial factions.
     var faction = [];
     faction.push(new gc_team("Rebels"));
     faction.push(new gc_team("Imperial"));
     faction[0].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
     faction[1].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+    sessionStorage.setItem("gc_factions",JSON.stringify(faction));
+
+    gc_setup_data.active_planets.forEach(planet=>{
+        //Add resource to each active planet.
+        if(gc_setup_data.resources_chosen =="currency")
+        {
+            planet.resource.name = "Credits";
+            planet.resource.image_path = "url('https://i.imgur.com/cMjNBfW.jpg')";
+        }
+        else
+        {
+            var resource_random = Math.floor(Math.random() * (6));
+            var resource_quantity = Math.floor(Math.random() * (4));
+            var spawn_chance = Math.floor(Math.random() * (91))+10;
+            if(resource_random == 0)
+            {
+                planet.resource.name = "Parts";
+                planet.resource.image_path = "url('https://i.imgur.com/SkbOfo9.jpg')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+            }
+            else if(resource_random == 1)
+            {
+                planet.resource.name = "Fuel";
+                planet.resource.image_path = "url('https://i.imgur.com/gqJjMUH.jpg')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+
+            }
+            else if(resource_random == 2)
+            {
+                planet.resource.name = "Electronics";
+                planet.resource.image_path = "url('https://i.imgur.com/qOjfTHl.png')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+
+            }
+            else if(resource_random == 3)
+            {
+                planet.resource.name = "Durasteel";
+                planet.resource.image_path = "url('https://i.imgur.com/1nxO0oQ.png')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+
+            }
+            else if(resource_random == 4)
+            {
+                planet.resource.name = "Currency";
+                planet.resource.image_path = "url('https://i.imgur.com/cMjNBfW.jpg')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+
+            }
+            else if(resource_random == 5)
+            {
+                planet.resource.name = "Tibanna";
+                planet.resource.image_path = "url('https://i.imgur.com/wfKP4ey.jpg')";
+                planet.resource.quantity = resource_quantity;
+                planet.resource.spawn_chance = spawn_chance;
+            }
+            else
+            {
+                alert("ERROR: Random resource assignment error.");
+            }
+        }
+    })
 }
 
 function assign_random_planets()

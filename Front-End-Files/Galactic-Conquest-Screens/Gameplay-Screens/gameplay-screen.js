@@ -53,26 +53,20 @@ function load_planets()
             document.getElementById(id).style.backgroundColor = "black";
           }
           document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
-          //document.getElementById(id).setAttribute("Faction",planet.controlling_faction);
+
+          //Add controls for when a player goes ever a planet.
           document.getElementById(id).onmouseover= function(e)
           {
             //document.getElementById("planet-info-pop-up").style.visibility = "visible";
             document.getElementById(e.target.id).style.border = "1px solid green";
-            /*if(planet.planet.x_coordinate > 150)
-            {
-              document.getElementById("planet-info-pop-up").style.left = document.getElementById(id).left- document.getElementById("planet-info-pop-up").clientWidth-document.getElementById(id).clientHeight+"px";
-            }
-            else if(planet.planet.y_coordinate > 75)
-            {
-              document.getElementById("planet-info-pop-up").style.top = document.getElementById(id).top-document.getElementById("planet-info-pop-up").clientHeight-document.getElementById(id).clientWidth+"px";
-            }
-            else
-            {
-              document.getElementById("planet-info-pop-up").style.top = document.getElementById(id).top+document.getElementById(id).clientWidth+"px";
-              document.getElementById("planet-info-pop-up").style.left = document.getElementById(id).left+document.getElementById(id).clientHeight+"px";
-            }*/
             document.getElementById("planet-name").textContent = planet.planet.name;
             document.getElementById("planet-image").style.backgroundImage = "url('"+planet.planet.image_path+"')";
+
+           //Set up resouce image and quantity.
+           document.getElementById("resource-image").style.backgroundImage = planet.resource.image_path;
+           document.getElementById("resource-label").textContent="X"+planet.resource.quantity;
+
+           //Set faction image for planet control.
             if(planet.controlling_faction == "Unaligned")
             {
               document.getElementById("faction-image").style.backgroundImage = "";
@@ -90,12 +84,16 @@ function load_planets()
               alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
             }
           };
+
+          //Add controls for when the mouse leaves.
           document.getElementById(id).onmouseleave = function(e)
           {
             document.getElementById(e.target.id).style.border = "none";
             document.getElementById("faction-image").style.backgroundImage ="";
             document.getElementById("planet-image").style.backgroundImage ="";
             document.getElementById("planet-name").textContent = "Planet";
+            document.getElementById("resource-image").style.backgroundImage="";
+            document.getElementById("resource-label").textContent = "X0";
             //document.getElementById("planet-info-pop-up").style.visibility = "hidden";
           };
   })

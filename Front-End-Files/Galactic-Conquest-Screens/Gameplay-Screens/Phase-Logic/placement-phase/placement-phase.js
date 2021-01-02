@@ -2,17 +2,21 @@ if(sessionStorage.getItem("gc_phase") == "placement")
 {
     var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     var current_placing_faction = undefined;
+    //factions[0] == rebels.  factions[1] == imperials.
+    var factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
 
     //Set up main title based on which faction the player chose.
     if(setup_data.faction_chosen == "Rebels")
     {
         document.getElementById("main-title").textContent = "Rebel Placement";
         document.getElementById("faction-image-resource-counter").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
+        document.getElementById("money-quantity-label").textContent = "X "+factions[0].currency;
     }
     else if(setup_data.faction_chosen == "Imperial")
     {
         document.getElementById("main-title").textContent = "Empire Placement";
         document.getElementById("faction-image-resource-counter").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
+        document.getElementById("money-quantity-label").textContent = "X "+factions[1].currency;
     }
     else
     {

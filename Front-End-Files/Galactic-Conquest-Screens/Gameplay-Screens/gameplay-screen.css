@@ -152,19 +152,22 @@ body{
 #faction-image-resource-counter{
     grid-row: 2/12;
     grid-column: 2/8;
-    border: 1px solid white;
+    border: none;
 }
 
 #money-image-resource-counter{
     grid-row: 2/12;
     grid-column: 9/15;
-    border: 1px solid white;
     background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+    border: none;
 }
 
 #money-quantity-label
 {
-    grid-row: 2/12;
-    grid-column: 15/21;
-    border: 1px solid white;
+    grid-row: 4/9;
+    grid-column: 16/25;
+    text-align: left;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: xx-large;
 }
