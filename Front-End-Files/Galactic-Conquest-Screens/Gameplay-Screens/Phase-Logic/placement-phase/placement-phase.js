@@ -10,11 +10,22 @@ if(sessionStorage.getItem("gc_phase") == "placement")
     {
         document.getElementById("main-title").textContent = "Rebel Placement";
         document.getElementById("money-quantity-label").textContent = "X "+factions[0].currency;
+        document.getElementById("tibanna-quantity-label").textContent = "X "+factions[0].tibanna;
+        document.getElementById("electronics-quantity-label").textContent = "X "+factions[0].electronics;
+        document.getElementById("durasteel-quantity-label").textContent = "X "+factions[0].durasteel;
+        document.getElementById("fuel-quantity-label").textContent = "X "+factions[0].fuel;
+        document.getElementById("parts-quantity-label").textContent = "X "+factions[0].parts;
+
     }
     else if(setup_data.faction_chosen == "Imperial")
     {
         document.getElementById("main-title").textContent = "Empire Placement";
         document.getElementById("money-quantity-label").textContent = "X "+factions[1].currency;
+        document.getElementById("tibanna-quantity-label").textContent = "X "+factions[1].tibanna;
+        document.getElementById("electronics-quantity-label").textContent = "X "+factions[1].electronics;
+        document.getElementById("durasteel-quantity-label").textContent = "X "+factions[1].durasteel;
+        document.getElementById("fuel-quantity-label").textContent = "X "+factions[1].fuel;
+        document.getElementById("parts-quantity-label").textContent = "X "+factions[1].parts;
     }
     else
     {
