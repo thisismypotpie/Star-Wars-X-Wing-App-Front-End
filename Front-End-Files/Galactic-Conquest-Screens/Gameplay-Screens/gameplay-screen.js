@@ -52,7 +52,7 @@ function load_planets()
             alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
             document.getElementById(id).style.backgroundColor = "black";
           }
-          document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
+          document.getElementById(id).setAttribute("planet_id",planet.planet.id);//Used when searching for planets.
 
           //Add controls for when a player goes ever a planet.
           document.getElementById(id).onmouseover= function(e)

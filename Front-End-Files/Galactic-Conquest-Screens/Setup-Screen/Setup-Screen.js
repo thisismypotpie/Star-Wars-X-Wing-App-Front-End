@@ -227,6 +227,7 @@ function play_button_click()
         }
         sessionStorage.setItem("gc_phase","placement");
         sessionStorage.setItem('gc_setup_data',JSON.stringify(gc_setup_data));
+        sessionStorage.setItem("gc_whos_turn",gc_setup_data.faction_chosen);
         window.location.href= "../Gameplay-Screens/gameplay-screen.html";
     }
 }

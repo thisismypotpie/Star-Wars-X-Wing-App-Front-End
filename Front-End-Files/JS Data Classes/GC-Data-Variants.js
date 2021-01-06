@@ -14,11 +14,11 @@ class gc_team{
         this.faction = faction;
         this.armada = [];
         this.currency = 0;
-        this.fuel = 1;
-        this.durasteel = 2;
-        this.parts = 3;
-        this.electronics = 4;
-        this.tibanna = 5;
+        this.fuel = 0;
+        this.durasteel = 0;
+        this.parts = 0;
+        this.electronics = 0;
+        this.tibanna = 0;
     }
 }
 
