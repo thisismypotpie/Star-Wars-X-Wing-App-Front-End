@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="pilot-selection.css" />
+    <title>Star Wars X-Wing</title>
+
+    <div class = "title">Pilot Selection</div>
+   
+    <section class="grid-container">
+    <div class = "container pilot-image" id = "pilot-image">
+      <p class = "unavail_info" id = "unavailable">UNAVAILABLE</p>
+      <p class = "unavail_info" id = "assigned_to">ASSIGNED TO TEAM:</p>
+      <P class = "unavail_info" id = "team_name_assigned">example team name</P>
+      <p class = "unavail_info" id = "roster_number_assigned">ROSTER NUMBER: 1234</p>
+    </div>
+    <span class = "subtitle Maneuvers" >Maneuvers</span>
+    <div class = "container maneuver-image"id = "maneuver-image"></div>
+    <button type="button" class = "button previous" id = "previous-btn" onclick ="previous_button_click()"></button>
+    <button type="button" class = "button next" id = "next-btn" onclick="next_button_click()"></button>
+    <button type="button" class = "button back" id = "back-button" onclick="back_button_click()">Back</button>
+    <button type="button" class = "button select" id = "select-button" onclick = "select_button_click()">Select</button>
+    <button type="button" class = "button flip" id = "flip-button" onclick="flip_button_click()">Flip</button>
+    </section>
+
+  </head>
+  <script type="text/javascript" src="../JS Data Classes/pilot-screen-sorter.js"></script>
+  <script type="text/javascript" src="../JS Data Classes/In-Game-Variants.js"></script>
+  <script type="text/javascript" src="pilot-selection.js"></script>
+  <body>
+
+  </body>
+</html>

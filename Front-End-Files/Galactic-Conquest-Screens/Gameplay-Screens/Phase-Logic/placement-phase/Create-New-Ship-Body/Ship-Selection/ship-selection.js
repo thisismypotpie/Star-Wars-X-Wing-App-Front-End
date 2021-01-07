@@ -77,9 +77,8 @@ document.getElementById("back-button").addEventListener("click", function(){
             current_index_tab++;
             new_item.textContent = ship.ship_name;
             new_item.onclick = function(){
-              //sessionStorage.setItem("chosenShip",ship.id);//Sending a ship name and faction
-              //window.location.href = "";
-              alert("click!");
+              sessionStorage.setItem("chosenShip",ship.id);//Sending a ship name and faction
+              window.location.href = "../Pilot-Selection/pilot-selection.html";
             }
             document.getElementById("ship-box").appendChild(new_item);
           }
