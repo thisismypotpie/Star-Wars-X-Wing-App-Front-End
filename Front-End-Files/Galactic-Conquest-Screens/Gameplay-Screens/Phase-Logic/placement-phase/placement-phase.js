@@ -56,12 +56,12 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                     }
                     else 
                     {
-                        window.location.href="Create-New-Ship-Body/Ship-Selection/ship-selection.html";
+                        window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
                     }
                }
                else
                {
-                    window.location.href="Create-New-Ship-Body/Ship-Selection/ship-selection.html";
+                    window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
                }
            }
        }
