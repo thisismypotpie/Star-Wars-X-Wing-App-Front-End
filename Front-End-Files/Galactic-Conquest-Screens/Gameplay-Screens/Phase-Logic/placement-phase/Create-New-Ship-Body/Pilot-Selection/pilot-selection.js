@@ -1,10 +1,9 @@
 var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
 
 //Get the chosen ship and game data from the session storage.
-let chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[shipName, faction, size]
+let chosen_ship_id = sessionStorage.getItem("chosenShip");//ship_id.
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-console.log(chosen_ship);
-var display_pilots = sort_pilots_for_viewing(chosen_ship[0],chosen_ship[1]);
+var display_pilots = get_pilots_by_id(chosen_ship_id);
 let selection_index = 0;//This will be the index that will determine which pilot is chosen.
 
 
@@ -136,7 +135,7 @@ update_pilot_image();//Updates the image to see if the pilot is available or not
 function back_button_click()
 {
 sessionStorage.removeItem("chosenShip");
-window.location.href = "../Selection-Screen/Selection-Screen.html";
+window.location.href = "../Ship-Selection/ship-selection.html";
 }
 
 function select_button_click()
@@ -163,6 +162,57 @@ function select_button_click()
       }
     }
     window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
+}
+
+//Get all pilots of a ship based on id and then sort them.
+function get_pilots_by_id(id)
+{
+    var return_pilots = [];
+    //Get all of the pilots.
+    game_data.all_pilots.forEach(pilot=>{
+       if(pilot.ship_name.id == id)
+       {
+         return_pilots.push(pilot);
+       }
+    })
+
+    //Sort all pilots by pilot skill.
+    let finished = false;
+    let pass = 1;
+    while(finished == false)
+    {
+      console.log("Pilot sorting pass: "+pass);
+       //check pass to see if pilots are sorted.
+       for(var i=0; i < return_pilots.length-1;i++)
+       {
+          if(i == (return_pilots.length-2)&& return_pilots[i].pilot_skill <= return_pilots[i+1].pilot_skill)
+          {
+              finished = true;
+              break; 
+          }
+          if(return_pilots[i].pilot_skill > return_pilots[i+1].pilot_skill)
+          {
+              break;
+          }
+       }
+
+       if(finished == false)
+       {
+          var place_holder = undefined;
+          //Index swapping 
+          for(var i=0; i< return_pilots.length-1;i++)
+          {
+            if(return_pilots[i].pilot_skill > return_pilots[i+1].pilot_skill)
+            {
+               place_holder = return_pilots[i];
+               return_pilots[i] = return_pilots[i+1];
+               return_pilots[i+1] = place_holder;
+            }
+          }
+       }
+       pass++;
+    }
+    return return_pilots;
 }
 
 //Key bindings for this screen.
