@@ -19,6 +19,7 @@ class gc_team{
         this.parts = 0;
         this.electronics = 0;
         this.tibanna = 0;
+        this.list_of_the_fallen= [];
     }
 }
 

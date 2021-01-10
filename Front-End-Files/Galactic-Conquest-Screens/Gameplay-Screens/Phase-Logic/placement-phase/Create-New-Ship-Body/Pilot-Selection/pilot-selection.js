@@ -5,6 +5,29 @@ let chosen_ship_id = sessionStorage.getItem("chosenShip");//ship_id.
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
 var display_pilots = get_pilots_by_id(chosen_ship_id);
 let selection_index = 0;//This will be the index that will determine which pilot is chosen.
+let whos_turn = sessionStorage.getItem("gc_whos_turn");
+var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
+
+if(whos_turn == "Rebels")
+{
+  whos_turn = all_factions[0];
+}
+else if(whos_turn == "Imperial")
+{
+  whos_turn = all_factions[1];
+}
+else
+{
+  alert("Unkown who's turn it is.")
+}
+
+//Set resource quantities.
+document.getElementById("curreny-quantity").textContent = whos_turn.currency;
+document.getElementById("parts-quantity").textContent = whos_turn.parts;
+document.getElementById("electronics-quantity").textContent = whos_turn.electronics;
+document.getElementById("fuel-quantity").textContent = whos_turn.fuel;
+document.getElementById("tibanna-quantity").textContent = whos_turn.tibanna;
+document.getElementById("durasteel-quantity").textContent = whos_turn.durasteel;
 
 
 //display maneuvers and pilot card
@@ -170,7 +193,8 @@ function get_pilots_by_id(id)
     var return_pilots = [];
     //Get all of the pilots.
     game_data.all_pilots.forEach(pilot=>{
-       if(pilot.ship_name.id == id)
+       if(pilot.ship_name.id == id &&
+          pilot.faction == sessionStorage.getItem("gc_whos_turn"))
        {
          return_pilots.push(pilot);
        }
