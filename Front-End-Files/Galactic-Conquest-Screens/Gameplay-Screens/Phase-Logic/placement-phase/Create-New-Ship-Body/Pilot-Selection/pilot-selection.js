@@ -20,44 +20,7 @@ else
 {
   alert("Unkown who's turn it is.")
 }
-
-//Set resource quantities.
-document.getElementById("curreny-quantity").textContent = whos_turn.currency;
-document.getElementById("parts-quantity").textContent = whos_turn.parts;
-document.getElementById("electronics-quantity").textContent = whos_turn.electronics;
-document.getElementById("fuel-quantity").textContent = whos_turn.fuel;
-document.getElementById("tibanna-quantity").textContent = whos_turn.tibanna;
-document.getElementById("durasteel-quantity").textContent = whos_turn.durasteel;
-//Set cost of ship.
-if(display_pilots[selection_index].ship_name.ship_type == "largeOneCard" ||
-   display_pilots[selection_index].ship_name.ship_type == "largeTwoCard")
-{
-  document.getElementById("cost-fuel-quantity").textContent = "3";
-}
-else
-{
-  document.getElementById("cost-curreny-quantity").textContent = Math.ceil(display_pilots[selection_index].cost/5);
-
-  document.getElementById("cost-parts-quantity").textContent = display_pilots[selection_index].ship_name.agility;
-  document.getElementById("cost-electronics-quantity").textContent = display_pilots[selection_index].ship_name.shields;
-  document.getElementById("cost-tibanna-quantity").textContent = display_pilots[selection_index].ship_name.attack;
-  document.getElementById("cost-durasteel-quantity").textContent = display_pilots[selection_index].ship_name.hull;
-  
-  document.getElementById("alternate-cost-curreny-quantity").textContent = display_pilots[selection_index].cost;
-  if(display_pilots[selection_index].ship_name.ship_type == "small")
-{
-  document.getElementById("cost-fuel-quantity").textContent = "1";
-}
-else if(display_pilots[selection_index].ship_name.ship_type == "medium")
-{
-  document.getElementById("cost-fuel-quantity").textContent = "2";
-}
-else
-{
-  alert("Unknown Ship Size!");
-}
-}
-
+set_ship_prices();
 //display maneuvers and pilot card
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
@@ -71,15 +34,65 @@ if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetw
 
 function flip_button_click()
 {
-  if(aft_showing == false)
+    if(aft_showing == false)
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
+      aft_showing = true;
+    }
+    else
+    {
+      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+      aft_showing = false;
+    }
+  }
+
+  function set_ship_prices()
+{
+  //Set resource quantities.
+  document.getElementById("curreny-quantity").textContent = whos_turn.currency;
+  document.getElementById("parts-quantity").textContent = whos_turn.parts;
+  document.getElementById("electronics-quantity").textContent = whos_turn.electronics;
+  document.getElementById("fuel-quantity").textContent = whos_turn.fuel;
+  document.getElementById("tibanna-quantity").textContent = whos_turn.tibanna;
+  document.getElementById("durasteel-quantity").textContent = whos_turn.durasteel;
+  //Set cost of ship.
+  if(display_pilots[selection_index].ship_name.ship_type == "largeTwoCard")
   {
-    document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
-    aft_showing = true;
+      document.getElementById("cost-fuel-quantity").textContent = "4";
+
+      document.getElementById("cost-curreny-quantity").textContent = Math.ceil(display_pilots[selection_index].cost/5);
+      document.getElementById("cost-parts-quantity").textContent = display_pilots[selection_index].ship_name.agility + display_pilots[selection_index].ship_name.aft_agility + display_pilots[selection_index].ship_name.energy;
+      document.getElementById("cost-electronics-quantity").textContent = display_pilots[selection_index].ship_name.shields + display_pilots[selection_index].ship_name.aft_shields;
+      document.getElementById("cost-tibanna-quantity").textContent = display_pilots[selection_index].ship_name.attack;
+      document.getElementById("cost-durasteel-quantity").textContent = display_pilots[selection_index].ship_name.hull + display_pilots[selection_index].ship_name.aft_hull;
+      document.getElementById("alternate-cost-curreny-quantity").textContent = display_pilots[selection_index].cost;
   }
   else
   {
-    document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
-    aft_showing = false;
+      document.getElementById("cost-curreny-quantity").textContent = Math.ceil(display_pilots[selection_index].cost/5);
+      document.getElementById("cost-parts-quantity").textContent = display_pilots[selection_index].ship_name.agility;
+      document.getElementById("cost-electronics-quantity").textContent = display_pilots[selection_index].ship_name.shields;
+      document.getElementById("cost-tibanna-quantity").textContent = display_pilots[selection_index].ship_name.attack;
+      document.getElementById("cost-durasteel-quantity").textContent = display_pilots[selection_index].ship_name.hull;
+      document.getElementById("alternate-cost-curreny-quantity").textContent = display_pilots[selection_index].cost;
+
+      if(display_pilots[selection_index].ship_name.ship_type == "small")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "1";
+    }
+    else if(display_pilots[selection_index].ship_name.ship_type == "medium")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "2";
+    }
+    else if(display_pilots[selection_index].ship_name.ship_type == "largeOneCard")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "3";
+      document.getElementById("cost-parts-quantity").textContent = display_pilots[selection_index].ship_name.agility+display_pilots[selection_index].ship_name.energy;
+    }
+    else
+    {
+      alert("Unknown Ship Size!");
+    }
   }
 }
 
@@ -170,6 +183,7 @@ function next_button_click()
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
   update_pilot_image();//Updates the image to see if the pilot is available or not.
+  set_ship_prices();
 }
 
 function previous_button_click()
@@ -181,6 +195,7 @@ if(selection_index < 0)
 }
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 update_pilot_image();//Updates the image to see if the pilot is available or not.
+set_ship_prices()
 }
 
 function back_button_click()
@@ -231,7 +246,7 @@ function get_pilots_by_id(id)
     //Sort all pilots by pilot skill.
     let finished = false;
     let pass = 1;
-    while(finished == false)
+    while(finished == false && return_pilots.length > 1)
     {
       console.log("Pilot sorting pass: "+pass);
        //check pass to see if pilots are sorted.

@@ -64,7 +64,7 @@ document.getElementById("back-button").addEventListener("click", function(){
 
     var ship_ids = [];
     game_data.all_pilots.forEach(pilot=>{
-      if(pilot.faction == whos_turn &&
+      if(pilot.faction == whos_turn.faction &&
          (pilot.ship_name.ship_type == "largeTwoCard"||
          pilot.ship_name.ship_type == "largeOneCard") &&
          ship_ids.includes(pilot.ship_name.id)== false)
