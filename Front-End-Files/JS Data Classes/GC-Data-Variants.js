@@ -12,7 +12,7 @@ class gc_team{
     constructor(faction)
     {
         this.faction = faction;
-        this.armada = [];
+        this.navy = [];
         this.currency = 0;
         this.fuel = 0;
         this.durasteel = 0;
@@ -20,6 +20,9 @@ class gc_team{
         this.electronics = 0;
         this.tibanna = 0;
         this.list_of_the_fallen= [];
+        this.highest_squad_number = 1;
+        this.highest_fleet_number = 1;
+        this.highest_armada_number = 1;
     }
 }
 
@@ -37,6 +40,25 @@ class in_game_planet{
     }
 }
 
+//If someone adds or loses a ship, change the name accordingly.
+function check_if_name_needs_to_be_changed()
+{
+
+}
+
+//Creates name of a team based on the newest number of the fleet body.
+function create_GC_team_name(first_ship)
+{
+
+}
+
+//Removes a team name is the player goes back and does not create a new team.
+function remove_newly_created_team_name(team_name)
+{
+
+}
+
+//Finds correct image of which faction and fleet size is put in. 
 function get_correct_image(classification,faction)
 {
     if(faction == "Rebels")

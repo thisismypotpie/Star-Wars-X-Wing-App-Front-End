@@ -7,6 +7,7 @@ var display_pilots = get_pilots_by_id(chosen_ship_id);
 let selection_index = 0;//This will be the index that will determine which pilot is chosen.
 let whos_turn = sessionStorage.getItem("gc_whos_turn");
 var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
+let team_name = create_GC_team_name(display_pilots[selection_index].ship_name);//Create a team named based on what ship was chosen.
 
 if(whos_turn == "Rebels")
 {
@@ -201,13 +202,13 @@ set_ship_prices()
 function back_button_click()
 {
 sessionStorage.removeItem("chosenShip");
+remove_newly_created_team_name(team_name);
 window.location.href = "../Ship-Selection/ship-selection.html";
 }
 
 function select_button_click()
 {
     //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
-    let team_name = JSON.parse(sessionStorage.getItem("new_team")).team_name;
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
       sessionStorage.setItem("ship_in_progress",JSON.stringify(new in_game_ship_status(display_pilots[selection_index],team_name)));
@@ -227,7 +228,7 @@ function select_button_click()
         console.log("ERROR: The ship size of the selected ship is not valid.");
       }
     }
-    window.location.href = "../Upgrade-Screen/Upgrade-Screen.html";
+    window.location.href = "../Upgrade-Screens/main-upgrade-screen.html";
 }
 
 //Get all pilots of a ship based on id and then sort them.
