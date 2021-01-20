@@ -6,8 +6,8 @@ var game_data= JSON.parse(sessionStorage.getItem("game_data"));
 var display_pilots = get_pilots_by_id(chosen_ship_id);
 let selection_index = 0;//This will be the index that will determine which pilot is chosen.
 let whos_turn = sessionStorage.getItem("gc_whos_turn");
-var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
-let team_name = create_GC_team_name(display_pilots[selection_index].ship_name);//Create a team named based on what ship was chosen.
+let team_name = create_GC_team_name(display_pilots[selection_index].ship_name,whos_turn=="Rebels"? 0:1);//Create a team named based on what ship was chosen.
+var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
 
 if(whos_turn == "Rebels")
 {
@@ -202,7 +202,7 @@ set_ship_prices()
 function back_button_click()
 {
 sessionStorage.removeItem("chosenShip");
-remove_newly_created_team_name(team_name);
+remove_newly_created_team_name(team_name,whos_turn.faction=="Rebels"? 0:1);
 window.location.href = "../Ship-Selection/ship-selection.html";
 }
 
