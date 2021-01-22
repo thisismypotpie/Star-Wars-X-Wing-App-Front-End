@@ -147,7 +147,7 @@ let next_upgrade_slot = document.getElementById("next-selection");
 //click event for the next selection for upgrade slot with plus button on it.
 
 next_upgrade_slot.addEventListener("click",function(){
-  window.location.href = "./Upgrade-Type-Selection/upgrade-type-selection.html";
+  window.location.href = "Upgrade-Type-Selection/upgrade-type.html";
 })
 
 function close_remove_upgrade_pop_up()

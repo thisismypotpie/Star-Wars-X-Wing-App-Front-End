@@ -6,7 +6,7 @@ $(upgrade type and name) - This slot has an upgrade image and no longer needs to
 */
 
 document.getElementById("back-button").addEventListener("click", function(){
-    window.location.href = "../Upgrade-Screen.html";
+    window.location.href = "../main-upgrade-screen.html";
   });
 
 
@@ -17,7 +17,7 @@ for(var i = 0; i < type_clickers.length;i++)
 {
     type_clickers[i].addEventListener("click",function(){
         sessionStorage.setItem("upgrade-type-chosen",this.id);
-        window.location.href = "../Upgrade-Selection-Screen/Upgrade-Selection-Screen.html"
+        window.location.href = "../Upgrade-Selection/upgrade-selection.html"
         console.log(this.id);
     });
 }
