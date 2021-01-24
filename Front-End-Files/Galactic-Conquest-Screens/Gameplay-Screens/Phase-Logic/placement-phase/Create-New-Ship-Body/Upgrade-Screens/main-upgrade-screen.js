@@ -11,6 +11,7 @@ var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is re
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
 
+set_ship_prices();
 
 //I will be making a loop that will paste all of the upgrades a ship into the next available picture and then set the next empty to next selection.
 let grid_items = document.getElementsByClassName("grid-item");
@@ -342,6 +343,76 @@ function subract_energy_token(upgrade)
   }
   document.getElementById("energy-quantity").textContent = "X"+upgrade.energy_allocated;
 }
+
+function set_ship_prices()
+{
+  var faction_turn = undefined
+  var current_ship = ship_in_progress.chosen_pilot;
+  var upgrade_cost = 0;
+  var upgrade_minus =0;//for upgrades that cost less than 0.
+  ship_in_progress.upgrades.forEach(upgrade=>{
+    if(upgrade.upgrade.cost > 0)
+    {
+      upgrade_cost += upgrade.upgrade.cost;
+    }
+    else
+    {
+      upgrade_minus+=upgrade.upgrade.cost;
+    }
+  })
+  if(whos_turn == "Rebels")
+  {
+    faction_turn = all_factions[0];
+  }
+  else if(whos_turn == "Imperial")
+  {
+    faction_turn = all_factions[1];
+  }
+  else
+  {
+    alert("ERROR: Cannot determine who's turn it is.")
+  }
+  //Set cost of ship.
+  if(current_ship.ship_name.ship_type == "largeTwoCard")
+  {
+      document.getElementById("cost-fuel-quantity").textContent = "4";
+
+      document.getElementById("cost-curreny-quantity").textContent = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost+" / "+faction_turn.currency;
+      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility + current_ship.ship_name.aft_agility + current_ship.ship_name.energy+" / "+faction_turn.parts;
+      document.getElementById("cost-electronics-quantity").textContent = current_ship.ship_name.shields + current_ship.ship_name.aft_shields+" / "+faction_turn.electronics;
+      document.getElementById("cost-tibanna-quantity").textContent = current_ship.ship_name.attack+" / "+faction_turn.tibanna;
+      document.getElementById("cost-durasteel-quantity").textContent = current_ship.ship_name.hull + current_ship.ship_name.aft_hull+" / "+faction_turn.durastee;
+      document.getElementById("alternate-cost-curreny-quantity").textContent = current_ship.cost+upgrade_cost+upgrade_minus+" / "+faction_turn.currency;
+  }
+  else
+  {
+      document.getElementById("cost-curreny-quantity").textContent = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost+" / "+ faction_turn.currency;
+      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility+" / "+faction_turn.parts;
+      document.getElementById("cost-electronics-quantity").textContent = current_ship.ship_name.shields+" / "+faction_turn.electronics;
+      document.getElementById("cost-tibanna-quantity").textContent = current_ship.ship_name.attack+" / "+faction_turn.tibanna;
+      document.getElementById("cost-durasteel-quantity").textContent = current_ship.ship_name.hull+" / "+faction_turn.durasteel;
+      document.getElementById("alternate-cost-curreny-quantity").textContent = current_ship.cost+upgrade_cost+upgrade_minus+" / "+faction_turn.currency;
+
+      if(current_ship.ship_name.ship_type == "small")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "1"+" / "+faction_turn.fuel;
+    }
+    else if(current_ship.ship_name.ship_type == "medium")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "2"+" / "+faction_turn.fuel;
+    }
+    else if(current_ship.ship_name.ship_type == "largeOneCard")
+    {
+      document.getElementById("cost-fuel-quantity").textContent = "3"+" / "+faction_turn.fuel;
+      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility+current_ship.ship_name.energy+" / "+faction_turn.parts;
+    }
+    else
+    {
+      alert("Unknown Ship Size!");
+    }
+  }
+}
+
 
 //Key bindings
 document.onkeyup = function(e) {
