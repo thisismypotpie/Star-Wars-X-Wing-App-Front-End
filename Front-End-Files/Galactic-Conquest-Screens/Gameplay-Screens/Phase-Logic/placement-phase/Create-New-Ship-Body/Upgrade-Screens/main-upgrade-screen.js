@@ -268,7 +268,7 @@ function ok_button_push()
       }
        
       //create a new team and add it to all factions.
-      let new_team = new ship_group(ship_in_progress.team_name,whos_turn);
+      let new_team = new ship_group(ship_in_progress.team_name,whos_turn,sessionStorage.getItem("placement_id"));
       new_team.team.push(ship_in_progress);
       if(whos_turn == "Rebels")
       {
@@ -287,6 +287,7 @@ function ok_button_push()
       //remove all items that are no longer being used.
       sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
+      sessionStorage.removeItem("placement_id");
       window.location.href = "../../../../gameplay-screen.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back

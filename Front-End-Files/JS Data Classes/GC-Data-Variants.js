@@ -1,10 +1,11 @@
 class ship_group{
-    constructor(group_name,faction)
+    constructor(group_name,faction,location)
     {
         this.group_name = group_name;
         this.faction = faction;
         this.image = get_correct_image(group_name.split(" ")[2],faction);
         this.team = [];
+        this.location = location;
     }
 }
 

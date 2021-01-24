@@ -26,6 +26,7 @@ for(var x=1; x < 201;x++)
 //Load planets onto galaxy map.
 load_planets();
 add_path_dots();
+place_ship_bodies();
 
 function load_planets()
 {
@@ -146,4 +147,14 @@ function zoom_in_button_click()
   document.getElementById("grid-container").style.height = "196vh";*/
   document.getElementById("zoom-button").onclick = function(){zoom_out_button_click()};
   document.getElementById("zoom-button").textContent = "Zoom Out"
+}
+
+function place_ship_bodies()
+{
+   let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
+   all_factions.forEach(faction=>{
+     faction.navy.forEach(ship_body=>{
+       //place ship body on screen.
+     })
+   })
 }

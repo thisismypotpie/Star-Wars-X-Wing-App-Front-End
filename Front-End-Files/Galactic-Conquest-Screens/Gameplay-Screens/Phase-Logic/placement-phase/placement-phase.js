@@ -56,12 +56,13 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                     }
                     else 
                     {
+                        sessionStorage.setItem("placement_id",id);
                         window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
                     }
                }
                else
                {
-                    window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
+                    alert("Please place a ship body only on planets you control.");
                }
            }
        }
