@@ -82,7 +82,7 @@ function filter_out_unique_by_pilot(upgrade_list,ship_to_add)
             }
             for(var j = ship_to_add.upgrades.length -1;j >=0;j--)//check ship in progress
             {
-                if(ship_to_add.upgrades[j].id == upgrade_list[i].id)
+                if(ship_to_add.upgrades[j].upgrade.id == upgrade_list[i].id)
                 {
                     console.log("Removing upgrade: "+upgrade_list[i].name+" by unique keyword filter.")
                     upgrade_list.splice(i,1);
@@ -197,4 +197,10 @@ function filter_out_unique_by_pilot(upgrade_list,ship_to_add)
     }
 });
     return upgrades_to_push;
+ }
+
+ function gc_filter_out_the_dead(upgrades)
+ {
+    alert("THE DEAD ARE NOT FILTERED YET, PLEASE BUILD UNTIL IT IS NEEDED!");
+    return upgrades;
  }

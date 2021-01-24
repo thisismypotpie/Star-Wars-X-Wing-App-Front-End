@@ -1,9 +1,9 @@
 class ship_group{
-    constructor(classification,faction)
+    constructor(group_name,faction)
     {
-        this.classification = classification;
+        this.group_name = group_name;
         this.faction = faction;
-        this.image = get_correct_image(classification,faction);
+        this.image = get_correct_image(group_name.split(" ")[2],faction);
         this.team = [];
     }
 }
@@ -159,7 +159,7 @@ function get_correct_image(classification,faction)
 {
     if(faction == "Rebels")
     {
-        if(classification == "Squadron")
+        if(classification == "Squad")
         {
             return "https://i.imgur.com/Vj0bAfw.png";
         }
@@ -178,7 +178,7 @@ function get_correct_image(classification,faction)
     }
     else if(faction == "Imperial")
     {
-        if(classification == "Squadron")
+        if(classification == "Squad")
         {
             return "https://i.imgur.com/QA6rw2i.png";
         }

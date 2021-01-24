@@ -2,6 +2,7 @@ var flipped = false;//keeps track if front or back or large ship is showing.
 
 //Set Galactic Conquest variables
 let whos_turn = sessionStorage.getItem("gc_whos_turn");
+var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
 
   //Get data objects needed for this page.
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
@@ -264,19 +265,28 @@ function ok_button_push()
       {
          ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
       }
-      // Add ship to the new team, then add the new team to all teams.
-      let new_team = JSON.parse(sessionStorage.getItem("new_team"));
-      new_team.ship_list.push(ship_in_progress);
-      let all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-      all_teams.push(new_team);
-      console.log(all_teams);
-      sessionStorage.setItem("all_teams", JSON.stringify(all_teams));
-
+       
+      //create a new team and add it to all factions.
+      let new_team = new ship_group(ship_in_progress.team_name,whos_turn);
+      new_team.team.push(ship_in_progress);
+      if(whos_turn == "Rebels")
+      {
+         all_factions[0].navy.push(new_team);
+      }
+      else if(whos_turn == "Imperial")
+      {
+        all_factions[1].navy.push(new_team);
+      }
+      else
+      {
+        alert("ERROR: Unable to find who's turn it is.");
+      }
+      sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+   
       //remove all items that are no longer being used.
       sessionStorage.removeItem("chosenShip");
-      sessionStorage.removeItem("new_team");
       sessionStorage.removeItem("ship_in_progress");
-      window.location.href = "../Team-Screen/Team-Screen.html";
+      window.location.href = "../../../../gameplay-screen.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 }

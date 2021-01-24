@@ -5,8 +5,20 @@
   var grid_container = document.getElementById("grid-container");
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
 
+  //Set "all_teams" in session storage since it is used in the filter upgrade functions.
+  var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
+  var all_teams = [];
+  all_factions.forEach(faction=>{
+    faction.navy.forEach(ship_body=>{
+       all_teams.push(ship_body.team);
+    })
+  })
+  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+
   //Filter out upgrades the current ship cannot have or use.
   selected_upgrades = masterUpgradeFilter(ship_in_progress,upgrade_type);
+  //Filter out the dead of those who have fallen in battle.
+  selected_upgrades = gc_filter_out_the_dead(selected_upgrades);
 
  
   //Make a div for each upgrade.
@@ -52,7 +64,8 @@
     back_button.style.border = "none";
     back_button.addEventListener("click", function(){
     sessionStorage.removeItem("upgrade-type-chosen");
-    window.location.href = "../Upgrade-Type-Selection-Screen/upgrade-type-selection-screen.html";
+    sessionStorage.removeItem("all_teams");//remove all teams since we only made all teams to make sure upgrade filters work.
+    window.location.href = "../Upgrade-Type-Selection/upgrade-type.html";
     });
     grid_container.appendChild(back_button);
 
@@ -69,5 +82,5 @@
         }
       })
       sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-      window.location.href = "../Upgrade-Screen.html";
+      window.location.href = "../main-upgrade-screen.html";
   }
