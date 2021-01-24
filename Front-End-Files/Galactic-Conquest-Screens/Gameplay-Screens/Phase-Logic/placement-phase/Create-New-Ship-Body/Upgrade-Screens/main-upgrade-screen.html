@@ -10,9 +10,8 @@
   </head>
   <body>
     <div class = "title">Upgrade Selection</div>
+    <div id = "pilot-picture"></div>
 
-    <section class = "flex-container">
-      <div class = "picture pilot-picture" id = "pilot-picture"></div>
       <section class="grid-container">
         <div class = "grid-item one" id = "next-selection"></div>
         <div class = "grid-item two"id = "empty"></div>
@@ -27,10 +26,31 @@
         <div class = "grid-item eleven"id = "empty"></div>
         <div class = "grid-item twelve"id = "empty"></div>
       </section>
+
+      <div id = "cost-container">
+        <div class = "list-box-title" id="cost-title">Cost</div>
+        <div class="resource-image" id="cost-currency-image"></div>
+        <div class="resource-image" id="cost-parts-image"></div>
+        <div class="resource-image" id="cost-electronics-image"></div>
+        <div class="resource-image" id="cost-fuel-image"></div>
+        <div class="resource-image" id="cost-tibanna-image"></div>
+        <div class="resource-image" id="cost-durasteel-image"></div>
+        <div class="resource-text" id="cost-curreny-quantity"></div>
+        <div class="resource-text" id="cost-parts-quantity"></div>
+        <div class="resource-text" id="cost-electronics-quantity"></div>
+        <div class="resource-text" id="cost-fuel-quantity"></div>
+        <div class="resource-text" id="cost-tibanna-quantity"></div>
+        <div class="resource-text" id="cost-durasteel-quantity"></div>
+
+        <div class = "list-box-title" id="or-title">OR</div>
+        <div class="resource-image" id="alternate-cost-currency-image"></div>
+        <div class="resource-text" id="alternate-cost-curreny-quantity"></div>
+      </div>
+
       <button type="button" class = "button back" id = "back-button" onclick="back_button_push()"> Back</button>
       <button type="button" class = "button done" id = "done-button" onclick ="done_button_push()">Done</button>
       <button type="button" class = "button main-flip" id = "main-flip-button" onclick="flip_ship()">Flip</button>
-    </section>
+
 <!-- This is the code for the roster number popup.-->
   <div class = "roster-number-container" id = "roster-number-box">
     <div class = roster-number-header>Roster Number</div>
