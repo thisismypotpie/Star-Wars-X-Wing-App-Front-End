@@ -2,21 +2,17 @@ var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
 var converted_planets = setup_data.converted_planets;
 
-//grid-click system.
-var coordinates = [];
 for(var x=1; x < 201;x++)
 {
    for(var y=1; y<101;y++)
    {
-       coordinates.push({x: x,y:y});
        var grid_coordinate = document.createElement("div");
        grid_coordinate.id = x+"_"+y;
-       grid_coordinate.setAttribute("x",x.toString());
-       grid_coordinate.setAttribute("y",y.toString());
        grid_coordinate.style.gridColumn = (x).toString();
        grid_coordinate.style.gridRow = (y).toString();
        grid_coordinate.style.backgroundSize = "100%  100%";
        grid_coordinate.style.backgroundRepeat = "no-repeat";
+       grid_coordinate.style.pointerEvents = "all";
        grid_coordinate.onmouseenter = function(e){border_color_place_holder = document.getElementById(e.target.id).style.border;document.getElementById(e.target.id).style.border = "1px solid green";};
        grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = border_color_place_holder;};
        document.getElementById('grid-container').appendChild(grid_coordinate);
@@ -74,11 +70,11 @@ function load_planets()
             }
             else if(planet.controlling_faction == "Rebels")
             {
-              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
+              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/mO0iijb.png')";
             }
             else if(planet.controlling_faction == "Imperial")
             {
-              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
+              document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/XgIWtvd.png')";
             }
             else
             {
@@ -138,10 +134,10 @@ function zoom_out_button_click()
 
 function zoom_in_button_click()
 {
-  document.body.style.backgroundSize = "204% 260vh";
+  document.body.style.backgroundSize = "408% 520vh";
   //window.scrollTo(saved_x_coordinate_for_map_return,saved_y_coordinate_for_map_return);
-  document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(200%/200))";
-  document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(196vh/100))";
+  document.getElementById("grid-container").style.gridTemplateColumns = "repeat(200,calc(400%/200))";
+  document.getElementById("grid-container").style.gridTemplateRows = "repeat(100,calc(392vh/100))";
   /*document.getElementById("grid-container").style.backgroundSize = "100% 196vh";
   document.getElementById("grid-container").style.width = "auto";
   document.getElementById("grid-container").style.height = "196vh";*/
@@ -154,7 +150,14 @@ function place_ship_bodies()
    let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
    all_factions.forEach(faction=>{
      faction.navy.forEach(ship_body=>{
-       //place ship body on screen.
+      var ship_element = document.createElement("div");
+      ship_element.style.gridColumn = (ship_body.location.split("_")[0]).toString();
+      ship_element.style.gridRow = (ship_body.location.split("_")[1]).toString();
+      ship_element.style.backgroundImage = "url("+ship_body.image+")";
+      ship_element.style.border = ship_body.border;
+      ship_element.className = "ship-body";
+      ship_element.style.pointerEvents = "none";
+       document.getElementById('grid-container').appendChild(ship_element);
      })
    })
 }

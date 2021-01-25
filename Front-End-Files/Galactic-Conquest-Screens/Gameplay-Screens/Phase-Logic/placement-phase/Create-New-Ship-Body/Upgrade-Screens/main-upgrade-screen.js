@@ -245,12 +245,16 @@ function back_button_push()
 function done_button_push()
 {
   let overlay = document.getElementById("overlay");
-  let roster_number_box = document.getElementById("roster-number-box");
+  let payment_screen = document.getElementById("payment-type-pop-up");
   overlay.style.opacity = 1;
-  roster_number_box.style.visibility = "visible";
+  payment_screen.style.visibility = "visible";
   overlay.style.pointerEvents = "all";
-  document.getElementById("roster-number-input").focus();
+
 }
+//use this code after you pay for ship.
+  //roster_number_box.style.visibility = "visible";
+  //let roster_number_box = document.getElementById("roster-number-box");
+  //document.getElementById("roster-number-input").focus();
 
 function ok_button_push()
 {

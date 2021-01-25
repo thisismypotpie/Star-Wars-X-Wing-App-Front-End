@@ -68,7 +68,7 @@ body{
 #rebel-faction-image{
     grid-column:2/6;
     grid-row: 3/8;
-    background-image: url('https://i.imgur.com/h4bX7cy.png');
+    background-image: url('https://i.imgur.com/mO0iijb.png');
 }
 
 #or{
@@ -84,7 +84,7 @@ body{
 #imperial-faction-image{
     grid-row: 3/8;
     grid-column: 8/12;
-    background-image: url('https://i.imgur.com/7BL338e.png');
+    background-image: url('https://i.imgur.com/XgIWtvd.png');
 }
 
 #planet-assignment-container{

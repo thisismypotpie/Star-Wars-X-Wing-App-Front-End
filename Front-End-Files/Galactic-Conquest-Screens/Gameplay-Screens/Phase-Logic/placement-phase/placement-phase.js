@@ -54,9 +54,13 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                     {                   
                          alert("You cannot place ships on enemy or unaligned planets!");
                     }
+                    else if(check_for_ship_body_collision(e.target.id))
+                    {
+                        alert("You cannot build here, there is already a ship group there!")
+                    }
                     else 
                     {
-                        sessionStorage.setItem("placement_id",id);
+                        sessionStorage.setItem("placement_id",e.target.id);
                         window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
                     }
                }
@@ -94,4 +98,19 @@ function get_planet(id_goal,low_range_end,high_range_end)
     {
         return get_planet(id_goal,low_range_end,test_index);
     }
+}
+
+function check_for_ship_body_collision(id)
+{
+    for(var i=0; i < factions.length;i++)
+    {
+        for(var j=0;j < factions[i].navy.length;j++)
+        {
+            if(factions[i].navy[j].location == id)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }

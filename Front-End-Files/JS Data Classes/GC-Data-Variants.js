@@ -3,9 +3,22 @@ class ship_group{
     {
         this.group_name = group_name;
         this.faction = faction;
-        this.image = get_correct_image(group_name.split(" ")[2],faction);
+        this.border = get_correct_border(group_name.split(" ")[2]);
         this.team = [];
         this.location = location;
+        this.image = undefined;
+        if(faction == "Rebels")
+        {
+            this.image = "https://i.imgur.com/mO0iijb.png";
+        }
+        else if(faction == "Imperial")
+        {
+            this.image = "https://i.imgur.com/XgIWtvd.png";
+        }
+        else
+        {
+            alert("ERROR: Could not find faction for ship group.")
+        }
     }
 }
 
@@ -156,48 +169,23 @@ function remove_newly_created_team_name(team_name,faction_index)
 }
 
 //Finds correct image of which faction and fleet size is put in. 
-function get_correct_image(classification,faction)
+function get_correct_border(classification)
 {
-    if(faction == "Rebels")
-    {
+
         if(classification == "Squad")
         {
-            return "https://i.imgur.com/Vj0bAfw.png";
+            return "1px solid lime";
         }
         else if(classification == "Fleet")
         {
-            return "https://i.imgur.com/358dy56.png";
+            return "1px solid yellow";
         }
         else if(classification == "Armada")
         {
-            return "https://i.imgur.com/QAncG2F.png";
+            return "1px solid deeppink";
         }
         else
         {
             alert("Error: unkown classification: "+classification)
         }
-    }
-    else if(faction == "Imperial")
-    {
-        if(classification == "Squad")
-        {
-            return "https://i.imgur.com/QA6rw2i.png";
-        }
-        else if(classification == "Fleet")
-        {
-            return "https://i.imgur.com/uxiOfHR.png";
-        }
-        else if(classification == "Armada")
-        {
-            return "https://i.imgur.com/hDZF300.jpg";
-        }
-        else
-        {
-            alert("Error: unkown classification: "+classification)
-        }e
-    }
-    else
-    {
-        alert("Error: unknown faction: "+faction);
-    }
 }
