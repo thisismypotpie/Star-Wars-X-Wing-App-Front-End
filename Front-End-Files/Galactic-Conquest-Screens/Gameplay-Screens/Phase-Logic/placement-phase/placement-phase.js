@@ -75,7 +75,7 @@ if(sessionStorage.getItem("gc_phase") == "placement")
 }
 
 //Using binary search to get planet based on id.
-function get_planet(id_goal,low_range_end,high_range_end)
+/*function get_planet(id_goal,low_range_end,high_range_end)
 {
     var test_index = Math.floor((low_range_end+high_range_end)/2);//Create average of low and high to test middle of active planets.
     var test_id = setup_data.active_planets[test_index].planet.id
@@ -98,7 +98,7 @@ function get_planet(id_goal,low_range_end,high_range_end)
     {
         return get_planet(id_goal,low_range_end,test_index);
     }
-}
+}*/
 
 function check_for_ship_body_collision(id)
 {
