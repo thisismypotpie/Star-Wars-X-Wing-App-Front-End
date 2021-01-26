@@ -564,6 +564,7 @@ body{
     grid-column: 1;
     grid-row: 4;
 }
+
 #payment-type-title{
     font-family: Impact, Charcoal, sans-serif;
     font-size: 2.5vw;
@@ -571,6 +572,36 @@ body{
     text-align: center;
     grid-row: 1;
     grid-column: 1;
+}
+
+#notification-pop-up{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width: 40%;
+    visibility: hidden;
+    text-align: center;
+}
+#notification-pop-up-title{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    color: white;
+}
+
+.long-button{
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2vw;
+    text-align: center; 
+    width: 60%;
 }
 
 @media screen and (max-width: 768px){

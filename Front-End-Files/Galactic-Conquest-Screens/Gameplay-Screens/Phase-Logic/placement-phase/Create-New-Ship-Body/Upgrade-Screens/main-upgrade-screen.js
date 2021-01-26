@@ -3,6 +3,7 @@ var flipped = false;//keeps track if front or back or large ship is showing.
 //Set Galactic Conquest variables
 let whos_turn = sessionStorage.getItem("gc_whos_turn");
 var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
+var payment_method = undefined;//Set when the player chooses which type of payment they want to use.
 
   //Get data objects needed for this page.
   let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
@@ -11,6 +12,14 @@ var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is re
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
 
+//Set price variables and set them up in set_ship_prices.
+var currency_cost = undefined;
+var aleternate_currency_cost = undefined;
+var durasteel_cost = undefined;
+var parts_cost = undefined;
+var electronics_cost = undefined;
+var tibanna_cost = undefined;
+var fuel_cost = undefined;
 set_ship_prices();
 
 //I will be making a loop that will paste all of the upgrades a ship into the next available picture and then set the next empty to next selection.
@@ -62,11 +71,7 @@ ship_in_progress.upgrades.forEach(upgrade =>{
    }
 
    element.addEventListener("click",function(){ //When you click each taken upgrade, you will be asked if you want to delete the upgrade.upgrade.
-      let overlay = document.getElementById("overlay");
-      let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-      overlay.style.opacity = 1;
-      upgrade_removal_box.style.visibility = "visible";
-      overlay.style.pointerEvents = "all";
+      show_input_pop_up("upgrade-removal-box");
       if(upgrade.upgrade.is_dual_sided == true)//If a dual sided upgrade is being deleted, split path to get only first side of upgrade.upgrade.
       {
         document.getElementById("upgrade-photo").style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";
@@ -154,11 +159,7 @@ next_upgrade_slot.addEventListener("click",function(){
 
 function close_remove_upgrade_pop_up()
 {
-  let overlay = document.getElementById("overlay");
-  let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-  overlay.style.opacity = 0;
-  upgrade_removal_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
+  hide_input_pop_up("upgrade-removal-box");
   document.getElementById("flip-button").style.visibility = "hidden";
   document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
   document.getElementById("energy-allocation-container").style.visibility = "hidden";
@@ -169,11 +170,7 @@ function close_remove_upgrade_pop_up()
 
 function remove_upgrade()
 {
-    let overlay = document.getElementById("overlay");
-    let upgrade_removal_box = document.getElementById("upgrade-removal-box");
-   overlay.style.opacity = 0;
-   upgrade_removal_box.style.visibility = "hidden";
-   overlay.style.pointerEvents = "none";
+   hide_input_pop_up("upgrade-removal-box");
    document.getElementById("flip-button").style.visibility = "hidden";
    document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
    document.getElementById("energy-allocation-container").style.visibility = "hidden";
@@ -242,23 +239,108 @@ function back_button_push()
   window.location.href = "../Pilot-Selection/pilot-selection.html";
 }
 
-function done_button_push()
+function parts_only_button_click()
+{
+  var faction_index = undefined;
+  if(whos_turn == "Rebels")
+  {
+    faction_index = 0;
+  }
+  else if(whos_turn == "Imperial")
+  {
+    faction_index = 1;
+  }
+  else
+  {
+    alert("ERROR: Could not determine who's turn it is.");
+  }
+
+  if(currency_cost > all_factions[faction_index].currency ||
+     parts_cost > all_factions[faction_index].parts ||
+     electronics_cost > all_factions[faction_index].electronics ||
+     durasteel_cost > all_factions[faction_index].durasteel ||
+     tibanna_cost > all_factions[faction_index].tibanna ||
+     fuel_cost > all_factions[faction_index].fuel)
+  {
+    hide_input_pop_up("payment-type-pop-up");
+    document.getElementById("notification-pop-up-title").textContent = "You do not have the resources to pay this way.";
+    show_input_pop_up("notification-pop-up");
+  }
+  else
+  {
+    payment_method = "Parts";
+    hide_input_pop_up("payment-type-pop-up");
+    show_input_pop_up("roster-number-box");
+    document.getElementById("roster-number-input").focus();
+  }
+}
+
+function currency_only_button_click()
+{
+  var faction_index = undefined;
+  if(whos_turn == "Rebels")
+  {
+    faction_index = 0;
+  }
+  else if(whos_turn == "Imperial")
+  {
+    faction_index = 1;
+  }
+  else
+  {
+    alert("ERROR: Could not determine who's turn it is.");
+  }
+  if(aleternate_currency_cost > all_factions[faction_index].currency)
+  {
+    hide_input_pop_up("payment-type-pop-up");
+    document.getElementById("notification-pop-up-title").textContent = "You do not have the resources to pay this way.";
+    show_input_pop_up("notification-pop-up");
+  }
+  else
+  {
+    payment_method = "Currency";
+    hide_input_pop_up("payment-type-pop-up");
+    show_input_pop_up("roster-number-box");
+    document.getElementById("roster-number-input").focus();
+  }
+}
+
+function hide_input_pop_up(name)
 {
   let overlay = document.getElementById("overlay");
-  let payment_screen = document.getElementById("payment-type-pop-up");
-  overlay.style.opacity = 1;
-  payment_screen.style.visibility = "visible";
-  overlay.style.pointerEvents = "all";
-
+  let screen = document.getElementById(name);
+  overlay.style.opacity = 0;
+  screen.style.visibility = "hidden";
+  overlay.style.pointerEvents = "none";
 }
-//use this code after you pay for ship.
-  //roster_number_box.style.visibility = "visible";
-  //let roster_number_box = document.getElementById("roster-number-box");
-  //document.getElementById("roster-number-input").focus();
+
+function show_input_pop_up(name)
+{
+  let overlay = document.getElementById("overlay");
+  let screen = document.getElementById(name);
+  overlay.style.opacity = 1;
+  screen.style.visibility = "visible";
+  overlay.style.pointerEvents = "all";
+}
+
 
 function ok_button_push()
 {
-    //Add roster number to ship and add new team to all teams.
+    var faction_index = undefined;
+    if(whos_turn == "Rebels")
+    {
+       faction_index = 0;
+    }
+    else if(whos_turn == "Imperial")
+    {
+      faction_index = 1;
+    }
+    else
+    {
+      alert("ERROR: Unable to find who's turn it is.");
+    }
+
+      //Add roster number to ship and add new team to all teams.
       //Validate input and then add roster number to ship in progress.
       if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
       {
@@ -274,19 +356,29 @@ function ok_button_push()
       //create a new team and add it to all factions.
       let new_team = new ship_group(ship_in_progress.team_name,whos_turn,sessionStorage.getItem("placement_id"));
       new_team.team.push(ship_in_progress);
-      if(whos_turn == "Rebels")
+      all_factions[faction_index].navy.push(new_team);
+
+      //pay for the new ship.
+      if(payment_method =="Currency")
       {
-         all_factions[0].navy.push(new_team);
+        all_factions[faction_index].currency -= aleternate_currency_cost;
       }
-      else if(whos_turn == "Imperial")
+      else if(payment_method =="Parts")
       {
-        all_factions[1].navy.push(new_team);
+        all_factions[faction_index].currency -= currency_cost;
+        all_factions[faction_index].parts -= parts_cost;
+        all_factions[faction_index].electronics -= electronics_cost;
+        all_factions[faction_index].durasteel -= durasteel_cost;
+        all_factions[faction_index].fuel -= fuel_cost;
+        all_factions[faction_index].tibanna -= tibanna_cost;
       }
       else
       {
-        alert("ERROR: Unable to find who's turn it is.");
+        alert("ERROR: Could not determine payment methos.");
+        return;
       }
       sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+
    
       //remove all items that are no longer being used.
       sessionStorage.removeItem("chosenShip");
@@ -299,13 +391,8 @@ function ok_button_push()
 
 function close_button_push()//close the roster number pop-up.
 {
-  let overlay = document.getElementById("overlay");
-  let roster_number_box = document.getElementById("roster-number-box");
+  hide_input_pop_up("roster-number-box");
   document.getElementById("roster-number-input").value = "";
-  overlay.style.opacity = 0;
-  roster_number_box.style.visibility = "hidden";
-  overlay.style.pointerEvents = "none";
-
 }
 
 function subract_ordnance_token(upgrade)
@@ -380,42 +467,50 @@ function set_ship_prices()
   //Set cost of ship.
   if(current_ship.ship_name.ship_type == "largeTwoCard")
   {
-      document.getElementById("cost-fuel-quantity").textContent = "4";
-
-      document.getElementById("cost-curreny-quantity").textContent = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost+" / "+faction_turn.currency;
-      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility + current_ship.ship_name.aft_agility + current_ship.ship_name.energy+" / "+faction_turn.parts;
-      document.getElementById("cost-electronics-quantity").textContent = current_ship.ship_name.shields + current_ship.ship_name.aft_shields+" / "+faction_turn.electronics;
-      document.getElementById("cost-tibanna-quantity").textContent = current_ship.ship_name.attack+" / "+faction_turn.tibanna;
-      document.getElementById("cost-durasteel-quantity").textContent = current_ship.ship_name.hull + current_ship.ship_name.aft_hull+" / "+faction_turn.durastee;
-      document.getElementById("alternate-cost-curreny-quantity").textContent = current_ship.cost+upgrade_cost+upgrade_minus+" / "+faction_turn.currency;
+      fuel_cost = "4";
+      currency_cost = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost;
+      parts_cost = current_ship.ship_name.agility + current_ship.ship_name.aft_agility + current_ship.ship_name.energy;
+      electronics_cost = current_ship.ship_name.shields + current_ship.ship_name.aft_shields;
+      tibanna_cost = current_ship.ship_name.attack;
+      durasteel_cost = current_ship.ship_name.hull + current_ship.ship_name.aft_hull;
+      aleternate_currency_cost = current_ship.cost+upgrade_cost+upgrade_minus;
   }
   else
   {
-      document.getElementById("cost-curreny-quantity").textContent = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost+" / "+ faction_turn.currency;
-      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility+" / "+faction_turn.parts;
-      document.getElementById("cost-electronics-quantity").textContent = current_ship.ship_name.shields+" / "+faction_turn.electronics;
-      document.getElementById("cost-tibanna-quantity").textContent = current_ship.ship_name.attack+" / "+faction_turn.tibanna;
-      document.getElementById("cost-durasteel-quantity").textContent = current_ship.ship_name.hull+" / "+faction_turn.durasteel;
-      document.getElementById("alternate-cost-curreny-quantity").textContent = current_ship.cost+upgrade_cost+upgrade_minus+" / "+faction_turn.currency;
+       currency_cost = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost;
+       parts_cost =  current_ship.ship_name.agility;
+       electronics_cost = current_ship.ship_name.shields;
+       tibanna_cost = current_ship.ship_name.attack;
+       durasteel_cost =  current_ship.ship_name.hull;
+       aleternate_currency_cost = current_ship.cost+upgrade_cost+upgrade_minus;
 
-      if(current_ship.ship_name.ship_type == "small")
+    if(current_ship.ship_name.ship_type == "small")
     {
-      document.getElementById("cost-fuel-quantity").textContent = "1"+" / "+faction_turn.fuel;
+      fuel_cost = "1";
     }
     else if(current_ship.ship_name.ship_type == "medium")
     {
-      document.getElementById("cost-fuel-quantity").textContent = "2"+" / "+faction_turn.fuel;
+      fuel_cost = "2";
     }
     else if(current_ship.ship_name.ship_type == "largeOneCard")
     {
-      document.getElementById("cost-fuel-quantity").textContent = "3"+" / "+faction_turn.fuel;
-      document.getElementById("cost-parts-quantity").textContent = current_ship.ship_name.agility+current_ship.ship_name.energy+" / "+faction_turn.parts;
+      fuel_cost = "3";
+      parts_cost= current_ship.ship_name.agility+current_ship.ship_name.energy;
     }
     else
     {
       alert("Unknown Ship Size!");
     }
   }
+
+      document.getElementById("cost-fuel-quantity").textContent = fuel_cost+" / "+faction_turn.fuel;
+      document.getElementById("cost-curreny-quantity").textContent = currency_cost+" / "+faction_turn.currency;
+      document.getElementById("cost-parts-quantity").textContent = parts_cost+" / "+faction_turn.parts;
+      document.getElementById("cost-electronics-quantity").textContent = electronics_cost+" / "+faction_turn.electronics;
+      document.getElementById("cost-tibanna-quantity").textContent = tibanna_cost+" / "+faction_turn.tibanna;
+      document.getElementById("cost-durasteel-quantity").textContent = durasteel_cost+" / "+faction_turn.durasteel;
+      document.getElementById("alternate-cost-curreny-quantity").textContent = aleternate_currency_cost+" / "+faction_turn.currency;
+
 }
 
 
