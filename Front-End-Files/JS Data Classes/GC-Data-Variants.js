@@ -174,15 +174,15 @@ function get_correct_border(classification)
 
         if(classification == "Squad")
         {
-            return "1px solid lime";
+            return "2px solid lime";
         }
         else if(classification == "Fleet")
         {
-            return "1px solid yellow";
+            return "2px solid red";
         }
         else if(classification == "Armada")
         {
-            return "1px solid deeppink";
+            return "2px solid yellow";
         }
         else
         {

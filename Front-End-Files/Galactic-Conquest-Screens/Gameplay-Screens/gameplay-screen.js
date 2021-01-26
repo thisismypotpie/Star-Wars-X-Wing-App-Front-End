@@ -2,6 +2,10 @@ var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
 var converted_planets = setup_data.converted_planets;
 
+//For the border and collection of all elements.
+var all_ship_body_elements = [];
+var all_ship_body_border_colors = [];
+
 for(var x=1; x < 201;x++)
 {
    for(var y=1; y<101;y++)
@@ -30,17 +34,17 @@ function load_planets()
           var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
           if(planet.controlling_faction == "Unaligned")
           {
-            document.getElementById(id).style.backgroundColor = "blue";
+            document.getElementById(id).style.backgroundColor = "mediumblue";
             document.getElementById("faction-image").style.backgroundImage = "";
           }
           else if(planet.controlling_faction == "Rebels")
           {
-            document.getElementById(id).style.backgroundColor = "red";
+            document.getElementById(id).style.backgroundColor = "maroon";
             document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
           }
           else if(planet.controlling_faction == "Imperial")
           {
-            document.getElementById(id).style.backgroundColor = "grey";
+            document.getElementById(id).style.backgroundColor = "black";
             document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
           }
           else
@@ -106,6 +110,7 @@ function zoom_in_button_click()
   document.getElementById("zoom-button").textContent = "Zoom Out"
 }
 
+
 function place_ship_bodies()
 {
    let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
@@ -122,6 +127,8 @@ function place_ship_bodies()
       ship_element.onclick = function(){/*Open ship body stats.*/};
       ship_element.onmouseenter = function(){check_if_planet_over_ship_body(ship_body.location);show_ship_body_stats()};
       ship_element.onmouseleave = function(){document.getElementById(ship_body.location).style.border = "none";clear_planet_info_container(ship_body.location);}
+      all_ship_body_elements.push(ship_element.id);
+      all_ship_body_border_colors.push(ship_body.border);
        document.getElementById('grid-container').appendChild(ship_element);
      })
    })
@@ -205,3 +212,18 @@ function clear_planet_info_container(id)
   document.getElementById("resource-image").style.backgroundImage="";
   document.getElementById("resource-label").textContent = "X0";
 }
+
+//Blink the bordder every second.
+setInterval(function(){ 
+      for(var i=0;i<all_ship_body_elements.length;i++)
+      {
+        if(document.getElementById(all_ship_body_elements[i]).style.border == "none")
+        {
+          document.getElementById(all_ship_body_elements[i]).style.border = all_ship_body_border_colors[i];
+        }
+        else
+        {
+          document.getElementById(all_ship_body_elements[i]).style.border = "none";
+        }
+      }
+}, 500);
