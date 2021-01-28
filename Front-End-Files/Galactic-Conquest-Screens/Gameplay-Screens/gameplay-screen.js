@@ -1,8 +1,6 @@
 var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
 var converted_planets = setup_data.converted_planets;
-//factions[0] == rebels.  factions[1] == imperials.
-var all_factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
 
 //For the border and collection of all elements.
 var all_ship_body_elements = [];
@@ -126,7 +124,6 @@ function place_ship_bodies()
       ship_element.className = "ship-body";
       ship_element.id = ship_body.group_name;
       ship_element.style.pointerEvents = "all";
-      ship_element.onclick = function(e){}
       ship_element.onmouseenter = function(e){check_if_planet_over_ship_body(ship_body.location);show_ship_body_stats(e);}
       ship_element.onmouseleave = function()
       {
@@ -155,25 +152,41 @@ function show_ship_body_stats(mouse_event)
 {
    var chosen_team = get_team_based_on_passed_event(mouse_event);
   //Set horizontal orientation 
-    /*if(parseInt(chosen_team.location.split("_")[0],10) >= 80)//80 is the width border to move the pop up to the left.
+    if(parseInt(chosen_team.location.split("_")[0],10) >= 175)//80 is the width border to move the pop up to the left.
     {
-      document.getElementById("ship-body-info-pop-up").style.left = (document.getElementById(ship_body_name).clientX - document.getElementById('ship-body-info-pop-up').clientWidth)+"px";
+      document.getElementById("ship-body-info-pop-up").style.left = (mouse_event.clientX - document.getElementById('ship-body-info-pop-up').clientWidth)+"px";
     }
     else
     {
+      document.getElementById("ship-body-info-pop-up").style.left = mouse_event.clientX+"px";
     }
 
   //Set vertical orientation
     if(parseInt(chosen_team.location.split("_")[1],10) >= 80)
     {
-      document.getElementById("ship-body-info-pop-up").style.top = document.getElementById(ship_body_name).clientY+"px";
+      document.getElementById("ship-body-info-pop-up").style.top = mouse_event.clientY - document.getElementById('ship-body-info-pop-up').clientHeight+"px";
     }
     else
     {
+      document.getElementById("ship-body-info-pop-up").style.top = mouse_event.clientY+"px";
+    }
 
-    }*/
-    document.getElementById("ship-body-info-pop-up").style.left = mouse_event.clientX+"px";
-    document.getElementById("ship-body-info-pop-up").style.top = mouse_event.clientY+"px";
+
+    if(chosen_team.faction == "Rebels")
+    {
+      document.getElementById("faction-image-background").style.backgroundImage = "url('https://i.imgur.com/mO0iijb.png')";
+    }
+    else if(chosen_team.faction == "Imperial")
+    {
+      document.getElementById("faction-image-background").style.backgroundImage = "url('https://i.imgur.com/XgIWtvd.png')";
+    }
+    else
+    {
+      alert("ERROR: Unable to determine faction for: "+mouse_event.target.id);
+    }
+
+    document.getElementById("ship-body-title").textContent = mouse_event.target.id;
+    document.getElementById("ship-count").textContent = "Ships: "+chosen_team.team.length;
     document.getElementById("ship-body-info-pop-up").style.visibility = "visible";
 }
 
@@ -244,11 +257,13 @@ function clear_planet_info_container(id)
 
 function get_team_based_on_passed_event(event)
 {
+  //factions[0] == rebels.  factions[1] == imperials.
+  var all_factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
   var chosen_team = undefined;
   let break_loop = false;
   for(var i=0; i<all_factions.length;i++)
   {
-    for(var j=0; i<all_factions[i].navy.length;j++)
+    for(var j=0; j<all_factions[i].navy.length;j++)
     {
       if(all_factions[i].navy[j].group_name == event.target.id)
       {
