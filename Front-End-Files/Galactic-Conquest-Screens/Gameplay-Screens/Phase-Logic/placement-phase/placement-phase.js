@@ -6,8 +6,12 @@ if(sessionStorage.getItem("gc_phase") == "placement")
     var factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
     var whos_turn = sessionStorage.getItem("gc_whos_turn");
 
+    //Set the other buttons in the gameplay screen.
+    document.getElementById("button-three").innerHTML = "Done";
+    document.getElementById("button-three").onclick = function(){done_button_placement_phase_click()};
+
     //Set up main title based on which faction the player chose.
-    if(setup_data.faction_chosen == "Rebels")
+    if(whos_turn == "Rebels")
     {
         document.getElementById("main-title").textContent = "Rebel Placement";
         document.getElementById("money-quantity-label").textContent = "X "+factions[0].currency;
@@ -18,7 +22,7 @@ if(sessionStorage.getItem("gc_phase") == "placement")
         document.getElementById("parts-quantity-label").textContent = "X "+factions[0].parts;
 
     }
-    else if(setup_data.faction_chosen == "Imperial")
+    else if(whos_turn == "Imperial")
     {
         document.getElementById("main-title").textContent = "Empire Placement";
         document.getElementById("money-quantity-label").textContent = "X "+factions[1].currency;
@@ -74,32 +78,6 @@ if(sessionStorage.getItem("gc_phase") == "placement")
 }
 }
 
-//Using binary search to get planet based on id.
-/*function get_planet(id_goal,low_range_end,high_range_end)
-{
-    var test_index = Math.floor((low_range_end+high_range_end)/2);//Create average of low and high to test middle of active planets.
-    var test_id = setup_data.active_planets[test_index].planet.id
-
-    if( test_id == id_goal)
-    {
-        //planet found.
-        return setup_data.active_planets[test_index];
-    }
-    else if(low_range_end == high_range_end)
-    {
-        //No match
-        return null;
-    }
-    else if(id_goal> test_id)//get everything in upper half.
-    {
-        return get_planet(id_goal,test_index,high_range_end)
-    }
-    else//get everyting in lower half.
-    {
-        return get_planet(id_goal,low_range_end,test_index);
-    }
-}*/
-
 function check_for_ship_body_collision(id)
 {
     for(var i=0; i < factions.length;i++)
@@ -113,4 +91,36 @@ function check_for_ship_body_collision(id)
         }
     }
     return false;
+}
+
+function done_button_placement_phase_click()
+{
+    if(sessionStorage.getItem("gc_first_or_second_half_of_round") == "1st")
+    {
+        sessionStorage.setItem("gc_first_or_second_half_of_round","2nd");
+        if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+        {
+            sessionStorage.setItem("gc_whos_turn","Imperial");
+            document.getElementById("main-title").textContent = "Empire Placement";
+            whos_turn = "Imperial";
+        }
+        else if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
+        {
+            sessionStorage.setItem("gc_whos_turn","Rebels");
+            document.getElementById("main-title").textContent = "Rebel Placement";
+            whos_turn ="Rebels";
+        }
+        else
+        {
+            alert("ERROR: Could not determine who's turn it is!")
+        }
+    }
+    else if(sessionStorage.getItem("gc_first_or_second_half_of_round") == "2nd")
+    {
+        alert("Moving on to next phase!");
+    }
+    else
+    {
+        alert("ERROR: Cannot determine what half of the round it is.")
+    }
 }

@@ -69,20 +69,20 @@ function create_GC_team_name(first_ship,faction_index)
    var ship_body_size = undefined;
 
    //Set the number placement and increment the highest number;
-   if(first_ship.ship_type == "small")
+   if(first_ship.ship_type == "small" ||
+      first_ship.ship_type == "medium")
    {
     ship_body_size = "Squad";
     number_placement = all_factions[faction_index].highest_squad_number;
     all_factions[faction_index].highest_squad_number++;
    }
-   else if(first_ship.ship_type == "medium")
+   else if(first_ship.ship_type =="largeOneCard")
    {
     ship_body_size = "Fleet";
     number_placement = all_factions[faction_index].highest_fleet_number;
     all_factions[faction_index].highest_fleet_number++;
    }
-   else if(first_ship.ship_type =="largeOneCard" ||
-           first_ship.ship_type =="largeTwoCard")
+   else if(first_ship.ship_type =="largeTwoCard")
    {
     ship_body_size = "Armada";
     number_placement = all_factions[faction_index].highest_armada_number;

@@ -127,6 +127,7 @@ function place_ship_bodies()
       ship_element.onclick = function(){/*Open ship body stats.*/};
       ship_element.onmouseenter = function(){check_if_planet_over_ship_body(ship_body.location);show_ship_body_stats()};
       ship_element.onmouseleave = function(){document.getElementById(ship_body.location).style.border = "none";clear_planet_info_container(ship_body.location);}
+      ship_element.onclick = function(){/*Go to sqaud info page.*/};
       all_ship_body_elements.push(ship_element.id);
       all_ship_body_border_colors.push(ship_body.border);
        document.getElementById('grid-container').appendChild(ship_element);
@@ -143,6 +144,7 @@ function check_if_planet_over_ship_body(planet_element_id)
   }
 }
 
+//Create small pop up for ship bodies.
 function show_ship_body_stats()
 {
 
@@ -213,7 +215,7 @@ function clear_planet_info_container(id)
   document.getElementById("resource-label").textContent = "X0";
 }
 
-//Blink the bordder every second.
+//Blink the border every second.
 setInterval(function(){ 
       for(var i=0;i<all_ship_body_elements.length;i++)
       {

@@ -69,12 +69,12 @@ body{
     grid-row: 2/8;
 }
 
-#reset-button{
+#button-two{
     grid-column: 2/12;
     grid-row: 10/16;
 }
 
-#back-button{
+#button-three{
     grid-column: 2/12;
     grid-row: 18/24;
 }
