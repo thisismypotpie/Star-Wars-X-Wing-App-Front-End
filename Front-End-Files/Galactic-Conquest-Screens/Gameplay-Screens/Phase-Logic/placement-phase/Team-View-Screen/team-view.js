@@ -6,8 +6,9 @@ function back_button(){
 //Go to next ship in the roster.
 function next_button()
 {
+    var current_team = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team;
     selection_index++;
-    if(selection_index >= all_teams[chosen_team_index].ship_list.length)
+    if(selection_index >= current_team.length)
     {
         selection_index = 0;
     }
@@ -16,10 +17,11 @@ function next_button()
 //Go to previous ship in the roster.
 function previous_button()
 {
+    var current_team = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team;
     selection_index--;
     if(selection_index < 0)
     {
-        selection_index = all_teams[chosen_team_index].ship_list.length-1;
+        selection_index = current_team.length-1;
     }
     set_all_items();
 }
@@ -54,33 +56,7 @@ set_all_items();
 
 //This section is for functions called throughout this file.
 
-function get_team_indecies_based_on_name()
-{
-  var team_name = sessionStorage.getItem("team_name");
-  var chosen_team = undefined;
-  let break_loop = false;
-  for(var i=0; i<all_factions.length;i++)
-  {
-    for(var j=0; j<all_factions[i].navy.length;j++)
-    {
-      if(all_factions[i].navy[j].group_name == team_name)
-      {
-        chosen_team = [i,j];
-        break_loop = true;
-        break;
-      }
-    }
-    if(break_loop == true)
-    {
-      break;
-    }
-  }
-  if(chosen_team == undefined)
-  {
-    alert("ERROR: Could not find ship team info.");
-  }
-  return chosen_team;
-}
+
 
 //This will set all of the items for this page when the page first loads or if the next/previous buttons are pressed.
 function set_all_items()
@@ -184,9 +160,8 @@ function set_all_items()
 function change_upgrades_button()
 {
     var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
-
-    sessionStorage.setItem("Chosen_Team_Ship",JSON.stringify(current_ship));
-    window.location.href ="../View-Team-Upgrade-Screen/Team-View-Upgrade-Screen.html";
+    sessionStorage.setItem("team_ship_index",selection_index);
+    window.location.href ="./Team-View-Upgrades/upgrade-screen.html";
 }
 
 //This is a function that will flip any large ship being seen on the screen.
@@ -245,7 +220,7 @@ function ok_button_click()
     else
     {
         //Go through each member of a team and determine if the potential roster number is already in use.
-        for(let member of all_teams[chosen_team_index].ship_list)
+        for(let member of all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team)
         {
             if(member.roster_number == potential_roster_number)
             {
@@ -254,7 +229,7 @@ function ok_button_click()
                 return;
             }
             current_ship.roster_number = potential_roster_number;
-            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
             set_all_items();
             close_button_click();
         }
@@ -316,7 +291,7 @@ function plus_button_click(token_type,parent_html_id)
     eval(eval_string);
     eval_string = "parent_element.textContent =' : '+current_ship."+token_type;//Update token box element.
     eval(eval_string);
-    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
 }
 
 function minus_button_click(token_type,parent_html_id)
@@ -338,7 +313,7 @@ function minus_button_click(token_type,parent_html_id)
         eval_string = "parent_element.textContent =' : '+current_ship."+token_type;//Update token box element.
         eval(eval_string);
     }
-    sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
 }
 
 function close_stat_popup()

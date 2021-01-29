@@ -41,7 +41,16 @@
         aria-labelledby="upgrades-title"></ul>
         <span class="maneuvers-title">Maneuvers</span>
         <div id="maneuver-box"></div>
-        <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Upgrades</button>>
+        <button type="button" id="cycle-button" onclick="">Cycle</button>>
+
+        <!--This is the code for the button options container-->
+        <div id="button-options-framing-container">
+        <div id="button-options-container">
+          <button type = "button" class = "long-button" id = "new-ship-button">New Ship</button>
+          <button type= "button"  class = "long-button" id="upgrade-button" onclick="change_upgrades_button()">Upgrades</button>>
+          <button type = "button" class = "long-button" id = "reapir-button">Repair</button>
+        </div>
+        </div>
     </section>
 </div>
 
@@ -68,7 +77,8 @@
 
 <!--This is the code for the overlay.-->
 <div id = "overlay"></div>
-  </body>
+
+</body>
   <script type="text/javascript" src="../../../../../JS Data Classes/GC-Data-Variants.js"></script>
   <script type="text/javascript" src="team-view.js"></script>
 </html>

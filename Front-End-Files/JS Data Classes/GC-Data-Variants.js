@@ -189,3 +189,31 @@ function get_correct_border(classification)
             alert("Error: unkown classification: "+classification)
         }
 }
+
+function get_team_indecies_based_on_name()
+{
+  var team_name = sessionStorage.getItem("team_name");
+  var chosen_team = undefined;
+  let break_loop = false;
+  for(var i=0; i<all_factions.length;i++)
+  {
+    for(var j=0; j<all_factions[i].navy.length;j++)
+    {
+      if(all_factions[i].navy[j].group_name == team_name)
+      {
+        chosen_team = [i,j];
+        break_loop = true;
+        break;
+      }
+    }
+    if(break_loop == true)
+    {
+      break;
+    }
+  }
+  if(chosen_team == undefined)
+  {
+    alert("ERROR: Could not find ship team info.");
+  }
+  return chosen_team;
+}
