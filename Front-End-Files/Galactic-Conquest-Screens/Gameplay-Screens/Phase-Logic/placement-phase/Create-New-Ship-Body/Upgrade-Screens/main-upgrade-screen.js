@@ -355,7 +355,7 @@ function ok_button_push()
        
       //create a new team and add it to all factions.
       let new_team = new ship_group(ship_in_progress.team_name,whos_turn,sessionStorage.getItem("placement_id"));
-      new_team.team.push(ship_in_progress);
+      new_team.team.ship_list.push(ship_in_progress);
       all_factions[faction_index].navy.push(new_team);
 
       //pay for the new ship.

@@ -266,7 +266,16 @@ body{
 {
     text-align: center;
     grid-row: 5/9;
-    grid-column: 1/13;
+    grid-column: 1/7;
+    font-size: 1.75vw; 
+    z-index: 1;
+}
+
+#ship-health
+{
+    text-align: center;
+    grid-row: 5/9;
+    grid-column: 7/13;
     font-size: 1.75vw; 
     z-index: 1;
 }

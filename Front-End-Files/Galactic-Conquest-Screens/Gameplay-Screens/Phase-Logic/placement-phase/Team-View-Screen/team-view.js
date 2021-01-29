@@ -61,7 +61,7 @@ set_all_items();
 //This will set all of the items for this page when the page first loads or if the next/previous buttons are pressed.
 function set_all_items()
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     document.getElementById("title").textContent = sessionStorage.getItem("team_name");
     pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.image_path+"')";
     maneuver_box.style.backgroundImage = "url('"+current_ship.chosen_pilot.ship_name.card+"')";
@@ -72,6 +72,18 @@ function set_all_items()
     agility.textContent = " : "+current_ship.current_agility;
     hull.textContent = " : "+current_ship.current_hull;
     shields.textContent = " : "+current_ship.current_sheilds;
+
+    //see if repair button needs to be turned off.
+    if(current_ship.current_hull >= current_ship.chosen_pilot.ship_name.hull)
+    {
+        document.getElementById("repair-button").style.pointerEvents = "none";
+        document.getElementById("repair-button").style.opacity = "0.3";
+    }
+    else
+    {
+        document.getElementById("repair-button").style.pointerEvents = "auto";
+        document.getElementById("repair-button").style.opacity = "1.0";
+    }
 
     //If dealing with a large ship, then make energy and possibly flip button visible.
     if(current_ship.chosen_pilot.ship_name.ship_type == "largeOneCard" ||
@@ -159,7 +171,7 @@ function set_all_items()
 //This function will take you to the upgrade screen to add/remove upgrades. 
 function change_upgrades_button()
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     sessionStorage.setItem("team_ship_index",selection_index);
     window.location.href ="./Team-View-Upgrades/upgrade-screen.html";
 }
@@ -167,7 +179,7 @@ function change_upgrades_button()
 //This is a function that will flip any large ship being seen on the screen.
 function flip_button_click()
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     if(aft_image_showing == false)
     {
         pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.aft_card_path+"')";
@@ -209,7 +221,7 @@ function close_button_click()
 //This is the function for changing your roster number.
 function ok_button_click() 
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     let potential_roster_number = parseInt(document.getElementById("roster-number-input").value,10);
     //If the program is unable to convert to int, run this errors procedure.
     if(isNaN(potential_roster_number))
@@ -259,7 +271,7 @@ function augment_stat_quantity(token_type,parent_image,parent_html_id)
             alert("ERROR: Could not determine token type.");
         }
     }
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     var img = document.getElementById(parent_image),
     style = img.currentStyle || window.getComputedStyle(img, false),
     bg_image_url = style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
@@ -277,7 +289,7 @@ function augment_stat_quantity(token_type,parent_image,parent_html_id)
 
 function plus_button_click(token_type,parent_html_id)
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     let parent_element = document.getElementById(parent_html_id);
     var stat_quantity =0;
     var eval_string = "current_ship."+token_type+"++; stat_quantity = current_ship."+token_type+";";//Increase the token type by one.
@@ -296,7 +308,7 @@ function plus_button_click(token_type,parent_html_id)
 
 function minus_button_click(token_type,parent_html_id)
 {
-    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[selection_index];
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     let parent_element = document.getElementById(parent_html_id);
     var stat_quantity =0;
     var eval_string = "if(current_ship."+token_type+" >0){current_ship."+token_type+"--;}stat_quantity = current_ship."+token_type+";";
@@ -323,6 +335,7 @@ function close_stat_popup()
     overlay.style.opacity = 0;
     roster_number_box.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
+    set_all_items();
 }
 
 //Key bindings for this screen.

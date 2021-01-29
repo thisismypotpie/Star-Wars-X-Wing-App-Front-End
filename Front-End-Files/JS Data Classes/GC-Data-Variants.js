@@ -4,7 +4,7 @@ class ship_group{
         this.group_name = group_name;
         this.faction = faction;
         this.border = get_correct_border(group_name.split(" ")[2]);
-        this.team = [];
+        this.team = new team(group_name);
         this.location = location;
         this.image = undefined;
         if(faction == "Rebels")
@@ -192,6 +192,7 @@ function get_correct_border(classification)
 
 function get_team_indecies_based_on_name()
 {
+  var all_factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
   var team_name = sessionStorage.getItem("team_name");
   var chosen_team = undefined;
   let break_loop = false;

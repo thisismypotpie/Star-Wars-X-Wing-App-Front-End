@@ -6,7 +6,7 @@ $(upgrade type and name) - This slot has an upgrade image and no longer needs to
 */
 
 document.getElementById("back-button").addEventListener("click", function(){
-    window.location.href = "../main-upgrade-screen.html";
+    window.location.href = "../upgrade-screen.html";
   });
 
 

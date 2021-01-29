@@ -195,7 +195,8 @@ function show_ship_body_stats(mouse_event)
     }
 
     document.getElementById("ship-body-title").textContent = mouse_event.target.id;
-    document.getElementById("ship-count").textContent = "Ships: "+chosen_team.team.length;
+    document.getElementById("ship-count").textContent = "Ships: "+chosen_team.team.ship_list.length;
+    document.getElementById("ship-health").textContent = "Health: "+get_total_health(mouse_event.target.id);
     document.getElementById("ship-body-info-pop-up").style.visibility = "visible";
 }
 
@@ -291,6 +292,21 @@ function get_team_based_on_passed_event(event)
     alert("ERROR: Could not find ship team info.");
   }
   return chosen_team;
+}
+
+function get_total_health(team_name)
+{
+  var all_factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
+  sessionStorage.setItem('team_name',team_name);
+  var indicies = get_team_indecies_based_on_name(team_name);
+  var current_team = all_factions[indicies[0]].navy[indicies[1]].team.ship_list;
+  var total_health = 0;
+  var total_possible_health = 0;
+  current_team.forEach(ship=>{
+      total_possible_health += ship.chosen_pilot.ship_name.hull;
+      total_health += ship.current_hull;
+  })
+  return Math.round(total_health * 100.0 / total_possible_health)+"%";
 }
 
 //Blink the border every second.

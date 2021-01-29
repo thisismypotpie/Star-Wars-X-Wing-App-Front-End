@@ -3,7 +3,10 @@
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   let selected_upgrades = [];
   var grid_container = document.getElementById("grid-container");
-  let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
+  var chosen_team_indicies = get_team_indecies_based_on_name();
+
+  //Get data objects needed for this page.
+  let ship_in_progress = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[parseInt(sessionStorage.getItem("team_ship_index"),10)];
 
   //Set "all_teams" in session storage since it is used in the filter upgrade functions.
   var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
@@ -82,6 +85,5 @@
         }
       })
       sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-      sessionStorage.removeItem("all_teams");//remove all teams since we only made all teams to make sure upgrade filters work.
       window.location.href = "../main-upgrade-screen.html";
   }
