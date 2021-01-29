@@ -124,7 +124,16 @@ function place_ship_bodies()
       ship_element.className = "ship-body";
       ship_element.id = ship_body.group_name;
       ship_element.style.pointerEvents = "all";
-      ship_element.onmouseenter = function(e){check_if_planet_over_ship_body(ship_body.location);show_ship_body_stats(e);}
+      ship_element.onmouseenter = function(e)
+      { 
+        check_if_planet_over_ship_body(ship_body.location);
+        show_ship_body_stats(e);
+        document.getElementById("team-view-button").onclick = function()
+        {
+          sessionStorage.setItem('team_name',e.target.id);
+          window.location.href='./Phase-Logic/placement-phase/Team-View-Screen/team-view.html';
+        }
+      }
       ship_element.onmouseleave = function()
       {
        document.getElementById(ship_body.location).style.border = "none";

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="team-view.css" />
+    <title>Star Wars X-Wing</title>
+  </head>
+  <body>
+        <div id = "title">Team View</div>
+<div id = "full-container">
+    <div id = "left-container">
+        <div id = "pilot-card"></div>
+        <div id = "button-container">
+        <button type="button" class = "btn"id="prev-button" onclick="previous_button()"></button>
+        <button type="button" class = "btn"id="next-button" onclick="next_button()"></button>
+        </div>    
+    </div>
+    <section class = "grid-container">
+        <button type="button" id = "back-button" onclick="back_button()">Back</button>
+        <div class = "icon" id = "pilot-skill" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">:-1</div>
+        <div class = "icon" id = "attack" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">:-1</div>
+        <div class = "icon" id = "agility" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">:-1</div>
+        <div class = "icon" id = "hull" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">:-1</div>
+        <div class = "icon" id = "shields" onclick="augment_stat_quantity('current_sheilds','shields','shields-stat')">:-1</div>
+        <div class = "icon" id = "energy" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">:-1</div>
+        <div class = "stat" id = "pilot-skill-stat" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">: -1</div>
+        <div class = "stat" id = "attack-stat" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">: -1</div>
+        <div class = "stat" id = "agility-stat" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">: -1</div>
+        <div class = "stat" id = "hull-stat" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">: -1</div>
+        <div class = "stat" id = "shields-stat" onclick="augment_stat_quantity('current_sheilds','shields','shield-stat')">: -1</div>
+        <div class = "stat" id = "energy-stat" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">: -1</div>
+        <div class = "icon" id = roster-number onclick="change_roster_number()">-1</div>
+        <div class = "stat" id = roster-number-stat onclick="change_roster_number()">:-1</div>
+        <button type ="button" id="flip-button" onclick="flip_button_click()">Flip</button>
+        <span class="upgrades-title">Upgrades</span>
+        <ul id = "upgrade-box"
+        tabindex="1"
+        role="listbox"
+        aria-labelledby="upgrades-title"></ul>
+        <span class="maneuvers-title">Maneuvers</span>
+        <div id="maneuver-box"></div>
+        <button type="button" id="upgrade-button" onclick="change_upgrades_button()">Upgrades</button>>
+    </section>
+</div>
+
+<!-- This is the code for the roster number popup.-->
+<div class = "roster-number-container" id = "roster-number-box">
+  <div class = roster-number-header>Roster Number</div>
+  <input type = "text"
+  id = "roster-number-input" />
+  <div id = "pop-up-button-container">
+    <button type = "button" class = "pop-btn pop-up close" id = "close-button" onclick="close_button_click()">Close</button>
+    <button type = "button" class = "pop-btn pop-up ok" id="ok-button" onclick="ok_button_click()">OK</button>
+  </div>
+</div>
+
+      <!--Pop up for adding/subtracting number of tokens-->
+      <div class = "pop-up-container" id = "token-quantity-pop-up">
+        <div class = "pop-up-title" id="token-title">Change Token Quantity</div>
+        <div class = "pop-up-image" id = "token-image"></div>
+        <div class = "pop-up-title" id = "token-quantity">x0</div>
+        <button type = "button" class = "button" id = "minus-button">-</button>
+        <button type = "button" class = "button" id = "plus-button">+</button>
+        <button type = "button" class = "long-button" id ="ok-button" onclick="close_stat_popup();">OK</button>
+        </div>
+
+<!--This is the code for the overlay.-->
+<div id = "overlay"></div>
+  </body>
+  <script type="text/javascript" src="../../../../../JS Data Classes/GC-Data-Variants.js"></script>
+  <script type="text/javascript" src="team-view.js"></script>
+</html>
