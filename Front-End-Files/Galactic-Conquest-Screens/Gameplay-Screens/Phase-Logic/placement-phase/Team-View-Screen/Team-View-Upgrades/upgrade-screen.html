@@ -30,23 +30,13 @@
       <div id = "cost-container">
         <div class = "list-box-title" id="cost-title">Cost</div>
         <div class="resource-image" id="alternate-cost-currency-image"></div>
-        <div class="resource-text" id="alternate-cost-curreny-quantity"></div>
+        <div class="resource-text" id="alternate-cost-curreny-quantity">Test</div>
       </div>
 
       <button type="button" class = "button back" id = "back-button" onclick="back_button_push()"> Back</button>
-      <button type="button" class = "button done" id = "done-button" onclick ="show_input_pop_up('payment-type-pop-up')">Done</button>
+      <button type="button" class = "button done" id = "done-button" onclick ="done_button_click()">Done</button>
       <button type="button" class = "button main-flip" id = "main-flip-button" onclick="flip_ship()">Flip</button>
 
-<!-- This is the code for the roster number popup.-->
-  <div class = "roster-number-container" id = "roster-number-box">
-    <div class = roster-number-header>Roster Number</div>
-    <input type = "text"
-    id = "roster-number-input" />
-    <div id = "pop-up-button-container">
-      <button type = "button" class = "btn pop-up close" id = "close-button" onclick="close_button_push()">Close</button>
-      <button type = "button" class = "btn pop-up ok" id="ok-button" onclick = "ok_button_push()">OK</button>
-    </div>
-  </div>
   <!--This is the code for the overlay.-->
   <div id = "overlay"></div>
   
@@ -65,14 +55,6 @@
         <div id = "token-quantity">X0</div>
       </div>
     </div>
-
-  <!--This is the code for the payment option popup.-->
-  <div id = "payment-type-pop-up">
-    <div id = "payment-type-title">How Will You Pay for the Ship?</div>
-    <button type="button" class = "payment-selection-button" id = "currency-button" onclick="currency_only_button_click()">Currency Only</button>
-    <button type="button" class = "payment-selection-button" id = "parts-button" onclick="parts_only_button_click()">Parts and Currency</button>
-    <button type="button" class = "payment-selection-button" id = "payment-back-button" onclick="hide_input_pop_up('payment-type-pop-up')">Back</button>
-  </div>
 
   <!--This is the code for the warning message-->
   <div id = "notification-pop-up">

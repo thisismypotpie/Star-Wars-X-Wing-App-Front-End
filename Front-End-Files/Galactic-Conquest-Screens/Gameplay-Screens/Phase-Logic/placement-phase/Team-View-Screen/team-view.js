@@ -44,18 +44,23 @@ let roster_number = document.getElementById("roster-number-stat");
 let flip_button = document.getElementById("flip-button");
   //factions[0] == rebels.  factions[1] == imperials.
   var all_factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
-let chosen_team_indicies = get_team_indecies_based_on_name();
-let selection_index = 0;
+let chosen_team_indicies = get_team_indecies_based_on_name(); 
 var aft_image_showing = false; //This is a bool for the flip button to see if the front or back image is showing. 
-//end global variable set up section
+var selection_index = undefined;
+
+//Go to ship that we were working on.
+if(sessionStorage.getItem("team_ship_index")!=null)
+{
+    selection_index = parseInt(sessionStorage.getItem("team_ship_index"),10);
+}
+else
+{
+    selection_index= 0;
+}
+
 
 //This section will be for setting up each element with proper pictures.
 set_all_items();
-
-//End picture set_up section.
-
-//This section is for functions called throughout this file.
-
 
 
 //This will set all of the items for this page when the page first loads or if the next/previous buttons are pressed.
@@ -173,6 +178,7 @@ function change_upgrades_button()
 {
     var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     sessionStorage.setItem("team_ship_index",selection_index);
+    sessionStorage.setItem("ship_snapshot",JSON.stringify(current_ship));//Used to compare before and after. Replacing the after if the user pressed the back button.
     window.location.href ="./Team-View-Upgrades/upgrade-screen.html";
 }
 

@@ -4,12 +4,12 @@
   let selected_upgrades = [];
   var grid_container = document.getElementById("grid-container");
   var chosen_team_indicies = get_team_indecies_based_on_name();
+  var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
 
   //Get data objects needed for this page.
-  let ship_in_progress = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team[parseInt(sessionStorage.getItem("team_ship_index"),10)];
+  let ship_in_progress = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[parseInt(sessionStorage.getItem("team_ship_index"),10)];
 
   //Set "all_teams" in session storage since it is used in the filter upgrade functions.
-  var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
   var all_teams = [];
   all_factions.forEach(faction=>{
     faction.navy.forEach(ship_body=>{
@@ -84,6 +84,8 @@
           ship_in_progress.upgrades.push(new in_game_upgrade(upgrade));
         }
       })
-      sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
-      window.location.href = "../main-upgrade-screen.html";
+      var chosen_team_indicies = get_team_indecies_based_on_name();
+      all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[parseInt(sessionStorage.getItem("team_ship_index"),10)] = ship_in_progress;
+      sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+      window.location.href = "../upgrade-screen.html";
   }
