@@ -1,7 +1,7 @@
 //This is the section for adding buttton functionality.
 function back_button(){
     sessionStorage.removeItem("chosen_team_name");
-    window.location.href="../../../gameplay-screen.html";
+    window.location.href="../gameplay-screen.html";
 }
 //Go to next ship in the roster.
 function next_button()

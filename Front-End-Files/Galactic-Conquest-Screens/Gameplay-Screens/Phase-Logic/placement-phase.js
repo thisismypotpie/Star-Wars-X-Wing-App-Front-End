@@ -65,7 +65,7 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                     else 
                     {
                         sessionStorage.setItem("placement_id",e.target.id);
-                        window.location.href="./Phase-Logic/placement-phase/Create-New-Ship-Body/Ship-Selection/ship-selection.html";
+                        window.location.href="./Create-New-Ship-Body/Ship-Selection/ship-selection.html";
                     }
                }
                else

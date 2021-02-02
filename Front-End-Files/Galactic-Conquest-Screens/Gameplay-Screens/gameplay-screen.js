@@ -131,7 +131,7 @@ function place_ship_bodies()
         document.getElementById("team-view-button").onclick = function()
         {
           sessionStorage.setItem('team_name',e.target.id);
-          window.location.href='./Phase-Logic/placement-phase/Team-View-Screen/team-view.html';
+          window.location.href='./Team-View-Screen/team-view.html';
         }
       }
       ship_element.onmouseleave = function()

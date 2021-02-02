@@ -1,6 +1,6 @@
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("placement_id");
-    window.location.href = "../../../../gameplay-screen.html";
+    window.location.href = "../../gameplay-screen.html";
   });
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
   var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));

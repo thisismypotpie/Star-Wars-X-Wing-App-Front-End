@@ -3,23 +3,16 @@ var flipped = false;//keeps track if front or back or large ship is showing.
 //Set Galactic Conquest variables
 let whos_turn = sessionStorage.getItem("gc_whos_turn");
 var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
-var payment_method = undefined;//Set when the player chooses which type of payment they want to use.
+var chosen_team_indicies = get_team_indecies_based_on_name();
 
   //Get data objects needed for this page.
-  let ship_in_progress = JSON.parse(sessionStorage.getItem("ship_in_progress"));
+  let ship_in_progress = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[parseInt(sessionStorage.getItem("team_ship_index"),10)];
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-  console.log(ship_in_progress);
+  var snapshot_ship = JSON.parse(sessionStorage.getItem("ship_snapshot"));
+
 //Set pilot image of chosen pilot.
 document.getElementById("pilot-picture").style.backgroundImage = "url('"+ship_in_progress.chosen_pilot.image_path+"')";
 
-//Set price variables and set them up in set_ship_prices.
-var currency_cost = undefined;
-var aleternate_currency_cost = undefined;
-var durasteel_cost = undefined;
-var parts_cost = undefined;
-var electronics_cost = undefined;
-var tibanna_cost = undefined;
-var fuel_cost = undefined;
 set_ship_prices();
 
 //I will be making a loop that will paste all of the upgrades a ship into the next available picture and then set the next empty to next selection.
@@ -163,7 +156,7 @@ function close_remove_upgrade_pop_up()
   document.getElementById("flip-button").style.visibility = "hidden";
   document.getElementById("ordnance-upgrade-container").style.visibility = "hidden";
   document.getElementById("energy-allocation-container").style.visibility = "hidden";
-  sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
+  sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
   location.reload();
 }
 
@@ -184,7 +177,7 @@ function remove_upgrade()
       break;
      }
    }
-    sessionStorage.setItem("ship_in_progress",JSON.stringify(ship_in_progress));
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
    window.location.reload();
 }
 
@@ -234,75 +227,12 @@ function flip_ship(){
 
 function back_button_push()
 {
-  sessionStorage.removeItem("ship_in_progress");
-  remove_newly_created_team_name(ship_in_progress.team_name,whos_turn=="Rebels"? 0:1);
-  window.location.href = "../Pilot-Selection/pilot-selection.html";
-}
-
-function parts_only_button_click()
-{
-  var faction_index = undefined;
-  if(whos_turn == "Rebels")
-  {
-    faction_index = 0;
-  }
-  else if(whos_turn == "Imperial")
-  {
-    faction_index = 1;
-  }
-  else
-  {
-    alert("ERROR: Could not determine who's turn it is.");
-  }
-
-  if(currency_cost > all_factions[faction_index].currency ||
-     parts_cost > all_factions[faction_index].parts ||
-     electronics_cost > all_factions[faction_index].electronics ||
-     durasteel_cost > all_factions[faction_index].durasteel ||
-     tibanna_cost > all_factions[faction_index].tibanna ||
-     fuel_cost > all_factions[faction_index].fuel)
-  {
-    hide_input_pop_up("payment-type-pop-up");
-    document.getElementById("notification-pop-up-title").textContent = "You do not have the resources to pay this way.";
-    show_input_pop_up("notification-pop-up");
-  }
-  else
-  {
-    payment_method = "Parts";
-    hide_input_pop_up("payment-type-pop-up");
-    show_input_pop_up("roster-number-box");
-    document.getElementById("roster-number-input").focus();
-  }
-}
-
-function currency_only_button_click()
-{
-  var faction_index = undefined;
-  if(whos_turn == "Rebels")
-  {
-    faction_index = 0;
-  }
-  else if(whos_turn == "Imperial")
-  {
-    faction_index = 1;
-  }
-  else
-  {
-    alert("ERROR: Could not determine who's turn it is.");
-  }
-  if(aleternate_currency_cost > all_factions[faction_index].currency)
-  {
-    hide_input_pop_up("payment-type-pop-up");
-    document.getElementById("notification-pop-up-title").textContent = "You do not have the resources to pay this way.";
-    show_input_pop_up("notification-pop-up");
-  }
-  else
-  {
-    payment_method = "Currency";
-    hide_input_pop_up("payment-type-pop-up");
-    show_input_pop_up("roster-number-box");
-    document.getElementById("roster-number-input").focus();
-  }
+  //Replace newer ship with snapshot to remove all new upgrades.
+  all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[parseInt(sessionStorage.getItem("team_ship_index"),10)] = snapshot_ship;
+  sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+  sessionStorage.removeItem("ship_snapshot");
+  sessionStorage.removeItem("team_ship_index");
+  window.location.href = "../team-view.html";
 }
 
 function hide_input_pop_up(name)
@@ -324,7 +254,7 @@ function show_input_pop_up(name)
 }
 
 
-function ok_button_push()
+function done_button_click()
 {
     var faction_index = undefined;
     if(whos_turn == "Rebels")
@@ -340,51 +270,14 @@ function ok_button_push()
       alert("ERROR: Unable to find who's turn it is.");
     }
 
-      //Add roster number to ship and add new team to all teams.
-      //Validate input and then add roster number to ship in progress.
-      if(!/^[0-9]+$/.test(document.getElementById("roster-number-input").value))
-      {
-         alert("Please only input positive numbers. No other input will be accepted.");
-         document.getElementById("roster-number-input").value = "";
-         return;
-      }
-      else
-      {
-         ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
-      }
-       
-      //create a new team and add it to all factions.
-      let new_team = new ship_group(ship_in_progress.team_name,whos_turn,sessionStorage.getItem("placement_id"));
-      new_team.team.ship_list.push(ship_in_progress);
-      all_factions[faction_index].navy.push(new_team);
-
       //pay for the new ship.
-      if(payment_method =="Currency")
-      {
-        all_factions[faction_index].currency -= aleternate_currency_cost;
-      }
-      else if(payment_method =="Parts")
-      {
-        all_factions[faction_index].currency -= currency_cost;
-        all_factions[faction_index].parts -= parts_cost;
-        all_factions[faction_index].electronics -= electronics_cost;
-        all_factions[faction_index].durasteel -= durasteel_cost;
-        all_factions[faction_index].fuel -= fuel_cost;
-        all_factions[faction_index].tibanna -= tibanna_cost;
-      }
-      else
-      {
-        alert("ERROR: Could not determine payment methos.");
-        return;
-      }
+      all_factions[faction_index].currency -= Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship);
       sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
-
-   
+      
       //remove all items that are no longer being used.
-      sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
-      sessionStorage.removeItem("placement_id");
-      window.location.href = "../../../../gameplay-screen.html";
+      sessionStorage.removeItem("ship_snapshot");
+      window.location.href = "../team-view.html";//back to team view.
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 }
@@ -439,19 +332,6 @@ function subract_energy_token(upgrade)
 function set_ship_prices()
 {
   var faction_turn = undefined
-  var current_ship = ship_in_progress.chosen_pilot;
-  var upgrade_cost = 0;
-  var upgrade_minus =0;//for upgrades that cost less than 0.
-  ship_in_progress.upgrades.forEach(upgrade=>{
-    if(upgrade.upgrade.cost > 0)
-    {
-      upgrade_cost += upgrade.upgrade.cost;
-    }
-    else
-    {
-      upgrade_minus+=upgrade.upgrade.cost;
-    }
-  })
   if(whos_turn == "Rebels")
   {
     faction_turn = all_factions[0];
@@ -464,53 +344,7 @@ function set_ship_prices()
   {
     alert("ERROR: Cannot determine who's turn it is.")
   }
-  //Set cost of ship.
-  if(current_ship.ship_name.ship_type == "largeTwoCard")
-  {
-      fuel_cost = "4";
-      currency_cost = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost;
-      parts_cost = current_ship.ship_name.agility + current_ship.ship_name.aft_agility + current_ship.ship_name.energy;
-      electronics_cost = current_ship.ship_name.shields + current_ship.ship_name.aft_shields;
-      tibanna_cost = current_ship.ship_name.attack;
-      durasteel_cost = current_ship.ship_name.hull + current_ship.ship_name.aft_hull;
-      aleternate_currency_cost = current_ship.cost+upgrade_cost+upgrade_minus;
-  }
-  else
-  {
-       currency_cost = Math.ceil((current_ship.cost+upgrade_minus)/5)+upgrade_cost;
-       parts_cost =  current_ship.ship_name.agility;
-       electronics_cost = current_ship.ship_name.shields;
-       tibanna_cost = current_ship.ship_name.attack;
-       durasteel_cost =  current_ship.ship_name.hull;
-       aleternate_currency_cost = current_ship.cost+upgrade_cost+upgrade_minus;
-
-    if(current_ship.ship_name.ship_type == "small")
-    {
-      fuel_cost = "1";
-    }
-    else if(current_ship.ship_name.ship_type == "medium")
-    {
-      fuel_cost = "2";
-    }
-    else if(current_ship.ship_name.ship_type == "largeOneCard")
-    {
-      fuel_cost = "3";
-      parts_cost= current_ship.ship_name.agility+current_ship.ship_name.energy;
-    }
-    else
-    {
-      alert("Unknown Ship Size!");
-    }
-  }
-
-      document.getElementById("cost-fuel-quantity").textContent = fuel_cost+" / "+faction_turn.fuel;
-      document.getElementById("cost-curreny-quantity").textContent = currency_cost+" / "+faction_turn.currency;
-      document.getElementById("cost-parts-quantity").textContent = parts_cost+" / "+faction_turn.parts;
-      document.getElementById("cost-electronics-quantity").textContent = electronics_cost+" / "+faction_turn.electronics;
-      document.getElementById("cost-tibanna-quantity").textContent = tibanna_cost+" / "+faction_turn.tibanna;
-      document.getElementById("cost-durasteel-quantity").textContent = durasteel_cost+" / "+faction_turn.durasteel;
-      document.getElementById("alternate-cost-curreny-quantity").textContent = aleternate_currency_cost+" / "+faction_turn.currency;
-
+      document.getElementById("alternate-cost-curreny-quantity").textContent =(Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship))+"/"+faction_turn.currency;
 }
 
 
