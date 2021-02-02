@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="ship-selection.css" />
+    <title>Star Wars X-Wing</title>
+    <body>
+    <div class = "list-box-title" id="title">Ship Selection</div>
+
+        <span class = "list-box-title" id="ship-size-title">Ship Size</span>
+        <span class = "list-box-title" id="ship-title">Ship</span>
+       
+        <div class = "list-box" id="size-box">
+            <ul class = "list-box-items size-items"
+            role="listbox"
+            aria-labelledby="Ship-Size">
+            <li class = "list_options ship-size-option" tabindex ="0" role = "option" id ="small" onclick="small_ship_click()">Small</li>
+            <li class = "list_options ship-size-option" tabindex ="1" role = "option" id = "medium" onclick="medium_ship_click()">Medium</li>
+            <li class = "list_options ship-size-option" tabindex ="2" role = "option" id = "large" onclick="large_ship_click()">Large</li>
+        </ul>
+        </div>
+       
+        <div class = "list-box" id="ship-box">
+            <ul class = "list-box-items ship-items"
+            id = "ship-box-list"
+            role="listbox"
+            aria-labelledby="Ship"></ul>
+        </div>
+
+        <div id="resource-container">
+          <div class = "list-box-title" id="resource-title">Resources</div>
+          <div class="resource-image" id="currency-image"></div>
+          <div class="resource-image" id="parts-image"></div>
+          <div class="resource-image" id="electronics-image"></div>
+          <div class="resource-image" id="fuel-image"></div>
+          <div class="resource-image" id="tibanna-image"></div>
+          <div class="resource-image" id="durasteel-image"></div>
+          <div class="resource-text" id="curreny-quantity"></div>
+          <div class="resource-text" id="parts-quantity"></div>
+          <div class="resource-text" id="electronics-quantity"></div>
+          <div class="resource-text" id="fuel-quantity"></div>
+          <div class="resource-text" id="tibanna-quantity"></div>
+          <div class="resource-text" id="durasteel-quantity"></div>
+        </div>
+
+    <button type="button" class = "button back" id = "back-button">Back</button>
+
+  </head>
+  <script type="text/javascript" src="../../../../../JS Data Classes/In-Game-Variants.js"></script>
+  <script type="text/javascript" src="ship-selection.js"></script>
+
+  </body>
+</html>
