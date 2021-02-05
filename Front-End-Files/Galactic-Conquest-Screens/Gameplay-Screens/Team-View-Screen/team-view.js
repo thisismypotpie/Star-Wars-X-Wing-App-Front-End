@@ -83,11 +83,15 @@ function set_all_items()
     {
         document.getElementById("repair-button").style.pointerEvents = "none";
         document.getElementById("repair-button").style.opacity = "0.3";
+        document.getElementById("repair-all-button").style.pointerEvents = "none";
+        document.getElementById("repair-all-button").style.opacity = "0.3";
     }
     else
     {
         document.getElementById("repair-button").style.pointerEvents = "auto";
         document.getElementById("repair-button").style.opacity = "1.0";
+        document.getElementById("repair-all-button").style.pointerEvents = "auto";
+        document.getElementById("repair-all-button").style.opacity = "1.0";
     }
 
     //If dealing with a large ship, then make energy and possibly flip button visible.
@@ -354,6 +358,19 @@ function add_new_ship_button()
 {
     sessionStorage.setItem("team_indecies",JSON.stringify(chosen_team_indicies));
     window.location.href='Team-View-New-Ship/Ship-Selection/ship-selection.html';
+}
+
+function remove_ship_button()
+{
+    let confirm_remove = confirm("Are you sure you want to remove this ship? You'll get currency of up to half of the ship's worth.");
+    if(confirm_remove)
+    {
+        
+    }
+    else
+    {
+        return;
+    }
 }
 
 //Key bindings for this screen.

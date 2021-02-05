@@ -379,7 +379,7 @@ This is the css for the stat quantity altering pop up.
     background-color: transparent;
     border: none;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 2vw;
+    font-size: 1.8vw;
     text-align: center; 
 }
 
@@ -390,7 +390,7 @@ This is the css for the stat quantity altering pop up.
     grid-column: 2/12;
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));
-    grid-template-rows: repeat(13,calc(100%/13));
+    grid-template-rows: repeat(25,calc(100%/25));
 
 }
 
@@ -399,7 +399,7 @@ This is the css for the stat quantity altering pop up.
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));
     grid-template-rows: repeat(12,calc(100%/12));
-    grid-row: 8/13;
+    grid-row: 7/13;
     grid-column: 1/4;
 }
 
@@ -416,4 +416,19 @@ This is the css for the stat quantity altering pop up.
 #repair-button{
     grid-column: 2/12;
     grid-row: 10/13;
+}
+
+#repair-all-button{
+    grid-column: 2/12;
+    grid-row: 14/17;
+}
+
+#remove-ship-button{
+    grid-column: 2/12;
+    grid-row: 18/21;
+}
+
+#transfer-button{
+    grid-column: 2/12;
+    grid-row: 22/25;
 }
