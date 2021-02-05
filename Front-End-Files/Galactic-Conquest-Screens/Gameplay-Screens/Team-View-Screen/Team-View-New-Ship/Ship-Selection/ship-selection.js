@@ -1,5 +1,5 @@
 document.getElementById("back-button").addEventListener("click", function(){
-    sessionStorage.removeItem("placement_id");
+    sessionStorage.removeItem("team_indecies");
     window.location.href = "../../team-view.html";
   });
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));

@@ -226,6 +226,7 @@ function ok_button_click()
     }
     else
     {
+        let roster_found = false;
         //Go through each member of a team and determine if the potential roster number is already in use.
         for(let member of all_teams[chosen_team_index].ship_list)
         {
@@ -233,8 +234,13 @@ function ok_button_click()
             {
                 alert("This roster number has already been chosen, please choose another.");
                 document.getElementById("roster-number-input").value = "";
-                return;
+                document.getElementById("roster-number-input").focus();
+                roster_found = true;
+                break;
             }
+        }
+        if(roster_found == false)
+        {
             all_teams[chosen_team_index].ship_list[selection_index].roster_number = potential_roster_number;
             sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
             set_all_items();

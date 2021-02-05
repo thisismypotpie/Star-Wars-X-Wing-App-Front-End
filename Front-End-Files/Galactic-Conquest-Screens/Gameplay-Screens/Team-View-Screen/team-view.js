@@ -8,7 +8,7 @@ function next_button()
 {
     var current_team = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team;
     selection_index++;
-    if(selection_index >= current_team.length)
+    if(selection_index >= current_team.ship_list.length)
     {
         selection_index = 0;
     }
@@ -21,7 +21,7 @@ function previous_button()
     selection_index--;
     if(selection_index < 0)
     {
-        selection_index = current_team.length-1;
+        selection_index = current_team.ship_list.length-1;
     }
     set_all_items();
 }
@@ -237,15 +237,21 @@ function ok_button_click()
     }
     else
     {
+        let roster_taken = false;
         //Go through each member of a team and determine if the potential roster number is already in use.
-        for(let member of all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team)
+        for(let member of all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list)
         {
             if(member.roster_number == potential_roster_number)
             {
                 alert("This roster number has already been chosen, please choose another.");
                 document.getElementById("roster-number-input").value = "";
-                return;
+                document.getElementById("roster-number-input").focus();
+                roster_taken = true;
+                break;
             }
+        }
+        if(roster_taken == false)
+        {
             current_ship.roster_number = potential_roster_number;
             sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
             set_all_items();
@@ -342,6 +348,12 @@ function close_stat_popup()
     roster_number_box.style.visibility = "hidden";
     overlay.style.pointerEvents = "none";
     set_all_items();
+}
+
+function add_new_ship_button()
+{
+    sessionStorage.setItem("team_indecies",JSON.stringify(chosen_team_indicies));
+    window.location.href='Team-View-New-Ship/Ship-Selection/ship-selection.html';
 }
 
 //Key bindings for this screen.

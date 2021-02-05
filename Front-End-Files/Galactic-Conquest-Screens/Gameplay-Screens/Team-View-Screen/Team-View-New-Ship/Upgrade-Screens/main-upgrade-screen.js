@@ -348,15 +348,25 @@ function ok_button_push()
          document.getElementById("roster-number-input").value = "";
          return;
       }
+      else if(is_roster_number_taken(parseInt(document.getElementById("roster-number-input").value,10)) == true)
+      {
+         
+        //hide_input_pop_up("payment-type-pop-up");
+        document.getElementById("notification-pop-up-title").textContent = "That roster number is taken, please enter a new one..";
+        show_input_pop_up("notification-pop-up");
+        return;
+      }
       else
       {
          ship_in_progress.roster_number = parseInt(document.getElementById("roster-number-input").value,10);
       }
        
-      //create a new team and add it to all factions.
-      let new_team = new ship_group(ship_in_progress.team_name,whos_turn,sessionStorage.getItem("placement_id"));
-      new_team.team.ship_list.push(ship_in_progress);
-      all_factions[faction_index].navy.push(new_team);
+      //Add ship to team.
+      let selected_team_indices = JSON.parse(sessionStorage.getItem("team_indecies"));
+      all_factions[selected_team_indices[0]].navy[selected_team_indices[1]].team.ship_list.push(ship_in_progress);
+      //new_team.team.ship_list.push(ship_in_progress);
+      //all_factions[faction_index].navy.push(new_team);
+
 
       //pay for the new ship.
       if(payment_method =="Currency")
@@ -383,8 +393,7 @@ function ok_button_push()
       //remove all items that are no longer being used.
       sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
-      sessionStorage.removeItem("placement_id");
-      window.location.href = "../../gameplay-screen.html";
+      window.location.href = "../../team-view.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
 }
@@ -513,6 +522,22 @@ function set_ship_prices()
 
 }
 
+//Check validation of current team to see if a roster number is already taken
+function is_roster_number_taken(input_number)
+{
+      var found_roster = false;
+      //All teams and chosen team name were undefined within this function so I am grabbing it again.
+      let selected_team_indices = JSON.parse(sessionStorage.getItem("team_indecies"));
+      var team = all_factions[selected_team_indices[0]].navy[selected_team_indices[1]].team;
+
+  team.ship_list.forEach(ship =>{
+        if(ship.roster_number == input_number)
+        {
+          found_roster = true;
+        }
+  })
+  return found_roster;
+}
 
 //Key bindings
 document.onkeyup = function(e) {
