@@ -362,15 +362,11 @@ function add_new_ship_button()
 
 function remove_ship_button()
 {
-    let confirm_remove = confirm("Are you sure you want to remove this ship? You'll get currency of up to half of the ship's worth.");
-    if(confirm_remove)
-    {
-        
-    }
-    else
-    {
-        return;
-    }
+    document.getElementById("confirmation-message").textContent = "Are you sure you want to remove this ship?"
+    let overlay = document.getElementById("overlay");
+    overlay.style.opacity = 1;
+    overlay.style.pointerEvents = "all";
+    document.getElementById("confirmation-pop-up").style.visibility = "visible";
 }
 
 //Key bindings for this screen.

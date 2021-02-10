@@ -379,7 +379,7 @@ This is the css for the stat quantity altering pop up.
     background-color: transparent;
     border: none;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 1.8vw;
+    font-size: 1.0vw;
     text-align: center; 
 }
 
@@ -431,4 +431,25 @@ This is the css for the stat quantity altering pop up.
 #transfer-button{
     grid-column: 2/12;
     grid-row: 22/25;
+}
+
+#confirmation-pop-up{
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(12,calc(50vh/12));
+}
+#confirmation-message{
+    grid-row: 1;
+    grid-column: 1/13;
+    text-align: center;
+}
+
+#yes-confirm-button{
+    grid-row: 4/6;
+    grid-column: 2/12;
+}
+
+#no-confirm-button{
+    grid-row: 7/9;
+    grid-column: 2/12;
 }

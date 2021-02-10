@@ -271,7 +271,8 @@ function done_button_click()
     }
 
       //pay for the new ship.
-      all_factions[faction_index].currency -= Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship);
+      //all_factions[faction_index].currency -= Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship);
+      all_factions[faction_index].currency -= parseInt( document.getElementById("alternate-cost-curreny-quantity").textContent.split("/")[0],10);
       sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
       
       //remove all items that are no longer being used.
@@ -344,7 +345,12 @@ function set_ship_prices()
   {
     alert("ERROR: Cannot determine who's turn it is.")
   }
-      document.getElementById("alternate-cost-curreny-quantity").textContent =(Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship))+"/"+faction_turn.currency;
+      let cost = (Calculate_cost_of_ship(ship_in_progress)-Calculate_cost_of_ship(snapshot_ship));
+      document.getElementById("alternate-cost-curreny-quantity").textContent =cost+"/"+faction_turn.currency;
+      if(cost < 0)//make sure user only gets half the price of upgrades they remove.
+      {
+        document.getElementById("alternate-cost-curreny-quantity").textContent =Math.floor(cost/2)+"/"+faction_turn.currency;
+      }
 }
 
 
