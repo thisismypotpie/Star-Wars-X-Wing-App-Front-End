@@ -362,11 +362,29 @@ function add_new_ship_button()
 
 function remove_ship_button()
 {
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    var health_percentage = parseFloat(current_ship.current_hull / current_ship.chosen_pilot.ship_name.hull);
+    var crit_hit_cost = current_ship.critical_hit_cards.length * 3;
+    var total_rebate = Math.floor(health_percentage*(current_ship.chosen_pilot.cost/2)-crit_hit_cost);
+    document.getElementById("rebate-quantity").textContent = ":"+ total_rebate;
     document.getElementById("confirmation-message").textContent = "Are you sure you want to remove this ship?"
     let overlay = document.getElementById("overlay");
     overlay.style.opacity = 1;
     overlay.style.pointerEvents = "all";
     document.getElementById("confirmation-pop-up").style.visibility = "visible";
+}
+
+function dont_remove_ship()
+{
+    let overlay = document.getElementById("overlay");
+    overlay.style.opacity = 0;
+    overlay.style.pointerEvents = "none";
+    document.getElementById("confirmation-pop-up").style.visibility = "hidden";
+}
+
+function remove_ship()
+{
+
 }
 
 //Key bindings for this screen.

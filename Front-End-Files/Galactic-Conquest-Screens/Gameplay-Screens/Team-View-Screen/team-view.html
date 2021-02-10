@@ -81,8 +81,11 @@
 <!--This is the code for a yes/no module-->
       <div class = "pop-up-container" id = "confirmation-pop-up">
         <div class = "pop-up-title" id="confirmation-message">Message</div>
-        <button type = "button" class = "long-button" id = "no-confirm-button"onclick="">No</button>
-        <button type = "button" class = "long-button" id = "yes-confirm-button" onclick="">Yes</button>
+        <button type = "button" class = "long-button" id = "no-confirm-button"onclick="dont_remove_ship()">No</button>
+        <button type = "button" class = "long-button" id = "yes-confirm-button" onclick="remove_ship()">Yes</button>
+        <div id="rebate-title">What you'll receive:</div>
+        <div id="rebate-image"></div>
+        <div id="rebate-quantity">:nan</div>
         </div>
 
 <!--This is the code for the overlay.-->

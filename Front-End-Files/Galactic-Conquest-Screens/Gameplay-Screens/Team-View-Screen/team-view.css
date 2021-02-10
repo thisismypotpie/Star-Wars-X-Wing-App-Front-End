@@ -440,16 +440,43 @@ This is the css for the stat quantity altering pop up.
 }
 #confirmation-message{
     grid-row: 1;
-    grid-column: 1/13;
+    grid-column: 2/12;
     text-align: center;
 }
 
 #yes-confirm-button{
-    grid-row: 4/6;
-    grid-column: 2/12;
+    grid-row: 10/12;
+    grid-column: 2/6;
 }
 
 #no-confirm-button{
-    grid-row: 7/9;
+    grid-row: 10/12;
+    grid-column: 8/12;
+}
+
+#rebate-title{
+    grid-row: 5;
     grid-column: 2/12;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 2.0vw;
+    text-align: center; 
+    color: white;
+    text-decoration: underline;
+}
+
+#rebate-image{
+    grid-row: 7/9;
+    grid-column: 5/7;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#rebate-quantity{
+    grid-row: 7/9;
+    grid-column: 7/9;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 3.0vw;
+    text-align: center;
+    color: white;
 }
