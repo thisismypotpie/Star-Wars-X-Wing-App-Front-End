@@ -1,6 +1,6 @@
 //This is the section for adding buttton functionality.
 function back_button(){
-    sessionStorage.removeItem("chosen_team_name");
+    sessionStorage.removeItem("team_name");
     window.location.href="../gameplay-screen.html";
 }
 //Go to next ship in the roster.
@@ -366,7 +366,7 @@ function remove_ship_button()
     var health_percentage = parseFloat(current_ship.current_hull / current_ship.chosen_pilot.ship_name.hull);
     var crit_hit_cost = current_ship.critical_hit_cards.length * 3;
     var total_rebate = Math.floor(health_percentage*(current_ship.chosen_pilot.cost/2)-crit_hit_cost);
-    document.getElementById("rebate-quantity").textContent = ":"+ total_rebate;
+    document.getElementById("rebate-quantity").textContent = ": "+ total_rebate;
     document.getElementById("confirmation-message").textContent = "Are you sure you want to remove this ship?"
     let overlay = document.getElementById("overlay");
     overlay.style.opacity = 1;
@@ -384,7 +384,26 @@ function dont_remove_ship()
 
 function remove_ship()
 {
-
+    all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);
+    if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length == 0)
+    {
+        //remove team and go back to gameplay screen.
+        all_factions[chosen_team_indicies[0]].navy.splice(chosen_team_indicies[1],1);
+        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+        sessionStorage.removeItem("team_name");
+        window.location.href = "../gameplay-screen.html";
+    }
+    else
+    {
+        dont_remove_ship();
+        var current_team = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team;
+        selection_index--;
+        if(selection_index < 0)
+        {
+            selection_index = current_team.ship_list.length-1;
+        }
+    }
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
 }
 
 //Key bindings for this screen.

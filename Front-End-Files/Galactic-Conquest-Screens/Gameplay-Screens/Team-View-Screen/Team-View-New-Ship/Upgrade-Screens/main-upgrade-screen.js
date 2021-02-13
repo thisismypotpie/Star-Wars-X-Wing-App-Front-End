@@ -307,7 +307,15 @@ function currency_only_button_click()
 
 function hide_input_pop_up(name)
 {
-  let overlay = document.getElementById("overlay");
+  var overlay = undefined;
+  if(name == "notification-pop-up")
+  {
+    overlay = document.getElementById("notification-overlay");
+  }
+  else
+  {
+    overlay = document.getElementById("overlay");
+  }
   let screen = document.getElementById(name);
   overlay.style.opacity = 0;
   screen.style.visibility = "hidden";
@@ -316,7 +324,15 @@ function hide_input_pop_up(name)
 
 function show_input_pop_up(name)
 {
-  let overlay = document.getElementById("overlay");
+  var overlay = undefined;
+  if(name == "notification-pop-up")
+  {
+    overlay = document.getElementById("notification-overlay");
+  }
+  else
+  {
+    overlay = document.getElementById("overlay");
+  }
   let screen = document.getElementById(name);
   overlay.style.opacity = 1;
   screen.style.visibility = "visible";
@@ -393,6 +409,7 @@ function ok_button_push()
       //remove all items that are no longer being used.
       sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
+      sessionStorage.removeItem("team_indecies");
       window.location.href = "../../team-view.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back

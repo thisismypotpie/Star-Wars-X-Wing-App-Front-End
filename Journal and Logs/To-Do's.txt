@@ -5,7 +5,7 @@
 -Have dual sided upgrades change orietation on each upgrade screen and view as the flip button is pressed.
 
 Galactic Conquest To Do's:
-1. Removing upgrades does not work from either the adding a new ship screen or adding a upgrades to an existing ship.
+1. When purchasing ships, take away full resource screen if player is only playing with currency.
 
 
 

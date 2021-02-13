@@ -374,7 +374,7 @@ function ok_button_push()
       }
       else
       {
-        alert("ERROR: Could not determine payment methos.");
+        alert("ERROR: Could not determine payment method.");
         return;
       }
       sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));

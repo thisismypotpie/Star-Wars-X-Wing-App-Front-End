@@ -263,6 +263,7 @@ function clear_planet_info_container(id)
   document.getElementById("planet-name").textContent = "Planet";
   document.getElementById("resource-image").style.backgroundImage="";
   document.getElementById("resource-label").textContent = "X0";
+  sessionStorage.removeItem("team_name");
 }
 
 function get_team_based_on_passed_event(event)
