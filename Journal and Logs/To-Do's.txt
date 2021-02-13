@@ -6,6 +6,8 @@
 
 Galactic Conquest To Do's:
 1. When purchasing ships, take away full resource screen if player is only playing with currency.
+2. Account for unique pilots already on other squadrons.
+3. Accoung for unique pilots if they are dead.
 
 
 

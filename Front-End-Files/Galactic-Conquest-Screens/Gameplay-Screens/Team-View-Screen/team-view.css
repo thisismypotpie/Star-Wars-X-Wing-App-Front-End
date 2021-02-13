@@ -386,7 +386,7 @@ This is the css for the stat quantity altering pop up.
 #button-options-container{
     border: 1px solid white;
     background-color: black;
-    grid-row: 2/12;
+    grid-row: 3/13;
     grid-column: 2/12;
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));

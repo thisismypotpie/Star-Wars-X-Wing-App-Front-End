@@ -1,5 +1,6 @@
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("placement_id");
+    sessionStorage.removeItem("new_team_name");
     window.location.href = "../../gameplay-screen.html";
   });
   var game_data= JSON.parse(sessionStorage.getItem("game_data"));

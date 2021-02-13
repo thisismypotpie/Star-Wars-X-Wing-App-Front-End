@@ -58,7 +58,6 @@ else
     selection_index= 0;
 }
 
-
 //This section will be for setting up each element with proper pictures.
 set_all_items();
 
@@ -385,6 +384,10 @@ function dont_remove_ship()
 function remove_ship()
 {
     all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);
+    //Player currency rebate.
+    var currency = parseInt(document.getElementById("rebate-quantity").textContent.toString().substring(1),10);
+    all_factions[chosen_team_indicies[0]].currency+=currency;
+
     if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length == 0)
     {
         //remove team and go back to gameplay screen.
@@ -396,12 +399,7 @@ function remove_ship()
     else
     {
         dont_remove_ship();
-        var current_team = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team;
-        selection_index--;
-        if(selection_index < 0)
-        {
-            selection_index = current_team.ship_list.length-1;
-        }
+        next_button();
     }
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
 }

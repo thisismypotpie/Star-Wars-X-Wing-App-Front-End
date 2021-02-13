@@ -384,6 +384,7 @@ function ok_button_push()
       sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
       sessionStorage.removeItem("placement_id");
+      sessionStorage.removeItem("new_team_name");
       window.location.href = "../../gameplay-screen.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
