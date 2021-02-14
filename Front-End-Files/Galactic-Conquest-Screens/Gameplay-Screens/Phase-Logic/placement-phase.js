@@ -11,26 +11,14 @@ if(sessionStorage.getItem("gc_phase") == "placement")
     document.getElementById("button-three").onclick = function(){done_button_placement_phase_click()};
 
     //Set up main title based on which faction the player chose.
+    set_resource_quantities(whos_turn);
     if(whos_turn == "Rebels")
     {
         document.getElementById("main-title").textContent = "Rebel Placement";
-        document.getElementById("money-quantity-label").textContent = "X "+factions[0].currency;
-        document.getElementById("tibanna-quantity-label").textContent = "X "+factions[0].tibanna;
-        document.getElementById("electronics-quantity-label").textContent = "X "+factions[0].electronics;
-        document.getElementById("durasteel-quantity-label").textContent = "X "+factions[0].durasteel;
-        document.getElementById("fuel-quantity-label").textContent = "X "+factions[0].fuel;
-        document.getElementById("parts-quantity-label").textContent = "X "+factions[0].parts;
-
     }
     else if(whos_turn == "Imperial")
     {
         document.getElementById("main-title").textContent = "Empire Placement";
-        document.getElementById("money-quantity-label").textContent = "X "+factions[1].currency;
-        document.getElementById("tibanna-quantity-label").textContent = "X "+factions[1].tibanna;
-        document.getElementById("electronics-quantity-label").textContent = "X "+factions[1].electronics;
-        document.getElementById("durasteel-quantity-label").textContent = "X "+factions[1].durasteel;
-        document.getElementById("fuel-quantity-label").textContent = "X "+factions[1].fuel;
-        document.getElementById("parts-quantity-label").textContent = "X "+factions[1].parts;
     }
     else
     {
@@ -103,12 +91,14 @@ function done_button_placement_phase_click()
             sessionStorage.setItem("gc_whos_turn","Imperial");
             document.getElementById("main-title").textContent = "Empire Placement";
             whos_turn = "Imperial";
+            set_resource_quantities(whos_turn);
         }
         else if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
         {
             sessionStorage.setItem("gc_whos_turn","Rebels");
             document.getElementById("main-title").textContent = "Rebel Placement";
             whos_turn ="Rebels";
+            set_resource_quantities(whos_turn);
         }
         else
         {

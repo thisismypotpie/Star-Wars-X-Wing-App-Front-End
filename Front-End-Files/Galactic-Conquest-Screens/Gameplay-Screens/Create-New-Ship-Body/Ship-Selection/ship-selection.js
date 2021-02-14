@@ -21,12 +21,7 @@ document.getElementById("back-button").addEventListener("click", function(){
   }
 
   //Set resource quantities.
-  document.getElementById("curreny-quantity").textContent = whos_turn.currency;
-  document.getElementById("parts-quantity").textContent = whos_turn.parts;
-  document.getElementById("electronics-quantity").textContent = whos_turn.electronics;
-  document.getElementById("fuel-quantity").textContent = whos_turn.fuel;
-  document.getElementById("tibanna-quantity").textContent = whos_turn.tibanna;
-  document.getElementById("durasteel-quantity").textContent = whos_turn.durasteel;
+  set_resource_quantities(whos_turn.faction);
 
   function small_ship_click()
   {

@@ -174,6 +174,20 @@ function set_all_items()
         
 
     })
+
+        //Set up main title based on which faction the player chose.
+        if(chosen_team_indicies[0] == 0)
+        {
+            set_resource_quantities("Rebels")
+        }
+        else if(chosen_team_indicies[0] == 1)
+        {
+            set_resource_quantities("Imperial")
+        }
+        else
+        {
+            alert("ERROR: Could not determine which faction is focused.");
+        }
 }
 
 //This function will take you to the upgrade screen to add/remove upgrades. 

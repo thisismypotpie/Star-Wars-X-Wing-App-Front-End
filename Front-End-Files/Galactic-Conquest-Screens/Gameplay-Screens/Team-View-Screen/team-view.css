@@ -480,3 +480,101 @@ This is the css for the stat quantity altering pop up.
     text-align: center;
     color: white;
 }
+
+#resource-pop-up{
+    display: grid;
+    position: fixed;
+    background-color: black;
+    border: 1px solid white;
+    width: 23%;
+    height: 11vh;
+    top: 2%;
+    left: 1%;
+    grid-template-columns: repeat(24,calc(100%/24));
+    grid-template-rows: repeat(13,calc(100%/13));
+}
+
+#money-image-resource-counter{
+    grid-row: 2/7;
+    grid-column: 3/6;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+    border: none;
+}
+
+#money-quantity-label
+{
+    grid-row: 3/7;
+    grid-column: 6/9;
+}
+
+#tibanna-image-resource-counter{
+    grid-row: 8/13;
+    grid-column: 3/6;
+    border: none;
+    background-image: url("https://i.imgur.com/wfKP4ey.jpg");
+}
+
+#tibanna-quantity-label{
+    grid-row: 9/13;
+    grid-column: 6/9;
+}
+
+#electronics-image-resource-counter{
+    grid-row: 2/7;
+    grid-column: 10/13;
+    border: none;
+    background-image: url("https://i.imgur.com/qOjfTHl.png");
+}
+
+#electronics-quantity-label{
+    grid-row: 3/7;
+    grid-column: 13/16;
+}
+
+#durasteel-image-resource-counter{
+    grid-row: 8/13;
+    grid-column: 10/13;
+    border: none;
+    background-image: url("https://i.imgur.com/1nxO0oQ.png");
+}
+
+#durasteel-quantity-label{
+    grid-row: 9/13;
+    grid-column: 13/16;
+}
+
+#fuel-image-resource-counter{
+    grid-row: 2/7;
+    grid-column: 17/20;
+    border: none;
+    background-image: url("https://i.imgur.com/gqJjMUH.jpg");
+}
+
+#fuel-quantity-label{
+    grid-row: 3/7;
+    grid-column: 20/23;
+}
+
+#parts-image-resource-counter{
+    grid-row: 8/13;
+    grid-column: 17/20;
+    border: none;
+    background-image: url("https://i.imgur.com/SkbOfo9.jpg");
+}
+
+#parts-quantity-label{
+    grid-row: 9/13;
+    grid-column: 20/23;
+}
+
+.pop-up-image{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border: 1px solid white;
+}
+
+.pop-up-text{
+    text-align: left;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+}

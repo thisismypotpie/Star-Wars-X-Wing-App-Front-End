@@ -17,22 +17,38 @@
         <button type="button" class = "btn"id="next-button" onclick="next_button()"></button>
         </div>    
     </div>
+
+    <div id="resource-pop-up">
+      <div id="money-image-resource-counter" class = "pop-up-image"></div>
+      <div id="money-quantity-label" class = "pop-up-text">X0</div>
+      <div id="tibanna-image-resource-counter" class = "pop-up-image"></div>
+      <div id="tibanna-quantity-label" class = "pop-up-text">X0</div>
+      <div id="electronics-image-resource-counter" class = "pop-up-image"></div>
+      <div id="electronics-quantity-label" class = "pop-up-text">X0</div>
+      <div id="durasteel-image-resource-counter" class = "pop-up-image"></div>
+      <div id="durasteel-quantity-label" class = "pop-up-text">X0</div>
+      <div id="fuel-image-resource-counter" class = "pop-up-image"></div>
+      <div id="fuel-quantity-label" class = "pop-up-text">X0</div>
+      <div id="parts-image-resource-counter" class = "pop-up-image"></div>
+      <div id="parts-quantity-label" class = "pop-up-text">X0</div>
+    </div>
+
     <section class = "grid-container">
         <button type="button" id = "back-button" onclick="back_button()">Back</button>
-        <div class = "icon" id = "pilot-skill" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">:-1</div>
-        <div class = "icon" id = "attack" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">:-1</div>
-        <div class = "icon" id = "agility" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">:-1</div>
-        <div class = "icon" id = "hull" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">:-1</div>
-        <div class = "icon" id = "shields" onclick="augment_stat_quantity('current_sheilds','shields','shields-stat')">:-1</div>
-        <div class = "icon" id = "energy" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">:-1</div>
-        <div class = "stat" id = "pilot-skill-stat" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">: -1</div>
-        <div class = "stat" id = "attack-stat" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">: -1</div>
-        <div class = "stat" id = "agility-stat" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">: -1</div>
-        <div class = "stat" id = "hull-stat" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">: -1</div>
-        <div class = "stat" id = "shields-stat" onclick="augment_stat_quantity('current_sheilds','shields','shield-stat')">: -1</div>
-        <div class = "stat" id = "energy-stat" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">: -1</div>
-        <div class = "icon" id = roster-number onclick="change_roster_number()">-1</div>
-        <div class = "stat" id = roster-number-stat onclick="change_roster_number()">:-1</div>
+        <div class = "icon" id = "pilot-skill" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">:</div>
+        <div class = "icon" id = "attack" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">:</div>
+        <div class = "icon" id = "agility" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">:</div>
+        <div class = "icon" id = "hull" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">:</div>
+        <div class = "icon" id = "shields" onclick="augment_stat_quantity('current_sheilds','shields','shields-stat')">:</div>
+        <div class = "icon" id = "energy" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">:</div>
+        <div class = "stat" id = "pilot-skill-stat" onclick="augment_stat_quantity('current_pilot_skill','pilot-skill','pilot-skill-stat')">: </div>
+        <div class = "stat" id = "attack-stat" onclick="augment_stat_quantity('current_attack','attack','attack-stat')">: </div>
+        <div class = "stat" id = "agility-stat" onclick="augment_stat_quantity('current_agility','agility','agility-stat')">: </div>
+        <div class = "stat" id = "hull-stat" onclick="augment_stat_quantity('current_hull','hull','hull-stat')">: </div>
+        <div class = "stat" id = "shields-stat" onclick="augment_stat_quantity('current_sheilds','shields','shield-stat')">: </div>
+        <div class = "stat" id = "energy-stat" onclick="augment_stat_quantity('current_energy','energy','energy-stat')">: </div>
+        <div class = "icon" id = roster-number onclick="change_roster_number()"></div>
+        <div class = "stat" id = roster-number-stat onclick="change_roster_number()">:</div>
         <button type ="button" id="flip-button" onclick="flip_button_click()">Flip</button>
         <span class="upgrades-title">Upgrades</span>
         <ul id = "upgrade-box"
