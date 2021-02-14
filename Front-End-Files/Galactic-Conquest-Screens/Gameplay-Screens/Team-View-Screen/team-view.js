@@ -26,6 +26,24 @@ function previous_button()
     set_all_items();
 }
 
+function open_input_popup(name)
+{
+    let overlay = document.getElementById("overlay");
+    let input_popup = document.getElementById(name);
+    overlay.style.opacity = 1;
+    input_popup.style.visibility = "visible";
+    overlay.style.pointerEvents = "all";
+}
+
+function close_input_popup(name)
+{
+    let overlay = document.getElementById("overlay");
+    let input_popup = document.getElementById(name);
+    overlay.style.opacity = 0;
+    input_popup.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
+}
+
 //end button functionality section.
 
 //This will be the section for getting vari that we will manipulate.
@@ -76,6 +94,18 @@ function set_all_items()
     agility.textContent = " : "+current_ship.current_agility;
     hull.textContent = " : "+current_ship.current_hull;
     shields.textContent = " : "+current_ship.current_sheilds;
+
+    //See if transfer button needs to be turned off.
+    if(all_factions[chosen_team_indicies[0]].navy.length <=1)
+    {
+        document.getElementById("transfer-button").style.pointerEvents = "none";
+        document.getElementById("transfer-button").style.opacity = "0.3";
+    }
+    else
+    {
+        document.getElementById("transfer-button").style.pointerEvents = "auto";
+        document.getElementById("transfer-button").style.opacity = "1.0";
+    }
 
     //see if repair button needs to be turned off.
     if(current_ship.current_hull >= current_ship.chosen_pilot.ship_name.hull)
@@ -223,22 +253,14 @@ function flip_button_click()
 //This is the function for when you click the change roster number button.
 function change_roster_number()
 {
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("roster-number-box");
-    overlay.style.opacity = 1;
-    roster_number_box.style.visibility = "visible";
-    overlay.style.pointerEvents = "all";
+    open_input_popup("roster-number-box");
     document.getElementById("roster-number-input").focus();
 }
 //This is the function when you you close the roster number screen.
 function close_button_click()
 {
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("roster-number-box");
+    close_input_popup("roster-number-box");
     let input = document.getElementById("roster-number-input");
-    overlay.style.opacity = 0;
-    roster_number_box.style.visibility = "hidden";
-    overlay.style.pointerEvents = "none";
     input.value="";
 }
 //This is the function for changing your roster number.
@@ -307,11 +329,7 @@ function augment_stat_quantity(token_type,parent_image,parent_html_id)
     document.getElementById('token-image').style.backgroundImage = "url('"+bg_image_url+"')";
     let eval_string = "document.getElementById('token-quantity').textContent = 'x'+current_ship."+token_type;
     eval(eval_string);
-    let overlay = document.getElementById("overlay");
-    let stat_box = document.getElementById("token-quantity-pop-up");
-    overlay.style.opacity = 1;
-    stat_box.style.visibility = "visible";
-    overlay.style.pointerEvents = "all";
+    open_input_popup("token-quantity-pop-up");
     document.getElementById("plus-button").onclick = function(){plus_button_click(token_type,parent_html_id)};
     document.getElementById("minus-button").onclick = function(){minus_button_click(token_type,parent_html_id)};
 }
@@ -359,11 +377,7 @@ function minus_button_click(token_type,parent_html_id)
 
 function close_stat_popup()
 {
-    let overlay = document.getElementById("overlay");
-    let roster_number_box = document.getElementById("token-quantity-pop-up");
-    overlay.style.opacity = 0;
-    roster_number_box.style.visibility = "hidden";
-    overlay.style.pointerEvents = "none";
+    close_input_popup("token-quantity-pop-up");
     set_all_items();
 }
 
@@ -381,18 +395,12 @@ function remove_ship_button()
     var total_rebate = Math.floor(health_percentage*(current_ship.chosen_pilot.cost/2)-crit_hit_cost);
     document.getElementById("rebate-quantity").textContent = ": "+ total_rebate;
     document.getElementById("confirmation-message").textContent = "Are you sure you want to remove this ship?"
-    let overlay = document.getElementById("overlay");
-    overlay.style.opacity = 1;
-    overlay.style.pointerEvents = "all";
-    document.getElementById("confirmation-pop-up").style.visibility = "visible";
+    open_input_popup("confirmation-pop-up");
 }
 
 function dont_remove_ship()
 {
-    let overlay = document.getElementById("overlay");
-    overlay.style.opacity = 0;
-    overlay.style.pointerEvents = "none";
-    document.getElementById("confirmation-pop-up").style.visibility = "hidden";
+    close_input_popup("confirmation-pop-up");
 }
 
 function remove_ship()
@@ -416,6 +424,56 @@ function remove_ship()
         next_button();
     }
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+}
+
+function transfer_ship_button()
+{
+    //var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    open_input_popup("transfer-pop-up");
+    all_factions[chosen_team_indicies[0]].navy.forEach(ship_body=>{
+        if(ship_body.group_name != sessionStorage.getItem("team_name"))
+        {
+            let transfer_button = document.createElement("button");
+            transfer_button.type = "button";
+            transfer_button.className = "long-button transfer-button";
+            transfer_button.textContent = ship_body.group_name;
+            transfer_button.style.fontFamily = "Impact, Charcoal, sans-serif";
+            transfer_button.style.fontSize = "3vw";
+            transfer_button.style.width = "90%";
+            transfer_button.style.height = "10vh";
+            transfer_button.style.marginTop = "1%";
+            transfer_button.style.marginBottom = "1%";
+            transfer_button.onclick = function(){
+                ship_transfer(ship_body.group_name);
+            }
+            document.getElementById("transfer-pop-up").appendChild(transfer_button);
+        }
+    })
+    let back_button = document.createElement("button");
+    back_button.type = "button";
+    back_button.className = "long-button transfer-button";
+    back_button.id = "transfer-back-button";
+    back_button.textContent = "Back";
+    back_button.style.fontFamily = "Impact, Charcoal, sans-serif";
+    back_button.style.fontSize = "3vw";
+    back_button.style.width = "90%";
+    back_button.style.height = "10vh";
+    back_button.style.marginTop = "1%";
+    back_button.style.marginBottom = "1%";
+    back_button.onclick = function(){
+        close_input_popup("transfer-pop-up");
+        let buttons = document.getElementsByClassName("transfer-button");
+        while (buttons.length > 0) {
+            buttons[0].parentNode.removeChild(buttons[0]);
+        }
+    }
+    document.getElementById("transfer-pop-up").appendChild(back_button);
+
+}
+
+function ship_transfer(transfer_to)
+{
+    alert("Transfering to: "+transfer_to);
 }
 
 //Key bindings for this screen.
