@@ -8,7 +8,9 @@ Galactic Conquest To Do's:
 1. When purchasing ships, take away full resource screen if player is only playing with currency.
 2. Account for unique pilots already on other squadrons.
 3. Accoung for unique pilots if they are dead.
-4. When implementing a transfer, it is instantaneous during the placement phase but takea diagonal of turns to transfer during the game.
+4. When implementing a transfer, it is instantaneous during the placement phase but take a diagonal of turns to transfer during the game.
+5. Add a button for transfer ships to make a new ship body.
+6. The number convention for ship body names seems to go up with adding ships to an already existing team.
 
 
 

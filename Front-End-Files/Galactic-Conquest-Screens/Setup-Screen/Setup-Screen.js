@@ -288,8 +288,18 @@ function start_and_populate_game_resources()
     var faction = [];
     faction.push(new gc_team("Rebels"));
     faction.push(new gc_team("Imperial"));
-    faction[0].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
-    faction[1].currency = 100*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+    faction[0].currency = 10*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+    faction[1].currency = 10*gc_setup_data.planet_count+gc_setup_data.active_planets.length;
+    faction[0].durasteel = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[1].durasteel = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[0].electronics = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[1].electronics = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[0].parts = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[1].parts = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[0].fuel = 25*gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/5);
+    faction[1].fuel = 25*gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/5);
+    faction[0].tibanna = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
+    faction[1].tibanna = gc_setup_data.planet_count+Math.floor(gc_setup_data.active_planets.length/10);
     sessionStorage.setItem("gc_factions",JSON.stringify(faction));
 
     gc_setup_data.active_planets.forEach(planet=>{

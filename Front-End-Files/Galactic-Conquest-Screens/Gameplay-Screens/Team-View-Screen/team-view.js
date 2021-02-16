@@ -474,6 +474,35 @@ function transfer_ship_button()
 function ship_transfer(transfer_to)
 {
     alert("Transfering to: "+transfer_to);
+    var ship_to_transfer = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    var team_to_transfer = undefined;
+    var roster_conflict = false;
+    for(var i=0; i < all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length;i++)
+    {
+        if(ship_body.group_name == transfer_to)
+        {
+            team_to_transfer = all_factions[chosen_team_indicies[0]].navy[i];
+            //check for roster number incompatibility.
+            for(var j=0; j < team_to_transfer.team.ship_list.length;j++)
+            {
+                if(team_to_transfer.team.ship_list[j].roster_number == ship_to_transfer.roster_number)
+                {
+                    roster_conflict = true;
+                    break;
+                }
+            }
+            if(roster_conflict == false)
+            {
+                //perform the transfer.
+                alert("Tranfer complete!");
+            }
+            break;
+        } 
+    }
+    if(roster_conflict == true)
+    {
+        alert("A ship has the same roster number as the transfer ship, please change roster number.");
+    }
 }
 
 //Key bindings for this screen.
