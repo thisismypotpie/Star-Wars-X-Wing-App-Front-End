@@ -433,6 +433,12 @@ This is the css for the stat quantity altering pop up.
     grid-row: 22/25;
 }
 
+#transfer-pop-up{
+    max-width:40%;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
 #confirmation-pop-up{
     display: grid;
     grid-template-columns: repeat(12,calc(100%/12));

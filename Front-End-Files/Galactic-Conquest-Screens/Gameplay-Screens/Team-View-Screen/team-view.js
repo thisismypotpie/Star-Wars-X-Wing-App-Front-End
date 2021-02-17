@@ -449,6 +449,23 @@ function transfer_ship_button()
             document.getElementById("transfer-pop-up").appendChild(transfer_button);
         }
     })
+    //Create new group button
+    let group_button = document.createElement("button");
+    group_button.type = "button";
+    group_button.className = "long-button transfer-button";
+    group_button.id = "transfer-back-button";
+    group_button.textContent = "Create New Group";
+    group_button.style.fontFamily = "Impact, Charcoal, sans-serif";
+    group_button.style.fontSize = "3vw";
+    group_button.style.width = "90%";
+    group_button.style.height = "10vh";
+    group_button.style.marginTop = "1%";
+    group_button.style.marginBottom = "1%";
+    group_button.onclick = function(){create_new_group_transfer_button();}
+    document.getElementById("transfer-pop-up").appendChild(group_button);
+
+
+    //Back button
     let back_button = document.createElement("button");
     back_button.type = "button";
     back_button.className = "long-button transfer-button";
@@ -505,6 +522,10 @@ function ship_transfer(transfer_to)
                 else
                 {
                     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    let buttons = document.getElementsByClassName("transfer-button");
+                    while (buttons.length > 0) {
+                        buttons[0].parentNode.removeChild(buttons[0]);
+                    }
                     close_input_popup("transfer-pop-up");
                     next_button();
                 }
@@ -515,8 +536,17 @@ function ship_transfer(transfer_to)
     if(roster_conflict == true)
     {
         alert("A ship has the same roster number as the transfer ship, please change roster number.");
+        let buttons = document.getElementsByClassName("transfer-button");
+        while (buttons.length > 0) {
+            buttons[0].parentNode.removeChild(buttons[0]);
+        }
         close_input_popup("transfer-pop-up");
     }
+}
+
+function create_new_group_transfer_button()
+{
+    alert("creating new ship body!");
 }
 
 //Key bindings for this screen.
