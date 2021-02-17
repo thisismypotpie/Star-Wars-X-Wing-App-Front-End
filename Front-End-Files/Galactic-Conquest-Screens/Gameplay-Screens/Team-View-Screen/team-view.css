@@ -584,3 +584,70 @@ This is the css for the stat quantity altering pop up.
     color: white;
     font-family: Impact, Charcoal, sans-serif;
 }
+
+#direction-pop-up{
+    display: grid;
+    width: 45%;
+    grid-template-columns: repeat(16,calc(100%/16));
+    grid-template-rows: repeat(16,calc(70vh/16));
+}
+
+#direction-back-button{
+    grid-row: 14/16;
+    grid-column: 2/6;
+    font-size: 2vw;
+}
+
+#down-image{
+    grid-row:14/16;
+    grid-column: 8/10;
+    border: 1px solid white;
+}
+
+#down-arrow{
+    border: 1px solid white;
+    grid-row: 11/13;
+    grid-column: 8/10;
+}
+
+#middle-container{
+    border: 1px solid white;
+    grid-column: 8/10;
+    grid-row: 8/10;
+}
+
+#up-arrow{
+    border: 1px solid white;
+    grid-column: 8/10;
+    grid-row: 5/7;
+}
+
+#up-image{
+    border: 1px solid white;
+    grid-column: 8/10;
+    grid-row:2/4;
+}
+
+#left-arrow{
+    border: 1px solid white;
+    grid-column:5/7;
+    grid-row: 8/10;
+}
+
+#left-image{
+    border: 1px solid white;
+    grid-column: 2/4;
+    grid-row: 8/10;
+}
+
+#right-arrow{
+    border:1px solid white;
+    grid-column: 14/16;
+    grid-row: 8/10;
+}
+
+#right-image{
+    border: 1px solid white;
+    grid-row:8/10;
+    grid-column:11/13;
+}

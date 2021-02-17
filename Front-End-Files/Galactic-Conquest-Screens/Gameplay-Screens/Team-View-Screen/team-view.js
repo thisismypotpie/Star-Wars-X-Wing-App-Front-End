@@ -546,7 +546,8 @@ function ship_transfer(transfer_to)
 
 function create_new_group_transfer_button()
 {
-    alert("creating new ship body!");
+    close_input_popup("transfer-pop-up");
+    open_input_popup("direction-pop-up");
 }
 
 //Key bindings for this screen.
