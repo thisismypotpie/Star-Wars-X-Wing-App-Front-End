@@ -473,13 +473,12 @@ function transfer_ship_button()
 
 function ship_transfer(transfer_to)
 {
-    alert("Transfering to: "+transfer_to);
     var ship_to_transfer = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     var team_to_transfer = undefined;
     var roster_conflict = false;
-    for(var i=0; i < all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length;i++)
+    for(var i=0; i < all_factions[chosen_team_indicies[0]].navy.length;i++)
     {
-        if(ship_body.group_name == transfer_to)
+        if( all_factions[chosen_team_indicies[0]].navy[i].group_name == transfer_to)
         {
             team_to_transfer = all_factions[chosen_team_indicies[0]].navy[i];
             //check for roster number incompatibility.
@@ -493,8 +492,22 @@ function ship_transfer(transfer_to)
             }
             if(roster_conflict == false)
             {
-                //perform the transfer.
-                alert("Tranfer complete!");
+                team_to_transfer.team.ship_list.push(ship_to_transfer);
+                all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);
+                //If there are no ships in the ship body left, remove the ship body.
+                if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 0)
+                {
+                    all_factions[chosen_team_indicies[0]].navy.splice(chosen_team_indicies[1],1);
+                    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    sessionStorage.removeItem("team_name");
+                    window.location.href = "../gameplay-screen.html";
+                }
+                else
+                {
+                    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    close_input_popup("transfer-pop-up");
+                    next_button();
+                }
             }
             break;
         } 
@@ -502,6 +515,7 @@ function ship_transfer(transfer_to)
     if(roster_conflict == true)
     {
         alert("A ship has the same roster number as the transfer ship, please change roster number.");
+        close_input_popup("transfer-pop-up");
     }
 }
 
