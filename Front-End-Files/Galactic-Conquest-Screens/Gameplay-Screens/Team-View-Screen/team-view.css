@@ -608,6 +608,8 @@ This is the css for the stat quantity altering pop up.
     border: 1px solid white;
     grid-row: 11/13;
     grid-column: 8/10;
+    background-image: url("https://i.imgur.com/PkPQeXc.png?1");
+    border: none;
 }
 
 #middle-container{
@@ -620,6 +622,8 @@ This is the css for the stat quantity altering pop up.
     border: 1px solid white;
     grid-column: 8/10;
     grid-row: 5/7;
+    background-image: url("https://i.imgur.com/uVpqHwe.png?1");
+    border: none;
 }
 
 #up-image{
@@ -632,6 +636,8 @@ This is the css for the stat quantity altering pop up.
     border: 1px solid white;
     grid-column:5/7;
     grid-row: 8/10;
+    background-image: url("https://i.imgur.com/IWOoJwp.png?2");
+    border: none;
 }
 
 #left-image{
@@ -642,12 +648,14 @@ This is the css for the stat quantity altering pop up.
 
 #right-arrow{
     border:1px solid white;
-    grid-column: 14/16;
+    grid-column: 11/13;
     grid-row: 8/10;
+    background-image: url("https://i.imgur.com/I7pRm3g.png");
+    border: none;
 }
 
 #right-image{
     border: 1px solid white;
     grid-row:8/10;
-    grid-column:11/13;
+    grid-column:14/16;
 }

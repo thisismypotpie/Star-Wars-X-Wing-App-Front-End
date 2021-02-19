@@ -96,7 +96,8 @@ function set_all_items()
     shields.textContent = " : "+current_ship.current_sheilds;
 
     //See if transfer button needs to be turned off.
-    if(all_factions[chosen_team_indicies[0]].navy.length <=1)
+    if(all_factions[chosen_team_indicies[0]].navy.length <=1 &&
+       all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 1)
     {
         document.getElementById("transfer-button").style.pointerEvents = "none";
         document.getElementById("transfer-button").style.opacity = "0.3";
@@ -548,6 +549,8 @@ function create_new_group_transfer_button()
 {
     close_input_popup("transfer-pop-up");
     open_input_popup("direction-pop-up");
+
+    //Add middle container image
 }
 
 //Key bindings for this screen.

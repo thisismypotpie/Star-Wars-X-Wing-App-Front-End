@@ -160,6 +160,7 @@ set_ship_prices()
 
 function back_button_click()
 {
+sessionStorage.removeItem("new_team_name");
 sessionStorage.removeItem("chosenShip");
 remove_newly_created_team_name(team_name,whos_turn.faction=="Rebels"? 0:1);
 window.location.href = "../Ship-Selection/ship-selection.html";

@@ -3,7 +3,7 @@ class ship_group{
     {
         this.group_name = group_name;
         this.faction = faction;
-        this.border = get_correct_border(group_name.split(" ")[2]);
+        this.border = get_correct_border(group_name.split(" ")[2],faction);
         this.team = new team(group_name);
         this.location = location;
         this.image = undefined;
@@ -169,16 +169,17 @@ function remove_newly_created_team_name(team_name,faction_index)
 }
 
 //Finds correct image of which faction and fleet size is put in. 
-function get_correct_border(classification)
+function get_correct_border(classification,faction)
 {
-
+    if(faction == "Rebels")
+    {
         if(classification == "Squad")
         {
             return "2px solid lime";
         }
         else if(classification == "Fleet")
         {
-            return "2px solid red";
+            return "2px solid #ffa64d";
         }
         else if(classification == "Armada")
         {
@@ -188,6 +189,31 @@ function get_correct_border(classification)
         {
             alert("Error: unkown classification: "+classification)
         }
+    }
+    else if(faction == "Imperial")
+    {
+        if(classification == "Squad")
+        {
+            return "2px solid #b3b3cc";
+        }
+        else if(classification == "Fleet")
+        {
+            return "2px solid red";
+        }
+        else if(classification == "Armada")
+        {
+            //#c44dff
+            return "2px solid #b31aff";
+        }
+        else
+        {
+            alert("Error: unkown classification: "+classification)
+        }
+    }
+    else
+    {
+        alert("Could not determine faction for border.")
+    }
 }
 
 function get_team_indecies_based_on_name()
