@@ -407,6 +407,7 @@ function ok_button_push()
 
    
       //remove all items that are no longer being used.
+      check_if_name_needs_to_be_upgraded(ship_in_progress,sessionStorage.getItem("team_name"));
       sessionStorage.removeItem("chosenShip");
       sessionStorage.removeItem("ship_in_progress");
       sessionStorage.removeItem("team_indecies");
