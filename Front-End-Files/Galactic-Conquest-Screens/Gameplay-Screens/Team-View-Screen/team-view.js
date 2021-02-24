@@ -135,6 +135,10 @@ function set_all_items()
         {
             flip_button.style.visibility = "visible";
         }
+        else
+        {
+            flip_button.style.visibility = "hidden";
+        }
     }
     else
     {
@@ -410,6 +414,7 @@ function remove_ship()
     //Player currency rebate.
     var currency = parseInt(document.getElementById("rebate-quantity").textContent.toString().substring(1),10);
     all_factions[chosen_team_indicies[0]].currency+=currency;
+    document.getElementById("money-quantity-label").textContent = all_factions[chosen_team_indicies[0]].currency;
 
     if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length == 0)
     {
@@ -421,10 +426,12 @@ function remove_ship()
     }
     else
     {
+        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+        check_if_name_needs_to_be_downgraded(sessionStorage.getItem("team_name"));
+        all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
         dont_remove_ship();
         next_button();
     }
-    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
 }
 
 function transfer_ship_button()
@@ -454,7 +461,7 @@ function transfer_ship_button()
     let group_button = document.createElement("button");
     group_button.type = "button";
     group_button.className = "long-button transfer-button";
-    group_button.id = "transfer-back-button";
+    group_button.id = "transfer-new-group-button";
     group_button.textContent = "Create New Group";
     group_button.style.fontFamily = "Impact, Charcoal, sans-serif";
     group_button.style.fontSize = "3vw";
@@ -512,6 +519,10 @@ function ship_transfer(transfer_to)
             {
                 team_to_transfer.team.ship_list.push(ship_to_transfer);
                 all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);
+                sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                check_if_name_needs_to_be_upgraded(ship_to_transfer,team_to_transfer.group_name);
+                all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+
                 //If there are no ships in the ship body left, remove the ship body.
                 if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 0)
                 {
@@ -523,6 +534,8 @@ function ship_transfer(transfer_to)
                 else
                 {
                     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    check_if_name_needs_to_be_downgraded(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].group_name);
+                    all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
                     let buttons = document.getElementsByClassName("transfer-button");
                     while (buttons.length > 0) {
                         buttons[0].parentNode.removeChild(buttons[0]);
