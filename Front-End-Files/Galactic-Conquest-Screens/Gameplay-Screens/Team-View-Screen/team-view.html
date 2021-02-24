@@ -64,7 +64,7 @@
         <div id="button-options-container">
           <button type = "button" class = "long-button" id = "new-ship-button" onclick="add_new_ship_button()">New Ship</button>
           <button type= "button"  class = "long-button" id="upgrade-button" onclick="change_upgrades_button()">Upgrades</button>>
-          <button type = "button" class = "long-button" id = "repair-button">Repair</button>
+          <button type = "button" class = "long-button" id = "repair-button" onclick="repair_button_push()">Repair</button>
           <button type = "button" class = "long-button" id = "repair-all-button">Repair All</button>
           <button type = "button" class = "long-button" id = "remove-ship-button" onclick="remove_ship_button()">Remove Ship</button>
           <button type = "button" class = "long-button" id = "transfer-button" onclick="transfer_ship_button()">Transfer Ship</button>
@@ -122,6 +122,33 @@
       <div id = "left-image"></div>
       <button type = "button" class = "long-button" id = "direction-back-button" onclick="close_input_popup('direction-pop-up');">back</button>
       </div>
+
+        <!--This is the code for the payment option popup.-->
+  <div class = "pop-up-container" id = "payment-type-pop-up">
+    <div class = "pop-up-title" id = "payment-type-title">How Will You Pay for the repairs?</div>
+    <div id= "payment-resource-container">
+      <div class = "list-box-title" id="cost-title">Cost</div>
+      <div class="resource-image" id="cost-currency-image"></div>
+      <div class="resource-image" id="cost-parts-image"></div>
+      <div class="resource-image" id="cost-electronics-image"></div>
+      <div class="resource-image" id="cost-fuel-image"></div>
+      <div class="resource-image" id="cost-tibanna-image"></div>
+      <div class="resource-image" id="cost-durasteel-image"></div>
+      <div class="resource-text" id="cost-curreny-quantity"></div>
+      <div class="resource-text" id="cost-parts-quantity"></div>
+      <div class="resource-text" id="cost-electronics-quantity"></div>
+      <div class="resource-text" id="cost-fuel-quantity"></div>
+      <div class="resource-text" id="cost-tibanna-quantity"></div>
+      <div class="resource-text" id="cost-durasteel-quantity"></div>
+
+      <div class = "pop-up-title" id="or-title">OR</div>
+      <div class="resource-image" id="alternate-cost-currency-image"></div>
+      <div class="resource-text" id="alternate-cost-curreny-quantity"></div>
+    </div>
+    <button type="button" class = "long-button" id = "currency-button" onclick="">Currency Only</button>
+    <button type="button" class = "long-button" id = "parts-button" onclick="">Parts and Currency</button>
+    <button type="button" class = "long-button" id = "payment-back-button" onclick="close_input_popup('payment-type-pop-up')">Back</button>
+  </div>
 
 <!--This is the code for the overlay.-->
 <div id = "overlay"></div>

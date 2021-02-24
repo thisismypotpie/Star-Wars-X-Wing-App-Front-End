@@ -659,3 +659,126 @@ This is the css for the stat quantity altering pop up.
     grid-row:8/10;
     grid-column:14/16;
 }
+
+#payment-type-pop-up{
+    visibility: hidden;
+    display: grid;
+    width: 35%;
+    grid-template-columns: repeat(16,calc(100%/16));
+    grid-template-rows: repeat(16,calc(60vh/16));
+}
+
+#payment-type-title{
+    grid-row: 1;
+    grid-column: 1/17;
+}
+
+#payment-resource-container{
+    grid-row: 6/12;
+    grid-column: 2/16;
+    border: 1px solid white;
+    display: grid;
+    grid-template-columns: repeat(19,calc(100%/19));
+    grid-template-rows: repeat(16,calc(100%/16));
+}
+
+#currency-button{
+    grid-row: 13;
+    grid-column: 2/8;
+}
+
+#parts-button{
+    grid-row: 13;
+    grid-column: 10/16; 
+}
+
+#payment-back-button{
+    grid-row: 15;
+    grid-column: 5/13
+}
+
+.resource-image{
+    border: 1px solid white;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    grid-row: 2/7;
+}
+
+.resource-text{
+    color:white;
+    text-align: center;
+    font-family: Impact, Charcoal, sans-serif;
+    border: 1px solid white;
+    grid-row: 7/9;
+}
+
+#cost-currency-image{
+    grid-column: 2/4;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+}
+
+#cost-curreny-quantity{
+    grid-column: 2/4;
+}
+
+#cost-parts-image{
+    grid-column: 5/7;
+    background-image: url("https://i.imgur.com/SkbOfo9.jpg");
+}
+
+#cost-parts-quantity{
+    grid-column: 5/7;
+}
+
+#cost-electronics-image{
+    grid-column: 8/10;
+    background-image: url("https://i.imgur.com/qOjfTHl.png");
+}
+
+#cost-electronics-quantity{
+    grid-column: 8/10;
+}
+
+#cost-fuel-image{
+    grid-column: 11/13;
+    background-image: url("https://i.imgur.com/gqJjMUH.jpg");
+}
+
+#cost-fuel-quantity{
+    grid-column: 11/13;
+}
+
+#cost-tibanna-image{
+    grid-column: 14/16;
+    background-image: url("https://i.imgur.com/wfKP4ey.jpg");
+}
+
+#cost-tibanna-quantity{
+    grid-column: 14/16;
+}
+
+#cost-durasteel-image{
+    grid-column: 17/19;
+    background-image: url("https://i.imgur.com/1nxO0oQ.png");
+}
+
+#cost-durasteel-quantity{
+    grid-column: 17/19;
+}
+
+#or-title{
+    grid-column: 5;
+    grid-row: 10;
+    text-decoration: underline;
+}
+
+#alternate-cost-currency-image{
+    grid-column: 9/11;
+    grid-row: 11/16;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+}
+
+#alternate-cost-curreny-quantity{
+    grid-row: 12/15;
+    grid-column: 11/13;
+}

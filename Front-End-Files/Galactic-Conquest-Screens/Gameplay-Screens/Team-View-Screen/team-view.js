@@ -566,6 +566,16 @@ function create_new_group_transfer_button()
     //Add middle container image
 }
 
+function repair_button_push()
+{
+    open_input_popup("payment-type-pop-up");
+}
+
+function reapair_all_button_push()
+{
+
+}
+
 //Key bindings for this screen.
 document.onkeyup = function(e) {
     if(e.keyCode == 39)//next key.
