@@ -561,9 +561,219 @@ function ship_transfer(transfer_to)
 function create_new_group_transfer_button()
 {
     close_input_popup("transfer-pop-up");
-    open_input_popup("direction-pop-up");
+    //Remove all buttons.
+    let buttons = document.getElementsByClassName("transfer-button");
+    while (buttons.length > 0) {
+        buttons[0].parentNode.removeChild(buttons[0]);
+    }
+    //Add center image. 
+    document.getElementById("middle-container").style.border =  all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].border;
+    if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].faction=="Rebels")
+    {
+        document.getElementById("middle-container").style.backgroundImage = all_factions[chosen_team_indicies[0]].image;
+    }
+    else if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].faction=="Imperial")
+    {
+        document.getElementById("middle-container").style.backgroundImage = all_factions[chosen_team_indicies[0]].image;
+    }
+    else
+    {
+        alert("ERROR: Cannot determine whos turn it is.");
+    }
+    //Get coordinates for each direction.
+    var current_coordinates = [parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[0],10),parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[1],10)];
+    var up_coordinates = (current_coordinates[0])+"_"+(current_coordinates[1]-1);
+    var left_coordinates = (current_coordinates[0]-1)+"_"+(current_coordinates[1]);
+    var right_coordinates = (current_coordinates[0]+1)+"_"+(current_coordinates[1]);
+    var down_coordinates = (current_coordinates[0])+"_"+(current_coordinates[1]+1);
 
-    //Add middle container image
+    var up_image_found = false;
+    var left_image_found = false;
+    var right_image_found = false;
+    var down_image_found = false;
+    //Check each coordinate for ship bodies
+    for(var j=0; j < all_factions.length;j++)
+    {
+        var break_loop = false;
+        for(var i=0; i < all_factions[j].navy.length;i++)
+        {
+            if(all_factions[j].navy[i].location == up_coordinates && up_image_found == false)
+            {
+                document.getElementById("up-image").style.backgroundImage = all_factions[j].image;
+                document.getElementById("up-image").style.border =  all_factions[j].navy[i].border;
+                up_image_found = true;
+            }
+            else if(all_factions[j].navy[i].location == left_coordinates && left_image_found == false)
+            {
+                document.getElementById("left-image").style.backgroundImage = all_factions[j].image;
+                document.getElementById("left-image").style.border =  all_factions[j].navy[i].border;
+                left_image_found = true;
+            }
+            else if(all_factions[j].navy[i].location == right_coordinates && right_image_found == false)
+            {
+                document.getElementById("right-image").style.backgroundImage = all_factions[j].image;
+                document.getElementById("right-image").style.border =  all_factions[j].navy[i].border;
+                right_image_found = true;
+            }
+            else if(all_factions[j].navy[i].location == down_coordinates && down_image_found == false)
+            {
+                document.getElementById("down-image").style.backgroundImage = all_factions[j].image;
+                document.getElementById("down-image").style.border =  all_factions[j].navy[i].border;
+                down_image_found = true;
+            }
+            if(down_image_found == true && left_image_found == true && up_image_found == true && right_image_found == true)
+            {
+                break_loop = true;
+                break;
+            }
+        }
+        if(break_loop == true)
+        {
+            break;
+        }
+    }
+    //Check each coordinate for planets.
+    if(down_image_found == false || left_image_found == false || up_image_found == false || right_image_found == false)
+    {
+        let active_planets = JSON.parse(sessionStorage.getItem("gc_setup_data")).active_planets;
+        for(var i=0; i < active_planets.length;i++)
+        {
+            var planet_coordinates = active_planets[i].planet.x_coordinate+"_"+active_planets[i].planet.y_coordinate;
+            if(planet_coordinates == up_coordinates && up_image_found == false)
+            {
+                document.getElementById("up-image").style.backgroundImage = "url('"+active_planets[i].planet.image_path+"')";
+                if(active_planets[i].controlling_faction == "Rebels")
+                {
+                    document.getElementById("up-image").style.border = "2px solid maroon";
+                }
+                else if(active_planets[i].controlling_faction == "Imperial")
+                {
+                    document.getElementById("up-image").style.border = "2px solid white";
+                }
+                else
+                {
+                    document.getElementById("up-image").style.border = "2px solid blue";
+                }
+                up_image_found = true;
+            }
+            else if(planet_coordinates == left_coordinates && left_image_found == false)
+            {
+                document.getElementById("left-image").style.backgroundImage = "url('"+active_planets[i].planet.image_path+"')";
+                if(active_planets[i].controlling_faction == "Rebels")
+                {
+                    document.getElementById("left-image").style.border = "2px solid maroon";
+                }
+                else if(active_planets[i].controlling_faction == "Imperial")
+                {
+                    document.getElementById("left-image").style.border = "2px solid white";
+                }
+                else
+                {
+                    document.getElementById("left-image").style.border = "2px solid blue";
+                }
+                left_image_found = true;
+            }
+            else if(planet_coordinates == right_coordinates && right_image_found == false)
+            {
+                document.getElementById("right-image").style.backgroundImage = "url('"+active_planets[i].planet.image_path+"')";
+                if(active_planets[i].controlling_faction == "Rebels")
+                {
+                    document.getElementById("right-image").style.border = "2px solid maroon";
+                }
+                else if(active_planets[i].controlling_faction == "Imperial")
+                {
+                    document.getElementById("right-image").style.border = "2px solid white";
+                }
+                else
+                {
+                    document.getElementById("right-image").style.border = "2px solid blue";
+                }
+                right_image_found = true;
+            }
+            else if(planet_coordinates == down_coordinates && down_image_found == false)
+            {
+                document.getElementById("down-image").style.backgroundImage = "url('"+active_planets[i].planet.image_path+"')";
+                if(active_planets[i].controlling_faction == "Rebels")
+                {
+                    document.getElementById("down-image").style.border = "2px solid maroon";
+                }
+                else if(active_planets[i].controlling_faction == "Imperial")
+                {
+                    document.getElementById("down-image").style.border = "2px solid white";
+                }
+                else
+                {
+                    document.getElementById("down-image").style.border = "2px solid blue";
+                }
+                down_image_found = true;
+            }
+            if(down_image_found == true && left_image_found == true && up_image_found == true && right_image_found == true)
+            {
+                break_loop = true;
+                break;
+            }
+        }
+    }
+    //Check each coordinate for path dots.
+    if(down_image_found == false || left_image_found == false || up_image_found == false || right_image_found == false)
+    {
+        let path_dots = JSON.parse(sessionStorage.getItem("game_data")).map_paths;
+        for(var i=0; i < path_dots.length;i++)
+        {
+            var path_coordinates = path_dots[i].x_coordinate+"_"+path_dots[i].y_coordinate;
+            if(path_coordinates == up_coordinates && up_image_found == false)
+            {
+                document.getElementById("up-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
+                document.getElementById("up-image").style.border = "none";
+                up_image_found = true;
+            }
+            else if(path_coordinates == left_coordinates && left_image_found == false)
+            {
+                document.getElementById("left-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
+                document.getElementById("left-image").style.border = "none";
+
+                left_image_found = true;
+            }
+            else if(path_coordinates == right_coordinates && right_image_found == false)
+            {
+                document.getElementById("right-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
+                document.getElementById("right-image").style.border = "none";
+                right_image_found = true;
+            }
+            else if(path_coordinates == down_coordinates && down_image_found == false)
+            {
+                document.getElementById("down-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
+                document.getElementById("down-image").style.border = "none";
+                down_image_found = true;
+            }
+            if(down_image_found == true && left_image_found == true && up_image_found == true && right_image_found == true)
+            {
+                break_loop = true;
+                break;
+            }
+        }
+    }
+    if(up_image_found == false)
+    {
+        document.getElementById("up-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
+        document.getElementById("up-image").style.border = "none";
+    }
+    if(left_image_found == false)
+    {
+        document.getElementById("left-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
+        document.getElementById("left-image").style.border = "none";
+    }
+    if(right_image_found == false)
+    {
+        document.getElementById("right-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
+        document.getElementById("right-image").style.border = "none";
+    }
+    if(down_image_found == false)
+    {
+        document.getElementById("down-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
+        document.getElementById("down-image").style.border = "none";
+    }
+    open_input_popup("direction-pop-up");
 }
 
 function repair_button_push()

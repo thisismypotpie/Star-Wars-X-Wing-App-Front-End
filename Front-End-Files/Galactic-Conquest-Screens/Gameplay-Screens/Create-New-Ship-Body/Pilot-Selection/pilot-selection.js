@@ -79,9 +79,8 @@ function is_pilot_available()
     team_that_has_pilot: undefined,
     roster_number: undefined
   };
-  var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
   //Automatically return true if there are no established teams.
-  if(all_teams == null || all_teams == undefined || all_teams.length == 0)
+  if(all_factions == null || all_factions == undefined || all_teams.length == 0)
   {
     return pilot_stats;
   }
