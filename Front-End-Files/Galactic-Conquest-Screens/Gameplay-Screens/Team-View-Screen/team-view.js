@@ -458,20 +458,22 @@ function transfer_ship_button()
         }
     })
     //Create new group button
-    let group_button = document.createElement("button");
-    group_button.type = "button";
-    group_button.className = "long-button transfer-button";
-    group_button.id = "transfer-new-group-button";
-    group_button.textContent = "Create New Group";
-    group_button.style.fontFamily = "Impact, Charcoal, sans-serif";
-    group_button.style.fontSize = "3vw";
-    group_button.style.width = "90%";
-    group_button.style.height = "10vh";
-    group_button.style.marginTop = "1%";
-    group_button.style.marginBottom = "1%";
-    group_button.onclick = function(){create_new_group_transfer_button();}
-    document.getElementById("transfer-pop-up").appendChild(group_button);
-
+    if( all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length > 1)//Do not make this button if the team only has one ship.
+    {
+        let group_button = document.createElement("button");
+        group_button.type = "button";
+        group_button.className = "long-button transfer-button";
+        group_button.id = "transfer-new-group-button";
+        group_button.textContent = "Create New Group";
+        group_button.style.fontFamily = "Impact, Charcoal, sans-serif";
+        group_button.style.fontSize = "3vw";
+        group_button.style.width = "90%";
+        group_button.style.height = "10vh";
+        group_button.style.marginTop = "1%";
+        group_button.style.marginBottom = "1%";
+        group_button.onclick = function(){create_new_group_transfer_button();}
+        document.getElementById("transfer-pop-up").appendChild(group_button);
+    }
 
     //Back button
     let back_button = document.createElement("button");
@@ -566,6 +568,20 @@ function create_new_group_transfer_button()
     while (buttons.length > 0) {
         buttons[0].parentNode.removeChild(buttons[0]);
     }
+    //fade out each button and image.
+    document.getElementById("up-image").style.opacity = "0.3";
+    document.getElementById("left-image").style.opacity = "0.3";
+    document.getElementById("down-image").style.opacity = "0.3";
+    document.getElementById("right-image").style.opacity = "0.3";
+    document.getElementById("up-arrow").style.opacity = "0.3";
+    document.getElementById("left-arrow").style.opacity = "0.3";
+    document.getElementById("down-arrow").style.opacity = "0.3";
+    document.getElementById("right-arrow").style.opacity = "0.3";
+    document.getElementById("up-arrow").pointerEvents = "none";
+    document.getElementById("left-arrow").pointerEvents = "none";
+    document.getElementById("down-arrow").pointerEvents = "none";
+    document.getElementById("right-arrow").pointerEvents = "none";
+
     //Add center image. 
     document.getElementById("middle-container").style.border =  all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].border;
     if(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].faction=="Rebels")
@@ -591,6 +607,14 @@ function create_new_group_transfer_button()
     var left_image_found = false;
     var right_image_found = false;
     var down_image_found = false;
+
+    //Set onlick functions for the arrow buttons.
+    
+    document.getElementById("up-arrow").onclick = function(){create_split_group(up_coordinates)}
+    document.getElementById("left-arrow").onclick = function(){create_split_group(left_coordinates)}
+    document.getElementById("down-arrow").onclick = function(){create_split_group(down_coordinates)}
+    document.getElementById("right-arrow").onclick = function(){create_split_group(right_coordinates)}
+
     //Check each coordinate for ship bodies
     for(var j=0; j < all_factions.length;j++)
     {
@@ -645,14 +669,29 @@ function create_new_group_transfer_button()
                 if(active_planets[i].controlling_faction == "Rebels")
                 {
                     document.getElementById("up-image").style.border = "2px solid maroon";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+                    {
+                        document.getElementById("up-image").style.opacity = "1.0";
+                        document.getElementById("up-arrow").style.opacity = "1.0";
+                        document.getElementById("up-arrow").pointerEvents = "auto"
+                    }
                 }
                 else if(active_planets[i].controlling_faction == "Imperial")
                 {
                     document.getElementById("up-image").style.border = "2px solid white";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
+                    {
+                        document.getElementById("up-image").style.opacity = "1.0";
+                        document.getElementById("up-arrow").style.opacity = "1.0";
+                        document.getElementById("up-arrow").pointerEvents = "auto"
+                    }
                 }
                 else
                 {
                     document.getElementById("up-image").style.border = "2px solid blue";
+                    document.getElementById("up-image").style.opacity = "1.0";
+                    document.getElementById("up-arrow").style.opacity = "1.0";
+                    document.getElementById("up-arrow").pointerEvents = "auto"
                 }
                 up_image_found = true;
             }
@@ -662,14 +701,29 @@ function create_new_group_transfer_button()
                 if(active_planets[i].controlling_faction == "Rebels")
                 {
                     document.getElementById("left-image").style.border = "2px solid maroon";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+                    {
+                        document.getElementById("left-image").style.opacity = "1.0";
+                        document.getElementById("left-arrow").style.opacity = "1.0";
+                        document.getElementById("left-arrow").pointerEvents = "auto"
+                    }
                 }
                 else if(active_planets[i].controlling_faction == "Imperial")
                 {
                     document.getElementById("left-image").style.border = "2px solid white";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
+                    {
+                        document.getElementById("left-image").style.opacity = "1.0";
+                        document.getElementById("left-arrow").style.opacity = "1.0";
+                        document.getElementById("left-arrow").pointerEvents = "auto"
+                    }
                 }
                 else
                 {
                     document.getElementById("left-image").style.border = "2px solid blue";
+                    document.getElementById("left-image").style.opacity = "1.0";
+                    document.getElementById("left-arrow").style.opacity = "1.0";
+                    document.getElementById("left-arrow").pointerEvents = "auto"
                 }
                 left_image_found = true;
             }
@@ -679,14 +733,29 @@ function create_new_group_transfer_button()
                 if(active_planets[i].controlling_faction == "Rebels")
                 {
                     document.getElementById("right-image").style.border = "2px solid maroon";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+                    {
+                        document.getElementById("right-image").style.opacity = "1.0";
+                        document.getElementById("right-arrow").style.opacity = "1.0";
+                        document.getElementById("right-arrow").pointerEvents = "auto"
+                    }
                 }
                 else if(active_planets[i].controlling_faction == "Imperial")
                 {
                     document.getElementById("right-image").style.border = "2px solid white";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
+                    {
+                        document.getElementById("right-image").style.opacity = "1.0";
+                        document.getElementById("right-arrow").style.opacity = "1.0";
+                        document.getElementById("right-arrow").pointerEvents = "auto"
+                    }
                 }
                 else
                 {
                     document.getElementById("right-image").style.border = "2px solid blue";
+                    document.getElementById("right-image").style.opacity = "1.0";
+                    document.getElementById("right-arrow").style.opacity = "1.0";
+                    document.getElementById("right-arrow").pointerEvents = "auto"
                 }
                 right_image_found = true;
             }
@@ -696,14 +765,29 @@ function create_new_group_transfer_button()
                 if(active_planets[i].controlling_faction == "Rebels")
                 {
                     document.getElementById("down-image").style.border = "2px solid maroon";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+                    {
+                        document.getElementById("down-image").style.opacity = "1.0";
+                        document.getElementById("down-arrow").style.opacity = "1.0";
+                        document.getElementById("down-arrow").pointerEvents = "auto"
+                    }
                 }
                 else if(active_planets[i].controlling_faction == "Imperial")
                 {
                     document.getElementById("down-image").style.border = "2px solid white";
+                    if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
+                    {
+                        document.getElementById("down-image").style.opacity = "1.0";
+                        document.getElementById("down-arrow").style.opacity = "1.0";
+                        document.getElementById("downs-arrow").pointerEvents = "auto"
+                    }
                 }
                 else
                 {
                     document.getElementById("down-image").style.border = "2px solid blue";
+                    document.getElementById("down-image").style.opacity = "1.0";
+                    document.getElementById("down-arrow").style.opacity = "1.0";
+                    document.getElementById("down-arrow").pointerEvents = "auto"
                 }
                 down_image_found = true;
             }
@@ -725,25 +809,36 @@ function create_new_group_transfer_button()
             {
                 document.getElementById("up-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
                 document.getElementById("up-image").style.border = "none";
+                document.getElementById("up-image").style.opacity = "1.0";
+                document.getElementById("up-arrow").style.opacity = "1.0";
+                document.getElementById("up-arrow").pointerEvents = "auto";
                 up_image_found = true;
             }
             else if(path_coordinates == left_coordinates && left_image_found == false)
             {
                 document.getElementById("left-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
                 document.getElementById("left-image").style.border = "none";
-
+                document.getElementById("left-image").style.opacity = "1.0";
+                document.getElementById("left-arrow").style.opacity = "1.0";
+                document.getElementById("left-arrow").pointerEvents = "auto";
                 left_image_found = true;
             }
             else if(path_coordinates == right_coordinates && right_image_found == false)
             {
                 document.getElementById("right-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
                 document.getElementById("right-image").style.border = "none";
+                document.getElementById("right-image").style.opacity = "1.0";
+                document.getElementById("right-arrow").style.opacity = "1.0";
+                document.getElementById("right-arrow").pointerEvents = "auto";
                 right_image_found = true;
             }
             else if(path_coordinates == down_coordinates && down_image_found == false)
             {
                 document.getElementById("down-image").style.backgroundImage = "url(https://i.imgur.com/lzfAvjE.png)";
                 document.getElementById("down-image").style.border = "none";
+                document.getElementById("down-image").style.opacity = "1.0";
+                document.getElementById("down-arrow").style.opacity = "1.0";
+                document.getElementById("down-arrow").pointerEvents = "auto";
                 down_image_found = true;
             }
             if(down_image_found == true && left_image_found == true && up_image_found == true && right_image_found == true)
@@ -753,27 +848,55 @@ function create_new_group_transfer_button()
             }
         }
     }
+    //Series of if statements to fill in empty space spots.
     if(up_image_found == false)
     {
         document.getElementById("up-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
         document.getElementById("up-image").style.border = "none";
+        document.getElementById("up-image").style.opacity = "1.0";
+        document.getElementById("up-arrow").style.opacity = "1.0";
+        document.getElementById("up-arrow").pointerEvents = "auto";
+
     }
     if(left_image_found == false)
     {
         document.getElementById("left-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
         document.getElementById("left-image").style.border = "none";
+        document.getElementById("left-image").style.opacity = "1.0";
+        document.getElementById("left-arrow").style.opacity = "1.0";
+        document.getElementById("left-arrow").pointerEvents = "auto";
     }
     if(right_image_found == false)
     {
         document.getElementById("right-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
         document.getElementById("right-image").style.border = "none";
+        document.getElementById("right-image").style.opacity = "1.0";
+        document.getElementById("right-arrow").style.opacity = "1.0";
+        document.getElementById("right-arrow").pointerEvents = "auto";
     }
     if(down_image_found == false)
     {
         document.getElementById("down-image").style.backgroundImage = "url(https://i.imgur.com/jNLR3bO.png)";
         document.getElementById("down-image").style.border = "none";
+        document.getElementById("down-image").style.opacity = "1.0";
+        document.getElementById("down-arrow").style.opacity = "1.0";
+        document.getElementById("down-arrow").pointerEvents = "auto";
     }
     open_input_popup("direction-pop-up");
+}
+
+function create_split_group(location)
+{
+    let current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    let whos_turn_index = sessionStorage.getItem("gc_whos_turn")=="Rebels"? 0:1
+    let team_name = create_GC_team_name(current_ship.chosen_pilot.ship_name,whos_turn_index);//Create a team named based on what ship was chosen.
+    //all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].push();
+    let new_team = new ship_group(team_name,sessionStorage.getItem("gc_whos_turn"),location);
+    new_team.team.ship_list.push(current_ship);
+    all_factions[chosen_team_indicies[0]].navy.push(new_team);
+    all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);//remove ship.
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    window.location.href = "../gameplay-screen.html";
 }
 
 function repair_button_push()
