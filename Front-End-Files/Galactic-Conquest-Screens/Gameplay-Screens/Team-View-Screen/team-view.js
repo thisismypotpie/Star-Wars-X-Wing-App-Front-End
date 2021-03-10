@@ -113,13 +113,28 @@ function set_all_items()
     {
         document.getElementById("repair-button").style.pointerEvents = "none";
         document.getElementById("repair-button").style.opacity = "0.3";
-        document.getElementById("repair-all-button").style.pointerEvents = "none";
-        document.getElementById("repair-all-button").style.opacity = "0.3";
     }
     else
     {
         document.getElementById("repair-button").style.pointerEvents = "auto";
         document.getElementById("repair-button").style.opacity = "1.0";
+    }
+
+    //See if repair all button needs to be turned on.
+    document.getElementById("repair-all-button").style.pointerEvents = "none";
+    document.getElementById("repair-all-button").style.opacity = "0.3";
+    let ship_list = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list;
+    let button_on = false;
+    for(var i=0; i < ship_list.length;i++)
+    {
+        if(ship_list[i].current_hull < ship_list[i].chosen_pilot.ship_name.hull)
+        {
+            button_on = true;
+            break;
+        }
+    }
+    if(button_on == true)
+    {
         document.getElementById("repair-all-button").style.pointerEvents = "auto";
         document.getElementById("repair-all-button").style.opacity = "1.0";
     }
