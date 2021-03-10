@@ -779,7 +779,7 @@ function create_new_group_transfer_button()
                     {
                         document.getElementById("down-image").style.opacity = "1.0";
                         document.getElementById("down-arrow").style.opacity = "1.0";
-                        document.getElementById("downs-arrow").pointerEvents = "auto"
+                        document.getElementById("down-arrow").pointerEvents = "auto"
                     }
                 }
                 else
@@ -890,17 +890,18 @@ function create_split_group(location)
     let current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     let whos_turn_index = sessionStorage.getItem("gc_whos_turn")=="Rebels"? 0:1
     let team_name = create_GC_team_name(current_ship.chosen_pilot.ship_name,whos_turn_index);//Create a team named based on what ship was chosen.
-    //all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].push();
-    let new_team = new ship_group(team_name,sessionStorage.getItem("gc_whos_turn"),location);
+    all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    let new_team = new ship_group(team_name,sessionStorage.getItem("gc_whos_turn"),location);   
     new_team.team.ship_list.push(current_ship);
     all_factions[chosen_team_indicies[0]].navy.push(new_team);
     all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);//remove ship.
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    check_if_name_needs_to_be_downgraded(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].group_name);
     window.location.href = "../gameplay-screen.html";
 }
 
 function repair_button_push()
-{
+{ 
     open_input_popup("payment-type-pop-up");
 }
 
