@@ -109,15 +109,20 @@ function set_all_items()
     }
 
     //see if repair button needs to be turned off.
-    if(current_ship.current_hull >= current_ship.chosen_pilot.ship_name.hull)
-    {
-        document.getElementById("repair-button").style.pointerEvents = "none";
-        document.getElementById("repair-button").style.opacity = "0.3";
-    }
-    else
+    if(current_ship.current_hull < current_ship.chosen_pilot.ship_name.hull ||
+       current_ship.conditions.length > 0 ||
+       current_ship.critical_hit_cards.length > 0 ||
+       current_ship.current_sheilds < current_ship.chosen_pilot.ship_name.shields ||
+      (current_ship.current_energy != undefined && 
+       current_ship.current_energy < current_ship.chosen_pilot.ship_name.energy))
     {
         document.getElementById("repair-button").style.pointerEvents = "auto";
         document.getElementById("repair-button").style.opacity = "1.0";
+    }
+    else
+    {
+        document.getElementById("repair-button").style.pointerEvents = "none";
+        document.getElementById("repair-button").style.opacity = "0.3";
     }
 
     //See if repair all button needs to be turned on.
@@ -127,7 +132,12 @@ function set_all_items()
     let button_on = false;
     for(var i=0; i < ship_list.length;i++)
     {
-        if(ship_list[i].current_hull < ship_list[i].chosen_pilot.ship_name.hull)
+        if( ship_list[i].current_hull < ship_list[i].chosen_pilot.ship_name.hull ||
+            ship_list[i].conditions.length > 0 ||
+            ship_list[i].critical_hit_cards.length > 0 ||
+            ship_list[i].current_sheilds < ship_list[i].chosen_pilot.ship_name.shields ||
+           (ship_list[i].current_energy != undefined && 
+            ship_list[i].current_energy < ship_list[i].chosen_pilot.ship_name.energy))
         {
             button_on = true;
             break;
@@ -916,13 +926,57 @@ function create_split_group(location)
 }
 
 function repair_button_push()
-{ 
+{  
+    var costs = calculate_repair_cost();
+    document.getElementById("cost-curreny-quantity-repair").textContent = (costs.currency_cost).toString();
+    document.getElementById("cost-durasteel-quantity-repair").textContent = (costs.durasteel_cost).toString();
+    document.getElementById("cost-parts-quantity-repair").textContent = ().toString();
+    document.getElementById("cost--quantity-repair").textContent = ().toString();
     open_input_popup("payment-type-pop-up");
 }
 
 function reapair_all_button_push()
 {
 
+}
+
+function calculate_repair_cost()
+{
+    let current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    let cost_of_hull_repair = 0;    
+    let cost_of_energy = 0;
+    let cost_of_shields = 0;
+    let cost_of_conditions = current_ship.conditions.length;
+    let cost_of_critical_hits = current_ship.critical_hit_cards.length *3;
+
+    //Set costs if the ship is large two cards.
+    if(current_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+    {
+        cost_of_hull_repair = ((current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)+(current_ship.chosen_pilot.ship_name.aft_hull - current_ship.current_aft_hull))*2;
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields)+(current_ship.chosen_pilot.ship_name.aft_shields - current_ship.current_aft_shields);
+        cost_of_energy = (current_ship.chosen_pilot.ship_name.energy - current_ship.current_energy)*2;
+    }
+    else if( current_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+    {    
+        cost_of_hull_repair = (current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)*2;
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields);
+        cost_of_energy = (current_ship.chosen_pilot.ship_name.energy - current_ship.current_energy)*2;    
+    }
+    else
+    {
+        cost_of_hull_repair = (current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)*2;
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields);
+    }
+
+    var costs = {
+        currency_cost: (cost_of_hull_repair + cost_of_energy + cost_of_shields + cost_of_conditions + cost_of_critical_hits),
+        durasteel_cost: (cost_of_hull_repair/2),
+        electronics_cost: (cost_of_shields/2),
+        parts_cost:(cost_of_critical_hits/3),
+        alt_currency_cost: cost_of_conditions,
+        tibanna_cost: cost_of_energy
+    }
+    return costs;
 }
 
 //Key bindings for this screen.

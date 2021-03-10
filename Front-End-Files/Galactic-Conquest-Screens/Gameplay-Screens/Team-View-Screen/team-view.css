@@ -122,6 +122,7 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin-left: 12px;
+    z-index: 50;
 }
 #roster-number{
     grid-row: 1;
@@ -161,6 +162,7 @@ body{
     text-align: center;
     padding-top: 2%;
     padding-bottom: 2%;
+    z-index: 50;
     /* border: 1px solid purple; */
 }
 #roster-number-stat{
