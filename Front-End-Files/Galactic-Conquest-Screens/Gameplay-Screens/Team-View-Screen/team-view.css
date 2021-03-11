@@ -720,7 +720,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/cMjNBfW.jpg");
 }
 
-#cost-curreny-quantity{
+#cost-curreny-quantity-repair{
     grid-column: 2/4;
 }
 
@@ -729,7 +729,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/SkbOfo9.jpg");
 }
 
-#cost-parts-quantity{
+#cost-parts-quantity-repair{
     grid-column: 5/7;
 }
 
@@ -738,7 +738,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/qOjfTHl.png");
 }
 
-#cost-electronics-quantity{
+#cost-electronics-quantity-repair{
     grid-column: 8/10;
 }
 
@@ -747,7 +747,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/gqJjMUH.jpg");
 }
 
-#cost-fuel-quantity{
+#cost-fuel-quantity-repair{
     grid-column: 11/13;
 }
 
@@ -756,7 +756,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/wfKP4ey.jpg");
 }
 
-#cost-tibanna-quantity{
+#cost-tibanna-quantity-repair{
     grid-column: 14/16;
 }
 
@@ -765,7 +765,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/1nxO0oQ.png");
 }
 
-#cost-durasteel-quantity{
+#cost-durasteel-quantity-repair{
     grid-column: 17/19;
 }
 
@@ -781,7 +781,7 @@ This is the css for the stat quantity altering pop up.
     background-image: url("https://i.imgur.com/cMjNBfW.jpg");
 }
 
-#alternate-cost-curreny-quantity{
+#alternate-cost-curreny-quantity-repair{
     grid-row: 12/15;
     grid-column: 11/13;
 }

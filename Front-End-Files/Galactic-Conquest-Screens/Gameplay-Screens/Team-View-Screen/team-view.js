@@ -927,22 +927,46 @@ function create_split_group(location)
 
 function repair_button_push()
 {  
-    var costs = calculate_repair_cost();
+    let current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
+    let costs = calculate_repair_cost(current_ship);
     document.getElementById("cost-curreny-quantity-repair").textContent = (costs.currency_cost).toString();
     document.getElementById("cost-durasteel-quantity-repair").textContent = (costs.durasteel_cost).toString();
-    document.getElementById("cost-parts-quantity-repair").textContent = ().toString();
-    document.getElementById("cost--quantity-repair").textContent = ().toString();
+    document.getElementById("cost-parts-quantity-repair").textContent = (costs.parts_cost).toString();
+    document.getElementById("cost-tibanna-quantity-repair").textContent = (costs.tibanna_cost).toString();
+    document.getElementById("cost-electronics-quantity-repair").textContent = (costs.electronics_cost).toString();
+    document.getElementById("alternate-cost-curreny-quantity-repair").textContent = (costs.alt_currency_cost).toString();
     open_input_popup("payment-type-pop-up");
 }
 
 function reapair_all_button_push()
 {
-
+    let current_cost = undefined;
+    let total_currency_cost = 0
+    let total_alt_currency_cost = 0;
+    let total_durasteel_cost = 0;
+    let total_parts_cost = 0;
+    let total_electronics_cost = 0;
+    let total_tibanna_cost = 0;
+    all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.forEach(ship=>{
+        current_cost = calculate_repair_cost(ship)
+        total_currency_cost += current_cost.currency_cost;
+        total_alt_currency_cost += current_cost.alt_currency_cost;
+        total_durasteel_cost += current_cost.durasteel_cost;
+        total_parts_cost += current_cost.parts_cost;
+        total_electronics_cost += current_cost.electronics_cost;
+        total_tibanna_cost += current_cost.tibanna_cost;
+    })
+    document.getElementById("cost-curreny-quantity-repair").textContent = (total_currency_cost).toString();
+    document.getElementById("cost-durasteel-quantity-repair").textContent = (total_durasteel_cost).toString();
+    document.getElementById("cost-parts-quantity-repair").textContent = (total_parts_cost).toString();
+    document.getElementById("cost-tibanna-quantity-repair").textContent = (total_tibanna_cost).toString();
+    document.getElementById("cost-electronics-quantity-repair").textContent = (total_electronics_cost).toString();
+    document.getElementById("alternate-cost-curreny-quantity-repair").textContent = (total_alt_currency_cost).toString();
+    open_input_popup("payment-type-pop-up");
 }
 
-function calculate_repair_cost()
+function calculate_repair_cost(current_ship)
 {
-    let current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     let cost_of_hull_repair = 0;    
     let cost_of_energy = 0;
     let cost_of_shields = 0;
@@ -953,27 +977,27 @@ function calculate_repair_cost()
     if(current_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
     {
         cost_of_hull_repair = ((current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)+(current_ship.chosen_pilot.ship_name.aft_hull - current_ship.current_aft_hull))*2;
-        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields)+(current_ship.chosen_pilot.ship_name.aft_shields - current_ship.current_aft_shields);
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_sheilds)+(current_ship.chosen_pilot.ship_name.aft_shields - current_ship.current_aft_shields);
         cost_of_energy = (current_ship.chosen_pilot.ship_name.energy - current_ship.current_energy)*2;
     }
     else if( current_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
     {    
         cost_of_hull_repair = (current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)*2;
-        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields);
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_sheilds);
         cost_of_energy = (current_ship.chosen_pilot.ship_name.energy - current_ship.current_energy)*2;    
     }
     else
     {
         cost_of_hull_repair = (current_ship.chosen_pilot.ship_name.hull - current_ship.current_hull)*2;
-        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_shields);
+        cost_of_shields = (current_ship.chosen_pilot.ship_name.shields - current_ship.current_sheilds);
     }
 
     var costs = {
-        currency_cost: (cost_of_hull_repair + cost_of_energy + cost_of_shields + cost_of_conditions + cost_of_critical_hits),
+        currency_cost: cost_of_conditions,
         durasteel_cost: (cost_of_hull_repair/2),
-        electronics_cost: (cost_of_shields/2),
+        electronics_cost: (cost_of_shields),
         parts_cost:(cost_of_critical_hits/3),
-        alt_currency_cost: cost_of_conditions,
+        alt_currency_cost: (cost_of_hull_repair + cost_of_energy + cost_of_shields + cost_of_conditions + cost_of_critical_hits),
         tibanna_cost: cost_of_energy
     }
     return costs;
