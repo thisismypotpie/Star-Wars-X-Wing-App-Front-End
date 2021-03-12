@@ -94,12 +94,18 @@ function set_all_items()
         {
             flip_button.style.visibility = "visible";
         }
+        else
+        {
+            flip_button.style.visibility = "hidden";
+            aft_image_showing = false;
+        }
     }
     else
     {
         flip_button.style.visibility = "hidden";
         energy_icon.style.visibility = "hidden";
         energy.style.visibility = "hidden";
+        aft_image_showing = false;
     }
 
     //Set the upgrade images of each upgrade.

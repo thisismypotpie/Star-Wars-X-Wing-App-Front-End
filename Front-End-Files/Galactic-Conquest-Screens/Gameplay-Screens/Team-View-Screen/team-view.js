@@ -163,6 +163,7 @@ function set_all_items()
         else
         {
             flip_button.style.visibility = "hidden";
+            aft_image_showing = false;
         }
     }
     else
@@ -935,6 +936,8 @@ function repair_button_push()
     document.getElementById("cost-tibanna-quantity-repair").textContent = (costs.tibanna_cost).toString();
     document.getElementById("cost-electronics-quantity-repair").textContent = (costs.electronics_cost).toString();
     document.getElementById("alternate-cost-curreny-quantity-repair").textContent = (costs.alt_currency_cost).toString();
+    document.getElementById("currency-button").onclick = function(){execute_repair("single","currency")}
+    document.getElementById("parts-button").onclick = function(){execute_repair("single","parts")}
     open_input_popup("payment-type-pop-up");
 }
 
@@ -962,6 +965,8 @@ function reapair_all_button_push()
     document.getElementById("cost-tibanna-quantity-repair").textContent = (total_tibanna_cost).toString();
     document.getElementById("cost-electronics-quantity-repair").textContent = (total_electronics_cost).toString();
     document.getElementById("alternate-cost-curreny-quantity-repair").textContent = (total_alt_currency_cost).toString();
+    document.getElementById("currency-button").onclick = function(){execute_repair("team","currency")}
+    document.getElementById("parts-button").onclick = function(){execute_repair("team","parts")}
     open_input_popup("payment-type-pop-up");
 }
 
@@ -1001,6 +1006,182 @@ function calculate_repair_cost(current_ship)
         tibanna_cost: cost_of_energy
     }
     return costs;
+}
+
+function execute_repair(ship_quantity,pay_method)
+{
+        //Pay for repairs.
+    if(pay_method == "currency")
+    {
+        let currency = parseInt(document.getElementById("alternate-cost-curreny-quantity-repair").textContent,10);
+        if(currency != NaN)
+        {
+            if( all_factions[chosen_team_indicies[0]].currency - currency >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].currency -= currency;
+            }
+            else
+            {   
+                alert("You cannot afford to pay for these repairs!");
+                return;
+            }
+        }   
+        else
+        {
+            alert("ERROR: currency not converted to number.");
+        }
+    }
+    else if(pay_method == "parts")
+    {
+        let currency = parseInt(document.getElementById("cost-curreny-quantity-repair").textContent,10);
+        let durasteel = parseInt(document.getElementById("cost-durasteel-quantity-repair").textContent,10);
+        let parts = parseInt(document.getElementById("cost-parts-quantity-repair").textContent,10);
+        let electronics = parseInt(document.getElementById("cost-electronics-quantity-repair").textContent,10);
+        let tibanna = parseInt(document.getElementById("cost-tibanna-quantity-repair").textContent,10);
+        let fuel = parseInt(document.getElementById("cost-fuel-quantity-repair").textContent,10);
+        if(currency != NaN && durasteel != NaN && parts != NaN &&
+           electronics != NaN && tibanna != NaN && fuel != NaN)
+        {
+            let error_found = false;
+            if( all_factions[chosen_team_indicies[0]].currency - currency >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].currency -= currency;
+            }
+            else
+            {   
+                error_found = true;
+            }
+
+            if(all_factions[chosen_team_indicies[0]].durasteel - durasteel >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].durasteel -= durasteel;
+            }
+            else
+            {
+                error_found = true;
+            }
+
+            if(all_factions[chosen_team_indicies[0]].parts - parts >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].parts -= parts;
+            }
+            else
+            {
+                error_found = true;
+            }
+
+            if(all_factions[chosen_team_indicies[0]].electronics - electronics >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].electronics -= electronics;
+            }
+            else
+            {
+                error_found = true;
+            }
+
+            if(all_factions[chosen_team_indicies[0]].tibanna - tibanna >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].tibanna -= tibanna;
+            }
+            else
+            {
+                error_found = true;
+            }
+
+            if(all_factions[chosen_team_indicies[0]].fuel - fuel >= 0)
+            {
+                all_factions[chosen_team_indicies[0]].fuel -= fuel;
+            }
+            else
+            {
+                error_found = true;
+            }
+
+            if(error_found == true)
+            {
+                alert("ERROR: You cannot afford to pay for these repairs.");
+                return;
+            }
+        }
+        else
+        {
+            alert("ERROR: One or more currencies could not be converted to numbers.");
+        }
+    }
+    else
+    {
+        alert("ERROR: Cannot determine the payment method.")
+    }
+
+    if(ship_quantity == "single")
+    {
+        var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index]
+        //large two cards.
+        if(current_ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+        {
+            current_ship.current_energy = current_ship.chosen_pilot.ship_name.energy;
+            current_ship.current_aft_agility = current_ship.chosen_pilot.ship_name.aft_agility;
+            current_ship.current_aft_shields = current_ship.chosen_pilot.ship_name.aft_shields;
+            current_ship.current_aft_hull = current_ship.chosen_pilot.ship_name.aft_hull;
+        }
+        //large one card.
+        else if(current_ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+        {
+            current_ship.current_energy = current_ship.chosen_pilot.ship_name.energy;
+        }
+        current_ship.critical_hit_cards = [];
+        current_ship.conditions = [];
+        current_ship.current_attack = current_ship.chosen_pilot.ship_name.attack;
+        current_ship.current_agility = current_ship.chosen_pilot.ship_name.agility;
+        current_ship.current_sheilds = current_ship.chosen_pilot.ship_name.shields;
+        current_ship.current_hull = current_ship.chosen_pilot.ship_name.hull;
+        current_ship.current_pilot_skill = current_ship.chosen_pilot.pilot_skill;
+    }
+    else if(ship_quantity == "team")
+    {
+        all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.forEach(ship=>{
+            if(ship.chosen_pilot.ship_name.ship_type == "largeTwoCard")
+            {
+                ship.current_energy = ship.chosen_pilot.ship_name.energy;
+                ship.current_aft_agility = ship.chosen_pilot.ship_name.aft_agility;
+                ship.current_aft_shields = ship.chosen_pilot.ship_name.aft_shields;
+                ship.current_aft_hull = ship.chosen_pilot.ship_name.aft_hull;
+            }
+            //large one card.
+            else if(ship.chosen_pilot.ship_name.ship_type == "largeOneCard")
+            {
+                ship.current_energy = ship.chosen_pilot.ship_name.energy;
+            }
+            ship.critical_hit_cards = [];
+            ship.conditions = [];
+            ship.current_attack = ship.chosen_pilot.ship_name.attack;
+            ship.current_agility = ship.chosen_pilot.ship_name.agility;
+            ship.current_sheilds = ship.chosen_pilot.ship_name.shields;
+            ship.current_hull = ship.chosen_pilot.ship_name.hull;
+            ship.current_pilot_skill = ship.chosen_pilot.pilot_skill;
+        })
+    }
+    else
+    {
+        alert("ERROR: Cannot determine which ships needs repairs.");
+    }
+
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    close_repair_pop_up();
+    location.reload();
+}
+
+function close_repair_pop_up()
+{
+    document.getElementById("cost-curreny-quantity-repair").textContent = "0";
+    document.getElementById("cost-durasteel-quantity-repair").textContent = "0";
+    document.getElementById("cost-parts-quantity-repair").textContent = "0";
+    document.getElementById("cost-tibanna-quantity-repair").textContent = "0";
+    document.getElementById("cost-electronics-quantity-repair").textContent = "0";
+    document.getElementById("alternate-cost-curreny-quantity-repair").textContent = "0";
+    document.getElementById("currency-button").onclick = function(){}
+    document.getElementById("parts-button").onclick = function(){}
+    close_input_popup('payment-type-pop-up');
 }
 
 //Key bindings for this screen.

@@ -7,7 +7,6 @@ if(sessionStorage.getItem("gc_phase") == "placement")
     var whos_turn = sessionStorage.getItem("gc_whos_turn");
 
     //Set the other buttons in the gameplay screen.
-    document.getElementById("button-three").innerHTML = "Done";
     document.getElementById("button-three").onclick = function(){done_button_placement_phase_click()};
 
     //Set up main title based on which faction the player chose.
@@ -107,7 +106,8 @@ function done_button_placement_phase_click()
     }
     else if(sessionStorage.getItem("gc_first_or_second_half_of_round") == "2nd")
     {
-        alert("Moving on to next phase!");
+        sessionStorage.removeItem("gc_first_or_second_half_of_round");
+        transfer_to_movement_phase();
     }
     else
     {
