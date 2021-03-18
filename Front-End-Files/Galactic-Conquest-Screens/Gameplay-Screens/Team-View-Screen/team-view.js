@@ -249,6 +249,16 @@ function set_all_items()
         {
             alert("ERROR: Could not determine which faction is focused.");
         }
+
+    //Remove button functionality if someone from the opposite team is looking at an opponent's forces.
+    if((sessionStorage.getItem("gc_whos_turn") == "Rebels" &&
+       sessionStorage.getItem("team_name").includes("Imperial")) ||
+       (sessionStorage.getItem("gc_whos_turn") == "Imperial" &&
+       sessionStorage.getItem("team_name").includes("Rebel")))
+    {
+        document.getElementById("button-options-container").style.visibility = "hidden";
+    }
+
 }
 
 //This function will take you to the upgrade screen to add/remove upgrades. 
