@@ -6,20 +6,22 @@ var converted_planets = setup_data.converted_planets;
 var all_ship_body_elements = [];
 var all_ship_body_border_colors = [];
 
-for(var x=1; x < 201;x++)
+//for(var x=1; x < 201;x++)
+for(var x=34; x < 196;x++)
 {
-   for(var y=1; y<101;y++)
+   //for(var y=1; y<101;y++)
+   for(var y=2; y<100;y++)
    {
-       var grid_coordinate = document.createElement("div");
-       grid_coordinate.id = x+"_"+y;
-       grid_coordinate.style.gridColumn = (x).toString();
-       grid_coordinate.style.gridRow = (y).toString();
-       grid_coordinate.style.backgroundSize = "100%  100%";
-       grid_coordinate.style.backgroundRepeat = "no-repeat";
-       //grid_coordinate.style.pointerEvents = "all";
-       grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid green";};
-       grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";};
-       document.getElementById('grid-container').appendChild(grid_coordinate);
+        var grid_coordinate = document.createElement("div");
+        grid_coordinate.id = x+"_"+y;
+        grid_coordinate.style.gridColumn = (x).toString();
+        grid_coordinate.style.gridRow = (y).toString();
+        grid_coordinate.style.backgroundSize = "100%  100%";
+        grid_coordinate.style.backgroundRepeat = "no-repeat";
+        //grid_coordinate.style.pointerEvents = "all";
+        grid_coordinate.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid green";};
+        grid_coordinate.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";};
+        document.getElementById('grid-container').appendChild(grid_coordinate);
    }
 }
 

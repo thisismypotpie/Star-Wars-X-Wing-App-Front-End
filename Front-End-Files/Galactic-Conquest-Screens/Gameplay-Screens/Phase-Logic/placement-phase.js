@@ -25,13 +25,15 @@ if(sessionStorage.getItem("gc_phase") == "placement")
     }
 
     //setup screen to place forces based on where the user clicks.
-    for(var x=1; x < 201;x++)
-{
-   for(var y=1; y<101;y++)
+    //for(var x=1; x < 201;x++)
+    for(var x=34; x < 196;x++)
+    {
+   //for(var y=1; y<101;y++)
+   for(var y=2; y<100;y++)
    {
        var id = x+"_"+y;
        document.getElementById(id).onclick= function(e){
-           if(confirm("Add a ship group here?")== true)
+           if(confirm("Add a ship group here? ("+e.target.id+")")== true)
            {
 
                var planet_in_question  =get_planet(parseInt(document.getElementById(e.target.id).getAttribute("planet_id"),10),0,setup_data.active_planets.length-1);
