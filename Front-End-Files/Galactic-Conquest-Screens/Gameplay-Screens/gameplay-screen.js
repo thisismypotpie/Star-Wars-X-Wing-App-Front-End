@@ -320,7 +320,7 @@ setInterval(function(){
         {
           document.getElementById(all_ship_body_elements[i]).style.border = all_ship_body_border_colors[i];
         }
-        else
+        else if(get_team_based_on_name(document.getElementById(all_ship_body_elements[i]).id).has_moved == false)
         {
           document.getElementById(all_ship_body_elements[i]).style.border = "none";
         }

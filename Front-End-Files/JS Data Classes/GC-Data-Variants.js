@@ -7,6 +7,7 @@ class ship_group{
         this.team = new team(group_name);
         this.location = location;
         this.image = undefined;
+        this.has_moved = false;
         if(faction == "Rebels")
         {
             this.image = "https://i.imgur.com/mO0iijb.png";
@@ -477,4 +478,27 @@ function set_resource_quantities(whos_turn)
         {
             alert("Unknown faction chosen, please go back and re-create setup.");
         }
+}
+
+//Used for read-only purposes, if you are attempting to change gc factions, do not use this.
+function get_team_based_on_name(name)
+{
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    var chosen_team = undefined;
+    for(var j=0; j < all_factions.length;j++)
+    {
+        for(var i=0; i < all_factions[j].navy.length;i++)
+        {
+            if(all_factions[j].navy[i].group_name == name)
+            {
+                chosen_team = all_factions[j].navy[i];
+                break;
+            }
+        }
+    }
+    if(chosen_team == undefined)
+    {
+        alert("ERROR: Cannot find team name.");
+    }
+    return chosen_team;
 }

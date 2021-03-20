@@ -28,10 +28,6 @@ function transfer_to_movement_phase()
 
 function movement_phase_set_up()
 {
-    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
-    //factions[0] == rebels.  factions[1] == imperials.
-    var factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
-    //var turn_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
 
     if(sessionStorage.getItem("gc_whos_turn")=="Rebels")
     {
@@ -47,7 +43,9 @@ function movement_phase_set_up()
     }
 
     //Set the other buttons in the gameplay screen.
-    document.getElementById("button-three").onclick = function(){alert("Moving to gather phase!")};
+    document.getElementById("button-three").onclick = function(){
+        sessionStorage.setItem("gc_phase","gathering");
+    };
     set_resource_quantities(sessionStorage.getItem("gc_whos_turn"))
 
         //setup screen to place forces based on where the user clicks.
@@ -67,9 +65,17 @@ function movement_phase_set_up()
             if((sessionStorage.getItem("gc_whos_turn")=="Rebels" &&
             selected_team.includes("Rebel")) ||
             (sessionStorage.getItem("gc_whos_turn")=="Imperial" &&
-            selected_team.id.includes("Imperial")))
+            selected_team.includes("Imperial")))
             {
-                show_movement_choices(selected_team);
+                remove_all_movement_spaces();
+                if(get_team_based_on_name(selected_team).has_moved == false)
+                {
+                    show_movement_choices(selected_team);
+                }
+                else
+                {
+                    alert("The "+selected_team+" has already moved.")
+                }
             }
             else
             {
@@ -85,7 +91,15 @@ function movement_phase_set_up()
             (sessionStorage.getItem("gc_whos_turn")=="Imperial" &&
             e.target.id.includes("Imperial")))
             {
-                show_movement_choices(e.target.id);
+                remove_all_movement_spaces()
+                if(get_team_based_on_name(e.target.id).has_moved == false)
+                {
+                    show_movement_choices(e.target.id);
+                }
+                else
+                {
+                    alert("The "+e.target.id+" has already moved.")
+                }
             }
             else
             {
@@ -127,14 +141,14 @@ function show_movement_choices(team_name)
     if(chosen_navy.group_name.includes("Fleet") ||
        chosen_navy.group_name.includes("Squad"))
     {
-        movement_list.push([navy_location[0],navy_location[1]+2],"2D")
-        movement_list.push([navy_location[0],navy_location[1]-2],"2U")
-        movement_list.push([navy_location[0]+2,navy_location[1]],"2R")
-        movement_list.push([navy_location[0]-2,navy_location[1]],"2L")
-        movement_list.push([navy_location[0]-2,navy_location[1]+2],"2UR")
-        movement_list.push([navy_location[0]+2,navy_location[1]+2],"2DR")
-        movement_list.push([navy_location[0]+2,navy_location[1]-2],"2DL")
-        movement_list.push([navy_location[0]-2,navy_location[1]-2],"2UL")
+        movement_list.push([navy_location[0],navy_location[1]+2,"2D"])
+        movement_list.push([navy_location[0],navy_location[1]-2,"2U"])
+        movement_list.push([navy_location[0]+2,navy_location[1],"2R"])
+        movement_list.push([navy_location[0]-2,navy_location[1],"2L"])
+        movement_list.push([navy_location[0]-2,navy_location[1]+2,"2UR"])
+        movement_list.push([navy_location[0]+2,navy_location[1]+2,"2DR"])
+        movement_list.push([navy_location[0]+2,navy_location[1]-2,"2DL"])
+        movement_list.push([navy_location[0]-2,navy_location[1]-2,"2UL"])
     }
     if(chosen_navy.group_name.includes("Squad"))
     {
@@ -150,7 +164,20 @@ function show_movement_choices(team_name)
     remove_invalid_movement_spaces(navy_location);
     for(var i=0; i < movement_list.length;i++)
     {
-        //create new element for each 
+        var movement_option = document.createElement("div");
+        movement_option.style.gridColumn = movement_list[i].toString().split(",")[0];
+        movement_option.style.gridRow = movement_list[i].toString().split(",")[1];
+        movement_option.style.backgroundImage = "url(https://i.imgur.com/s8SiQpv.png)";
+        movement_option.style.backgroundSize = "100%  100%";
+        movement_option.style.backgroundRepeat = "no-repeat";
+        movement_option.className = "movement-option";
+        movement_option.id = movement_list[i].toString()+","+chosen_navy.group_name;
+        movement_option.style.zIndex = "100";
+        movement_option.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid green";};
+        movement_option.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";};
+        movement_option.onclick = function(e){move_ship_group(e.target.id.split(",")[0]+"_"+e.target.id.split(",")[1],e.target.id.split(",")[3],parseInt(e.target.id.split(",")[2][0],10));remove_all_movement_spaces()}
+        document.getElementById('grid-container').appendChild(movement_option);
+
     }
 }
 
@@ -167,6 +194,9 @@ function remove_invalid_movement_spaces(group_location)
     left boundry: 156
     bottom left: 8
     */
+
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+
     for(var i= movement_list.length-1;i >= 0;i--)
     {
         var coordinate = movement_list[i,0]+"_"+movement_list[i,1];
@@ -187,6 +217,29 @@ function remove_invalid_movement_spaces(group_location)
         {
             if(all_factions[0].navy[j].location == coordinate)
             {
+                var direction_suffix = movement_list[i,3,1]+movement_list[i,3,2];
+                if(movement_list[i,2].includes("2"))
+                {
+                    for(var k= movement_list.length-1;k >= 0;k--)
+                    {
+                        if(movement_list[k,2] == "3"+direction_suffix)
+                        {
+                            movement_list.splice(i,1);//remove ship.
+                            break;
+                        }
+                    }
+                }
+                else if(movement_list[i,2].includes("1"))
+                {
+                    for(var k= movement_list.length-1;k >= 0;k--)
+                    {
+                        if(movement_list[k,2] == "3"+direction_suffix ||
+                           movement_list[k,2] == "2"+direction_suffix)
+                        {
+                            movement_list.splice(i,1);//remove ship.
+                        }
+                    }    
+                }
                 movement_list.splice(i,1);//remove ship.
                 continue;
             }
@@ -197,19 +250,73 @@ function remove_invalid_movement_spaces(group_location)
         {
             if(all_factions[1].navy[j].location == coordinate)
             {
-                if()
+                var direction_suffix = movement_list[i,3,1]+movement_list[i,3,2];
+                if(movement_list[i,2].includes("2"))
                 {
-
+                    for(var k= movement_list.length-1;k >= 0;k--)
+                    {
+                        if(movement_list[k,2] == "3"+direction_suffix)
+                        {
+                            movement_list.splice(i,1);//remove ship.
+                            break;
+                        }
+                    }
                 }
-                else if()
+                else if(movement_list[i,2].includes("1"))
                 {
-                    
+                    for(var k= movement_list.length-1;k >= 0;k--)
+                    {
+                        if(movement_list[k,2] == "3"+direction_suffix ||
+                           movement_list[k,2] == "2"+direction_suffix)
+                        {
+                            movement_list.splice(i,1);//remove ship.
+                        }
+                    }    
                 }
                 movement_list.splice(i,1);//remove ship.
                 continue;
             }
         }
     }
+}
+
+function move_ship_group(selected_location,team_name,spaces)
+{
+    var navy_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    var chosen_navy= undefined;
+    for(var i=0; i < all_factions[navy_index].navy.length;i++)
+    {
+        if(all_factions[navy_index].navy[i].group_name == team_name)
+        {
+            chosen_navy= all_factions[navy_index].navy[i];
+            break;
+        }
+    }
+    if(all_factions[navy_index].fuel > spaces)
+    {
+        document.getElementById(team_name).style.gridColumn = selected_location.split("_")[0];
+        document.getElementById(team_name).style.gridRow = selected_location.split("_")[1];
+        chosen_navy.location = selected_location;
+        chosen_navy.has_moved = true;
+        all_factions[navy_index].fuel -= spaces;
+        document.getElementById("fuel-quantity-label").textContent = "X "+all_factions[navy_index].fuel;
+        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    }
+    else
+    {
+        alert("You do not have enough fuel to move this force.");
+    }
+
+}
+
+function remove_all_movement_spaces()
+{
+    var elements = document.getElementsByClassName("movement-option");
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+    movement_list = [];
 }
 
 
