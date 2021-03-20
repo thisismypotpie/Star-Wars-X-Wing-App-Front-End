@@ -44,7 +44,7 @@ function movement_phase_set_up()
 
     //Set the other buttons in the gameplay screen.
     document.getElementById("button-three").onclick = function(){
-        sessionStorage.setItem("gc_phase","gathering");
+        transfer_to_gather_phase();
     };
     set_resource_quantities(sessionStorage.getItem("gc_whos_turn"))
 
@@ -199,7 +199,7 @@ function remove_invalid_movement_spaces(group_location)
 
     for(var i= movement_list.length-1;i >= 0;i--)
     {
-        var coordinate = movement_list[i,0]+"_"+movement_list[i,1];
+        var coordinate = movement_list[i][0]+"_"+movement_list[i][1];
         //Remove movements if they go outside of boundries.
         if(movement_list[i,0] < 2 ||
            movement_list[i,0] > 99 ||
@@ -212,69 +212,32 @@ function remove_invalid_movement_spaces(group_location)
             continue;
         }
 
-        //Check for rebel ship body collision.
-        for(var j=0; j < all_factions[0].navy.length;j++)
+        //Check for ship body collision
+        for(var p=0; p < all_factions.length;p++)
         {
-            if(all_factions[0].navy[j].location == coordinate)
+            for(var j=all_factions[p].navy.length-1; j >= 0;j--)
             {
-                var direction_suffix = movement_list[i,3,1]+movement_list[i,3,2];
-                if(movement_list[i,2].includes("2"))
+                if(all_factions[p].navy[j].location == coordinate)
                 {
+                    var direction_suffix = movement_list[i][2].substring(1);
                     for(var k= movement_list.length-1;k >= 0;k--)
                     {
-                        if(movement_list[k,2] == "3"+direction_suffix)
+                        if(movement_list[k][2] == "3"+direction_suffix &&
+                           movement_list[i][2][0] == "2")
                         {
-                            movement_list.splice(i,1);//remove ship.
-                            break;
+                            movement_list.splice(k,1);//remove ship.
+                            //j = all_factions[p].navy.length-1;
+                        }
+                        if((movement_list[k][2] == "3"+direction_suffix ||
+                            movement_list[k][2] == "2"+direction_suffix)&&
+                            movement_list[i][2][0] == "1")
+                        {
+                            movement_list.splice(k,1);//remove ship.
                         }
                     }
+                    movement_list.splice(i,1);//remove ship.
+                    continue;
                 }
-                else if(movement_list[i,2].includes("1"))
-                {
-                    for(var k= movement_list.length-1;k >= 0;k--)
-                    {
-                        if(movement_list[k,2] == "3"+direction_suffix ||
-                           movement_list[k,2] == "2"+direction_suffix)
-                        {
-                            movement_list.splice(i,1);//remove ship.
-                        }
-                    }    
-                }
-                movement_list.splice(i,1);//remove ship.
-                continue;
-            }
-        }
-
-        //Check for empire ship body collision.
-        for(var j=0; j < all_factions[1].navy.length;j++)
-        {
-            if(all_factions[1].navy[j].location == coordinate)
-            {
-                var direction_suffix = movement_list[i,3,1]+movement_list[i,3,2];
-                if(movement_list[i,2].includes("2"))
-                {
-                    for(var k= movement_list.length-1;k >= 0;k--)
-                    {
-                        if(movement_list[k,2] == "3"+direction_suffix)
-                        {
-                            movement_list.splice(i,1);//remove ship.
-                            break;
-                        }
-                    }
-                }
-                else if(movement_list[i,2].includes("1"))
-                {
-                    for(var k= movement_list.length-1;k >= 0;k--)
-                    {
-                        if(movement_list[k,2] == "3"+direction_suffix ||
-                           movement_list[k,2] == "2"+direction_suffix)
-                        {
-                            movement_list.splice(i,1);//remove ship.
-                        }
-                    }    
-                }
-                movement_list.splice(i,1);//remove ship.
-                continue;
             }
         }
     }
