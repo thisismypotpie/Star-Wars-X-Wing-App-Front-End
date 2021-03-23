@@ -38,7 +38,6 @@ class gc_team{
         this.highest_squad_number = 1;
         this.highest_fleet_number = 1;
         this.highest_armada_number = 1;
-        this.resources_gathered = false;
         this.image = undefined;
         if(faction == "Rebels")
         {

@@ -311,25 +311,25 @@ function start_and_populate_game_resources()
         }
         else
         {
-            var resource_random = Math.floor(Math.random() * (6));
+            var resource_random = Math.floor(Math.random() * (11));
             var resource_quantity = Math.floor(Math.random() * (4));
-            var spawn_chance = Math.floor(Math.random() * (91))+10;
-            if(resource_random == 0)
+            var spawn_chance = Math.floor(Math.random() * (75))+25;
+            if(resource_random <= 3)
             {
-                planet.resource.name = "Parts";
+                planet.resource.name = "Currency";
                 planet.resource.image_path = "url('https://i.imgur.com/SkbOfo9.jpg')";
-                planet.resource.quantity = resource_quantity;
+                planet.resource.quantity = 3*resource_quantity;
                 planet.resource.spawn_chance = spawn_chance;
             }
-            else if(resource_random == 1)
+            else if(resource_random > 3 && resource_random <=6)
             {
                 planet.resource.name = "Fuel";
                 planet.resource.image_path = "url('https://i.imgur.com/gqJjMUH.jpg')";
-                planet.resource.quantity = resource_quantity;
+                planet.resource.quantity = 2*resource_quantity;
                 planet.resource.spawn_chance = spawn_chance;
 
             }
-            else if(resource_random == 2)
+            else if(resource_random == 7)
             {
                 planet.resource.name = "Electronics";
                 planet.resource.image_path = "url('https://i.imgur.com/qOjfTHl.png')";
@@ -337,7 +337,7 @@ function start_and_populate_game_resources()
                 planet.resource.spawn_chance = spawn_chance;
 
             }
-            else if(resource_random == 3)
+            else if(resource_random == 8)
             {
                 planet.resource.name = "Durasteel";
                 planet.resource.image_path = "url('https://i.imgur.com/1nxO0oQ.png')";
@@ -345,15 +345,15 @@ function start_and_populate_game_resources()
                 planet.resource.spawn_chance = spawn_chance;
 
             }
-            else if(resource_random == 4)
+            else if(resource_random == 9)
             {
-                planet.resource.name = "Currency";
+                planet.resource.name = "Parts";
                 planet.resource.image_path = "url('https://i.imgur.com/cMjNBfW.jpg')";
                 planet.resource.quantity = resource_quantity;
                 planet.resource.spawn_chance = spawn_chance;
 
             }
-            else if(resource_random == 5)
+            else if(resource_random == 10)
             {
                 planet.resource.name = "Tibanna";
                 planet.resource.image_path = "url('https://i.imgur.com/wfKP4ey.jpg')";

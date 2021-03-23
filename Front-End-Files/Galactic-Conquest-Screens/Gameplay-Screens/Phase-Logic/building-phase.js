@@ -1,28 +1,35 @@
-if(sessionStorage.getItem("gc_phase") == "placement")
+if(sessionStorage.getItem("gc_phase") == "building")
 {
-    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
-    var current_placing_faction = undefined;
-    //factions[0] == rebels.  factions[1] == imperials.
-    var factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
+    building_phase_set_up();
+}
+
+
+function transfer_to_building_phase()
+{
+    sessionStorage.setItem("gc_phase","building");
+    close_input_popup("resource-report");
+    building_phase_set_up();  
+}
+
+function building_phase_set_up()
+{
     var whos_turn = sessionStorage.getItem("gc_whos_turn");
 
-    //Set the other buttons in the gameplay screen.
-    document.getElementById("button-three").onclick = function(){done_button_placement_phase_click()};
+    document.getElementById("button-three").onclick = function(){ replenish_resources(); transfer_to_movement_phase()};  
 
-    //Set up main title based on which faction the player chose.
     set_resource_quantities(whos_turn);
     if(whos_turn == "Rebels")
     {
-        document.getElementById("main-title").textContent = "Rebel Placement";
+        document.getElementById("main-title").textContent = "Rebel Building";
     }
     else if(whos_turn == "Imperial")
     {
-        document.getElementById("main-title").textContent = "Empire Placement";
+        document.getElementById("main-title").textContent = "Empire Building";
     }
     else
     {
         alert("Unknown faction chosen, please go back and re-create setup.");
-    }
+    } 
 
     //setup screen to place forces based on where the user clicks.
     //for(var x=1; x < 201;x++)
@@ -65,39 +72,54 @@ if(sessionStorage.getItem("gc_phase") == "placement")
        }
    }
 }
+
 }
 
-function done_button_placement_phase_click()
+function close_input_popup(name)
 {
-    if(sessionStorage.getItem("gc_first_or_second_half_of_round") == "1st")
+    let overlay = document.getElementById("overlay");
+    let input_popup = document.getElementById(name);
+    overlay.style.opacity = 0;
+    input_popup.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
+}
+
+function check_for_ship_body_collision(id)
+{
+    var factions =  JSON.parse(sessionStorage.getItem("gc_factions"));
+    for(var i=0; i < factions.length;i++)
     {
-        sessionStorage.setItem("gc_first_or_second_half_of_round","2nd");
-        if(sessionStorage.getItem("gc_whos_turn") == "Rebels")
+        for(var j=0;j < factions[i].navy.length;j++)
         {
-            sessionStorage.setItem("gc_whos_turn","Imperial");
-            document.getElementById("main-title").textContent = "Empire Placement";
-            whos_turn = "Imperial";
-            set_resource_quantities(whos_turn);
-        }
-        else if(sessionStorage.getItem("gc_whos_turn") == "Imperial")
-        {
-            sessionStorage.setItem("gc_whos_turn","Rebels");
-            document.getElementById("main-title").textContent = "Rebel Placement";
-            whos_turn ="Rebels";
-            set_resource_quantities(whos_turn);
-        }
-        else
-        {
-            alert("ERROR: Could not determine who's turn it is!")
+            if(factions[i].navy[j].location == id)
+            {
+                return true;
+            }
         }
     }
-    else if(sessionStorage.getItem("gc_first_or_second_half_of_round") == "2nd")
-    {
-        sessionStorage.removeItem("gc_first_or_second_half_of_round");
-        transfer_to_movement_phase();
-    }
-    else
-    {
-        alert("ERROR: Cannot determine what half of the round it is.")
-    }
+    return false;
+}
+
+function replenish_resources()
+{
+    let setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+    setup_data.active_planets.forEach(planet=>{
+        let spawn_percentile = Math.floor(Math.random() * (100))+1;
+        if(spawn_percentile >= planet.resource.spawn_chance)
+        {
+            if(planet.resource.name == "currency")
+            {
+                planet.resouce.quantity += 5*Math.floor(Math.random() * (5))+1;
+            }
+            else if(planet.resource.name == "fuel")
+            {
+                planet.resource.quantity += 2*Math.floor(Math.random() * (5))+1;
+            }
+            else
+            {
+                planet.resource.quantity += Math.floor(Math.random() * (5))+1;
+            }
+        }
+    });
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
 }

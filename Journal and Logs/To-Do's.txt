@@ -8,9 +8,10 @@ Galactic Conquest To Do's:
 1. When purchasing ships, take away full resource screen if player is only playing with currency.
 2. Account for unique pilots already on other squadrons.
 3. Accoung for unique pilots if they are dead.
-4. When implementing a transfer, it is instantaneous during the placement phase but take a diagonal of turns to transfer during the game.
+4. When implementing a transfer, this can only be done if the ship is x spaces away depending on the size of the ship.
 5. Add a button for transfer ships to make a new ship body.
-6. When a team is split, see if the new team or the old team name needs to be changed.
+6. Integreate combat into the game.
+7. When a ship moves, calculate for pirate interaction.
 
 HOW REPAIRS SHOULD WORK:
 - Use electronics to restore shields.
@@ -18,6 +19,9 @@ HOW REPAIRS SHOULD WORK:
 - use tibanna to restore attack.
 - use parts to restore agility.
 - use corresponding parts to get rid of critical hits and conditions.
+
+
+
 
 
 
