@@ -299,3 +299,170 @@ body{
     z-index: 1;
 }
 
+#overlay
+{
+    position: fixed;
+    opacity: 0;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+#resource-report
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid white;
+    z-index: 100;
+    background: url("https://i.imgur.com/nIM4P1r.jpg");
+    width:  30%;
+    height: 60vh;
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: repeat(12,calc(100%/12));
+    grid-template-rows: repeat(23,calc(100%/23));
+}
+
+#resource-title
+{
+    grid-column: 1/13;
+    grid-row: 1;
+    text-align: center;
+    font-size: 2vw;
+}
+
+#money-image-gathering
+{
+    grid-column: 2/4;
+    grid-row: 3/5;
+    background-image: url("https://i.imgur.com/cMjNBfW.jpg");
+}
+#money-quantity-label-gathering
+{
+    grid-column: 5/7;
+    grid-row: 3/5;
+    font-size: 2vw;
+    text-align: left;
+}
+#money-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 3/5;
+}
+
+#tibanna-image-gathering
+{
+    grid-row: 6/8;
+    grid-column: 2/4;
+    background-image: url("https://i.imgur.com/wfKP4ey.jpg");
+}
+#tibanna-quantity-gathering
+{
+    grid-column: 5/7;
+    grid-row: 6/8;
+    font-size: 2vw;
+    text-align: left;
+}
+#tibanna-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 6/8;
+}
+
+#electronics-image-gathering
+{
+    grid-column: 2/4;
+    grid-row: 9/11;
+    background-image: url("https://i.imgur.com/qOjfTHl.png");
+}
+#electronics-quantity-label-gathering
+{
+    grid-column: 5/7;
+    grid-row: 9/11;
+    font-size: 2vw;
+    text-align: left;
+}
+#electronics-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 9/11;
+}
+
+#durasteel-image-gathering
+{
+    grid-column: 2/4;
+    grid-row: 12/14;
+    background-image: url("https://i.imgur.com/1nxO0oQ.png");
+}
+#durasteel-quantity-label-gathering
+{
+    grid-column: 5/7;
+    grid-row: 12/14;
+    font-size: 2vw;
+    text-align: left;
+}
+#durasteel-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 12/14;
+}
+
+#fuel-image-gathering
+{
+    grid-column: 2/4;
+    grid-row: 15/17;
+    background-image: url("https://i.imgur.com/gqJjMUH.jpg");
+}
+#fuel-quantity-label-gathering
+{
+    grid-column: 5/7;
+    grid-row: 15/17;
+    font-size: 2vw;
+    text-align: left;   
+}
+#fuel-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 15/17;
+}
+
+#parts-image-gathering
+{
+    grid-column: 2/4;
+    grid-row: 18/20;
+    background-image: url("https://i.imgur.com/SkbOfo9.jpg");
+}
+#parts-quantity-labe-gathering
+{
+    grid-column: 5/7;
+    grid-row: 18/20;
+    font-size: 2vw;
+    text-align: left; 
+}
+#parts-planet-notification
+{
+    grid-column: 8/12;
+    grid-row: 18/20;
+}
+
+#building-phase-button
+{
+    grid-row: 21/23;
+    grid-column: 3/11;
+}
+
+.long-button{
+    background-image: url("https://i.imgur.com/QqrKDZs.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 1.0vw;
+    text-align: center; 
+}

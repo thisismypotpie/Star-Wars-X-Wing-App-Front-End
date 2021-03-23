@@ -7,6 +7,15 @@ function transfer_to_gather_phase()
 {
     sessionStorage.setItem("gc_phase","gathering");
     sessionStorage.setItem("resources_received","false");
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    for(var i=0; i < all_factions.length;i++)
+    {
+        all_factions[i].navy.foreach(group=>{
+            group.has_moved = false;
+        })
+    }
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    gather_phase_set_up();
 }
 
 function gather_phase_set_up()
@@ -40,4 +49,75 @@ function gather_phase_set_up()
                document.getElementById(id).onclick= null;
            }
         }
+    
+    //Update resouces.
+    let whos_turn_index = sessionStorage.getItem("gc_whos_turn")=="Rebels"? 0:1
+    let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"))
+    let active_planets = JSON.parse(sessionStorage.getItem("gc_setup_data")).active_planets;
+    let money_planets = 0;
+    let parts_planets =0;
+    let durasteel_planets = 0;
+    let fuel_planets = 0;
+    let tibanna_planets = 0;
+    let electronics_planets = 0;
+    let added_money = 0;
+    let added_parts = 0;
+    let added_durasteel = 0;
+    let added_fuel = 0;
+    let added_tibanna = 0;
+    let added_electronics = 0;
+
+    active_planets.forEach(planet=>{
+        if(planet.controlling_faction == all_factions[whos_turn_index].faction)
+        {
+            if(planet.resource.name == "Currency")
+            {
+    
+            }
+            else if(planet.resource.name == "Tibanna")
+            {
+
+            }
+            else if(planet.resource.name == "Fuel")
+            {
+
+            }
+            else if(planet.resource.name == "Parts")
+            {
+
+            }
+            else if(planet.resource.name == "Electronics")
+            {
+
+            }
+            else if(planet.resource.name == "Durasteel")
+            {
+
+            }
+            else
+            {
+                alert("ERROR: Unknown resource on planet: "+planet.planet.name);
+            }
+        }
+    })
+
+    open_input_popup("resource-report");
+}
+
+function open_input_popup(name)
+{
+    let overlay = document.getElementById("overlay");
+    let input_popup = document.getElementById(name);
+    overlay.style.opacity = 1;
+    input_popup.style.visibility = "visible";
+    overlay.style.pointerEvents = "all";
+}
+
+function close_input_popup(name)
+{
+    let overlay = document.getElementById("overlay");
+    let input_popup = document.getElementById(name);
+    overlay.style.opacity = 0;
+    input_popup.style.visibility = "hidden";
+    overlay.style.pointerEvents = "none";
 }
