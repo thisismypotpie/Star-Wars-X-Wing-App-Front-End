@@ -96,7 +96,7 @@ function set_all_items()
     shields.textContent = " : "+current_ship.current_sheilds;
 
     //See if transfer button needs to be turned off.
-    if(all_factions[chosen_team_indicies[0]].navy.length <=1 &&
+    if(all_factions[chosen_team_indicies[0]].navy.length <=1 ||
        all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 1)
     {
         document.getElementById("transfer-button").style.pointerEvents = "none";
@@ -254,7 +254,8 @@ function set_all_items()
     if((sessionStorage.getItem("gc_whos_turn") == "Rebels" &&
        sessionStorage.getItem("team_name").includes("Imperial")) ||
        (sessionStorage.getItem("gc_whos_turn") == "Imperial" &&
-       sessionStorage.getItem("team_name").includes("Rebel")))
+       sessionStorage.getItem("team_name").includes("Rebel")) ||
+       sessionStorage.getItem("gc_phase") == "movement")
     {
         document.getElementById("button-options-container").style.visibility = "hidden";
     }
@@ -475,7 +476,8 @@ function transfer_ship_button()
     //var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     open_input_popup("transfer-pop-up");
     all_factions[chosen_team_indicies[0]].navy.forEach(ship_body=>{
-        if(ship_body.group_name != sessionStorage.getItem("team_name"))
+        if((ship_body.group_name != sessionStorage.getItem("team_name") && sessionStorage.getItem("gc_phase") == "placement") ||
+          (check_ship_range_for_transfer() == true && sessionStorage.getItem("gc_phase") == "building" && ship_body.group_name != sessionStorage.getItem("team_name")))
         {
             let transfer_button = document.createElement("button");
             transfer_button.type = "button";
@@ -1192,6 +1194,35 @@ function close_repair_pop_up()
     document.getElementById("currency-button").onclick = function(){}
     document.getElementById("parts-button").onclick = function(){}
     close_input_popup('payment-type-pop-up');
+}
+
+function check_ship_range_for_transfer()
+{
+    var close_enough_for_transfer = false;
+    var transfer_range = [];
+    var x_location = parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[0],10);
+    var y_location = parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[1],10);
+
+    for(var i = -3; i < 4; i++)
+    {
+        for(var j = -3; j < 4;j++)
+        {
+            if(i !=0 || j!=0)
+            {
+                transfer_range.push((x_location+i)+"_"+(y_location+j));
+            }
+        }
+    }
+    for(var i=0; i<all_factions[chosen_team_indicies[0]].navy.length;i++)
+    {
+        if(transfer_range.includes(all_factions[chosen_team_indicies[0]].navy[i].location))
+        {
+            close_enough_for_transfer = true;
+            break;
+        }
+    }
+
+    return close_enough_for_transfer;
 }
 
 //Key bindings for this screen.

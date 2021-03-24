@@ -8,6 +8,11 @@ function transfer_to_building_phase()
 {
     sessionStorage.setItem("gc_phase","building");
     close_input_popup("resource-report");
+    for(var i=0; i<document.getElementsByClassName("ship-body").length;i++)
+    {
+        document.getElementsByClassName("ship-body")[i].onclick = null;
+    }
+    document.getElementById("ship-body-info-pop-up").onclick= null;
     building_phase_set_up();  
 }
 

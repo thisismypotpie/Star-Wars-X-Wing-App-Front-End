@@ -44,6 +44,12 @@ function movement_phase_set_up()
 
     //Set the other buttons in the gameplay screen.
     document.getElementById("button-three").onclick = function(){
+        var navy_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
+        var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+        for(var i=0; i < all_factions[navy_index].navy.length;i++)
+        {
+            check_for_combat(all_factions[navy_index].navy[i].group_name)
+        }
         transfer_to_gather_phase();
     };
     set_resource_quantities(sessionStorage.getItem("gc_whos_turn"))
@@ -175,7 +181,7 @@ function show_movement_choices(team_name)
         movement_option.style.zIndex = "100";
         movement_option.onmouseenter = function(e){document.getElementById(e.target.id).style.border = "1px solid green";};
         movement_option.onmouseleave = function(e){document.getElementById(e.target.id).style.border = "none";};
-        movement_option.onclick = function(e){move_ship_group(e.target.id.split(",")[0]+"_"+e.target.id.split(",")[1],e.target.id.split(",")[3],parseInt(e.target.id.split(",")[2][0],10));remove_all_movement_spaces()}
+        movement_option.onclick = function(e){move_ship_group(e.target.id.split(",")[0]+"_"+e.target.id.split(",")[1],e.target.id.split(",")[3],parseInt(e.target.id.split(",")[2][0],10));remove_all_movement_spaces();}
         document.getElementById('grid-container').appendChild(movement_option);
 
     }
@@ -263,7 +269,7 @@ function move_ship_group(selected_location,team_name,spaces)
         chosen_navy.location = selected_location;
         chosen_navy.has_moved = true;
         all_factions[navy_index].fuel -= spaces;
-        document.getElementById("fuel-quantity-label").textContent = "X "+all_factions[navy_index].fuel;
+        document.getElementById("fuel-quantity-label").textContent = "X"+all_factions[navy_index].fuel;
         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
     }
     else
@@ -280,6 +286,45 @@ function remove_all_movement_spaces()
         elements[0].parentNode.removeChild(elements[0]);
     }
     movement_list = [];
+}
+
+function check_for_combat(team_name)
+{
+    var current_team = get_team_based_on_name(team_name);
+    var x_coordinate = parseInt(current_team.location.split("_")[0],10)
+    var y_coordinate = parseInt(current_team.location.split("_")[1],10)
+    var navy_opponent_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 1:0;//Get opposite of who's turn it is.
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    var combat_coordinates = [];
+    
+    for(var i=-1; i < 2;i++)
+    {
+        for(var j=-1; j<2;j++)
+        {
+            if(i!=0 || j!=0)
+            {
+                combat_coordinates.push((x_coordinate+i)+"_"+(y_coordinate+j));
+            }
+        }
+    }
+    
+    all_factions[navy_opponent_index].navy.forEach(group=>{
+        if(combat_coordinates.includes(group.location))
+        {
+            var answer = confirm("Shall the "+team_name+" engage the "+group.group_name+"?")
+
+            if(answer)
+            {
+                var all_teams = [];
+                all_teams.push(current_team);
+                all_teams.push(group.team)
+                sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+                sessionStorage.setItem("all_teams_names",team_name+"_"+group.group_name);
+                window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+            }
+        }
+    })
+
 }
 
 

@@ -457,22 +457,22 @@ function set_resource_quantities(whos_turn)
         //Set up main title based on which faction the player chose.
         if(whos_turn == "Rebels")
         {
-            document.getElementById("money-quantity-label").textContent = "X "+factions[0].currency;
-            document.getElementById("tibanna-quantity-label").textContent = "X "+factions[0].tibanna;
-            document.getElementById("electronics-quantity-label").textContent = "X "+factions[0].electronics;
-            document.getElementById("durasteel-quantity-label").textContent = "X "+factions[0].durasteel;
-            document.getElementById("fuel-quantity-label").textContent = "X "+factions[0].fuel;
-            document.getElementById("parts-quantity-label").textContent = "X "+factions[0].parts;
+            document.getElementById("money-quantity-label").textContent = "X"+factions[0].currency;
+            document.getElementById("tibanna-quantity-label").textContent = "X"+factions[0].tibanna;
+            document.getElementById("electronics-quantity-label").textContent = "X"+factions[0].electronics;
+            document.getElementById("durasteel-quantity-label").textContent = "X"+factions[0].durasteel;
+            document.getElementById("fuel-quantity-label").textContent = "X"+factions[0].fuel;
+            document.getElementById("parts-quantity-label").textContent = "X"+factions[0].parts;
     
         }
         else if(whos_turn == "Imperial")
         {
-            document.getElementById("money-quantity-label").textContent = "X "+factions[1].currency;
-            document.getElementById("tibanna-quantity-label").textContent = "X "+factions[1].tibanna;
-            document.getElementById("electronics-quantity-label").textContent = "X "+factions[1].electronics;
-            document.getElementById("durasteel-quantity-label").textContent = "X "+factions[1].durasteel;
-            document.getElementById("fuel-quantity-label").textContent = "X "+factions[1].fuel;
-            document.getElementById("parts-quantity-label").textContent = "X "+factions[1].parts;
+            document.getElementById("money-quantity-label").textContent = "X"+factions[1].currency;
+            document.getElementById("tibanna-quantity-label").textContent = "X"+factions[1].tibanna;
+            document.getElementById("electronics-quantity-label").textContent = "X"+factions[1].electronics;
+            document.getElementById("durasteel-quantity-label").textContent = "X"+factions[1].durasteel;
+            document.getElementById("fuel-quantity-label").textContent = "X"+factions[1].fuel;
+            document.getElementById("parts-quantity-label").textContent = "X"+factions[1].parts;
         }
         else
         {

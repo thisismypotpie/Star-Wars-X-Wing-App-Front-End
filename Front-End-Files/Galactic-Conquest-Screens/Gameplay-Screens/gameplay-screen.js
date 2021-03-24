@@ -1,6 +1,6 @@
-var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+//var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-var converted_planets = setup_data.converted_planets;
+//var converted_planets = setup_data.converted_planets;
 
 //For the border and collection of all elements.
 var all_ship_body_elements = [];
@@ -32,6 +32,7 @@ place_ship_bodies();
 
 function load_planets()
 {
+  var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
   setup_data.active_planets.forEach(planet=>{
           var id = planet.planet.x_coordinate+"_"+planet.planet.y_coordinate;
           if(planet.controlling_faction == "Unaligned")
@@ -73,6 +74,8 @@ function load_planets()
 function add_path_dots()
 {
 var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+var converted_planets = setup_data.converted_planets;
 game_data.map_paths.forEach(dot=>{
     var id_string = dot.x_coordinate+"_"+dot.y_coordinate;
     if(document.getElementById(id_string))
@@ -151,6 +154,7 @@ function place_ship_bodies()
 
 function check_if_planet_over_ship_body(planet_element_id)
 {
+  var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
   var planet_in_question  =get_planet(parseInt(document.getElementById(planet_element_id).getAttribute("planet_id"),10),0,setup_data.active_planets.length-1);
   if(planet_in_question !=null)
   {
@@ -205,6 +209,7 @@ function show_ship_body_stats(mouse_event)
 //Using binary search to get planet based on id.
 function get_planet(id_goal,low_range_end,high_range_end)
 {
+    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     var test_index = Math.floor((low_range_end+high_range_end)/2);//Create average of low and high to test middle of active planets.
     var test_id = setup_data.active_planets[test_index].planet.id
 
