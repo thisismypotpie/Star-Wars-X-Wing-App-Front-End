@@ -6,6 +6,32 @@ if(sessionStorage.getItem("gc_phase") == "movement")
     movement_phase_set_up();
 }
 
+//After combat changes.
+if(JSON.parse(sessionStorage.getItem("combat_report"))!=null)
+{
+    var all_teams = 
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"))
+    var combat_report = JSON.parse(sessionStorage.getItem("combat_report"))
+    var teams = [];
+    for(var i=0; i < combat_report.team_names.split("_").length;i++)
+    {
+        teams.push(combat_report.team_names.split("_")[i]);
+    }
+    for(var i=0; i < all_factions.length;i++)
+    {
+        for(var j=0; j < all_faction[i].navy.length;j++)
+        {
+            if(teams.includes(all_factions[i].navy[j].group_name))
+            {
+                for(var k=0; k < )
+                {
+
+                }
+            }
+        }
+    }
+}
+
 //Triggered when the player goes from placement to movement.
 function transfer_to_movement_phase()
 {
@@ -48,9 +74,12 @@ function movement_phase_set_up()
         var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
         for(var i=0; i < all_factions[navy_index].navy.length;i++)
         {
-            check_for_combat(all_factions[navy_index].navy[i].group_name)
+            if(check_for_combat(all_factions[navy_index].navy[i].group_name)!=null)
+            {
+                return;
+            }
         }
-        transfer_to_gather_phase();
+            transfer_to_gather_phase();
     };
     set_resource_quantities(sessionStorage.getItem("gc_whos_turn"))
 
@@ -308,7 +337,9 @@ function check_for_combat(team_name)
         }
     }
     
-    all_factions[navy_opponent_index].navy.forEach(group=>{
+    for(var i=0;i < all_factions[navy_opponent_index].navy.length;i++)
+    {
+        var group = all_factions[navy_opponent_index].navy[i];
         if(combat_coordinates.includes(group.location))
         {
             var answer = confirm("Shall the "+team_name+" engage the "+group.group_name+"?")
@@ -332,11 +363,10 @@ function check_for_combat(team_name)
                 {
                   sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
                   all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                  var initiative_assignment = Math.floor(Math.random() * all_teams.length);
-                  all_teams[initiative_assignment].has_initiative_token = true;
+                  all_teams[0].has_initiative_token = true;
                   sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
                   move_translate_vectors_for_notification_pop_up(-60,-60);
-                  show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
+                  show_notification_pop_up("The Game Begins! "+all_teams[0].team_name + " has been given first initiative!");
             
                   //Close the notification with this line of code.
                     document.getElementById("notification-ok-button").onclick = function(){
@@ -344,9 +374,10 @@ function check_for_combat(team_name)
                     window.location.href = "../../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
                   }
                 }
+                return "engaged";
             }
         }
-    })
+    }
 
 }
 

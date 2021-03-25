@@ -42,7 +42,16 @@ for(var i = selected_index; i < buckets.length;i++)
             all_teams = JSON.parse(sessionStorage.getItem("all_teams"));//This is to set all teams to the version manipulated by the function on the previous line.
             sessionStorage.removeItem("buckets");
             sessionStorage.removeItem("indecies");
-            var initiative_assignment = Math.floor(Math.random() * all_teams.length);
+            var initiative_assignment = undefined;
+            if(JSON.parse(sessionStorage.getItem("gc_setup_data"))!= null)//If the player is doing galactic conquest, the attacker will always get first initiative.
+            {
+                initiative_assignment = 0;// 0 is always the index for the attacking team in galactic conquest.
+            }
+            else
+            {
+                initiative_assignment = Math.floor(Math.random() * all_teams.length);
+            }
+
             all_teams[initiative_assignment].has_initiative_token = true;
 
             //Notify the user that the game has begun.

@@ -12,6 +12,7 @@ Galactic Conquest To Do's:
 5. Add a button for transfer ships to make a new ship body.
 6. Integreate combat into the game.
 7. When a ship moves, calculate for pirate interaction.
+8. Make sure when the game is over to remove the initative token from each team so that there are not mulitple team with that token.
 
 HOW REPAIRS SHOULD WORK:
 - Use electronics to restore shields.

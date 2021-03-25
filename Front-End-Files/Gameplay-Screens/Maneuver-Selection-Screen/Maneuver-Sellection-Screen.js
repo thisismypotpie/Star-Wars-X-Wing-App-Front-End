@@ -17,6 +17,18 @@ var parent_id_for_key_bindings = undefined;//used for autmenting tokens.
 //This will be for the current reminder index.
 var reminder_index;
 
+//If playing galactic conquest, then remove surrender and main menu button and have the retreat button.
+if(JSON.parse(sessionStorage.getItem("gc_setup_data")!= null))
+{
+    document.getElementById("main-menu-option").remove();
+    document.getElementById("surrender-option").remove();
+    document.getElementById("add-new-ship-option").remove();
+}
+else
+{   
+    document.getElementById("retreat-option").remove();
+}
+
 //If there is no team index or selected ship index, then create them with a value of zero.
 if(selected_ship_index == null || selected_ship_index == undefined)
 {
