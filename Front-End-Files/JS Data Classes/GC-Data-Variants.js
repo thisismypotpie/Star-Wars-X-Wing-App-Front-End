@@ -273,6 +273,7 @@ function create_GC_team_name(first_ship,faction_index)
    var place_suffix = undefined;
    var number_placement = undefined;
    var ship_body_size = undefined;
+   var full_name = undefined;
 
    //Set the number placement and increment the highest number;
    if(first_ship.ship_type == "small" ||
@@ -325,16 +326,24 @@ function create_GC_team_name(first_ship,faction_index)
    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
    if(faction_index == 0)
    {
-    return number_placement+place_suffix+" Rebel "+ ship_body_size;
+     full_name = number_placement+place_suffix+" Rebel "+ ship_body_size;
    }
    else if(faction_index == 1)
    {
-    return number_placement+place_suffix+" Imperial "+ship_body_size;
+     full_name = number_placement+place_suffix+" Imperial "+ship_body_size;
    }
    else
    {
        alert("ERROR: Could not compile team name!")
        return;
+   }
+   if(check_if_name_already_taken(full_name) == false)
+   {
+     return full_name;
+   }
+   else
+   {
+       return create_GC_team_name(first_ship,faction_index);
    }
 }
 
@@ -372,6 +381,24 @@ function remove_newly_created_team_name(team_name,faction_index)
         alert("ERROR: Could not remove team name.");
     }
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+}
+
+function check_if_name_already_taken(name)
+{
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
+
+    for(var i = 0; i< all_factions.length;i++)
+    {
+        for(var j = 0; j<all_factions[i].navy.length;j++)
+        {
+            if(name == all_factions[i].navy[j].group_name)
+            {
+                return true;
+                break;
+            }
+        }
+    }
+    return false;
 }
 
 //Finds correct image of which faction and fleet size is put in. 

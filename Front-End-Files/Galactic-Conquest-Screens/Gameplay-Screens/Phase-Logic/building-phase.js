@@ -47,7 +47,7 @@ function building_phase_set_up()
        document.getElementById(id).onclick= function(e){
            if(confirm("Add a ship group here? ("+e.target.id+")")== true)
            {
-
+               var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
                var planet_in_question  =get_planet(parseInt(document.getElementById(e.target.id).getAttribute("planet_id"),10),0,setup_data.active_planets.length-1);
                //alert ("id: "+e.target.id+"\nOutput: "+planet_in_question);
                if( planet_in_question!= null)//This makes it so you can't places forces on an enemy planet.

@@ -316,11 +316,34 @@ function check_for_combat(team_name)
             if(answer)
             {
                 var all_teams = [];
-                all_teams.push(current_team);
+                all_teams.push(current_team.team);
                 all_teams.push(group.team)
                 sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
                 sessionStorage.setItem("all_teams_names",team_name+"_"+group.group_name);
-                window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+                //window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+                var buckets = bucket_sort_pilots_by_skill(all_teams);
+                sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+                if(buckets.sorting_needed == true)
+                {
+                  sessionStorage.setItem("buckets",JSON.stringify(buckets.sorted_buckets));
+                  window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+                }
+                else
+                {
+                  sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+                  all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+                  var initiative_assignment = Math.floor(Math.random() * all_teams.length);
+                  all_teams[initiative_assignment].has_initiative_token = true;
+                  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+                  move_translate_vectors_for_notification_pop_up(-60,-60);
+                  show_notification_pop_up("The Game Begins! "+all_teams[initiative_assignment].team_name + " has been given first initiative!");
+            
+                  //Close the notification with this line of code.
+                    document.getElementById("notification-ok-button").onclick = function(){
+                    close_notification_pop_up();
+                    window.location.href = "../../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+                  }
+                }
             }
         }
     })

@@ -132,7 +132,11 @@ function done_button_click()
 //Remove the most previous entry in indecies and go back to most previous bucket.
 function back_button_click()
 {
-        if(indecies.length <= 1)
+        if(sessionStorage.getItem("gc_setup_data") != null)//go back to galactic conquest if 
+        {
+            window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
+        }
+        else if(indecies.length <= 1)
         {
             window.location.href ='../../Team-Screen/Team-Screen.html';
             sessionStorage.removeItem("buckets");
