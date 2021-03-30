@@ -1,9 +1,35 @@
 function surrender_team(team_index)
 {
-    var confrim = confirm("Are you sure you wish to surrender?");
+    var surrender_or_retreat = "surrender";
+    if(sessionStorage.getItem("gc_setup_data") != null)//change surrender to retreat if you are playing galactic conquest.
+    {
+        surrender_or_retreat = "retreat";
+    }
+    var confrim = confirm("Are you sure you wish to "+surrender_or_retreat+"?");
     if(confrim == true)
     {
         var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+
+
+        if(sessionStorage.getItem("gc_setup_data") != null)//If you are in galactic conquest, then create combat report.
+        {
+            var combat_report = [];
+            if(sessionStorage.getItem("combat_report") == null)
+            {
+                sessionStorage.setItem("combat_report",JSON.stringify([]));
+            }
+            else
+            {   
+                combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
+            }
+    
+            combat_report.push(
+                {team_name: all_teams[team_index].team_name,
+                team_remnant: all_teams[team_index].ship_list,
+                outcome:"Retreat"
+            })
+            sessionStorage.setItem("combat_report",JSON.stringify(combat_report));
+        }
 
         //get the next ship to go if there is more than one team.
         if(all_teams.length > 1)//If there is more than one team, find who would be next depending on the phase of the game.
@@ -28,7 +54,7 @@ function surrender_team(team_index)
                     sessionStorage.setItem("movement_attack_index",0);
                     check_if_game_over();
                     //location.reload();
-                    alert(name + " has surrendered.");
+                    alert(name + " has "+surrender_or_retreat+"ed.");
                 }
                 else
                 {
@@ -42,7 +68,7 @@ function surrender_team(team_index)
                     all_teams.splice(team_index,1);
                     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
                     sessionStorage.setItem("selected_ship_index",0);
-                    alert(name + "has surrendered.");
+                    alert(name + " has "+surrender_or_retreat+"ed.");
                     check_if_game_over();
                     //location.reload();
                 }
@@ -85,7 +111,7 @@ function surrender_team(team_index)
                                     all_teams[i].ship_list[j].roster_number == pilot_in_question.roster_number)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
-                                    alert(surrender_team_name+" has surrendered!");
+                                    alert(surrender_team_name+" has "+surrender_or_retreat+"ed!");
                                     check_if_game_over();
                                     //location.reload();
                                     return;
@@ -133,7 +159,7 @@ function surrender_team(team_index)
                                     all_teams[i].ship_list[j].roster_number == pilot_in_question.roster_number)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
-                                    alert(surrender_team_name+" has surrendered!");
+                                    alert(surrender_team_name+" has "+surrender_or_retreat+"ed!");
                                     check_if_game_over();
                                     //location.reload();
                                     return;
@@ -185,7 +211,7 @@ function surrender_team(team_index)
                                     all_teams[i].ship_list[j].roster_number == pilot_in_question.roster_number)
                                 {
                                     sessionStorage.setItem("movement_attack_index",get_movement_attack_index_of_ship_whos_turn_it_is(i,j));
-                                    alert(surrender_team_name+" has surrendered!");
+                                    alert(surrender_team_name+" has "+surrender_or_retreat+"ed!");
                                     check_if_game_over();
                                     //location.reload();
                                     return;
@@ -202,7 +228,7 @@ function surrender_team(team_index)
                 }
                 all_teams.splice(team_index,1);
                 sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-                alert(surrender_team_name+" has surrendered!");
+                alert(surrender_team_name+" has "+surrender_or_retreat+"ed!");
                 //Do end of round stuff.
                 sessionStorage.removeItem("phase");//Phase is used to determine when phase we are in, if there is no phase in sessionstorage, then we are in maneuver selection.
                 sessionStorage.removeItem("movement_attack_index");
@@ -252,7 +278,7 @@ function check_if_game_over()
             sessionStorage.removeItem("selected_ship_index");
             sessionStorage.removeItem("all_target_locks");
 
-            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Galactic-Conquest-Screens/gameplay-screen.html"};
+            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html"};
         }
         else//for regular games.
         {
