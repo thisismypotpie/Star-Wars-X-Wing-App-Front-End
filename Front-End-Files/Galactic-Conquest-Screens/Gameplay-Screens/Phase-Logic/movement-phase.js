@@ -9,7 +9,9 @@ if(sessionStorage.getItem("gc_phase") == "movement")
 //After combat changes.
 if(JSON.parse(sessionStorage.getItem("combat_report"))!=null)
 {
-    var all_teams = 
+
+    alert("Showing combat Report!");
+    /*var all_teams = JSON.parse(sessionStorage.getItem("all_teams"))
     var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"))
     var combat_report = JSON.parse(sessionStorage.getItem("combat_report"))
     var teams = [];
@@ -23,13 +25,18 @@ if(JSON.parse(sessionStorage.getItem("combat_report"))!=null)
         {
             if(teams.includes(all_factions[i].navy[j].group_name))
             {
-                for(var k=0; k < )
+                for(var k=0; k < all_teams.length;k++)
                 {
-
+                    if(all_teams[i].team_name == all_factions[i].navy[j].group_name)
+                    {
+                        all_factions[i].navy[j].team = all_teams[i]; 
+                    }
                 }
             }
         }
     }
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    sessionStorage.removeItem("all_teams");*/
 }
 
 //Triggered when the player goes from placement to movement.

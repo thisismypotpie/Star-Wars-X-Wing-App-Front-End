@@ -28,7 +28,7 @@ function surrender_team(team_index)
                     sessionStorage.setItem("movement_attack_index",0);
                     check_if_game_over();
                     //location.reload();
-                    alert(name + "has surrendered.");
+                    alert(name + " has surrendered.");
                 }
                 else
                 {
@@ -226,6 +226,7 @@ function surrender_team(team_index)
             check_if_game_over();
         }
     }
+    return confrim;//check if combat report for gc needs to be created.
 }
 
 
@@ -237,11 +238,29 @@ function check_if_game_over()
     {
         document.getElementById('notification-pop-up-title').textContent = all_teams[0].team_name+" is victorious! \n GAME OVER!";
         show_pop_up("Notification-pop-up");
-        document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
-        var game_data = JSON.parse(sessionStorage.getItem("game_data"));
-        sessionStorage.clear();
-        sessionStorage.setItem("game_data",JSON.stringify(game_data))
+        if(sessionStorage.getItem("combat_report")!=null)//for galactic conquest.
+        {
+            var combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
+            combat_report.push(
+                {team_name: all_teams[0].team_name,
+                team_remnant: all_teams[0].ship_list,
+                outcome:"Victory"
+            })
+            sessionStorage.setItem("combat_report",JSON.stringify(combat_report));
+            sessionStorage.removeItem("all_teams_names");
+            sessionStorage.removeItem("team_index");
+            sessionStorage.removeItem("selected_ship_index");
+            sessionStorage.removeItem("all_target_locks");
 
+            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Galactic-Conquest-Screens/gameplay-screen.html"};
+        }
+        else//for regular games.
+        {
+            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
+            var game_data = JSON.parse(sessionStorage.getItem("game_data"));
+            sessionStorage.clear();
+            sessionStorage.setItem("game_data",JSON.stringify(game_data));
+        }
     }
     else if(all_teams.length == 0)
     {
