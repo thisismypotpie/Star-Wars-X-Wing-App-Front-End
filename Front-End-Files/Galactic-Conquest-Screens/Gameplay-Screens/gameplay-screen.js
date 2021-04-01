@@ -118,6 +118,7 @@ function zoom_in_button_click()
 
 function place_ship_bodies()
 {
+   check_for_combat_report();
    let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
    all_factions.forEach(faction=>{
      faction.navy.forEach(ship_body=>{
@@ -331,3 +332,43 @@ setInterval(function(){
         }
       }
 }, 500);
+
+function check_for_combat_report()
+{
+  //After combat changes.
+if(sessionStorage.getItem("combat_report")!=null)
+{
+    alert("combat report!")
+    let combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
+    let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+
+    //Go through each team in the combat report and update the team.
+    combat_report.forEach(report=>{
+        for(var i=0; i < all_factions.length;i++)
+        {
+            for(var j= all_factions[i].navy.length-1; j>= 0;j--)
+            {
+                if(all_factions[i].navy[j].group_name == report.team_name)
+                {
+                    if(report.outcome == "Defeated")//If a team is completely destroyed, remove it.
+                    {
+                        alert(all_factions[i].navy[j].group_name+" has been destroyed");
+                        all_factions[i].navy.splice(j,1);//remove ship.
+                        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    }
+                    else//If a team has retreated or won, replace old team with new one.
+                    {
+                        alert(all_factions[i].navy[j].group_name+" has been updated.")
+                        all_factions[i].navy[j].team.ship_list = report.team_remnant;
+                        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                        check_if_name_needs_to_be_downgraded(all_factions[i].navy[j].group_name);
+                        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                    }
+                }
+            }
+        }
+    })
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    sessionStorage.removeItem("combat_report");
+}
+}

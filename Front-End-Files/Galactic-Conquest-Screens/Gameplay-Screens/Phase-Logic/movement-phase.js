@@ -6,39 +6,6 @@ if(sessionStorage.getItem("gc_phase") == "movement")
     movement_phase_set_up();
 }
 
-//After combat changes.
-if(JSON.parse(sessionStorage.getItem("combat_report"))!=null)
-{
-
-    alert("Showing combat Report!");
-    /*var all_teams = JSON.parse(sessionStorage.getItem("all_teams"))
-    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"))
-    var combat_report = JSON.parse(sessionStorage.getItem("combat_report"))
-    var teams = [];
-    for(var i=0; i < combat_report.team_names.split("_").length;i++)
-    {
-        teams.push(combat_report.team_names.split("_")[i]);
-    }
-    for(var i=0; i < all_factions.length;i++)
-    {
-        for(var j=0; j < all_faction[i].navy.length;j++)
-        {
-            if(teams.includes(all_factions[i].navy[j].group_name))
-            {
-                for(var k=0; k < all_teams.length;k++)
-                {
-                    if(all_teams[i].team_name == all_factions[i].navy[j].group_name)
-                    {
-                        all_factions[i].navy[j].team = all_teams[i]; 
-                    }
-                }
-            }
-        }
-    }
-    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
-    sessionStorage.removeItem("all_teams");*/
-}
-
 //Triggered when the player goes from placement to movement.
 function transfer_to_movement_phase()
 {
@@ -357,7 +324,7 @@ function check_for_combat(team_name)
                 all_teams.push(current_team.team);
                 all_teams.push(group.team)
                 sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-                sessionStorage.setItem("all_teams_names",team_name+"_"+group.group_name);
+                //sessionStorage.setItem("all_teams_names",team_name+"_"+group.group_name);
                 //window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
                 var buckets = bucket_sort_pilots_by_skill(all_teams);
                 sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);

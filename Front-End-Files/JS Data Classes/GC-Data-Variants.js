@@ -526,6 +526,7 @@ function get_team_based_on_name(name)
     if(chosen_team == undefined)
     {
         alert("ERROR: Cannot find team name.");
+        throw 'ERROR Cannot find team name.';
     }
     return chosen_team;
 }

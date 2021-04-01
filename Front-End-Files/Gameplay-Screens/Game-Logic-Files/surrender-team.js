@@ -273,10 +273,14 @@ function check_if_game_over()
                 outcome:"Victory"
             })
             sessionStorage.setItem("combat_report",JSON.stringify(combat_report));
-            sessionStorage.removeItem("all_teams_names");
+            //sessionStorage.removeItem("all_teams_names");
             sessionStorage.removeItem("team_index");
             sessionStorage.removeItem("selected_ship_index");
             sessionStorage.removeItem("all_target_locks");
+            sessionStorage.removeItem("phase");
+            sessionStorage.removeItem("movement_attack_index");
+            sessionStorage.removeItem("selected_ship_storage");
+            sessionStorage.removeItem("all_teams");
 
             document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html"};
         }

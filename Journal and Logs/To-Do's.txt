@@ -22,6 +22,10 @@ HOW REPAIRS SHOULD WORK:
 - use corresponding parts to get rid of critical hits and conditions.
 
 
+Bugs:
+- If you start a new galactic conquest game and then press the previous page icon, then the game freezes.
+- When crippling a large ship, if you press the flip button, the side that is still alive still have it's hull value with lower opacity.
+
 
 
 

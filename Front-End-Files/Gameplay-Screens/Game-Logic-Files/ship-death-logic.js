@@ -53,6 +53,26 @@ function ship_is_dead()
 
     if(all_teams[team_index].ship_list.length == 0)
     {
+        if(sessionStorage.getItem("gc_setup_data")!=null)//If you are playing galactic conquest, then add removed team to combat report.
+        {
+            //put destroyed team into the combat report.
+            var combat_report = [];
+            if(sessionStorage.getItem("combat_report") == null)
+            {
+                sessionStorage.setItem("combat_report",JSON.stringify([]));
+            }
+            else
+            {   
+                combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
+            }
+    
+            combat_report.push(
+                {team_name: all_teams[team_index].team_name,
+                team_remnant: null,
+                outcome:"Defeated"
+            })
+            sessionStorage.setItem("combat_report",JSON.stringify(combat_report));
+        }
         //Team is out of the game.
         var team_name = all_teams[team_index].team_name;
         all_teams.splice(team_index,1);
@@ -86,12 +106,35 @@ function ship_is_dead()
             document.getElementById('notification-pop-up-title').textContent = all_teams[team_index].team_name+" is victorious! \n GAME OVER!";
         }
         show_pop_up("Notification-pop-up");
-        document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
-        sessionStorage.clear();
-        sessionStorage.setItem("game_data",JSON.stringify(game_data));
-        if(all_teams.length > 0)
+        if(sessionStorage.getItem("combat_report")!=null)//for galactic conquest.
         {
-            sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            var combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
+            combat_report.push(
+                {team_name: all_teams[0].team_name,
+                team_remnant: all_teams[0].ship_list,
+                outcome:"Victory"
+            })
+            sessionStorage.setItem("combat_report",JSON.stringify(combat_report));
+            //sessionStorage.removeItem("all_teams_names");
+            sessionStorage.removeItem("team_index");
+            sessionStorage.removeItem("selected_ship_index");
+            sessionStorage.removeItem("all_target_locks");
+            sessionStorage.removeItem("phase");
+            sessionStorage.removeItem("movement_attack_index");
+            sessionStorage.removeItem("selected_ship_storage");
+            sessionStorage.removeItem("all_teams");
+
+            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html"};
+        }
+        else
+        {
+            document.getElementById('notificatin-ok-button').onclick = function(){window.location.href = "../../Team-Screen/Team-Screen.html"};
+            sessionStorage.clear();
+            sessionStorage.setItem("game_data",JSON.stringify(game_data));
+            if(all_teams.length > 0)
+            {
+                sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+            }
         }
     }
     else
