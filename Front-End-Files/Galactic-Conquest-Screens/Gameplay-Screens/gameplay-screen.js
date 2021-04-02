@@ -362,7 +362,7 @@ if(sessionStorage.getItem("combat_report")!=null)
                         all_factions[i].navy[j].team.ship_list = report.team_remnant;
                         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
                         check_if_name_needs_to_be_downgraded(all_factions[i].navy[j].group_name);
-                        sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+                        all_factions = JSON.parse(sessionStorage.getItem("gc_factions"))
                     }
                 }
             }

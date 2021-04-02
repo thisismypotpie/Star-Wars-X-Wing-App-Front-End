@@ -58,6 +58,7 @@ else //Set up a fresh gc_setup.
         planet_count:5, 
         pirate_faction:"off",
         pirate_options:{
+        list_of_the_dead:[],
         total_ships:
             "gc_setup_data.pirate_options.HWK_290+gc_setup_data.pirate_options.Kihraxz_Fighter+gc_setup_data.pirate_options.M3_A_Interceptor+gc_setup_data.pirate_options.M12_L_Kimongila_Fighter+gc_setup_data.pirate_options.G_1A_Starfighter+"+
             "gc_setup_data.pirate_options.Protectorate_Starfighter+gc_setup_data.pirate_options.Quadjumper+gc_setup_data.pirate_options.Scurrg_H_6_Bomber+gc_setup_data.pirate_options.StarViper+gc_setup_data.pirate_options.Y_Wing+"+

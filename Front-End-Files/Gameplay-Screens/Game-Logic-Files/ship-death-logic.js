@@ -47,9 +47,15 @@ function ship_is_dead()
 {
     hide_pop_up('ship-death-pop-up');
     discard_related_target_locks();//This will make sure that any target lock associated with the dead ship is removed.
+    var ship_to_be_removed = all_teams[team_index].ship_list[selected_ship_index];
     all_teams[team_index].ship_list.splice(selected_ship_index,1);
     sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
     var game_over = false; 
+
+    if(sessionStorage.getItem("gc_setup_data")!=null)
+    {
+        gc_check_for_adding_to_list_of_the_dead(ship_to_be_removed);
+    }
 
     if(all_teams[team_index].ship_list.length == 0)
     {
@@ -196,5 +202,25 @@ function play_death_music()
     {
         var regular_ship_death =  new Audio('https://docs.google.com/uc?export=download&id=1Id2DleeQ8isNQibcCOsHyvlyO2iIsWDc');
         regular_ship_death.play();       
+    }
+}
+
+    //        var chosen_index = game_data.all_large_crit_hit_cards.map(function(e){return e.id}).indexOf(crit_hit_assign_index);
+    //&& (ship_to_be_removed.chosen_pilot.is_unique == true
+function gc_check_for_adding_to_list_of_the_dead(ship_to_inspect)
+{
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data")); 
+
+    //Check if ship had unique pilot.
+    if(ship_to_inspect.chosen_pilot.is_unique == true)
+    {
+        
+    }
+
+    //Check if upgrades had unique character. 
+    for(var i=0; i < ship_to_inspect.upgrades.length; i++)
+    {
+
     }
 }
