@@ -143,7 +143,7 @@ function ship_is_dead()
             }
         }
     }
-    else
+    else//cases for moving to the next team if the ship team needs to be moved to.
     {
         if(sessionStorage.getItem("searching")!=null && sessionStorage.getItem("searching")!= undefined)//Just in case someone is searching when a another ship dies.
         {
@@ -173,6 +173,16 @@ function ship_is_dead()
                 sessionStorage.setItem("movement_attack_index",(get_total_ships(all_teams)-1));
                 sessionStorage.setItem("phase","attack");
             }
+        }
+        //If in maneuver selection phase and the final ship of a team dies, move to the next team in maneuver selection phase
+        if(sessionStorage.getItem("phase") == null &&
+           selected_ship_index == all_teams[team_index].ship_list.length &&
+           team_index < (all_teams.length-1))
+        {
+            team_index++;
+            selected_ship_index = 0;
+            sessionStorage.setItem("selected_ship_index",selected_ship_index);
+            sessionStorage.setItem("team_index",team_index);
         }
         location.reload();
     }
@@ -215,12 +225,54 @@ function gc_check_for_adding_to_list_of_the_dead(ship_to_inspect)
     //Check if ship had unique pilot.
     if(ship_to_inspect.chosen_pilot.is_unique == true)
     {
-        
+        if(ship_to_inspect.chosen_pilot.faction == "Rebels" &&
+           !all_factions[0].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+        {
+            all_factions[0].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+        }
+        else if(ship_to_inspect.chosen_pilot.faction == "Imperial" &&
+                !all_factions[1].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+        {
+            all_factions[1].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+        }
+        else if(ship_to_inspect.chosen_pilot.faction == "Scum" &&
+                !setup_data.pirate_options.list_of_the_dead.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+        {
+            !setup_data.pirate_options.list_of_the_dead.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+        }
+        else
+        {
+            alert("ERROR: Cannot determine which faction the destroyed ship is from.");
+        }
     }
 
     //Check if upgrades had unique character. 
-    for(var i=0; i < ship_to_inspect.upgrades.length; i++)
-    {
+    ship_to_inspect.upgrades.forEach(upgrade=>{
+        if((upgrade.type == "Crew" || upgrade.type == "Astromech" || upgrade.type =="Salvaged Astromech")&& 
+            upgrade.is_unique == true)
+            {
+                    if(ship_to_inspect.chosen_pilot.faction == "Rebels" &&
+                    !all_factions[0].list_of_the_fallen.includes(upgrade.name))
+                    {
+                         all_factions[0].list_of_the_fallen.push(upgrade.name);
+                    }
+                else if(ship_to_inspect.chosen_pilot.faction == "Imperial" &&
+                        !all_factions[1].list_of_the_fallen.includes(upgrade.name))
+                    {
+                        all_factions[1].list_of_the_fallen.push(upgrade.name);
+                    }
+                else if(ship_to_inspect.chosen_pilot.faction == "Scum" &&
+                        !setup_data.pirate_options.list_of_the_dead.includes(upgrade.name))
+                    {
+                      !setup_data.pirate_options.list_of_the_dead.push(upgrade.name);
+                    }
+                else
+                    {
+                     alert("ERROR: Cannot determine which faction the destroyed ship is from.");
+                    }
+            }
+    })
 
-    }
+    sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
 }
