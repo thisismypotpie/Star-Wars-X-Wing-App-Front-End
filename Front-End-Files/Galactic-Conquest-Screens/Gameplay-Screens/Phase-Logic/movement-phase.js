@@ -274,6 +274,10 @@ function move_ship_group(selected_location,team_name,spaces)
         all_factions[navy_index].fuel -= spaces;
         document.getElementById("fuel-quantity-label").textContent = "X"+all_factions[navy_index].fuel;
         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+        if(JSON.parse(sessionStorage.getItem("gc_setup_data")).pirate_faction == "on")
+        {
+            roll_for_pirates();
+        }
     }
     else
     {
@@ -355,4 +359,44 @@ function check_for_combat(team_name)
 
 }
 
+function roll_for_pirates()
+{
+    var chance = Math.floor(Math.random() * 100)+1;
+    var current_team = get_team_based_on_name(team_name);
+    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+    var current_team_cost = 0;
+    var pirate_team = undefined;
+    var pirate_budget = 0;
+    var ships_so_far = {
+        HWK_290: 0,
+        Kihraxz_Fighter:0,
+        M3_A_Interceptor:0,
+        M12_L_Kimongila_Fighter:0,
+        G_1A_Starfighter:0,
+        Protectorate_Starfighter:0,
+        Quadjumper:0,
+        Scurrg_H_6_Bomber:0,
+        StarViper:0,
+        Y_Wing:0,
+        Z_95_Headhunter:0,
+        Firespray_31:0,
+        Hounds_Tooth:0,
+        Aggressor:0,
+        Jump_Master_5000:0,
+        Lancer_Class_Pusuit_Craft:0,
+        YT_1300:0,
+        C_ROC_Cruiser:0
+    }
 
+    if(chance <= 5)
+    {
+        alert("You have been beset upon by pirates. Prepare for battle!");
+
+        //Determine how many points the pirates get based on how many points the engaged party has.
+        current_team.team.ship_list.forEach(ship=>{
+            current_team_cost+= ship.chosen_pilot.cost;
+        })
+
+        pirate_budget = Math.floor(Math.random()*current_team_cost)+30;
+    }
+}
