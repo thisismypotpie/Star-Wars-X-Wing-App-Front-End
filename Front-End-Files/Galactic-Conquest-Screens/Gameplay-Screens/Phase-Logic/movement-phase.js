@@ -361,6 +361,7 @@ function check_for_combat(team_name)
 
 function roll_for_pirates()
 {
+    return;
     var chance = Math.floor(Math.random() * 100)+1;
     var current_team = get_team_based_on_name(team_name);
     var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
@@ -387,6 +388,7 @@ function roll_for_pirates()
         YT_1300:0,
         C_ROC_Cruiser:0
     }
+    var all_pilots = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
 
     if(chance <= 5)
     {
@@ -398,5 +400,20 @@ function roll_for_pirates()
         })
 
         pirate_budget = Math.floor(Math.random()*current_team_cost)+30;
+
+        //Create list of pilots that are just scum.
+        for(var i=all_pilots.length -1; i>= 0;i--)
+        {
+            if(all_pilots[i].faction != "Scum")
+            {
+                all_pilots.splice(i,1);
+            }
+        }
+
+        //Randomly pick a ship with scum faction.
+        while(1==2)
+        {
+
+        }
     }
 }

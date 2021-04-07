@@ -226,19 +226,19 @@ function gc_check_for_adding_to_list_of_the_dead(ship_to_inspect)
     if(ship_to_inspect.chosen_pilot.is_unique == true)
     {
         if(ship_to_inspect.chosen_pilot.faction == "Rebels" &&
-           !all_factions[0].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+           !all_factions[0].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.pilot_name))
         {
-            all_factions[0].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+            all_factions[0].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.pilot_name);
         }
         else if(ship_to_inspect.chosen_pilot.faction == "Imperial" &&
-                !all_factions[1].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+                !all_factions[1].list_of_the_fallen.includes(ship_to_inspect.chosen_pilot.pilot_name))
         {
-            all_factions[1].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+            all_factions[1].list_of_the_fallen.push(ship_to_inspect.chosen_pilot.pilot_name);
         }
         else if(ship_to_inspect.chosen_pilot.faction == "Scum" &&
-                !setup_data.pirate_options.list_of_the_dead.includes(ship_to_inspect.chosen_pilot.faction.pilot_name))
+                !setup_data.pirate_options.list_of_the_dead.includes(ship_to_inspect.chosen_pilot.pilot_name))
         {
-            !setup_data.pirate_options.list_of_the_dead.push(ship_to_inspect.chosen_pilot.faction.pilot_name);
+            !setup_data.pirate_options.list_of_the_dead.push(ship_to_inspect.chosen_pilot.pilot_name);
         }
         else
         {
@@ -248,23 +248,23 @@ function gc_check_for_adding_to_list_of_the_dead(ship_to_inspect)
 
     //Check if upgrades had unique character. 
     ship_to_inspect.upgrades.forEach(upgrade=>{
-        if((upgrade.type == "Crew" || upgrade.type == "Astromech" || upgrade.type =="Salvaged Astromech")&& 
-            upgrade.is_unique == true)
+        if((upgrade.upgrade.type == "Crew" || upgrade.upgrade.type == "Astromech" || upgrade.upgrade.type =="Salvaged Astromech")&& 
+            upgrade.upgrade.is_unique == true)
             {
                     if(ship_to_inspect.chosen_pilot.faction == "Rebels" &&
-                    !all_factions[0].list_of_the_fallen.includes(upgrade.name))
+                    !all_factions[0].list_of_the_fallen.includes(upgrade.upgrade.name))
                     {
-                         all_factions[0].list_of_the_fallen.push(upgrade.name);
+                         all_factions[0].list_of_the_fallen.push(upgrade.upgrade.name);
                     }
                 else if(ship_to_inspect.chosen_pilot.faction == "Imperial" &&
-                        !all_factions[1].list_of_the_fallen.includes(upgrade.name))
+                        !all_factions[1].list_of_the_fallen.includes(upgrade.upgrade.name))
                     {
-                        all_factions[1].list_of_the_fallen.push(upgrade.name);
+                        all_factions[1].list_of_the_fallen.push(upgrade.upgrade.name);
                     }
                 else if(ship_to_inspect.chosen_pilot.faction == "Scum" &&
-                        !setup_data.pirate_options.list_of_the_dead.includes(upgrade.name))
+                        !setup_data.pirate_options.list_of_the_dead.includes(upgrade.upgrade.name))
                     {
-                      !setup_data.pirate_options.list_of_the_dead.push(upgrade.name);
+                      setup_data.pirate_options.list_of_the_dead.push(upgrade.upgrade.name);
                     }
                 else
                     {
