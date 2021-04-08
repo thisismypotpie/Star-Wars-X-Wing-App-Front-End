@@ -71,7 +71,8 @@ function is_pilot_available()
     team_that_has_pilot: undefined,
     roster_number: undefined
   };
-  var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+  var all_teams = whos_turn.navy.map(function(group){return group.team})
+
   //Automatically return true if there are no established teams.
   if(all_teams == null || all_teams == undefined || all_teams.length == 0)
   {
@@ -79,6 +80,7 @@ function is_pilot_available()
   }
   else
   {
+    //Check is pilot is on another team.
     for(const team of all_teams)
     {
       for(const ship of team.ship_list)
@@ -94,6 +96,17 @@ function is_pilot_available()
         }
       }
     }
+
+    //Check if pilot is dead.
+    for(var i=0; i < whos_turn.list_of_the_fallen.length;i++)
+    {
+       if(display_pilots[selection_index].pilot_name == whos_turn.list_of_the_fallen[i])
+       {
+         pilot_stats.pilot_available = false;
+         pilot_stats.team_that_has_pilot = "dead";
+         break;
+       }
+    }
     return pilot_stats;
   }
 
@@ -102,16 +115,35 @@ function is_pilot_available()
 //This will change the image of the pilot to display that the pilot is not available and who has that pilot. Also make select button invisible.
 function update_image_unavailable(pilot_details)
 {
-document.getElementById("select-button").style.visibility = "hidden";
-document.getElementById("pilot-image").style.backgroundImage = "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("+ display_pilots[selection_index].image_path+")";
 
-document.getElementById("team_name_assigned").textContent = pilot_details.team_that_has_pilot;
-document.getElementById("roster_number_assigned").textContent = "ROSTER NUMBER: "+pilot_details.roster_number;
-
-document.getElementById("unavailable").style.visibility = "visible";
-document.getElementById("assigned_to").style.visibility = "visible";
-document.getElementById("team_name_assigned").style.visibility = "visible";
-document.getElementById("roster_number_assigned").style.visibility = "visible";
+if(pilot_details.team_that_has_pilot == "dead")
+{
+  document.getElementById("select-button").style.visibility = "hidden";
+  document.getElementById("pilot-image").style.backgroundImage = "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("+ display_pilots[selection_index].image_path+")";
+  
+  document.getElementById("assigned_to").textContent = "This pilot is KIA/MIA.";
+  document.getElementById("team_name_assigned").textContent = "";
+  document.getElementById("roster_number_assigned").textContent = "";
+  
+  document.getElementById("unavailable").style.visibility = "visible";
+  document.getElementById("assigned_to").style.visibility = "visible";
+  document.getElementById("team_name_assigned").style.visibility = "visible";
+  document.getElementById("roster_number_assigned").style.visibility = "visible";
+}
+else
+{
+  document.getElementById("select-button").style.visibility = "hidden";
+  document.getElementById("pilot-image").style.backgroundImage = "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("+ display_pilots[selection_index].image_path+")";
+  
+  document.getElementById("assigned_to").textContent = "assigned to";
+  document.getElementById("team_name_assigned").textContent = pilot_details.team_that_has_pilot;
+  document.getElementById("roster_number_assigned").textContent = "ROSTER NUMBER: "+pilot_details.roster_number;
+  
+  document.getElementById("unavailable").style.visibility = "visible";
+  document.getElementById("assigned_to").style.visibility = "visible";
+  document.getElementById("team_name_assigned").style.visibility = "visible";
+  document.getElementById("roster_number_assigned").style.visibility = "visible";
+}
 }
 
 //This function will update an image if a pilot is available to make sure the unavailable text is not visible. Also make select button visible.

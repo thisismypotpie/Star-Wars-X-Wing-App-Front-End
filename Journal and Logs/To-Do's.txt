@@ -25,6 +25,7 @@ HOW REPAIRS SHOULD WORK:
 Bugs:
 - If you start a new galactic conquest game and then press the previous page icon, then the game freezes.
 - When crippling a large ship, if you press the flip button, the side that is still alive still have it's hull value with lower opacity.
+- If you retreat on the movement phase, you get the error specified in surrender-team.js line 173: ERROR: Unable to get next ship, all ships have been searched and there is no possible next ship.
 
 
 

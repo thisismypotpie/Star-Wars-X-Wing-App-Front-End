@@ -1,6 +1,7 @@
 //This is the section for adding buttton functionality.
 function back_button(){
     sessionStorage.removeItem("team_name");
+    sessionStorage.removeItem("team_indecies");
     window.location.href="../gameplay-screen.html";
 }
 //Go to next ship in the roster.
@@ -459,6 +460,7 @@ function remove_ship()
         all_factions[chosen_team_indicies[0]].navy.splice(chosen_team_indicies[1],1);
         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
         sessionStorage.removeItem("team_name");
+        sessionStorage.removeItem("team_indecies");
         window.location.href = "../gameplay-screen.html";
     }
     else
@@ -569,6 +571,7 @@ function ship_transfer(transfer_to)
                     all_factions[chosen_team_indicies[0]].navy.splice(chosen_team_indicies[1],1);
                     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
                     sessionStorage.removeItem("team_name");
+                    sessionStorage.removeItem("team_indecies");
                     window.location.href = "../gameplay-screen.html";
                 }
                 else
@@ -935,6 +938,7 @@ function create_split_group(location)
     all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.splice(selection_index,1);//remove ship.
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
     check_if_name_needs_to_be_downgraded(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].group_name);
+    sessionStorage.removeItem("team_indecies");
     window.location.href = "../gameplay-screen.html";
 }
 

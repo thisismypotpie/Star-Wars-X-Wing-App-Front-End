@@ -232,6 +232,7 @@ function back_button_push()
   sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
   sessionStorage.removeItem("ship_snapshot");
   sessionStorage.removeItem("team_ship_index");
+    sessionStorage.removeItem("upgrade-type-chosen");
   window.location.href = "../team-view.html";
 }
 
@@ -278,6 +279,8 @@ function done_button_click()
       //remove all items that are no longer being used.
       sessionStorage.removeItem("ship_in_progress");
       sessionStorage.removeItem("ship_snapshot");
+      sessionStorage.removeItem("team_ship_index");
+      sessionStorage.removeItem("upgrade-type-chosen");
       window.location.href = "../team-view.html";//back to team view.
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back

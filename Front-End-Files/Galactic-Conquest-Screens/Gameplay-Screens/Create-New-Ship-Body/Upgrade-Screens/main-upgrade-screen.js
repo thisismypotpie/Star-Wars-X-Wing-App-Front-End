@@ -236,6 +236,7 @@ function back_button_push()
 {
   sessionStorage.removeItem("ship_in_progress");
   remove_newly_created_team_name(ship_in_progress.team_name,whos_turn=="Rebels"? 0:1);
+  sessionStorage.removeItem("upgrade-type-chosen");
   window.location.href = "../Pilot-Selection/pilot-selection.html";
 }
 
@@ -385,6 +386,7 @@ function ok_button_push()
       sessionStorage.removeItem("ship_in_progress");
       sessionStorage.removeItem("placement_id");
       sessionStorage.removeItem("new_team_name");
+      sessionStorage.removeItem("upgrade-type-chosen");
       window.location.href = "../../gameplay-screen.html";
 
       var dual_card_back_showing = false; //This is used for if the flip button shows up, if false showing front, if true, showing back
