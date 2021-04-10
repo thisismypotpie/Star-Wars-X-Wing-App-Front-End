@@ -13,6 +13,7 @@ Galactic Conquest To Do's:
 6. Integreate combat into the game.
 7. When a ship moves, calculate for pirate interaction.
 8. Make sure when the game is over to remove the initative token from each team so that there are not mulitple team with that token.
+9. Make it so repairs can only happen when a group is on a planet.
 
 HOW REPAIRS SHOULD WORK:
 - Use electronics to restore shields.
@@ -26,6 +27,7 @@ Bugs:
 - If you start a new galactic conquest game and then press the previous page icon, then the game freezes.
 - When crippling a large ship, if you press the flip button, the side that is still alive still have it's hull value with lower opacity.
 - If you retreat on the movement phase, you get the error specified in surrender-team.js line 173: ERROR: Unable to get next ship, all ships have been searched and there is no possible next ship.
+-When a roster number is already taken, the old one is not deleted with a focus on the number entry element.
 
 
 

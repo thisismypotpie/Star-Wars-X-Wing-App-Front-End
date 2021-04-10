@@ -9,7 +9,32 @@
     upgrade_list = filter_out_limited(upgrade_list,ship_to_add);
     upgrade_list = filter_out_unique(upgrade_list,ship_to_add);
     upgrade_list = filter_out_unique_by_pilot(upgrade_list,ship_to_add);
+    if(sessionStorage.getItem("gc_setup_data")!=null)
+    {
+        upgrade_list = filter_out_dead_pilots(upgrade_list,ship_to_add);
+    }
     return upgrade_list;
+ }
+
+ function filter_out_dead_pilots(upgrade_list,ship_to_add)
+ {
+     var gc_setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+     var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+     var all_names = [];
+    
+     all_names = all_names.concat(all_factions[0].list_of_the_fallen);
+     all_names = all_names.concat(all_factions[1].list_of_the_fallen);
+     all_names = all_names.concat(gc_setup_data.pirate_options.list_of_the_dead);
+
+     for(var i=upgrade_list.length-1; i >= 0;i--)
+     {
+        if(all_names.includes(upgrade_list[i].name))
+        {
+            console.log("Removing upgrade: "+upgrade_list[i].name+" by dead pilot filter.")
+            upgrade_list.splice(i,1);
+        }
+     }
+     return upgrade_list;
  }
 
 function filter_out_unique_by_pilot(upgrade_list,ship_to_add)

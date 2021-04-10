@@ -361,46 +361,32 @@ function check_for_combat(team_name)
 
 function roll_for_pirates()
 {
-    return;
     var chance = Math.floor(Math.random() * 100)+1;
-    var current_team = get_team_based_on_name(team_name);
-    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
-    var current_team_cost = 0;
-    var pirate_team = undefined;
-    var pirate_budget = 0;
+    var pirate_team = new team("Pirate Raiders");
     var ships_so_far = {
-        HWK_290: 0,
-        Kihraxz_Fighter:0,
-        M3_A_Interceptor:0,
-        M12_L_Kimongila_Fighter:0,
-        G_1A_Starfighter:0,
-        Protectorate_Starfighter:0,
-        Quadjumper:0,
-        Scurrg_H_6_Bomber:0,
-        StarViper:0,
-        Y_Wing:0,
-        Z_95_Headhunter:0,
-        Firespray_31:0,
-        Hounds_Tooth:0,
-        Aggressor:0,
-        Jump_Master_5000:0,
-        Lancer_Class_Pusuit_Craft:0,
-        YT_1300:0,
-        C_ROC_Cruiser:0
+        HWK_290: Math.floor(Math.random()*setup_data.pirate_options.HWK_290),
+        Kihraxz_Fighter:Math.floor(Math.random()*setup_data.pirate_options.Kihraxz_Fighter),
+        M3_A_Interceptor:Math.floor(Math.random()*setup_data.pirate_options.M3_A_Interceptor),
+        M12_L_Kimongila_Fighter:Math.floor(Math.random()*setup_data.pirate_options.M12_L_Kimongila_Fighter),
+        G_1A_Starfighter:Math.floor(Math.random()*setup_data.pirate_options.G_1A_Starfighter),
+        Protectorate_Starfighter:Math.floor(Math.random()*setup_data.pirate_options.Protectorate_Starfighter),
+        Quadjumper:Math.floor(Math.random()*setup_data.pirate_options.Quadjumper),
+        Scurrg_H_6_Bomber:Math.floor(Math.random()*setup_data.pirate_options.Scurrg_H_6_Bomber),
+        StarViper:Math.floor(Math.random()*setup_data.pirate_options.StarViper),
+        Y_Wing:Math.floor(Math.random()*setup_data.pirate_options.Y_Wing),
+        Z_95_Headhunter:Math.floor(Math.random()*setup_data.pirate_options.Z_95_Headhunter),
+        Firespray_31:Math.floor(Math.random()*setup_data.pirate_options.Firespray_31),
+        Hounds_Tooth:Math.floor(Math.random()*setup_data.pirate_options.Hounds_Tooth),
+        Aggressor:Math.floor(Math.random()*setup_data.pirate_options.Aggressor),
+        Jump_Master_5000:Math.floor(Math.random()*setup_data.pirate_options.Jump_Master_5000),
+        Lancer_Class_Pusuit_Craft:Math.floor(Math.random()*setup_data.pirate_options.Lancer_Class_Pusuit_Craft),
+        YT_1300:Math.floor(Math.random()*setup_data.pirate_options.YT_1300),
+        C_ROC_Cruiser:Math.floor(Math.random()*setup_data.pirate_options.C_ROC_Cruiser)
     }
     var all_pilots = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
-
     if(chance <= 5)
     {
         alert("You have been beset upon by pirates. Prepare for battle!");
-
-        //Determine how many points the pirates get based on how many points the engaged party has.
-        current_team.team.ship_list.forEach(ship=>{
-            current_team_cost+= ship.chosen_pilot.cost;
-        })
-
-        pirate_budget = Math.floor(Math.random()*current_team_cost)+30;
-
         //Create list of pilots that are just scum.
         for(var i=all_pilots.length -1; i>= 0;i--)
         {
@@ -409,11 +395,117 @@ function roll_for_pirates()
                 all_pilots.splice(i,1);
             }
         }
-
-        //Randomly pick a ship with scum faction.
-        while(1==2)
+        for(var i=0; i < ships_so_far.HWK_290;i++)
         {
-
+            pirate_team.ship_list.push(add_ship_to_pirate_team("HWK-290",all_pilots,pirate_team));
+        }
+        for(var i=0; i < ships_so_far.Kihraxz_Fighter;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Kihraxz Fighter",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.M3_A_Interceptor;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("M3-A Interceptor",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.M12_L_Kimongila_Fighter;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("M12-L Kimongila Fighter",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.G_1A_Starfighter;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("G-1A Starfighter",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Protectorate_Starfighter;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Protectorate Starfighter",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Quadjumper;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Quadjumper",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Scurrg_H_6_Bomber;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Scurrg H-6 Bomber",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.StarViper;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("StarViper",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Y_Wing;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Y-Wing",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Z_95_Headhunter;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Z-95 Headhunter",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Firespray_31;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Firespray-31",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Hounds_Tooth;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Hound's Tooth",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Aggressor;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Aggressor",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Jump_Master_5000;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Jump Master 5000",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.Lancer_Class_Pusuit_Craft;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("Lancer-Class Pursuit Craft",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.YT_1300;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("YT-1300",all_pilots,pirate_team));           
+        }
+        for(var i=0; i < ships_so_far.C_ROC_Cruiser;i++)
+        {
+            pirate_team.ship_list.push(add_ship_to_pirate_team("C-ROC Cruiser",all_pilots,pirate_team));           
         }
     }
+}
+
+function add_ship_to_pirate_team(ship_type,all_pilots,selected_team)
+{
+    let scum_pilots = all_pilots;
+    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+    var team_members = [];
+    if(selected_team.ship_list.length > 0)
+    {
+        team_members = selected_team.ship_list.map(function(e){return selected_team.pilot_name})
+    }
+    for(var i = scum_pilots.length -1; i>=0;i--)
+    {
+        //Remove all pilots that are not of the ship type.
+        if(scum_pilots[i].ship_name.ship_name != ship_type)
+        {
+            scum_pilots.splice(i,1);
+            continue;
+        }
+        //Remove unique pilots that are dead.
+        if(setup_data.pirate_options.list_of_the_dead.includes(scum_pilots[i].pilot_name))
+        {
+            scum_pilots.splice(i,1);
+            continue;
+        }
+        //Remove unique pilots already on the team.
+        if(team_members.includes(scum_pilots[i].pilot_name) &&
+           scum_pilots[i].is_unique == true)
+        {
+            scum_pilots.splice(i,1);
+        }
+    }
+    if(scum_pilots.length ==0)
+    {
+        alert("ERROR: No pilots to choose from for ship: "+ship_type);
+        return;
+    }
+
+    var pilot_index = Math.floor(Math.random() * scum_pilots.length);
+    //select pilot at random.
 }
