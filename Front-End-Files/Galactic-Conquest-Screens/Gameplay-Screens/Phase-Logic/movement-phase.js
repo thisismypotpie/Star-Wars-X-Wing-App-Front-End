@@ -277,8 +277,8 @@ function move_ship_group(selected_location,team_name,spaces)
         if(JSON.parse(sessionStorage.getItem("gc_setup_data")).pirate_faction == "on" &&
            document.getElementById(selected_location).getAttribute("type") == "Wild Space")
         {
-            alert("PIRATES!")
-            //roll_for_pirates();
+            //alert("PIRATES!")
+            roll_for_pirates();
         }
     }
     else
@@ -330,30 +330,7 @@ function check_for_combat(team_name)
                 all_teams.push(current_team.team);
                 all_teams.push(group.team)
                 sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-                //sessionStorage.setItem("all_teams_names",team_name+"_"+group.group_name);
-                //window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
-                var buckets = bucket_sort_pilots_by_skill(all_teams);
-                sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
-                if(buckets.sorting_needed == true)
-                {
-                  sessionStorage.setItem("buckets",JSON.stringify(buckets.sorted_buckets));
-                  window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
-                }
-                else
-                {
-                  sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
-                  all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                  all_teams[0].has_initiative_token = true;
-                  sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
-                  move_translate_vectors_for_notification_pop_up(-60,-60);
-                  show_notification_pop_up("The Game Begins! "+all_teams[0].team_name + " has been given first initiative!");
-            
-                  //Close the notification with this line of code.
-                    document.getElementById("notification-ok-button").onclick = function(){
-                    close_notification_pop_up();
-                    window.location.href = "../../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
-                  }
-                }
+                move_to_combat();
                 return "engaged";
             }
         }
@@ -365,6 +342,7 @@ function roll_for_pirates()
 {
     var chance = Math.floor(Math.random() * 100)+1;
     var pirate_team = new team("Pirate Raiders");
+    var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     var ships_so_far = {
         HWK_290: Math.floor(Math.random()*setup_data.pirate_options.HWK_290),
         Kihraxz_Fighter:Math.floor(Math.random()*setup_data.pirate_options.Kihraxz_Fighter),
@@ -469,6 +447,13 @@ function roll_for_pirates()
         {
             pirate_team.ship_list.push(add_ship_to_pirate_team("C-ROC Cruiser",all_pilots,pirate_team));           
         }
+        var all_teams = [];
+        var navy_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
+        var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+        all_teams.push(pirate_team);
+        all_teams.push(get_team_based_on_name(all_factions[navy_index].navy[i].group_name).team);
+        sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+        move_to_combat();
     }
 }
 
@@ -520,5 +505,32 @@ function add_ship_to_pirate_team(ship_type,all_pilots,selected_team)
     else
     {
         return new  in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+    }
+}
+
+function move_to_combat()
+{
+    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+    var buckets = bucket_sort_pilots_by_skill(all_teams);
+    sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+    if(buckets.sorting_needed == true)
+    {
+      sessionStorage.setItem("buckets",JSON.stringify(buckets.sorted_buckets));
+      window.location.href = "../../Gameplay-Screens/Pilot-Skill-Sorting-Screen/Pilot-Skill-Sorting-Screen.html";
+    }
+    else
+    {
+      sort_pilots_by_skill_and_overwrite_all_teams(buckets.sorted_buckets);
+      all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+      all_teams[0].has_initiative_token = true;
+      sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
+      move_translate_vectors_for_notification_pop_up(-60,-60);
+      show_notification_pop_up("The Game Begins! "+all_teams[0].team_name + " has been given first initiative!");
+
+      //Close the notification with this line of code.
+        document.getElementById("notification-ok-button").onclick = function(){
+        close_notification_pop_up();
+        window.location.href = "../../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+      }
     }
 }
