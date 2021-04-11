@@ -274,9 +274,11 @@ function move_ship_group(selected_location,team_name,spaces)
         all_factions[navy_index].fuel -= spaces;
         document.getElementById("fuel-quantity-label").textContent = "X"+all_factions[navy_index].fuel;
         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
-        if(JSON.parse(sessionStorage.getItem("gc_setup_data")).pirate_faction == "on")
+        if(JSON.parse(sessionStorage.getItem("gc_setup_data")).pirate_faction == "on" &&
+           document.getElementById(selected_location).getAttribute("type") == "Wild Space")
         {
-            roll_for_pirates();
+            alert("PIRATES!")
+            //roll_for_pirates();
         }
     }
     else
@@ -384,7 +386,7 @@ function roll_for_pirates()
         C_ROC_Cruiser:Math.floor(Math.random()*setup_data.pirate_options.C_ROC_Cruiser)
     }
     var all_pilots = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
-    if(chance <= 5)
+    if(chance <= 100)
     {
         alert("You have been beset upon by pirates. Prepare for battle!");
         //Create list of pilots that are just scum.
@@ -507,5 +509,16 @@ function add_ship_to_pirate_team(ship_type,all_pilots,selected_team)
     }
 
     var pilot_index = Math.floor(Math.random() * scum_pilots.length);
-    //select pilot at random.
+    if(scum_pilots[pilot_index].ship_name.ship_type == "largeTwoCard")
+    {
+        return new large_two_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+    }
+    else if(scum_pilots[pilot_index].ship_name.ship_type == "largeOneCard")
+    {
+        return new large_one_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+    }
+    else
+    {
+        return new  in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+    }
 }

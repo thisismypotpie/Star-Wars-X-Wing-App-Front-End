@@ -14,6 +14,7 @@ for(var x=34; x < 196;x++)
    {
         var grid_coordinate = document.createElement("div");
         grid_coordinate.id = x+"_"+y;
+        grid_coordinate.setAttribute("type","Wild Space");
         grid_coordinate.style.gridColumn = (x).toString();
         grid_coordinate.style.gridRow = (y).toString();
         grid_coordinate.style.backgroundSize = "100%  100%";
@@ -56,6 +57,7 @@ function load_planets()
             document.getElementById(id).style.backgroundColor = "black";
           }
           document.getElementById(id).setAttribute("planet_id",planet.planet.id);//Used when searching for planets.
+          document.getElementById(id).setAttribute("type","Planet");//Used when determining pirate rolls or repairs.
 
           //Add controls for when a player goes ever a planet.
           document.getElementById(id).onmouseover= function(e)
@@ -81,6 +83,8 @@ game_data.map_paths.forEach(dot=>{
     if(document.getElementById(id_string))
     {
       document.getElementById(id_string).style.backgroundImage = "url('https://i.imgur.com/lzfAvjE.png')";
+      document.getElementById(id_string).setAttribute("type","HyperSpace Lane");//Used when determining pirate rolls.
+
     }
     else
     {
@@ -92,6 +96,7 @@ converted_planets.forEach(dot=>{//Turn each non-included planet into a path dot 
   if(document.getElementById(id_string))
   {
     document.getElementById(id_string).style.backgroundImage = "url('https://i.imgur.com/lzfAvjE.png')";
+    document.getElementById(id_string).setAttribute("type","HyperSpace Lane");//Used when determining pirate rolls.
   }
 })
 }

@@ -6,14 +6,11 @@
 
 Galactic Conquest To Do's:
 1. When purchasing ships, take away full resource screen if player is only playing with currency.
-2. Account for unique pilots already on other squadrons.
-3. Accoung for unique pilots if they are dead.
 4. When implementing a transfer, this can only be done if the ship is x spaces away depending on the size of the ship.
-5. Add a button for transfer ships to make a new ship body.
-6. Integreate combat into the game.
 7. When a ship moves, calculate for pirate interaction.
 8. Make sure when the game is over to remove the initative token from each team so that there are not mulitple team with that token.
 9. Make it so repairs can only happen when a group is on a planet.
+10. Add to path dots whcih section they are from in order to take unused sectors away from the map if not used.
 
 HOW REPAIRS SHOULD WORK:
 - Use electronics to restore shields.
