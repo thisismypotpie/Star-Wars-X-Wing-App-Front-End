@@ -344,24 +344,24 @@ function roll_for_pirates()
     var pirate_team = new team("Pirate Raiders");
     var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     var ships_so_far = {
-        HWK_290: Math.floor(Math.random()*setup_data.pirate_options.HWK_290),
-        Kihraxz_Fighter:Math.floor(Math.random()*setup_data.pirate_options.Kihraxz_Fighter),
-        M3_A_Interceptor:Math.floor(Math.random()*setup_data.pirate_options.M3_A_Interceptor),
-        M12_L_Kimongila_Fighter:Math.floor(Math.random()*setup_data.pirate_options.M12_L_Kimongila_Fighter),
-        G_1A_Starfighter:Math.floor(Math.random()*setup_data.pirate_options.G_1A_Starfighter),
-        Protectorate_Starfighter:Math.floor(Math.random()*setup_data.pirate_options.Protectorate_Starfighter),
-        Quadjumper:Math.floor(Math.random()*setup_data.pirate_options.Quadjumper),
-        Scurrg_H_6_Bomber:Math.floor(Math.random()*setup_data.pirate_options.Scurrg_H_6_Bomber),
-        StarViper:Math.floor(Math.random()*setup_data.pirate_options.StarViper),
-        Y_Wing:Math.floor(Math.random()*setup_data.pirate_options.Y_Wing),
-        Z_95_Headhunter:Math.floor(Math.random()*setup_data.pirate_options.Z_95_Headhunter),
-        Firespray_31:Math.floor(Math.random()*setup_data.pirate_options.Firespray_31),
-        Hounds_Tooth:Math.floor(Math.random()*setup_data.pirate_options.Hounds_Tooth),
-        Aggressor:Math.floor(Math.random()*setup_data.pirate_options.Aggressor),
-        Jump_Master_5000:Math.floor(Math.random()*setup_data.pirate_options.Jump_Master_5000),
-        Lancer_Class_Pusuit_Craft:Math.floor(Math.random()*setup_data.pirate_options.Lancer_Class_Pusuit_Craft),
-        YT_1300:Math.floor(Math.random()*setup_data.pirate_options.YT_1300),
-        C_ROC_Cruiser:Math.floor(Math.random()*setup_data.pirate_options.C_ROC_Cruiser)
+        HWK_290: Math.floor(Math.random()*(setup_data.pirate_options.HWK_290)),
+        Kihraxz_Fighter:Math.floor(Math.random()*(setup_data.pirate_options.Kihraxz_Fighter+1)),
+        M3_A_Interceptor:Math.floor(Math.random()*(setup_data.pirate_options.M3_A_Interceptor+1)),
+        M12_L_Kimongila_Fighter:Math.floor(Math.random()*(setup_data.pirate_options.M12_L_Kimongila_Fighter+1)),
+        G_1A_Starfighter:Math.floor(Math.random()*(setup_data.pirate_options.G_1A_Starfighter+1)),
+        Protectorate_Starfighter:Math.floor(Math.random()*(setup_data.pirate_options.Protectorate_Starfighter+1)),
+        Quadjumper:Math.floor(Math.random()*(setup_data.pirate_options.Quadjumper+1)),
+        Scurrg_H_6_Bomber:Math.floor(Math.random()*(setup_data.pirate_options.Scurrg_H_6_Bomber+1)),
+        StarViper:Math.floor(Math.random()*(setup_data.pirate_options.StarViper+1)),
+        Y_Wing:Math.floor(Math.random()*(setup_data.pirate_options.Y_Wing+1)),
+        Z_95_Headhunter:Math.floor(Math.random()*(setup_data.pirate_options.Z_95_Headhunter+1)),
+        Firespray_31:Math.floor(Math.random()*(setup_data.pirate_options.Firespray_31+1)),
+        Hounds_Tooth:Math.floor(Math.random()*(setup_data.pirate_options.Hounds_Tooth+1)),
+        Aggressor:Math.floor(Math.random()*(setup_data.pirate_options.Aggressor+1)),
+        Jump_Master_5000:Math.floor(Math.random()*(setup_data.pirate_options.Jump_Master_5000+1)),
+        Lancer_Class_Pusuit_Craft:Math.floor(Math.random()*(setup_data.pirate_options.Lancer_Class_Pusuit_Craft+1)),
+        YT_1300:Math.floor(Math.random()*(setup_data.pirate_options.YT_1300+1)),
+        C_ROC_Cruiser:Math.floor(Math.random()*(setup_data.pirate_options.C_ROC_Cruiser+1))
     }
     var all_pilots = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
     if(chance <= 100)
@@ -448,10 +448,8 @@ function roll_for_pirates()
             pirate_team.ship_list.push(add_ship_to_pirate_team("C-ROC Cruiser",all_pilots,pirate_team));           
         }
         var all_teams = [];
-        var navy_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
-        var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
         all_teams.push(pirate_team);
-        all_teams.push(get_team_based_on_name(all_factions[navy_index].navy[i].group_name).team);
+        all_teams.push(get_team_based_on_name(document.getElementById("ship-body-title").textContent).team);
         sessionStorage.setItem("all_teams",JSON.stringify(all_teams));
         move_to_combat();
     }
@@ -459,12 +457,12 @@ function roll_for_pirates()
 
 function add_ship_to_pirate_team(ship_type,all_pilots,selected_team)
 {
-    let scum_pilots = all_pilots;
+    let scum_pilots = JSON.parse(JSON.stringify(all_pilots));//This is done to make a hard copy all pilots.
     var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
     var team_members = [];
     if(selected_team.ship_list.length > 0)
     {
-        team_members = selected_team.ship_list.map(function(e){return selected_team.pilot_name})
+        team_members = selected_team.ship_list.map(function(e){return e.chosen_pilot.pilot_name})
     }
     for(var i = scum_pilots.length -1; i>=0;i--)
     {

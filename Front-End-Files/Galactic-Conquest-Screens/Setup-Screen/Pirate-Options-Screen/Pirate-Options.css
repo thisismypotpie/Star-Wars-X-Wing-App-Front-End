@@ -141,3 +141,26 @@ body{
     grid-column: 4/6;
     grid-row: 2;
 }
+
+#roster-title
+{
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    grid-column: 20/24;
+    grid-row: 2;
+    font-size: 2vw;
+    text-align: center;
+}
+
+#roster-number-input
+{
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    font-family: Impact, Charcoal, sans-serif;
+    grid-column: 20/24;
+    grid-row: 3/15;
+    font-size: 1.5vw;
+    text-align: left;
+    white-space:nowrap;
+}
