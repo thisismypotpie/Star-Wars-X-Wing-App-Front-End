@@ -42,8 +42,22 @@ if(gc_setup_data.pirate_options!=null)
 }
 
 function go_back_to_gc_setup(){
-    sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
-    window.location.href = "../Setup-Screen.html";
+    var roster_number_count = parse_roster_numbers();
+    var total_ships = eval(gc_setup_data.pirate_options.total_ships)
+    if(roster_number_count == -1)
+    {
+        return;
+    }
+    
+    if(roster_number_count!= total_ships)
+    {
+        alert("Please enter "+(total_ships-roster_number_count)+" more roster number(s).")
+    }
+    else
+    {
+        sessionStorage.setItem("gc_setup_data",JSON.stringify(gc_setup_data));
+        window.location.href = "../Setup-Screen.html";
+    }
 }
 
 function add_ship_button_click(id)
@@ -75,4 +89,30 @@ function update_token_quantity(id)
     ship_type = ship_type.replace(/-/g, "_");
     ship_type = ship_type.replace(/ /g,"_");
     eval("gc_setup_data.pirate_options."+ship_type+"= parseInt(document.getElementById('ship-number-'+id).textContent,10);");
+}
+
+function parse_roster_numbers()
+{
+    var raw_rosters = document.getElementById("roster-number-input").value;
+    raw_rosters= raw_rosters.replace(/\s+/g, '');
+    var finished_rosters = raw_rosters.split(",");
+    if(finished_rosters.length ==0 ||
+        finished_rosters.toString() == "")
+    {
+        return 0;
+    }
+    for(var i=0; i < finished_rosters.length;i++)
+    {
+        if(parseInt(finished_rosters[i],10) != NaN)
+        {
+            finished_rosters[i] = parseInt(finished_rosters[i],10);
+        }
+        else
+        {
+            alert( finished_rosters[i]+" is not a number.")
+            return -1;
+        }
+    }
+    gc_setup_data.pirate_options.roster_numbers = finished_rosters;
+    return finished_rosters.length;
 }

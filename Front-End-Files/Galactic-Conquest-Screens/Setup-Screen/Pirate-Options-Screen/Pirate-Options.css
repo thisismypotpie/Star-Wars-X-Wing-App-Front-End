@@ -160,7 +160,6 @@ body{
     font-family: Impact, Charcoal, sans-serif;
     grid-column: 20/24;
     grid-row: 3/15;
-    font-size: 1.5vw;
+    font-size: 1vw;
     text-align: left;
-    white-space:nowrap;
 }
