@@ -7,10 +7,11 @@
 Galactic Conquest To Do's:
 1. When purchasing ships, take away full resource screen if player is only playing with currency.
 4. When implementing a transfer, this can only be done if the ship is x spaces away depending on the size of the ship.
-7. When a ship moves, calculate for pirate interaction.
-8. Make sure when the game is over to remove the initative token from each team so that there are not mulitple team with that token.
-9. Make it so repairs can only happen when a group is on a planet.
+9. Make it so repairs and creating new ships can only happen when a group is on a planet.
 10. Add to path dots whcih section they are from in order to take unused sectors away from the map if not used.
+11. Add a multitude of scenerios for different types of battles to take place.
+12. Update the placement and building phase so that instead of getting a confirm for any place you press, you only get a message on viable spaces.
+13. After a combat engagement, go to building phase instead of staying in movement phase.
 
 HOW REPAIRS SHOULD WORK:
 - Use electronics to restore shields.
@@ -23,8 +24,22 @@ HOW REPAIRS SHOULD WORK:
 Bugs:
 - If you start a new galactic conquest game and then press the previous page icon, then the game freezes.
 - When crippling a large ship, if you press the flip button, the side that is still alive still have it's hull value with lower opacity.
-- If you retreat on the movement phase, you get the error specified in surrender-team.js line 173: ERROR: Unable to get next ship, all ships have been searched and there is no possible next ship.
+- If you retreat on the movement phase, you get the error specified in surrender-team.js line 173: ERROR: Unable to get next ship, all ships have been searched and there is no possible next ship.(Tested, indeterminate bug).
 -When a roster number is already taken, the old one is not deleted with a focus on the number entry element.
+-When a large ship is crippled, show it in team view instead of the non-crippled card.
+
+Scenerios:
+1. Dogfight
+2. Snatch and Grab(CTF)
+3. Torch and Burn: Destroy cargo before it escapes.
+4. Cripple the Fleet: Destroy enemy large ship.
+5. Assault (Destroy enemy asset on the other side of the map.)
+6. Outlast: Survive x turns.
+7. Hold the line: Get to the other side to escape.
+8. 
+9.
+10.
+
 
 
 

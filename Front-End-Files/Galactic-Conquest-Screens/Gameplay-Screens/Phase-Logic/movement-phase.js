@@ -364,7 +364,7 @@ function roll_for_pirates()
         C_ROC_Cruiser:Math.floor(Math.random()*(setup_data.pirate_options.C_ROC_Cruiser+1))
     }
     var all_pilots = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
-    if(chance <= 100)
+    if(chance <= 5)
     {
         alert("You have been beset upon by pirates. Prepare for battle!");
         //Create list of pilots that are just scum.
@@ -492,18 +492,40 @@ function add_ship_to_pirate_team(ship_type,all_pilots,selected_team)
     }
 
     var pilot_index = Math.floor(Math.random() * scum_pilots.length);
+    var current_ship = undefined;
     if(scum_pilots[pilot_index].ship_name.ship_type == "largeTwoCard")
     {
-        return new large_two_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+        current_ship = new large_two_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
     }
     else if(scum_pilots[pilot_index].ship_name.ship_type == "largeOneCard")
     {
-        return new large_one_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+        current_ship = new large_one_card_in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
     }
     else
     {
-        return new  in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
+        current_ship = new in_game_ship_status(scum_pilots[pilot_index],"Pirate Raiders");
     }
+
+    //Add roster number to current ship.
+
+    var used_rosters = selected_team.ship_list.map(function(e){return e.roster_number})
+    var roster_index = Math.floor(Math.random() * setup_data.pirate_options.roster_numbers.length);
+    var chosen_roster =  setup_data.pirate_options.roster_numbers[roster_index];
+    var loops = 0;
+    while(used_rosters.includes(chosen_roster))
+    {
+        setup_data.pirate_options.roster_numbers[roster_index];
+        roster_index = Math.floor(Math.random() * setup_data.pirate_options.roster_numbers.length);
+        chosen_roster =  setup_data.pirate_options.roster_numbers[roster_index];
+        loops++;
+        if(loops == 10001)
+        {
+            alert("ERROR: Could not find free roster number.")
+            return null;
+        }
+    }
+    current_ship.roster_number = chosen_roster; 
+    return current_ship;
 }
 
 function move_to_combat()

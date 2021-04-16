@@ -123,7 +123,7 @@ function surrender_team(team_index)
                     }
                 }
                 //If we run out of ships, we know that we need to move to the attack phase.
-                alert("Going to attack phase!");
+                //alert("Going to attack phase!");
                 //move the phase to attack.
                 sessionStorage.setItem("phase","attack");
                 //set up variables for next ship search but in the attack phase.

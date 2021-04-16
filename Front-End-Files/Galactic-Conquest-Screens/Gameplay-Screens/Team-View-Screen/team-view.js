@@ -115,7 +115,8 @@ function set_all_items()
        current_ship.critical_hit_cards.length > 0 ||
        current_ship.current_sheilds < current_ship.chosen_pilot.ship_name.shields ||
       (current_ship.current_energy != undefined && 
-       current_ship.current_energy < current_ship.chosen_pilot.ship_name.energy))
+       current_ship.current_energy < current_ship.chosen_pilot.ship_name.energy &&
+       is_ship_group_on_planet() == true))
     {
         document.getElementById("repair-button").style.pointerEvents = "auto";
         document.getElementById("repair-button").style.opacity = "1.0";
@@ -138,7 +139,8 @@ function set_all_items()
             ship_list[i].critical_hit_cards.length > 0 ||
             ship_list[i].current_sheilds < ship_list[i].chosen_pilot.ship_name.shields ||
            (ship_list[i].current_energy != undefined && 
-            ship_list[i].current_energy < ship_list[i].chosen_pilot.ship_name.energy))
+            ship_list[i].current_energy < ship_list[i].chosen_pilot.ship_name.energy&&
+            is_ship_group_on_planet() == true))
         {
             button_on = true;
             break;
@@ -1227,6 +1229,11 @@ function check_ship_range_for_transfer()
     }
 
     return close_enough_for_transfer;
+}
+
+function is_ship_group_on_planet()
+{
+    return false;
 }
 
 //Key bindings for this screen.

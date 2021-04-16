@@ -374,6 +374,7 @@ if(sessionStorage.getItem("combat_report")!=null)
         }
     })
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
+    sessionStorage.setItem("gc_phase","gathering")
     sessionStorage.removeItem("combat_report");
 }
 }

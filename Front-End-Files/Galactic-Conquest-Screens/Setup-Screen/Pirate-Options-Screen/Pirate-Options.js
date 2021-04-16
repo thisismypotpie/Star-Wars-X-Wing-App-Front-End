@@ -49,9 +49,9 @@ function go_back_to_gc_setup(){
         return;
     }
     
-    if(roster_number_count!= total_ships)
+    if(roster_number_count < total_ships)
     {
-        alert("Please enter "+(total_ships-roster_number_count)+" more roster number(s).")
+        alert("Please enter "+(total_ships-roster_number_count)+" more unique roster number(s).")
     }
     else
     {
@@ -95,24 +95,36 @@ function parse_roster_numbers()
 {
     var raw_rosters = document.getElementById("roster-number-input").value;
     raw_rosters= raw_rosters.replace(/\s+/g, '');
-    var finished_rosters = raw_rosters.split(",");
-    if(finished_rosters.length ==0 ||
-        finished_rosters.toString() == "")
+    var parsed_rosters = raw_rosters.split(",");
+    var finished_rosters = [];
+    if(parsed_rosters.length ==0 ||
+        parsed_rosters.toString() == "")
     {
         return 0;
     }
-    for(var i=0; i < finished_rosters.length;i++)
+    //Parse ints.
+    for(var i=0; i < parsed_rosters.length;i++)
     {
-        if(parseInt(finished_rosters[i],10) != NaN)
+        if(parseInt(parsed_rosters[i],10) != NaN)
         {
-            finished_rosters[i] = parseInt(finished_rosters[i],10);
+            parsed_rosters[i] = parseInt(parsed_rosters[i],10);
         }
         else
         {
-            alert( finished_rosters[i]+" is not a number.")
+            alert( parsed_rosters[i]+" is not a number.")
             return -1;
         }
     }
+
+    //remove duplicates.
+    for(var i=parsed_rosters.length-1; i >= 0;i--)
+    {
+        if(!finished_rosters.includes(parsed_rosters[i]))
+        {
+            finished_rosters.push(parsed_rosters[i]);
+        }
+    }
+
     gc_setup_data.pirate_options.roster_numbers = finished_rosters;
     return finished_rosters.length;
 }
