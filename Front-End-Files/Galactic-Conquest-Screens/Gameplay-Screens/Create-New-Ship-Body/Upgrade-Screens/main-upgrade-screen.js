@@ -347,6 +347,7 @@ function ok_button_push()
       {
          alert("Please only input positive numbers. No other input will be accepted.");
          document.getElementById("roster-number-input").value = "";
+         document.getElementById("roster-number-input").focus();
          return;
       }
       else

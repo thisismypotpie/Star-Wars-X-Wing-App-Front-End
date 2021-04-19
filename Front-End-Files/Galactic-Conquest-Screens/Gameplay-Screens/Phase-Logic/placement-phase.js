@@ -33,35 +33,17 @@ if(sessionStorage.getItem("gc_phase") == "placement")
    {
        var id = x+"_"+y;
        document.getElementById(id).onclick= function(e){
-           if(confirm("Add a ship group here? ("+e.target.id+")")== true)
-           {
-
                var planet_in_question  =get_planet(parseInt(document.getElementById(e.target.id).getAttribute("planet_id"),10),0,setup_data.active_planets.length-1);
                //alert ("id: "+e.target.id+"\nOutput: "+planet_in_question);
-               if( planet_in_question!= null)//This makes it so you can't places forces on an enemy planet.
+               if((planet_in_question.controlling_faction =="Rebels" && whos_turn == "Rebels" ||
+               planet_in_question.controlling_faction =="Imperial" && whos_turn == "Imperial") &&
+               planet_in_question.controlling_faction !="Unaligned" &&
+               check_for_ship_body_collision(e.target.id) == false &&
+               planet_in_question!= null)
                {
-                    //alert("Planet: \n Name: "+planet_in_question.planet.name);
-                    if(planet_in_question.controlling_faction =="Rebels" && whos_turn == "Imperial" ||
-                       planet_in_question.controlling_faction =="Imperial" && whos_turn == "Rebels" ||
-                       planet_in_question.controlling_faction =="Unaligned")
-                    {                   
-                         alert("You cannot place ships on enemy or unaligned planets!");
-                    }
-                    else if(check_for_ship_body_collision(e.target.id))
-                    {
-                        alert("You cannot build here, there is already a ship group there!")
-                    }
-                    else 
-                    {
                         sessionStorage.setItem("placement_id",e.target.id);
                         window.location.href="./Create-New-Ship-Body/Ship-Selection/ship-selection.html";
-                    }
-               }
-               else
-               {
-                    alert("Please place a ship body only on planets you control.");
-               }
-           }
+               } 
        }
    }
 }

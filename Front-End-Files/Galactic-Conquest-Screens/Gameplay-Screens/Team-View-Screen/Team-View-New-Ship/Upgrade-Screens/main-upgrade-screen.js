@@ -362,14 +362,18 @@ function ok_button_push()
       {
          alert("Please only input positive numbers. No other input will be accepted.");
          document.getElementById("roster-number-input").value = "";
+         document.getElementById("roster-number-input").focus();
          return;
       }
       else if(is_roster_number_taken(parseInt(document.getElementById("roster-number-input").value,10)) == true)
       {
          
         //hide_input_pop_up("payment-type-pop-up");
-        document.getElementById("notification-pop-up-title").textContent = "That roster number is taken, please enter a new one..";
-        show_input_pop_up("notification-pop-up");
+        //document.getElementById("notification-pop-up-title").textContent = "That roster number is taken, please enter a new one..";
+        //show_input_pop_up("notification-pop-up");
+        alert("That roster number is taken, please enter a new one.");
+        document.getElementById("roster-number-input").value = "";
+        document.getElementById("roster-number-input").focus();
         return;
       }
       else

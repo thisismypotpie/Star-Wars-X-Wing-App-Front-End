@@ -142,6 +142,7 @@ function place_ship_bodies()
         document.getElementById("team-view-button").onclick = function()
         {
           sessionStorage.setItem('team_name',e.target.id);
+          sessionStorage.setItem('type',document.getElementById(ship_body.location).getAttribute("type"));
           window.location.href='./Team-View-Screen/team-view.html';
         }
       }

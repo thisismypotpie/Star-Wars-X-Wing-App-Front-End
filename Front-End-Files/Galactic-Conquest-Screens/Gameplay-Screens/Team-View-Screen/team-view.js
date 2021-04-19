@@ -2,6 +2,7 @@
 function back_button(){
     sessionStorage.removeItem("team_name");
     sessionStorage.removeItem("team_indecies");
+    sessionStorage.removeItem("type");
     window.location.href="../gameplay-screen.html";
 }
 //Go to next ship in the roster.
@@ -97,26 +98,28 @@ function set_all_items()
     shields.textContent = " : "+current_ship.current_sheilds;
 
     //See if transfer button needs to be turned off.
-    if(all_factions[chosen_team_indicies[0]].navy.length <=1 ||
-       all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 1)
+    
+    /*if(1==2)
+    //if(all_factions[chosen_team_indicies[0]].navy.length <=1 ||
+    //   all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length <= 1)
     {
         document.getElementById("transfer-button").style.pointerEvents = "none";
         document.getElementById("transfer-button").style.opacity = "0.3";
     }
     else
-    {
+    {*/
         document.getElementById("transfer-button").style.pointerEvents = "auto";
         document.getElementById("transfer-button").style.opacity = "1.0";
-    }
+    //}
 
     //see if repair button needs to be turned off.
-    if(current_ship.current_hull < current_ship.chosen_pilot.ship_name.hull ||
+    if((current_ship.current_hull < current_ship.chosen_pilot.ship_name.hull ||
        current_ship.conditions.length > 0 ||
        current_ship.critical_hit_cards.length > 0 ||
        current_ship.current_sheilds < current_ship.chosen_pilot.ship_name.shields ||
       (current_ship.current_energy != undefined && 
-       current_ship.current_energy < current_ship.chosen_pilot.ship_name.energy &&
-       is_ship_group_on_planet() == true))
+       current_ship.current_energy < current_ship.chosen_pilot.ship_name.energy))&&
+       sessionStorage.getItem('type')=="Planet")
     {
         document.getElementById("repair-button").style.pointerEvents = "auto";
         document.getElementById("repair-button").style.opacity = "1.0";
@@ -134,13 +137,13 @@ function set_all_items()
     let button_on = false;
     for(var i=0; i < ship_list.length;i++)
     {
-        if( ship_list[i].current_hull < ship_list[i].chosen_pilot.ship_name.hull ||
+        if(( ship_list[i].current_hull < ship_list[i].chosen_pilot.ship_name.hull ||
             ship_list[i].conditions.length > 0 ||
             ship_list[i].critical_hit_cards.length > 0 ||
             ship_list[i].current_sheilds < ship_list[i].chosen_pilot.ship_name.shields ||
            (ship_list[i].current_energy != undefined && 
-            ship_list[i].current_energy < ship_list[i].chosen_pilot.ship_name.energy&&
-            is_ship_group_on_planet() == true))
+            ship_list[i].current_energy < ship_list[i].chosen_pilot.ship_name.energy))&&
+            sessionStorage.getItem('type')=="Planet")
         {
             button_on = true;
             break;
@@ -200,6 +203,7 @@ function set_all_items()
         upgrade_image.style.display = "grid";
         upgrade_image.style.gridTemplateColumns = "repeat(2,calc(100%/2))";
         upgrade_image.style.gridTemplateRows = "repeat(3,calc(100%/3))";
+        upgrade_image.className = "card-type-image";
 
         //Add ordnance tokens if they have any.
         if(upgrade.ordnance_tokens > 0)
@@ -463,6 +467,7 @@ function remove_ship()
         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
         sessionStorage.removeItem("team_name");
         sessionStorage.removeItem("team_indecies");
+        sessionStorage.removeItem("type");
         window.location.href = "../gameplay-screen.html";
     }
     else
@@ -479,9 +484,10 @@ function transfer_ship_button()
 {
     //var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     open_input_popup("transfer-pop-up");
+    var index = 0;
     all_factions[chosen_team_indicies[0]].navy.forEach(ship_body=>{
         if((ship_body.group_name != sessionStorage.getItem("team_name") && sessionStorage.getItem("gc_phase") == "placement") ||
-          (check_ship_range_for_transfer() == true && sessionStorage.getItem("gc_phase") == "building" && ship_body.group_name != sessionStorage.getItem("team_name")))
+          (check_ship_range_for_transfer(index) == true && sessionStorage.getItem("gc_phase") == "building" && ship_body.group_name != sessionStorage.getItem("team_name")))
         {
             let transfer_button = document.createElement("button");
             transfer_button.type = "button";
@@ -498,6 +504,7 @@ function transfer_ship_button()
             }
             document.getElementById("transfer-pop-up").appendChild(transfer_button);
         }
+        index++;
     })
     //Create new group button
     if( all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list.length > 1)//Do not make this button if the team only has one ship.
@@ -574,6 +581,7 @@ function ship_transfer(transfer_to)
                     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
                     sessionStorage.removeItem("team_name");
                     sessionStorage.removeItem("team_indecies");
+                    sessionStorage.removeItem("type");
                     window.location.href = "../gameplay-screen.html";
                 }
                 else
@@ -941,6 +949,7 @@ function create_split_group(location)
     sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
     check_if_name_needs_to_be_downgraded(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].group_name);
     sessionStorage.removeItem("team_indecies");
+    sessionStorage.removeItem("type");
     window.location.href = "../gameplay-screen.html";
 }
 
@@ -1202,9 +1211,8 @@ function close_repair_pop_up()
     close_input_popup('payment-type-pop-up');
 }
 
-function check_ship_range_for_transfer()
+function check_ship_range_for_transfer(index)
 {
-    var close_enough_for_transfer = false;
     var transfer_range = [];
     var x_location = parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[0],10);
     var y_location = parseInt(all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].location.split("_")[1],10);
@@ -1219,21 +1227,14 @@ function check_ship_range_for_transfer()
             }
         }
     }
-    for(var i=0; i<all_factions[chosen_team_indicies[0]].navy.length;i++)
+    if(transfer_range.includes(all_factions[chosen_team_indicies[0]].navy[index].location))
     {
-        if(transfer_range.includes(all_factions[chosen_team_indicies[0]].navy[i].location))
-        {
-            close_enough_for_transfer = true;
-            break;
-        }
+        return true;
     }
-
-    return close_enough_for_transfer;
-}
-
-function is_ship_group_on_planet()
-{
-    return false;
+    else
+    {
+        return false;
+    }
 }
 
 //Key bindings for this screen.
@@ -1249,5 +1250,28 @@ document.onkeyup = function(e) {
     else if(e.keyCode == 27)//escape key.
     {
         back_button();
+    }
+}
+
+function cycle_button_click()
+{
+    Array.from(document.getElementsByClassName("card-type-image")).forEach(card=>{
+        upgrade_box.removeChild(card);
+   })
+    if(document.getElementById("upgrades-title").textContent == "Upgrades")
+    {
+        document.getElementById("upgrades-title").textContent = "Critical Hit Cards";
+    }
+    else if(document.getElementById("upgrades-title").textContent == "Critical Hit Cards")
+    {
+        document.getElementById("upgrades-title").textContent = "Conditions";
+    }
+    else if(document.getElementById("upgrades-title").textContent == "Conditions")
+    {
+        document.getElementById("upgrades-title").textContent = "Upgrades";
+    }
+    else
+    {
+        alert("ERROR: Cannot determine which cards to show!");
     }
 }
