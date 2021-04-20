@@ -344,10 +344,13 @@ function check_for_combat_report()
   //After combat changes.
 if(sessionStorage.getItem("combat_report")!=null)
 {
-    alert("combat report!")
+    //alert("combat report!")
     let combat_report = JSON.parse(sessionStorage.getItem("combat_report"));
     let all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
-
+    if(combat_report.length > 2)
+    {
+      alert("ERROR: Combat report has "+combat_report.length+" entries.");
+    }
     //Go through each team in the combat report and update the team.
     combat_report.forEach(report=>{
         for(var i=0; i < all_factions.length;i++)
@@ -358,13 +361,13 @@ if(sessionStorage.getItem("combat_report")!=null)
                 {
                     if(report.outcome == "Defeated")//If a team is completely destroyed, remove it.
                     {
-                        alert(all_factions[i].navy[j].group_name+" has been destroyed");
+                        //alert(all_factions[i].navy[j].group_name+" has been destroyed");
                         all_factions[i].navy.splice(j,1);//remove ship.
                         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
                     }
                     else//If a team has retreated or won, replace old team with new one.
                     {
-                        alert(all_factions[i].navy[j].group_name+" has been updated.")
+                        //alert(all_factions[i].navy[j].group_name+" has been updated.")
                         all_factions[i].navy[j].team.ship_list = report.team_remnant;
                         sessionStorage.setItem("gc_factions",JSON.stringify(all_factions));
                         check_if_name_needs_to_be_downgraded(all_factions[i].navy[j].group_name);

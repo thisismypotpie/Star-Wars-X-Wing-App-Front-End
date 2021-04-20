@@ -87,7 +87,15 @@ function set_all_items()
 {
     var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     document.getElementById("title").textContent = sessionStorage.getItem("team_name");
-    pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.image_path+"')";
+    if(current_ship.chosen_pilot.ship_name.ship_type =="largeTwoCard" &&
+       current_ship.current_hull == 0)
+    {
+        pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.fore_crippled_path+"')";
+    }   
+    else
+    {
+        pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.image_path+"')";
+    }
     maneuver_box.style.backgroundImage = "url('"+current_ship.chosen_pilot.ship_name.card+"')";
 
     roster_number.textContent= " : "+current_ship.roster_number;
@@ -284,7 +292,14 @@ function flip_button_click()
     var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     if(aft_image_showing == false)
     {
-        pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.aft_card_path+"')";
+        if(current_ship.current_aft_hull == 0)
+        {
+            pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.aft_crippled_path+"')";
+        }
+        else
+        {
+            pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.aft_card_path+"')";
+        }
         aft_image_showing = true;
         agility.textContent=" : "+ current_ship.current_aft_agility;
         hull.textContent=" : "+ current_ship.current_aft_hull;
@@ -292,7 +307,14 @@ function flip_button_click()
     }
     else
     {
-        pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.image_path+"')";
+        if(current_ship.current_hull == 0)
+        {
+            pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.fore_crippled_path+"')";
+        }
+        else
+        {
+            pilot_picture.style.backgroundImage = "url('"+current_ship.chosen_pilot.image_path+"')";
+        }
         aft_image_showing = false;
         agility.textContent=" : "+ current_ship.current_agility;
         hull.textContent= " : "+ current_ship.current_hull;
@@ -1255,20 +1277,111 @@ document.onkeyup = function(e) {
 
 function cycle_button_click()
 {
+    var current_ship = all_factions[chosen_team_indicies[0]].navy[chosen_team_indicies[1]].team.ship_list[selection_index];
     Array.from(document.getElementsByClassName("card-type-image")).forEach(card=>{
         upgrade_box.removeChild(card);
    })
     if(document.getElementById("upgrades-title").textContent == "Upgrades")
     {
         document.getElementById("upgrades-title").textContent = "Critical Hit Cards";
+        current_ship.critical_hit_cards.forEach(crit_hit=>{
+            var crit_hit_div = document.createElement("div");
+            crit_hit_div.className = "card-type-image";
+            crit_hit_div.style.backgroundImage = "url('"+crit_hit.image_path+"')";
+            crit_hit_div.style.border = "1px solid white";
+            crit_hit_div.style.backgroundRepeat = "no-repeat";
+            crit_hit_div.style.backgroundSize = "100% 100%";
+            crit_hit_div.style.margin = "3%";
+            crit_hit_div.style.height = "75%";
+            crit_hit_div.style.flex = "0 0 90%";//width is here.
+            upgrade_box.appendChild(crit_hit_div);
+        })
     }
     else if(document.getElementById("upgrades-title").textContent == "Critical Hit Cards")
     {
         document.getElementById("upgrades-title").textContent = "Conditions";
+        current_ship.conditions.forEach(condition=>{
+            var condition_div = document.createElement("div");
+            condition_div.className = "card-type-image";
+            condition_div.style.backgroundImage = "url('"+condition.image_path+"')";
+            condition_div.style.border = "1px solid white";
+            condition_div.style.backgroundRepeat = "no-repeat";
+            condition_div.style.backgroundSize = "100% 100%";
+            condition_div.style.margin = "3%";
+            condition_div.style.height = "75%";
+            condition_div.style.flex = "0 0 90%";//width is here.
+            upgrade_box.appendChild(condition_div);
+        })
     }
     else if(document.getElementById("upgrades-title").textContent == "Conditions")
     {
         document.getElementById("upgrades-title").textContent = "Upgrades";
+        current_ship.upgrades.forEach(upgrade=>{
+            var upgrade_div = document.createElement("div");
+            upgrade_div.className = "card-type-image";
+            if(upgrade.upgrade.is_dual_sided == true)
+            {
+                upgrade_div.style.border = "3px solid red";
+                if (upgrade.orientation == "front")
+                {
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[0]+"')";
+                }
+                else if(upgrade.orientation  == "back")
+                {
+                    upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path.split("\n")[1]+"')";
+                }
+                else
+                {
+                    document.getElementById('notification-pop-up-title').textContent = "ERROR: Could not determine orientation type of dual sided upgrade.";
+                    show_pop_up("Notification-pop-up");
+                }
+            }
+            else
+            {
+                upgrade_div.style.backgroundImage = "url('"+upgrade.upgrade.image_path+"')";
+                upgrade_div.style.border = "1px solid white";
+            }
+            upgrade_div.style.backgroundRepeat = "no-repeat";
+            upgrade_div.style.backgroundSize = "100% 100%";
+            upgrade_div.style.margin = "3%";
+            upgrade_div.style.height = "75%";
+            upgrade_div.style.flex = "0 0 90%";//Width is here.
+            upgrade_div.style.display = "grid";
+            upgrade_div.style.gridTemplateColumns = "repeat(2,calc(100%/2))";
+            upgrade_div.style.gridTemplateRows = "repeat(3,calc(100%/3))";
+            if(upgrade.ordnance_tokens > 0)
+            {
+                var ordnance_token_quantity = document.createElement("div");
+                ordnance_token_quantity.style.gridRow = "1";
+                ordnance_token_quantity.style.gridColumn = "2";
+                ordnance_token_quantity.style.backgroundImage = "url('https://i.imgur.com/DztMvcD.png')";
+                ordnance_token_quantity.style.backgroundRepeat = "no-repeat";
+                ordnance_token_quantity.style.backgroundSize = "100% 100%";
+                ordnance_token_quantity.textContent = "X"+upgrade.ordnance_tokens;
+                ordnance_token_quantity.style.fontSize = "xx-large";
+                ordnance_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+                ordnance_token_quantity.style.textAlign = "right"
+                ordnance_token_quantity.style.color = "white";
+                upgrade_div.appendChild(ordnance_token_quantity);
+            }
+            //Add energy tokens
+            if(upgrade.energy_allocated > 0)
+            {
+                var energy_token_quantity = document.createElement("div");
+                energy_token_quantity.style.gridRow = "1";
+                energy_token_quantity.style.gridColumn = "2";
+                energy_token_quantity.style.backgroundImage = "url('https://i.imgur.com/21ZF1eI.png')";
+                energy_token_quantity.style.backgroundRepeat = "no-repeat";
+                energy_token_quantity.style.backgroundSize = "100% 100%";
+                energy_token_quantity.textContent = "X"+upgrade.energy_allocated;
+                energy_token_quantity.style.fontSize = "xx-large";
+                energy_token_quantity.style.fontFamily = "Impact, Charcoal, sans-serif";
+                energy_token_quantity.style.textAlign = "right"
+                energy_token_quantity.style.color = "white";
+                upgrade_div.appendChild(energy_token_quantity);
+            }
+            upgrade_box.appendChild(upgrade_div);
+        })
     }
     else
     {
