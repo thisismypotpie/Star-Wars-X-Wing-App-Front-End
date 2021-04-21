@@ -382,3 +382,9 @@ if(sessionStorage.getItem("combat_report")!=null)
     sessionStorage.removeItem("combat_report");
 }
 }
+
+function save_game_gc()
+{
+  alert("saving!");
+  bring_up_save_form();//Function from save-input-detector.js
+}

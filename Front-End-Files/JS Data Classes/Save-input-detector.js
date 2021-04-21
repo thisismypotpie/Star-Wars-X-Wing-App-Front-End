@@ -6,6 +6,12 @@ document.addEventListener("keydown", function(event){ //press s to save game.
             alert("You cannot save your game while you are doing a search, exit search to save.");
             return;
         }
+        bring_up_save_form();
+    };
+  });
+
+  function bring_up_save_form()
+  {
         //Create overlay dynamically.
         if(document.getElementById('overlay')==null || document.getElementById('overlay')==undefined)
         {
@@ -24,8 +30,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
             setTimeout(() => {
                 document.getElementById('save_game_input').value = "";
             },25);//This timeout is here because otherwise there will be a "`" key pressed into the value and I was not able to find another way to delete it without a timeout.
-    };
-  });
+  }
 
 
   function create_save_game_form_dynamically()
@@ -147,11 +152,13 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 .catch(function(error) {
   console.log(error);
   alert("Something went wrong trying to get saved game names. "+error)
+  return;
 })
 .then(response =>response.json())
 .then(data => game_names = data)
 .then(()=>{
             var viable_name = true;
+            alert("Saved game names: "+game_names.length)
             game_names.forEach(name=>{
                 if(name == potential_name)
                 {
@@ -163,7 +170,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                          JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
                         {
                             alert("There is no data to save.");
-                            return;
+                            close_pop_up()
+                            //return;
                         }
                         //overwrite game.
                         var url = "http://localhost:3000/overwrite_game";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
@@ -173,6 +181,13 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                             method: 'POST',
                             body:JSON.stringify(all_teams)
                         })
+                        .catch(error=>{
+                            console.log(error)
+                            alert("Something went wrong trying to overwrite the game. "+error);
+                            close_pop_up();
+                            //return;
+                        })
+                        .then(()=>{alert("Game has been saved!");close_pop_up()})
                     }
                     else
                     {
@@ -186,7 +201,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                 JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
                {
                    alert("There is no data to save.");
-                   return;
+                   close_pop_up();
+                   //return;
                }
                 //save game.
                 var url = "http://localhost:3000/save_game";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game";
@@ -197,10 +213,16 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                     method: 'POST',
                     body:JSON.stringify(all_teams)
                 })
+                .catch(error=>{
+                    console.log(error)
+                    alert("Something went wrong trying to overwrite the game. "+error);
+                    close_pop_up();
+                })
+                .then(()=>{alert("Game has been saved!");close_pop_up()})
             }
 })
-.then(()=>{alert("game is saved."); close_pop_up();})
-.then(()=>{    document.getElementById('save-button').onclick = function(){validate_save_name()}})
+//.then(()=>{close_pop_up();})
+.then(()=>{document.getElementById('save-button').onclick = function(){validate_save_name()}})
 }
 
   function close_pop_up()
