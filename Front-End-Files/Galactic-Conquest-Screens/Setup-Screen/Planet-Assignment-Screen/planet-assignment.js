@@ -40,18 +40,18 @@ function load_planets()
           }
           else if(planet.controlling_faction == "Rebels")
           {
-            document.getElementById(id).style.backgroundColor = "red";
+            document.getElementById(id).style.backgroundColor = "maroon";
             document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
           }
           else if(planet.controlling_faction == "Imperial")
           {
-            document.getElementById(id).style.backgroundColor = "grey";
+            document.getElementById(id).style.backgroundColor = "black";
             document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
           }
           else
           {
             alert(planet.name+" has no readable alliance.  Error: "+planet.controlling_faction);
-            document.getElementById(id).style.backgroundColor = "black";
+            document.getElementById(id).style.backgroundColor = "yellow";
           }
           document.getElementById(id).setAttribute("Planet",JSON.stringify(planet));
           //document.getElementById(id).setAttribute("Faction",planet.controlling_faction);
