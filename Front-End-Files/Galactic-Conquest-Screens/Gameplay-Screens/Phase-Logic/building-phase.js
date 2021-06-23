@@ -20,7 +20,7 @@ function building_phase_set_up()
 {
     var whos_turn = sessionStorage.getItem("gc_whos_turn");
 
-    document.getElementById("button-three").onclick = function(){ replenish_resources(); transfer_to_movement_phase()};  
+    document.getElementById("button-three").onclick = function(){ replenish_resources(); check_for_planet_faction_converstion();transfer_to_movement_phase()};  
 
     set_resource_quantities(whos_turn);
     if(whos_turn == "Rebels")
@@ -109,6 +109,37 @@ function replenish_resources()
                 planet.resource.quantity += Math.floor(Math.random() * (5))+1;
             }
         }
+    });
+    sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
+}
+
+function check_for_planet_faction_converstion()//At the end of someone's turn, convert planets are needed.
+{
+    let setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
+    var navy_index = sessionStorage.getItem("gc_whos_turn") =="Rebels"? 0:1;
+    var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));
+    setup_data.active_planets.forEach(planet=>{ 
+        all_factions[navy_index].navy.forEach(ship_body=>{
+            if(ship_body.location == planet.planet.x_coordinate+"_"+planet.planet.y_coordinate && planet.controlling_faction != sessionStorage.getItem("gc_whos_turn"))
+            {
+                if(navy_index == 0)
+                {
+                    alert("The Rebel Alliance has taken "+planet.planet.name);
+                    planet.controlling_faction = "Rebels";
+                    document.getElementById(ship_body.location).style.backgroundColor = "maroon";
+                }
+                else if(navy_index == 1)
+                {
+                    alert("The Galactic Empire has taken "+planet.planet.name);
+                    planet.controlling_faction = "Imperial";
+                    document.getElementById(ship_body.location).style.backgroundColor = "black";
+                }
+                else
+                {
+                    alert("ERROR: Unable to determine conquering planet faction for planet: "+planet.planet.name);
+                }
+            }
+        })
     });
     sessionStorage.setItem("gc_setup_data",JSON.stringify(setup_data));
 }
