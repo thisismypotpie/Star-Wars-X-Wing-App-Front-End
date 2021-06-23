@@ -229,12 +229,13 @@ function remove_invalid_movement_spaces(group_location)
                 if(all_factions[p].navy[j].location == coordinate)
                 {
                     var direction_suffix = movement_list[i][2].substring(1);
-                    for(var k= movement_list.length-1;k >= 0;k--)
+                    for(var k= (movement_list.length-1);k >= 0;k--)
                     {
                         if(movement_list[k][2] == "3"+direction_suffix &&
                            movement_list[i][2][0] == "2")
                         {
                             movement_list.splice(k,1);//remove ship.
+                            continue;
                             //j = all_factions[p].navy.length-1;
                         }
                         if((movement_list[k][2] == "3"+direction_suffix ||

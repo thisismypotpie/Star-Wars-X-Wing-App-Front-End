@@ -128,6 +128,7 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 
   function validate_save_name()
   {
+      var error_encountered = false;
     document.getElementById('save-button').onclick = null;
       if(document.getElementById('save_game_input').value == "")
       {
@@ -147,6 +148,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
        var potential_name = document.getElementById('save_game_input').value;
        potential_name = potential_name.replace(/\s+/g, '');
        potential_name = potential_name.toLowerCase();
+       potential_name = JSON.stringify(potential_name);
+       potential_name = potential_name.replace(/['"]+/g, '');
        var game_names = [];
        fetch(url)
 .catch(function(error) {
@@ -157,71 +160,206 @@ document.addEventListener("keydown", function(event){ //press s to save game.
 .then(response =>response.json())
 .then(data => game_names = data)
 .then(()=>{
+            //stringify each return string and potential name. This is to make the comparison usable when seeing if the name is in either db.
+            for(var i=0; i < game_names.reg_game_names.length;i++)
+            {
+                game_names.reg_game_names[i] = JSON.stringify(game_names.reg_game_names[i]);
+                game_names.reg_game_names[i] = game_names.reg_game_names[i].replace(/['"]+/g, '');
+
+            }
+            for(var i=0; i < game_names.gc_game_names.length;i++)
+            {
+                game_names.gc_game_names[i] = JSON.stringify(game_names.gc_game_names[i]);
+                game_names.gc_game_names[i] = game_names.gc_game_names[i].replace(/['"]+/g, '');
+            }
+
             var viable_name = true;
-            alert("Saved game names: "+game_names.length)
-            game_names.forEach(name=>{
-                if(name == potential_name)
+            if(sessionStorage.getItem("gc_setup_data")!=null)//Check to see if a gc name is already taken as a regular game.
+            {
+                if(game_names.reg_game_names.includes(potential_name) &&  //If the game name you entered is in the regular game db and not in the gc database.
+                    !game_names.gc_game_names.includes(potential_name))
+                {
+                    viable_name = false;
+                    alert("The name "+potential_name+" is unavailable. Please choose another name.");
+                    document.getElementById("save_game_input").value = "";
+                    return;
+                }
+                else if(game_names.reg_game_names.includes(potential_name) && //Name has been found in both DB's and could be overwritten.
+                        game_names.gc_game_names.includes(potential_name))
+                {
+                    viable_name = false;
+                    var overwrite = confirm("A galactic conquest campaign by that name already exists, would you like to overwrite it?");
+                    if(overwrite == true)
+                    {
+                        var url = "http://localhost:3000/overwrite_game_gc";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
+                        var gc_save_data= {
+                            setup_data: JSON.parse(sessionStorage.getItem("gc_setup_data")),
+                            faction_data: JSON.parse(sessionStorage.getItem("gc_factions")),
+                            phase: sessionStorage.getItem("gc_phase"),
+                            whos_turn: sessionStorage.getItem("gc_whos_turn"),
+                            first_or_second_half_of_round: undefined,
+                            game_name: potential_name
+                        }
+                        if(gc_save_data.phase =="placement")
+                        {
+                            gc_save_data.first_or_second_half_of_round = sessionStorage.getItem("gc_first_or_second_half_of_round");
+                        }
+                        fetch(url,{
+                            method: 'POST',
+                            body:JSON.stringify(gc_save_data)
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                            alert("Something went wrong trying to overwrite the game. "+error);
+                            error_encountered = true;
+                            close_pop_up();
+                            //return;
+                        })
+                        .then(()=>{
+                            if(error_encountered == false)
+                            {
+                                alert("Game has been saved!");
+                            }
+                            else
+                            {
+                                error_encountered = false;
+                            }
+                            close_pop_up()
+                        })
+                    }
+                    else
+                    {
+                        alert("Game not saved!");
+                        document.getElementById("save_game_input").value = "";
+                    }
+                }
+            }
+            else //Check to see if name is in the regular game db.
+            {
+                if(game_names.reg_game_names.includes(potential_name))
                 {
                     viable_name = false;
                     var overwrite = confirm("A game by that name already exists, would you like to overwrite it?");
                     if(overwrite == true)
                     {
-                        if(sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
-                         JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
+                        if((sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
+                         JSON.parse(sessionStorage.getItem("all_teams")).length == 0))//dont save if freeplay and no teams created.
                         {
                             alert("There is no data to save.");
                             close_pop_up()
                             //return;
                         }
-                        //overwrite game.
-                        var url = "http://localhost:3000/overwrite_game";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
-                        var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                        all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});//Put name of game and game phase into the request.
-                        fetch(url,{
-                            method: 'POST',
-                            body:JSON.stringify(all_teams)
-                        })
-                        .catch(error=>{
-                            console.log(error)
-                            alert("Something went wrong trying to overwrite the game. "+error);
-                            close_pop_up();
-                            //return;
-                        })
-                        .then(()=>{alert("Game has been saved!");close_pop_up()})
+                        else//overwrite freeplay game.
+                        {
+                            var url = "http://localhost:3000/overwrite_game";//"https://star-wars-x-wing-back-end.herokuapp.com/overwrite_game";
+                            var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+                            all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});//Put name of game and game phase into the request.
+                            fetch(url,{
+                                method: 'POST',
+                                body:JSON.stringify(all_teams)
+                            })
+                            .catch(error=>{
+                                console.log(error)
+                                alert("Something went wrong trying to overwrite the game. "+error);
+                                error_encountered = true;
+                                close_pop_up();
+                                err
+                                //return;
+                            })
+                            .then(()=>{
+                            if(error_encountered == false)
+                            {
+                                alert("Game has been saved!");
+                            }   
+                            else
+                            {
+                                error_encountered = false;
+                            } 
+                                close_pop_up()
+                            })
+                        }
                     }
                     else
                     {
                         document.getElementById('save_game_input').value = "";
                     }
                 }
-            })
+            }
             if(viable_name == true)
             {
-                if(sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
-                JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
-               {
-                   alert("There is no data to save.");
-                   close_pop_up();
-                   //return;
-               }
                 //save game.
-                var url = "http://localhost:3000/save_game";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game";
-                //Add name to all teams.
-                var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
-                all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});
-                fetch(url,{
-                    method: 'POST',
-                    body:JSON.stringify(all_teams)
-                })
-                .catch(error=>{
-                    console.log(error)
-                    alert("Something went wrong trying to overwrite the game. "+error);
-                    close_pop_up();
-                })
-                .then(()=>{alert("Game has been saved!");close_pop_up()})
+                if(sessionStorage.getItem("gc_setup_data")!=null)//save gc game.
+                {
+                    var url = "http://localhost:3000/save_game_gc";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game_gc";
+                    var gc_save_data= {
+                        setup_data: JSON.parse(sessionStorage.getItem("gc_setup_data")),
+                        faction_data: JSON.parse(sessionStorage.getItem("gc_factions")),
+                        phase: sessionStorage.getItem("gc_phase"),
+                        whos_turn: sessionStorage.getItem("gc_whos_turn"),
+                        first_or_second_half_of_round: undefined,
+                        game_name: potential_name
+                    }
+                    if(gc_save_data.phase =="placement")
+                    {
+                        gc_save_data.first_or_second_half_of_round = sessionStorage.getItem("gc_first_or_second_half_of_round");
+                    }
+                    fetch(url,{
+                        method: 'POST',
+                        body:JSON.stringify(gc_save_data)
+                    })
+                    .catch(error=>{
+                        console.log(error)
+                        alert("Something went wrong trying to overwrite the game. "+error);
+                        close_pop_up();
+                    })
+                    .then(()=>{                            if(error_encountered == false)
+                        {
+                            alert("Game has been saved!");
+                        }   
+                        else
+                        {
+                            error_encountered = false;
+                        } 
+                            close_pop_up()
+                        })
+                }
+
+                else//save regular game.
+                {
+                    if(sessionStorage.getItem("all_teams") == null || sessionStorage.getItem("all_teams") == undefined ||
+                    JSON.parse(sessionStorage.getItem("all_teams")).length == 0)
+                   {
+                       alert("There is no data to save.");
+                       close_pop_up();
+                       //return;
+                   }
+                    var url = "http://localhost:3000/save_game";//"https://star-wars-x-wing-back-end.herokuapp.com/save_game";
+                                    //Add name to all teams.
+                    var all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+                    all_teams.push({save_game_name:potential_name,save_game_phase:get_game_phase(),target_locks:JSON.parse(sessionStorage.getItem("all_target_locks")),reminders:JSON.parse(sessionStorage.getItem("all_reminders"))});
+                    fetch(url,{
+                        method: 'POST',
+                        body:JSON.stringify(all_teams)
+                    })
+                    .catch(error=>{
+                        console.log(error)
+                        alert("Something went wrong trying to overwrite the game. "+error);
+                        close_pop_up();
+                    })
+                    .then(()=>{                            if(error_encountered == false)
+                        {
+                            alert("Game has been saved!");
+                        }   
+                        else
+                        {
+                            error_encountered = false;
+                        } 
+                            close_pop_up()
+                        })
+               }
+
             }
 })
-//.then(()=>{close_pop_up();})
 .then(()=>{document.getElementById('save-button').onclick = function(){validate_save_name()}})
 }
 

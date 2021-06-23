@@ -424,6 +424,16 @@ Gtihub Repo(back end): {{\field{\*\fldinst{HYPERLINK https://github.com/thisismy
 -Finsihed with cycle button.\par
 -Edited team view screen to reflect if a large ship is crippled.\par
 -Removed combat report alerts.\par
+6/21/2021:\par
+-I am currently trying to save a list of ships in a gc game to the correct databases.\par
+- The game can now save to the regualar saved ships db for non-combat. Will sitll need to implement overwriting for non-combat.\par
+-Created an overwrite function for gc. Needs to be tested.\par
+6/22/2021:\par
+- When testing the the overwrite for a gc game, the back-end was pulling the game of the gc game twice, one for each db. This made the user get asked twice if they wanted to overwrite their game. I have now made it so when you are looking to overwrite a gc game, it only pulls from the gc database, but then I thought "If I do that, what happens if you have a gc game and a regular game that are both named the same name?" and so I am now working to have two seperate lists created to double check the name is not used in a regular name.\par
+- Line 181 in the save game detector seems to be trying to push an empty "all teams" variable when I save a gc game.\par
+- I restructured the overwrite mechanism. I did light testing for a regular game and now I am needing to test overwriting a gc game.\par
+- I have started testing an overwrite with gc but the back end shuts down due to an undefined variable.\par
+- I have done a successful save, however old ships are not being updated in the original db. I think it might have to do with the body of the gc being undefined.\par
 \par
 \par
 \par
