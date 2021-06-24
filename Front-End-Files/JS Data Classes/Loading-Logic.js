@@ -5,6 +5,7 @@ function get_load_data()
     open_load_info_screen();
     var input = document.getElementById('load-name-input').value;
     var game_names = [];
+    var raw_data = undefined;
     input = input.replace(/\s+/g, '');
     input = input.toLowerCase();
     if(input.length == 0)
@@ -47,10 +48,7 @@ if(error_occured == false)
          body:JSON.stringify(game_names.reg_game_names[game_names.reg_game_names.indexOf(input)])
          })
         .then(response =>response.json())
-        .then(data=>{raw_data = data;})
-        .then(()=>{
-            parse_load_data(raw_data);
-        })
+        .then(data=>{parse_load_data(data)})
       }
       else
       {
@@ -65,7 +63,7 @@ if(error_occured == false)
 function parse_load_data(raw_data)
 {
   sessionStorage.setItem("all_teams",JSON.stringify(create_teams_for_game(raw_data)));
-  var phase = raw_data.turn_data.Phase;
+  var phase = raw_data.turn_data[0].Phase;
   
   console.log(raw_data);
   if(phase == "movement" || phase == "attack" || phase == "maneuver-selection")
@@ -245,16 +243,16 @@ function add_target_locks_to_game(raw_data)
 
 function determine_turn_info(raw_data)
 {
-  var phase = raw_data.turn_data.Phase;
+  var phase = raw_data.turn_data[0].Phase;
   if(phase == "maneuver-selection")
   {
-    sessionStorage.setItem('team_index',raw_data.turn_data.TeamIndex);
-    sessionStorage.setItem('selected_ship_index',raw_data.turn_data.ShipIndex);
+    sessionStorage.setItem('team_index',raw_data.turn_data[0].TeamIndex);
+    sessionStorage.setItem('selected_ship_index',raw_data.turn_data[0].ShipIndex);
   }
   else if(phase == "attack" || phase == "movement")
   {
           sessionStorage.setItem('phase',phase); 
-         sessionStorage.setItem('movement_attack_index',raw_data.turn_data.MovementAttackIndex);
+         sessionStorage.setItem('movement_attack_index',raw_data.turn_data[0].MovementAttackIndex);
   }
   else
   {
