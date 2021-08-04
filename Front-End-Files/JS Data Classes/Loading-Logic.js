@@ -36,7 +36,14 @@ if(error_occured == false)
       if(game_names.gc_game_names.includes(input) &&
          game_names.reg_game_names.includes(input))//Load gc game.
       {
-
+        document.getElementById('loading-container-header').textContent = "Game Found!  Game loading, please wait ....";
+        var url ="http://localhost:3000/load_game_gc";//"https://star-wars-x-wing-back-end.herokuapp.com/load_game"
+        fetch(url,{
+          method: 'POST',
+          body:JSON.stringify(game_names.gc_game_names[game_names.gc_game_names.indexOf(input)])
+          })
+         .then(response =>response.json())
+         .then(data=>{parse_load_data_gc(raw_data)} )
       }
       else if(!game_names.gc_game_names.includes(input) &&
               game_names.reg_game_names.includes(input))//load regular game.
@@ -58,6 +65,33 @@ if(error_occured == false)
     }
 })
 }
+function parse_load_data_gc(raw_data)
+{
+  //Set up turn info.
+  sessionStorage.setItem("gc_whos_turn",raw_data.turn_data.WhosTurn);
+  sessionStorage.setItem("gc_phase",raw_data.turn_data.Phase);
+  if(sessionStorage.getItem("gc_phase") == "placement")
+   {
+    sessionStorage.setItem("gc_first_or_second_half_of_round",raw_data.turn_data.PlacementRoundHalf)
+   }
+
+   //Set up the set up info.
+   var set_up_data = {
+     active_planets:[],
+     converted_planets:[],
+     chosen_faction: undefined,
+     location: undefined,
+     pirate_faction: undefined,
+     pirate_options: [],
+     planet_assignment: undefined,
+     planet_count: undefined,
+     resouces_chosen: undefined
+   };
+  var unsorted_planets = add_planet_data_gc(raw_data.planet_data);
+  set_up_data.active_planets = unsorted_planets[0];
+  set_up_data.converted_planets = unsorted_planets[1];
+}
+
 
 //takes load data and makes team and ship an sets up the game.
 function parse_load_data(raw_data)
@@ -86,6 +120,32 @@ function parse_load_data(raw_data)
     alert("ERROR: invalid phase type data on load.")
   }
 
+}
+
+function add_planet_data_gc(planet_data)
+{
+  var error_count = 0;
+  var active_planets = [];
+  var converted_planets = [];
+  planet_data.forEach(planet=>{
+     if(planet.PlanetStatus == "Active")//Active planets
+     {
+
+     }
+     else if(planet.PlanetStatus == "Converted") //Converted planets
+     {
+
+     }
+     else
+     {
+       error_count++;
+     }
+  })
+  if(error_count > 0)
+  {
+    alert("ERROR: Unable to load "+error_count+" planets.")
+  }
+  return [active_planets,converted_planets];
 }
 
 function create_teams_for_game(raw_data)
