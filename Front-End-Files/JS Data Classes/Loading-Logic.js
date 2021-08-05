@@ -76,20 +76,29 @@ function parse_load_data_gc(raw_data)
    }
 
    //Set up the set up info.
-   var set_up_data = {
-     active_planets:[],
-     converted_planets:[],
-     chosen_faction: undefined,
-     location: undefined,
-     pirate_faction: undefined,
-     pirate_options: [],
-     planet_assignment: undefined,
-     planet_count: undefined,
-     resouces_chosen: undefined
+   var unsorted_planets = add_planet_data_gc(raw_data.planet_data);
+   var pirate_quantities = {
+     
    };
-  var unsorted_planets = add_planet_data_gc(raw_data.planet_data);
-  set_up_data.active_planets = unsorted_planets[0];
-  set_up_data.converted_planets = unsorted_planets[1];
+   if(raw_data.set_up_data.PirateFaction == "on")
+   {
+     console.log("Pirate faction turned on.");
+   }
+   else
+   {
+     console.log("Pirate faction turned off.");
+   }
+   var set_up_data = {
+     active_planets: unsorted_planets[0],
+     converted_planets:unsorted_planets[1],
+     chosen_faction: raw_data.set_up_data.FactionChosen,
+     location: raw_data.set_up_data.Location,
+     pirate_faction: raw_data.set_up_data.PirateFaction,
+     pirate_options: pirate_quantities,
+     planet_assignment: raw_data.set_up_data.PlanetAssignment,
+     planet_count: raw_data.set_up_data.PlanetCount,
+     resouces_chosen: raw_data.set_up_data.ResourcesChosen
+   };
 }
 
 
@@ -127,14 +136,20 @@ function add_planet_data_gc(planet_data)
   var error_count = 0;
   var active_planets = [];
   var converted_planets = [];
-  planet_data.forEach(planet=>{
-     if(planet.PlanetStatus == "Active")//Active planets
+  planet_data.forEach(planet_from_data=>{
+     if(planet_from_data.PlanetStatus == "Active")//Active planets
      {
-
+        var current_planet = {
+          controlling_faction = undefined,
+          planet = JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1],
+          resource = {image_path = planet_from_data.ResourceImagePath, name = planet_from_data.ResourceName, quantity = planet_from_data.ResourceQuantity, spawn_chance = planet_from_data.ResourceSpawnChance}
+        }
+        active_planets.push(current_planet);
      }
-     else if(planet.PlanetStatus == "Converted") //Converted planets
+     else if(planet_from_data.PlanetStatus == "Converted") //Converted planets
      {
-
+       var current_planet = JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1]
+       converted_planets.push(current_planet);     
      }
      else
      {
