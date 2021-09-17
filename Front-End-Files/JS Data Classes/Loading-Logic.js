@@ -43,7 +43,7 @@ if(error_occured == false)
           body:JSON.stringify(game_names.gc_game_names[game_names.gc_game_names.indexOf(input)])
           })
          .then(response =>response.json())
-         .then(data=>{parse_load_data_gc(raw_data)} )
+         .then(data=>{parse_load_data_gc(data)} )
       }
       else if(!game_names.gc_game_names.includes(input) &&
               game_names.reg_game_names.includes(input))//load regular game.
@@ -140,9 +140,12 @@ function add_planet_data_gc(planet_data)
      if(planet_from_data.PlanetStatus == "Active")//Active planets
      {
         var current_planet = {
-          controlling_faction = undefined,
-          planet = JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1],
-          resource = {image_path = planet_from_data.ResourceImagePath, name = planet_from_data.ResourceName, quantity = planet_from_data.ResourceQuantity, spawn_chance = planet_from_data.ResourceSpawnChance}
+          controlling_faction: undefined,
+          planet: JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1],
+          resource: {image_path: planet_from_data.ResourceImagePath, 
+                      name: planet_from_data.ResourceName, 
+                      quantity: planet_from_data.ResourceQuantity, 
+                      spawn_chance: planet_from_data.ResourceSpawnChance}
         }
         active_planets.push(current_planet);
      }
