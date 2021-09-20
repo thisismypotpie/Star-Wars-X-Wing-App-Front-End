@@ -35,25 +35,27 @@ else//populate the board with the name of each team, the size and total cost.
      var team_container = document.createElement('div');
      team_container.length = "100%";
      team_container.style.borderBottom = "3px solid white";
+     team_container.className = "team-summary "+ teams[i].team_name;
+     team_container.id = "team-summary";
      team_container.style.display = "flex";
      //Set item for the team name
       var new_team_name_item = document.createElement('div');
       new_team_name_item.id = teams[i].team_name;
-      new_team_name_item.className = "list-box-item";
+      new_team_name_item.className = "list-box-item "+teams[i].team_name;
       new_team_name_item.textContent = teams[i].team_name;
       new_team_name_item.style.textAlign = "center";
       team_container.appendChild(new_team_name_item);
       //Set item for number of ships.
       var new_ship_number_item = document.createElement('li');
       new_ship_number_item.id = teams[i].team_name + "-size";
-      new_ship_number_item.className = "list-box-item";
+      new_ship_number_item.className = "list-box-item "+teams[i].team_name;
       new_ship_number_item.style.textAlign = "center";
       new_ship_number_item.textContent = teams[i].ship_list.length;
       team_container.appendChild(new_ship_number_item);
       //Set item for the cost box.
       var new_cost_item = document.createElement('li');
       new_cost_item.id = teams[i].team_name + "-cost";
-      new_cost_item.className = "list-box-item";
+      new_cost_item.className = "list-box-item "+teams[i].team_name;
       new_cost_item.textContent = Calculate_cost_of_team(teams[i]);
       new_cost_item.style.textAlign = "center";
       team_container.appendChild(new_cost_item);

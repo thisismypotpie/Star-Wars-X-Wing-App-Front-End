@@ -13,7 +13,7 @@
  selected_upgrades.forEach(upgrade =>
  {
     let new_upgrade_slot = document.createElement("div");
-    new_upgrade_slot.className = "grid-item";
+    new_upgrade_slot.className = "grid-item upgrade";
     new_upgrade_slot.id = upgrade.name;
     new_upgrade_slot.addEventListener("click",function(){
       upgrade_item_click(new_upgrade_slot.id);
