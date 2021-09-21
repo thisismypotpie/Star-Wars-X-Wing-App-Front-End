@@ -123,42 +123,48 @@ function parse_load_data_gc(raw_data)
 
    //Set Up the Faction Info
    var faction_data = [];
+   var all_teams_across_all_factions = create_gc_navy(raw_data)
    for(var i=0; i < raw_data.faction_data.length;i++)// 0= rebels 1=imperial
    {
      var faction_image = undefined;
-     var faction_name = undefined;
       if(i==0)
       {
         faction_image = "url(https://i.imgur.com/mO0iijb.png)";
-        faction_name = "Rebels";
       }
       else if(i==1)
       {
         faction_image = "url(https://i.imgur.com/XgIWtvd.png)";
-        faction_name = "Imperial";
       }
       else
       {
         alert("ERROR: Could not determine faction when loading faction data.")
       }
       var faction_info = {
-          currency: 0,
-          durasteel: 0,
-          electronics: 0,
-          faction: faction_name,
-          fuel: 0,
-          highest_armada_number: 0,
-          highest_fleet_number: 0,
-          highest_squad_number: 0,
+          currency: raw_data.faction_data[i].Currency,
+          durasteel: raw_data.faction_data[i].Durasteel,
+          electronics: raw_data.faction_data[i].Electronics,
+          faction: raw_data.faction_data[i].Faction,
+          fuel: raw_data.faction_data[i].Fuel,
+          highest_armada_number: raw_data.faction_data[i].HighestArmadaNumber,
+          highest_fleet_number: raw_data.faction_data[i].HighestFleetNumber,
+          highest_squad_number: raw_data.faction_data[i].HighestSquadNumber,
           image: faction_image,
-          list_of_the_fallen: get_list_of_the_dead(faction_name,raw_data),
+          list_of_the_fallen: get_list_of_the_dead(raw_data.faction_data[i].Faction,raw_data),
           navy: [],
-          parts: 100,
-
+          parts: raw_data.faction_data[i].Parts,
+          tibanna: raw_data.faction_data[i].Tibanna
       }
+      all_teams_across_all_factions.forEach(team=>{
+         if((faction_info.faction.includes("Rebel") && team.group_name.includes("Rebel")) || 
+            (faction_info.faction.includes("Imperial") && team.group_name.includes("Imperial")))
+         {
+           faction_info.navy.push(team);
+         }
+      })
       faction_data.push(faction_info);
    }
    sessionStorage.setItem("gc_factions",JSON.stringify(faction_data));
+   window.location.href ="../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
 }
 
 
@@ -189,6 +195,48 @@ function parse_load_data(raw_data)
     alert("ERROR: invalid phase type data on load.")
   }
 
+}
+
+function create_gc_navy(raw_data)
+{
+   var complete_navy = [];
+   var all_teams = [];
+   raw_data.navies.forEach(navy=>{
+        var moved = true;
+        if(navy.HasMoved == 0)
+        {
+          moved = false;
+        }
+        if(navy.GroupFaction == "Rebels")
+        {
+          faction_image = "url(https://i.imgur.com/mO0iijb.png)";
+        }
+        else if(navy.GroupFaction == "Imperial")
+        {
+          faction_image = "url(https://i.imgur.com/XgIWtvd.png)";
+        }
+        else
+        {
+          alert("ERROR: Could not determine faction when loading faction navy data.")
+        }
+        var ship_body = {
+          border: get_correct_border(navy.GroupName.split(" ")[2],navy.GroupFaction),
+          faction: navy.GroupFaction,
+          group_name: navy.GroupName,
+          has_moved: moved,
+          image: faction_image,
+          location: navy.GroupLocation,
+          team: {
+                  has_initiative_token: false,
+                  ship_list: [],//need to find out how to populate this.
+                  team_name: navy.GroupName
+                } 
+        };
+        all_teams.push(ship_body.team);//The function that builds teams from raw data needs to have the skeleton of all teams. 
+        complete_navy.push(ship_body);
+   });
+   all_teams = add_ships_to_team(raw_data.ship_and_combat_data, all_teams)//Attempt to use regular game loading function to load ships for gc. Overwrite the all teams with complete list of teams.
+   return complete_navy;
 }
 
 function get_list_of_the_dead(faction, raw_data)
