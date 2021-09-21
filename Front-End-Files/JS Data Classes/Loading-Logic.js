@@ -37,7 +37,7 @@ if(error_occured == false)
          game_names.reg_game_names.includes(input))//Load gc game.
       {
         document.getElementById('loading-container-header').textContent = "Game Found!  Game loading, please wait ....";
-        var url ="http://localhost:3000/load_game_gc";//"https://star-wars-x-wing-back-end.herokuapp.com/load_game"
+        var url ="http://localhost:3000/load_game_gc";//"https://star-wars-x-wing-back-end.herokuapp.com/load_game_gc"
         fetch(url,{
           method: 'POST',
           body:JSON.stringify(game_names.gc_game_names[game_names.gc_game_names.indexOf(input)])
@@ -78,7 +78,27 @@ function parse_load_data_gc(raw_data)
    //Set up the set up info.
    var unsorted_planets = add_planet_data_gc(raw_data.planet_data);
    var pirate_quantities = {
-     
+    Aggressor: raw_data.pirate_ship_quantities.Aggressor,
+    C_ROC_Cruiser: raw_data.pirate_ship_quantities.CROCCruiser,
+    Firespray_31: raw_data.pirate_ship_quantities.Firespray31,
+    G_1A_Starfighter: raw_data.pirate_ship_quantities.G1AStarfighter,
+    HWK_290: raw_data.pirate_ship_quantities.HWK290,
+    Hounds_Tooth: raw_data.pirate_ship_quantities.HoundsTooth,
+    Jump_Master_5000: raw_data.pirate_ship_quantities.JumpMaster5000,
+    Kihraxz_Fighter: raw_data.pirate_ship_quantities.KihraxzFighter,
+    Lancer_Class_Pusuit_Craft: raw_data.pirate_ship_quantities.LancerClassPursuitCraft,
+    M3_A_Interceptor: raw_data.pirate_ship_quantities.M3AInterceptor,
+    M12_L_Kimongila_Fighter: raw_data.pirate_ship_quantities.M12LKimongilaFighter,
+    Protectorate_Starfighter: raw_data.pirate_ship_quantities.ProtectorateStarfighter,
+    Quadjumper: raw_data.pirate_ship_quantities.Quadjumper,
+    Scurrg_H_6_Bomber: raw_data.pirate_ship_quantities.ScurrgH6Bomber,
+    StarViper: raw_data.pirate_ship_quantities.StarViper,
+    YT_1300: raw_data.pirate_ship_quantities.YT1300,
+    Y_Wing: raw_data.pirate_ship_quantities.YWing,
+    Z_95_Headhunter: raw_data.pirate_ship_quantities.Z95Headhunter,
+    list_of_the_dead: get_list_of_the_dead("Scum",raw_data),
+    roster_numbers: raw_data.pirate_roster_numbers,
+    total_ships: "gc_setup_data.pirate_options.HWK_290+gc_setup_data.pirate_options.Kihraxz_Fighter+gc_setup_data.pirate_options.M3_A_Interceptor+gc_setup_data.pirate_options.M12_L_Kimongila_Fighter+gc_setup_data.pirate_options.G_1A_Starfighter+gc_setup_data.pirate_options.Protectorate_Starfighter+gc_setup_data.pirate_options.Quadjumper+gc_setup_data.pirate_options.Scurrg_H_6_Bomber+gc_setup_data.pirate_options.StarViper+gc_setup_data.pirate_options.Y_Wing+gc_setup_data.pirate_options.Z_95_Headhunter+gc_setup_data.pirate_options.Firespray_31+gc_setup_data.pirate_options.Hounds_Tooth+gc_setup_data.pirate_options.Aggressor+gc_setup_data.pirate_options.Jump_Master_5000+gc_setup_data.pirate_options.Lancer_Class_Pusuit_Craft+gc_setup_data.pirate_options.YT_1300+gc_setup_data.pirate_options.C_ROC_Cruiser;"
    };
    if(raw_data.set_up_data.PirateFaction == "on")
    {
@@ -99,6 +119,46 @@ function parse_load_data_gc(raw_data)
      planet_count: raw_data.set_up_data.PlanetCount,
      resouces_chosen: raw_data.set_up_data.ResourcesChosen
    };
+   sessionStorage.setItem("gc_setup_data",JSON.stringify(set_up_data));
+
+   //Set Up the Faction Info
+   var faction_data = [];
+   for(var i=0; i < raw_data.faction_data.length;i++)// 0= rebels 1=imperial
+   {
+     var faction_image = undefined;
+     var faction_name = undefined;
+      if(i==0)
+      {
+        faction_image = "url(https://i.imgur.com/mO0iijb.png)";
+        faction_name = "Rebels";
+      }
+      else if(i==1)
+      {
+        faction_image = "url(https://i.imgur.com/XgIWtvd.png)";
+        faction_name = "Imperial";
+      }
+      else
+      {
+        alert("ERROR: Could not determine faction when loading faction data.")
+      }
+      var faction_info = {
+          currency: 0,
+          durasteel: 0,
+          electronics: 0,
+          faction: faction_name,
+          fuel: 0,
+          highest_armada_number: 0,
+          highest_fleet_number: 0,
+          highest_squad_number: 0,
+          image: faction_image,
+          list_of_the_fallen: get_list_of_the_dead(faction_name,raw_data),
+          navy: [],
+          parts: 100,
+
+      }
+      faction_data.push(faction_info);
+   }
+   sessionStorage.setItem("gc_factions",JSON.stringify(faction_data));
 }
 
 
@@ -131,6 +191,18 @@ function parse_load_data(raw_data)
 
 }
 
+function get_list_of_the_dead(faction, raw_data)
+{
+  var dead_list = [];
+  raw_data.list_of_the_dead.forEach(dead_person=>{
+      if(dead_person.Faction == faction)
+      {
+        dead_list.push(dead_person.Name);
+      }
+  });
+  return dead_list;
+}
+
 function add_planet_data_gc(planet_data)
 {
   var error_count = 0;
@@ -140,8 +212,8 @@ function add_planet_data_gc(planet_data)
      if(planet_from_data.PlanetStatus == "Active")//Active planets
      {
         var current_planet = {
-          controlling_faction: undefined,
-          planet: JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1],
+          controlling_faction: planet_from_data.ControllingFaction,
+          planet: JSON.parse(sessionStorage.getItem("game_data")).all_planets[planet_from_data.PlanetID-1],
           resource: {image_path: planet_from_data.ResourceImagePath, 
                       name: planet_from_data.ResourceName, 
                       quantity: planet_from_data.ResourceQuantity, 
@@ -151,7 +223,7 @@ function add_planet_data_gc(planet_data)
      }
      else if(planet_from_data.PlanetStatus == "Converted") //Converted planets
      {
-       var current_planet = JSON.parse(sessionStorage.getItem(game_data)).all_planets[planet_from_data.PlanetID-1]
+       var current_planet = JSON.parse(sessionStorage.getItem("game_data")).all_planets[planet_from_data.PlanetID-1]
        converted_planets.push(current_planet);     
      }
      else
