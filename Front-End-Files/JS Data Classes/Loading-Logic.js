@@ -129,11 +129,11 @@ function parse_load_data_gc(raw_data)
      var faction_image = undefined;
       if(i==0)
       {
-        faction_image = "url(https://i.imgur.com/mO0iijb.png)";
+        faction_image = "https://i.imgur.com/mO0iijb.png";
       }
       else if(i==1)
       {
-        faction_image = "url(https://i.imgur.com/XgIWtvd.png)";
+        faction_image = "https://i.imgur.com/XgIWtvd.png";
       }
       else
       {
@@ -209,11 +209,11 @@ function create_gc_navy(raw_data)
         }
         if(navy.GroupFaction == "Rebels")
         {
-          faction_image = "url(https://i.imgur.com/mO0iijb.png)";
+          faction_image = "https://i.imgur.com/mO0iijb.png";
         }
         else if(navy.GroupFaction == "Imperial")
         {
-          faction_image = "url(https://i.imgur.com/XgIWtvd.png)";
+          faction_image = "https://i.imgur.com/XgIWtvd.png";
         }
         else
         {

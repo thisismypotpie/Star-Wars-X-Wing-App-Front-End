@@ -44,12 +44,12 @@ function load_planets()
           else if(planet.controlling_faction == "Rebels")
           {
             document.getElementById(id).style.backgroundColor = "maroon";
-            document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
+            //document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/h4bX7cy.png')";
           }
           else if(planet.controlling_faction == "Imperial")
           {
             document.getElementById(id).style.backgroundColor = "black";
-            document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
+            //document.getElementById("faction-image").style.backgroundImage = "url('https://i.imgur.com/7BL338e.png')";
           }
           else
           {
