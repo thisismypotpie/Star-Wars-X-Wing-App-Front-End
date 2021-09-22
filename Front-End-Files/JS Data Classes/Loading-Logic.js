@@ -164,7 +164,30 @@ function parse_load_data_gc(raw_data)
       faction_data.push(faction_info);
    }
    sessionStorage.setItem("gc_factions",JSON.stringify(faction_data));
-   window.location.href ="../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
+   if(raw_data.ship_and_combat_data.team_data && raw_data.ship_and_combat_data.team_data.length > 0)
+   {
+     determine_turn_info(raw_data.ship_and_combat_data);
+     add_target_locks_to_game(raw_data.ship_and_combat_data);
+     add_reminders_to_game(raw_data.ship_and_combat_data);
+     var combat_team_set = [];
+     raw_data.ship_and_combat_data.team_data.forEach(team_name=>{
+       var new_team = new team(team_name.TeamName);
+       if(team_name.HasInitiative == 1)
+       {
+          new_team.has_initiative_token = true;
+       }
+       //Need to find a way to get ships into the teams.
+       combat_team_set.push(new_team);
+     })
+     sessionStorage.setItem("all_teams",JSON.stringify(combat_team_set));
+     close_load_info_screen();//close loading screen.
+     //go to maneuver selection screen
+     window.location.href ="../Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+   }
+   else
+   {
+    window.location.href ="../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
+   }
 }
 
 

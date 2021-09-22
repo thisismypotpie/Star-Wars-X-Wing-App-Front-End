@@ -213,7 +213,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                                 reminders: JSON.parse(sessionStorage.getItem("all_reminders")),
                                 save_game_name: potential_name,
                                 save_game_phase: get_game_phase(),
-                                target_locks: JSON.parse(sessionStorage.getItem("all_target_locks"))
+                                target_locks: JSON.parse(sessionStorage.getItem("all_target_locks")),
+                                combatting_teams: JSON.parse(sessionStorage.getItem("all_teams"))
                             }
                         }
                         fetch(url,{
@@ -322,7 +323,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                             reminders: JSON.parse(sessionStorage.getItem("all_reminders")),
                             save_game_name: potential_name,
                             save_game_phase: get_game_phase(),
-                            target_locks: JSON.parse(sessionStorage.getItem("all_target_locks"))
+                            target_locks: JSON.parse(sessionStorage.getItem("all_target_locks")),
+                            combatting_teams: JSON.parse(sessionStorage.getItem("all_teams"))
                         }
                     }
                     fetch(url,{
