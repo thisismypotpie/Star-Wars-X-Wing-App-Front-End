@@ -184,8 +184,10 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                     document.getElementById("save_game_input").value = "";
                     return;
                 }
-                else if(game_names.reg_game_names.includes(potential_name) && //Name has been found in both DB's and could be overwritten.
-                        game_names.gc_game_names.includes(potential_name))
+                else if((game_names.reg_game_names.includes(potential_name) && //Name has been found in both DB's and could be overwritten.
+                        game_names.gc_game_names.includes(potential_name)) || 
+                      ((!game_names.reg_game_names.includes(potential_name) && //Name has been found in both DB's and could be overwritten.
+                        game_names.gc_game_names.includes(potential_name))))
                 {
                     viable_name = false;
                     var overwrite = confirm("A galactic conquest campaign by that name already exists, would you like to overwrite it?");
@@ -198,11 +200,21 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                             phase: sessionStorage.getItem("gc_phase"),
                             whos_turn: sessionStorage.getItem("gc_whos_turn"),
                             first_or_second_half_of_round: undefined,
-                            game_name: potential_name
+                            game_name: potential_name,
+                            combat_data: undefined
                         }
                         if(gc_save_data.phase =="placement")
                         {
                             gc_save_data.first_or_second_half_of_round = sessionStorage.getItem("gc_first_or_second_half_of_round");
+                        }
+                        if(sessionStorage.getItem("all_target_locks")!=null)//Add combat data if you are in the middle of a game.
+                        {
+                            gc_save_data.combat_data = {
+                                reminders: JSON.parse(sessionStorage.getItem("all_reminders")),
+                                save_game_name: potential_name,
+                                save_game_phase: get_game_phase(),
+                                target_locks: JSON.parse(sessionStorage.getItem("all_target_locks"))
+                            }
                         }
                         fetch(url,{
                             method: 'POST',
@@ -297,11 +309,21 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                         phase: sessionStorage.getItem("gc_phase"),
                         whos_turn: sessionStorage.getItem("gc_whos_turn"),
                         first_or_second_half_of_round: undefined,
-                        game_name: potential_name
+                        game_name: potential_name,
+                        combat_data: undefined
                     }
-                    if(gc_save_data.phase =="placement")
+                    if(gc_save_data.phase =="placement")//Add which half the round it is if you are in the placement phase.
                     {
                         gc_save_data.first_or_second_half_of_round = sessionStorage.getItem("gc_first_or_second_half_of_round");
+                    }
+                    if(sessionStorage.getItem("all_target_locks")!=null)//Add combat data if you are in the middle of a game.
+                    {
+                        gc_save_data.combat_data = {
+                            reminders: JSON.parse(sessionStorage.getItem("all_reminders")),
+                            save_game_name: potential_name,
+                            save_game_phase: get_game_phase(),
+                            target_locks: JSON.parse(sessionStorage.getItem("all_target_locks"))
+                        }
                     }
                     fetch(url,{
                         method: 'POST',
@@ -312,7 +334,8 @@ document.addEventListener("keydown", function(event){ //press s to save game.
                         alert("Something went wrong trying to overwrite the game. "+error);
                         close_pop_up();
                     })
-                    .then(()=>{                            if(error_encountered == false)
+                    .then(()=>{                            
+                        if(error_encountered == false)
                         {
                             alert("Game has been saved!");
                         }   
