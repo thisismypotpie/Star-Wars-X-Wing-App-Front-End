@@ -1,0 +1,27 @@
+#input-container{
+    display: grid;
+    grid-template-columns: repeat(12,calc(90%/12));
+    grid-template-rows: repeat(12,calc(45vh/12));
+}
+#output-container{
+    display: grid;
+    grid-template-columns: repeat(12,calc(90%/12));
+    grid-template-rows: repeat(12,calc(45vh/12));
+}
+
+#url-input{
+    border:1px solid black;
+    grid-row: 7/13;
+    grid-column: 1/13;
+}
+
+#url-output{
+    border:1px solid black;
+    grid-row: 2/10;
+    grid-column: 1/13;
+}
+
+#btn{
+    grid-row: 1/4;
+    grid-column: 1/9;
+}
