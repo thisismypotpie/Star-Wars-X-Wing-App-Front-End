@@ -111,13 +111,13 @@ function parse_load_data_gc(raw_data)
    var set_up_data = {
      active_planets: unsorted_planets[0],
      converted_planets:unsorted_planets[1],
-     chosen_faction: raw_data.set_up_data.FactionChosen,
+     faction_chosen: raw_data.set_up_data.FactionChosen,
      location: raw_data.set_up_data.Location,
      pirate_faction: raw_data.set_up_data.PirateFaction,
      pirate_options: pirate_quantities,
      planet_assignment: raw_data.set_up_data.PlanetAssignment,
      planet_count: raw_data.set_up_data.PlanetCount,
-     resouces_chosen: raw_data.set_up_data.ResourcesChosen
+     resources_chosen: raw_data.set_up_data.ResourcesChosen
    };
    sessionStorage.setItem("gc_setup_data",JSON.stringify(set_up_data));
 
@@ -164,6 +164,8 @@ function parse_load_data_gc(raw_data)
       faction_data.push(faction_info);
    }
    sessionStorage.setItem("gc_factions",JSON.stringify(faction_data));
+
+   //If the game is saved on a combat screen, then load that data.
    if(raw_data.ship_and_combat_data.team_data && raw_data.ship_and_combat_data.team_data.length > 0)
    {
      determine_turn_info(raw_data.ship_and_combat_data);
@@ -176,8 +178,23 @@ function parse_load_data_gc(raw_data)
        {
           new_team.has_initiative_token = true;
        }
-       //Need to find a way to get ships into the teams.
-       combat_team_set.push(new_team);
+       for(var i=0; i < all_teams_across_all_factions.length;i++)
+       {
+          if(all_teams_across_all_factions[i].group_name == team_name.TeamName)
+          {
+            new_team.ship_list = all_teams_across_all_factions[i].team.ship_list;
+            break;
+          }
+       }
+       if(new_team.ship_list.length == 0)
+       {
+        alert("ERROR: Could not load team: "+team_name.TeamName);
+        return;
+       }
+       else
+       {
+        combat_team_set.push(new_team);
+       }
      })
      sessionStorage.setItem("all_teams",JSON.stringify(combat_team_set));
      close_load_info_screen();//close loading screen.

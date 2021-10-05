@@ -476,6 +476,11 @@ Gtihub Repo(back end): {{\field{\*\fldinst{HYPERLINK https://github.com/thisismy
 -Fixed a small bug that missed some cases when detecting if a galactic conquest needs to be overwritten.\par
 - Found a bug where loading a gc messes up the pirate roster numbers as each roster bcomes a struct with the game name and roster rather than just the roster.\par
 - I was able to successfully save and overwrite games that are in combat.\par
+10/4/2021:\par
+- Fixed a bug I found where combat ships were not loading with their team.\par
+- I have begun the long process of re-creating the back-end without the use of time intervals to create a more robust back end that can still do what it needs to do.\par
+10/5/2021:\par
+- The entire back end has been re-done to no longer rely on timeout to make delays. Intead there is a system of checks that will look in periodically to make sure everything is done before sending out the data.\par
 \par
 \par
 \par

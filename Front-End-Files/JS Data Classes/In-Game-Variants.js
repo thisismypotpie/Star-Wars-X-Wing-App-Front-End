@@ -80,6 +80,38 @@ class team{
     }
 }
 
+//Get a ship based on the input ID number.
+function Get_ship_from_ID(ship_id)
+{
+    var ship_data = JSON.parse(sessionStorage.getItem("game_data")).ship_list;
+    var found_ship = undefined;
+    for(var i=0; i < ship_data.length; i++)
+    {
+        if(ship_id == ship_list[i].id)
+        {
+            found_ship = ship_list[i];
+            break;
+        }
+    }
+    return found_ship;
+}
+
+//Get Pilot by ID.
+function Get_pilot_from_ID(pilot_id)
+{
+    var pilot_data = JSON.parse(sessionStorage.getItem("game_data")).all_pilots;
+    var found_pilot = undefined;
+    for(var i=0; i < pilot_data.length; i++)
+    {
+        if(pilot_id == pilot_list[i].id)
+        {
+            found_pilot = pilot_list[i];
+            break;
+        }
+    }
+    return found_pilot;
+}
+
 //Calculate cost of a single ship. input: ship.
 function Calculate_cost_of_ship(to_calculate)
 {
