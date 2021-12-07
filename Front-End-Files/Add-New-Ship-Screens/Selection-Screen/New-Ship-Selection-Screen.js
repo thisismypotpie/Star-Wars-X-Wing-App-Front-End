@@ -1,3 +1,7 @@
+/**
+ Freeplay- Add Ship to Existing Team
+ */
+
 var game_data= JSON.parse(sessionStorage.getItem("game_data"));
 
 let faction_options = document.getElementsByClassName("faction-option");

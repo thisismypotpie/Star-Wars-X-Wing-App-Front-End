@@ -1,3 +1,8 @@
+/**
+ GC - Create New Team
+ */
+
+
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("placement_id");
     sessionStorage.removeItem("new_team_name");

@@ -1,3 +1,7 @@
+/**
+ GC- Add Ship to Existing Team
+ */
+
 document.getElementById("back-button").addEventListener("click", function(){
     sessionStorage.removeItem("team_indecies");
     window.location.href = "../../team-view.html";
