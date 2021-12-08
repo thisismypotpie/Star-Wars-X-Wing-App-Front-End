@@ -483,6 +483,8 @@ Gtihub Repo(back end): {{\field{\*\fldinst{HYPERLINK https://github.com/thisismy
 - The entire back end has been re-done to no longer rely on timeout to make delays. Intead there is a system of checks that will look in periodically to make sure everything is done before sending out the data.\par
 12/6/2021:\par
 I have realized that I need to change the way in which a pilot is identified as belonging to a single ship. In the past, I have had a check for the name of the ship stored with pilot info. I realize that it can lead to some errors and is not optimized, so I have changed the algorithm from ship name identifiers for pilots into the ID numbers the ships use. This way, only an integer comparison is needed in order to have the correct ship attached to the correct pilot.\par
+12/7/2021:\par
+I have begun to work on the optimization and streamlining of the ship selectin pipeline. I have begun with the ship selection page, which I am now testing. Then I will attempt to test the other three ship selection pipeline calls as this one succeeds.\par
 \par
 \par
 \par

@@ -227,7 +227,8 @@ function closeOption()
 
 function addNewShip()
 {
-  window.location.href ='../Add-New-Ship-Screens/Selection-Screen/New-Ship-Selection-Screen.html';
+  sessionStorage.setItem("Ship-Page-Path","Freeplay-New Team");
+  window.location.href ='../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html';
 }
 
 //Removes an entire team from the list of teams.
@@ -369,7 +370,8 @@ function go_to_ship_selection()
     return;
   }
   sessionStorage.setItem("new_team",JSON.stringify(new team(input)));
-  window.location.href = "../Selection-Screen/Selection-Screen.html";
+  sessionStorage.setItem("Ship-Page-Path","Freeplay-New Team");
+  window.location.href = "../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
 }
 
 function go_back_to_main_menu()
