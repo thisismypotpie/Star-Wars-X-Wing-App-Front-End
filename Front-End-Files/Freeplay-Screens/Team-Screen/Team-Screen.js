@@ -227,8 +227,8 @@ function closeOption()
 
 function addNewShip()
 {
-  sessionStorage.setItem("Ship-Page-Path","Freeplay-New Team");
-  window.location.href ='../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html';
+  sessionStorage.setItem("Ship-Page-Path","Freeplay-Existing Team");
+  window.location.href ='../../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html';
 }
 
 //Removes an entire team from the list of teams.
@@ -371,7 +371,7 @@ function go_to_ship_selection()
   }
   sessionStorage.setItem("new_team",JSON.stringify(new team(input)));
   sessionStorage.setItem("Ship-Page-Path","Freeplay-New Team");
-  window.location.href = "../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
+  window.location.href = "../../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
 }
 
 function go_back_to_main_menu()
@@ -379,7 +379,7 @@ function go_back_to_main_menu()
       let game_data = JSON.parse(sessionStorage.getItem("game_data"));
       sessionStorage.clear();
       sessionStorage.setItem("game_data",JSON.stringify(game_data));
-      window.location.href = "../Title-Screen(Main Menu)/index.html";
+      window.location.href = "../../Title-Screen(Main Menu)/index.html";
 }
 
 //Key bindings for this screen.

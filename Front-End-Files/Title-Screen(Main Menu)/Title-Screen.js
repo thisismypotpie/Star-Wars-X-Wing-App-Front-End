@@ -1,13 +1,3 @@
-//Freeplay button
-function freeplay_button_click()
-{
-  window.location.href = "../Team-Screen/Team-Screen.html";
-}
-//galactic conquest button
-function galactic_conquest_click()
-{
-  window.location.href =  "../Galactic-Conquest-Screens/Setup-Screen/Setup-Screen.html";
-}
 //back button
 function back_button_click()
 {
