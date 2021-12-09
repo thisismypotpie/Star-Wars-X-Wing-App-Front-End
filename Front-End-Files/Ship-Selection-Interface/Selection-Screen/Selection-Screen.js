@@ -1,5 +1,16 @@
 /**
  Ship Selection Interface
+ This file will act as an interface when any of the following scenarios are triggered.
+ 1. Adding a new team to freeplay.---------------------------------------------------------------------<- Finished 1/5 pipeline pages
+ 2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- Finished 1/5 pipeline pages
+ 3. Adding a new team to GC.---------------------------------------------------------------------------<- Finished 1/5 pipeline pages
+ 4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- Will need to be tested. Cannot test until #3 fully complete.
+ 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- In progress...
+ 6. Adding a s hip to an existing team while in game for GC.-------------------------------------------<- Will add after pipeline Complete.
+ 7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).
+ 8. Adding upgrades to ship of an existing team in GC.(upgrade screens only).
+ 9. Adding upgrades to ship of an existing team while in game for freeplay. (upgrade screens only).
+10. Adding upgrades to ship of an existing team while in game for GC. (upgrade screens only).
  */
 
 
@@ -55,7 +66,7 @@ function determine_page_exit_after_back_button_press()
       sessionStorage.removeItem("placement_id");
       sessionStorage.removeItem("new_team_name");
       sessionStorage.removeItem("Upgrade-Page-Path");
-      window.location.href = "../../gameplay-screen.html";
+      window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
   }
   else if(sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
   {
@@ -360,12 +371,15 @@ function display_ships(ship_ids)
   });
   }
  }
+ else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+ {
+
+ }
  else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
  {
  /**
  GC - Create New Team
  */
-var setup_data = JSON.parse(sessionStorage.getItem("gc_setup_data"));
 var whos_turn =  sessionStorage.getItem("gc_whos_turn");
 var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire.
 if(whos_turn == "Rebels")
@@ -409,6 +423,10 @@ else
 
 //Set resource quantities.
 set_resource_quantities(whos_turn.faction);
+
+ }
+ else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+ {
 
  }
  else //An error in case we cannot identify which path is being used.

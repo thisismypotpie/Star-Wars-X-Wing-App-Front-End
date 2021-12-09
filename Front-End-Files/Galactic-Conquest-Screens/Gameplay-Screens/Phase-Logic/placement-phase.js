@@ -42,7 +42,8 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                planet_in_question!= null)
                {
                         sessionStorage.setItem("placement_id",e.target.id);
-                        window.location.href="./Create-New-Ship-Body/Ship-Selection/ship-selection.html";
+                        sessionStorage.setItem("Ship-Page-Path","GC- New Team");
+                        window.location.href="../../Ship-Selection-Interface/GC-Selection-Screen/ship-selection-GC.html";
                } 
        }
    }

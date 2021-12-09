@@ -75,7 +75,8 @@ function add_new_ship_click()
 {
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
-    window.location.href = "../Add-New-Ship-In-Game/Ship-Selection-In-Game/Ship-Selection-In-Game.html";
+    sessionStorage.setItem("Ship-Page-Path","Freeplay-In Game");
+    window.location.href = "../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
 }
 
 function surrender_click()
