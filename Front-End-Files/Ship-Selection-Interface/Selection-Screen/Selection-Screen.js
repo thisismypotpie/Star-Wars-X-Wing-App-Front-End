@@ -5,7 +5,7 @@
  2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- Finished 1/5 pipeline pages
  3. Adding a new team to GC.---------------------------------------------------------------------------<- Finished 1/5 pipeline pages
  4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- Will need to be tested. Cannot test until #3 fully complete.
- 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- In progress...
+ 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- Finished 1/5 pipeline pages
  6. Adding a s hip to an existing team while in game for GC.-------------------------------------------<- Will add after pipeline Complete.
  7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).
  8. Adding upgrades to ship of an existing team in GC.(upgrade screens only).
@@ -29,27 +29,8 @@
 //This function will prepare any session storage data before moving to the next page.
 function determine_page_exit_after_ship_selection(chosenShip)
 {
-  if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team")
-  {
     sessionStorage.setItem("chosenShip",chosenShip);//Sending a ship id and faction
-  }
-  else if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team")
-  {
-
-  }
-  else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
-  {
-
-  }
-  else if(sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
-  {
-
-  }
-  else
-  {
-     alert("ERROR: Unable to determine ship selection path.")
-  }
-  window.location.href = "../Pilot-Screen/Pilot-Screen.html";
+    window.location.href = "../Pilot-Screen/Pilot-Screen.html";
 }
 
 function determine_page_exit_after_back_button_press()
@@ -61,6 +42,10 @@ function determine_page_exit_after_back_button_press()
     sessionStorage.removeItem("Upgrade-Page-Path");
     window.location.href = "../../Freeplay-Screens/Team-Screen/Team-Screen.html";
   }
+  else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+  {
+    window.location.href = "../../Freeplay-Screens/Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
+  } 
   else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
   {
       sessionStorage.removeItem("placement_id");
@@ -365,7 +350,7 @@ function display_ships(ship_ids)
   let FactionElementSet = selection_options.faction_options[i];
   selection_options.faction_options[i].addEventListener("click",()=>faction_click(selection_options));
   //Add focus event color background change to each item in faction box.
-  selection_options.faction_options[i].addEventListener("focus", ()=>focus_faction_option(selection_options));
+  selection_options.faction_options[i].addEventListener("focus", ()=>focus_faction_option(selection_options, FactionElementSet));
   selection_options.faction_options[i].addEventListener("blur", function(){
         FactionElementSet.style.backgroundColor = ""; 
   });
@@ -373,7 +358,25 @@ function display_ships(ship_ids)
  }
  else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
  {
+    //When we add ships, this will keep track of what index number to give each li added to the ship list.
+  //These will be for determining the correct ship the user has chosen.
 
+  
+  //loop through each options in the faction box and then gives them a click listener
+  //to have the ship size options show up after being clicked in the color of the element
+  //that was clicked. I needed to use a traditional for loop since the elements are considered
+  // an HTMLCollection rather than an array and therefore have no foreach statement.
+  for(var i =0; i < selection_options.faction_options.length;i++)
+  {
+  //I needed to add this here because when in an event, the element itself come out as undefined so I needed to tie the element to a variable.
+  let FactionElementSet = selection_options.faction_options[i];
+  selection_options.faction_options[i].addEventListener("click",()=>faction_click(selection_options));
+  //Add focus event color background change to each item in faction box.
+  selection_options.faction_options[i].addEventListener("focus", ()=>focus_faction_option(selection_options, FactionElementSet));
+  selection_options.faction_options[i].addEventListener("blur", function(){
+        FactionElementSet.style.backgroundColor = ""; 
+  });
+  }
  }
  else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
  {
@@ -441,7 +444,7 @@ set_resource_quantities(whos_turn.faction);
 document.onkeyup = function(e) {
   if(e.keyCode == 27)//escape key.
   {
-    back_button_push();
+    bdetermine_page_exit_after_back_button_press();
   }
 }
 

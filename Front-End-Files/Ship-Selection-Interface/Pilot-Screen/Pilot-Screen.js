@@ -1,5 +1,16 @@
 /**
  Pilot Selection Interface
+ This file will act as an interface when any of the following scenarios are triggered.
+ 1. Adding a new team to freeplay.---------------------------------------------------------------------<- 
+ 2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- 
+ 3. Adding a new team to GC.---------------------------------------------------------------------------<- 
+ 4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- Will need to be tested. Cannot test until #3 fully complete.
+ 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- 
+ 6. Adding a s hip to an existing team while in game for GC.-------------------------------------------<- Will add after pipeline Complete.
+ 7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).
+ 8. Adding upgrades to ship of an existing team in GC.(upgrade screens only).
+ 9. Adding upgrades to ship of an existing team while in game for freeplay. (upgrade screens only).
+10. Adding upgrades to ship of an existing team while in game for GC. (upgrade screens only).
  */
 
 
@@ -358,6 +369,10 @@ function update_image_available()
   document.getElementById("roster_number_assigned").style.visibility = "hidden";
 
 }
+}
+else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+{
+
 }
 else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
 {

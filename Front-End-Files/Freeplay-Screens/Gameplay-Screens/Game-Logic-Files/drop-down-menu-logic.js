@@ -76,7 +76,7 @@ function add_new_ship_click()
     document.getElementById('options-drop-down-area').style.visibility = "hidden";
     drop_down_active = false;
     sessionStorage.setItem("Ship-Page-Path","Freeplay-In Game");
-    window.location.href = "../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
+    window.location.href = "../../../Ship-Selection-Interface/Selection-Screen/Selection-Screen.html";
 }
 
 function surrender_click()
