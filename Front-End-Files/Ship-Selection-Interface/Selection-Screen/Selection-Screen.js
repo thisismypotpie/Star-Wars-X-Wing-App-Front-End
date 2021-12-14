@@ -1,16 +1,16 @@
 /**
  Ship Selection Interface
  This file will act as an interface when any of the following scenarios are triggered.
- 1. Adding a new team to freeplay.---------------------------------------------------------------------<- Finished 1/5 pipeline pages
- 2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- Finished 1/5 pipeline pages
- 3. Adding a new team to GC.---------------------------------------------------------------------------<- Finished 1/5 pipeline pages
+ 1. Adding a new team to freeplay.---------------------------------------------------------------------<- Done
+ 2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- Done
+ 3. Adding a new team to GC.---------------------------------------------------------------------------<- Done
  4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- Will need to be tested. Cannot test until #3 fully complete.
- 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- Finished 1/5 pipeline pages
+ 5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- Done
  6. Adding a s hip to an existing team while in game for GC.-------------------------------------------<- Will add after pipeline Complete.
- 7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).
- 8. Adding upgrades to ship of an existing team in GC.(upgrade screens only).
- 9. Adding upgrades to ship of an existing team while in game for freeplay. (upgrade screens only).
-10. Adding upgrades to ship of an existing team while in game for GC. (upgrade screens only).
+ 7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).--------------------<- Not Started (Not Relevent)
+ 8. Adding upgrades to ship of an existing team in GC.(upgrade screens only).--------------------------<- Not Started (Not Relevent)
+ 9. Adding upgrades to ship of an existing team while in game for freeplay. (upgrade screens only).----<- Not Started (Not Relevent)
+10. Adding upgrades to ship of an existing team while in game for GC. (upgrade screens only).----------<- Not STarted (Not Relevent)
  */
 
 
