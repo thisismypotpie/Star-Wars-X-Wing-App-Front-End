@@ -1,10 +1,10 @@
 /**
  Ship Selection Interface
  This file will act as an interface when any of the following scenarios are triggered.
- 1. Adding a new team to freeplay.---------------------------------------------------------------------<- In Progress .........
+ 1. Adding a new team to freeplay.---------------------------------------------------------------------<- Testing.........
  2. Adding a ship to an existing team in freeplay.-----------------------------------------------------<- Not Started
  3. Adding a new team to GC.---------------------------------------------------------------------------<- Not Started
- 4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- Will need to be tested. Cannot test until #3 fully complete.
+ 4. Adding a ship to an existing team in GC.-----------------------------------------------------------<- In Progress .........
  5. Adding a ship to an existing team while in game for freeplay.--------------------------------------<- Not Started
  6. Adding a s hip to an existing team while in game for GC.-------------------------------------------<- Will add after pipeline Complete.
  7. Adding upgrades to ship of an existing team in freeplay.(upgrade screens only).--------------------<- Not Started (Not Relevent)
@@ -17,126 +17,61 @@
 /**
  This section will be for universal variables that are used no matter which path is being invoked.
  */
- var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
- //Get the chosen ship and game data from the session storage.
-let chosen_ship_id = sessionStorage.getItem("chosenShip");//ship_id.
-var game_data= JSON.parse(sessionStorage.getItem("game_data"));
-var display_pilots = get_pilots_by_id(chosen_ship_id);
-let selection_index = 0;//This will be the index that will determine which pilot is chosen.
-let whos_turn = sessionStorage.getItem("gc_whos_turn");
+
+ //Freeplay-only variables.
+let chosen_ship = undefined;
+
+//GC-only variables.
+let chosen_ship_id = undefined;
+let whos_turn = undefined;
 var team_name = undefined;
+
+
+if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team" ||
+   sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team" ||
+   sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+{
+  chosen_ship = sessionStorage.getItem("chosenShip").split(',');//[ship id, faction].
+}
+else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+        sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+{
+  chosen_ship_id = sessionStorage.getItem("chosenShip");//ship_id.
+  whos_turn = sessionStorage.getItem("gc_whos_turn");
+}
+else
+{
+  alert("ERROR: Unable to determine ship selection pipeline path.");
+}
+
+
+//Globals Variables used by both paths.
+var aft_showing = false;//This is a boolean for large ships if the aft is showing or not, to flip the image when the flip button is pressed.
+var game_data= JSON.parse(sessionStorage.getItem("game_data"));
+var display_pilots = get_pilots_by_id(chosen_ship_id);//This is an experimental variables brought over from GC.
+let selection_index = 0;//This will be the index that will determine which pilot is chosen.
+//var display_pilots = sort_pilots_for_viewing(chosen_ship[0],chosen_ship[1]); //Removing this, as it is the old way of getting pilots, will restore if GC method of pilot gettng is not universal.
+
 
 /**
  This section will be for the use of functions utilized by one or more of any of the interface paths.
  */
 
-/**
- This section will be for each instance that uses the upgrade screen and configure it according to which page is using it.
- */
-
- if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team")
+ function flip_button_click()
  {
-
- }
- else if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team")
- {
-
- }
- else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
- {
- 
- }
- else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
- {
-
- }
- else if(sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
- {
-
- }
- else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
- {
-
- }
- else //An error in case we cannot identify which path is being used.
- {
- 
+     if(aft_showing == false)
+     {
+       document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
+       aft_showing = true;
+     }
+     else
+     {
+       document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+       aft_showing = false;
+     }
  }
 
-
-  /**
-  This section is for key bindings for this page.
-  */
-  document.onkeyup = function(e) {
-    if(e.keyCode == 13)
-    {
-      select_button_click();
-    }
-    else if(e.keyCode == 39)
-    {
-      next_button_click();
-    }
-    else if(e.keyCode == 37)
-    {
-      previous_button_click();
-    }
-    else if(e.keyCode == 27)
-    {
-      back_button_click();
-    }
-    }
-
-
-if(sessionStorage.getItem("new_team_name")== null)
-{
-  team_name = create_GC_team_name(display_pilots[selection_index].ship_name,whos_turn=="Rebels"? 0:1);//Create a team named based on what ship was chosen.
-  sessionStorage.setItem("new_team_name",team_name);
-}
-else
-{
-  team_name = sessionStorage.getItem("new_team_name");
-}
-var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
-
-if(whos_turn == "Rebels")
-{
-  whos_turn = all_factions[0];
-}
-else if(whos_turn == "Imperial")
-{
-  whos_turn = all_factions[1];
-}
-else
-{
-  alert("Unkown who's turn it is.")
-}
-set_ship_prices();
-//display maneuvers and pilot card
-document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
-document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
-update_pilot_image();//Updates the image to see if the pilot is available or not.
-
-//create functionality for the flip button
-if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
-{
-  document.getElementById("flip-button").style.visibility = "visible";
-}
-
-function flip_button_click()
-{
-    if(aft_showing == false)
-    {
-      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].aft_card_path+"')";
-      aft_showing = true;
-    }
-    else
-    {
-      document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
-      aft_showing = false;
-    }
-  }
-
-//This function is a cluster of functions that will update the pilot image if that pilot is unique and is already taken. It will be triggered each time a pilot image appears or is changed on this screen.
+ //This function is a cluster of functions that will update the pilot image if that pilot is unique and is already taken. It will be triggered each time a pilot image appears or is changed on this screen.
 function update_pilot_image()
 {
  var pilot_stats = is_pilot_available();
@@ -150,7 +85,6 @@ function update_pilot_image()
  }
 }
 
-
 //This function will test to see if any other team has a unique pilot and will return false if the pilot is not available.
 function is_pilot_available()
 {
@@ -159,7 +93,24 @@ function is_pilot_available()
     team_that_has_pilot: undefined,
     roster_number: undefined
   };
-  all_teams = whos_turn.navy.map(function(group){return group.team})
+  var all_teams = undefined; 
+
+  if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team" ||
+     sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team" ||
+     sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+  {
+    all_teams = JSON.parse(sessionStorage.getItem("all_teams"));
+  }
+  else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+          sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+  {
+    all_teams = whos_turn.navy.map(function(group){return group.team});
+  }
+  else
+  {
+    alert("ERROR: Cannot determine pipeline path.");
+  }
+
   //Automatically return true if there are no established teams.
   if(all_factions == null || all_factions == undefined || all_teams.length == 0)
   {
@@ -182,18 +133,20 @@ function is_pilot_available()
         }
       }
     }
-
-    //Check if pilot is dead.
-    for(var i=0; i < whos_turn.list_of_the_fallen.length;i++)
+    if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+    sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
     {
-       if(display_pilots[selection_index].pilot_name == whos_turn.list_of_the_fallen[i])
-       {
-         pilot_stats.pilot_available = false;
-         pilot_stats.team_that_has_pilot = "dead";
-         break;
-       }
+      //Check if pilot is dead.
+      for(var i=0; i < whos_turn.list_of_the_fallen.length;i++)
+      {
+         if(display_pilots[selection_index].pilot_name == whos_turn.list_of_the_fallen[i])
+        {
+          pilot_stats.pilot_available = false;
+          pilot_stats.team_that_has_pilot = "dead";
+          break;
+        }
+      }
     }
-
     return pilot_stats;
   }
 
@@ -202,7 +155,9 @@ function is_pilot_available()
 //This will change the image of the pilot to display that the pilot is not available and who has that pilot. Also make select button invisible.
 function update_image_unavailable(pilot_details)
 {
-  if(pilot_details.team_that_has_pilot == "dead")
+  if((sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+      sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team") &&
+      pilot_details.team_that_has_pilot == "dead")
 {
   document.getElementById("select-button").style.visibility = "hidden";
   document.getElementById("pilot-image").style.backgroundImage = "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("+ display_pilots[selection_index].image_path+")";
@@ -240,7 +195,6 @@ document.getElementById("unavailable").style.visibility = "hidden";
 document.getElementById("assigned_to").style.visibility = "hidden";
 document.getElementById("team_name_assigned").style.visibility = "hidden";
 document.getElementById("roster_number_assigned").style.visibility = "hidden";
-
 }
 
 function next_button_click()
@@ -252,7 +206,11 @@ function next_button_click()
   }
   document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
   update_pilot_image();//Updates the image to see if the pilot is available or not.
-  set_ship_prices();
+  if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+     sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+  {
+    set_ship_prices();
+  }
 }
 
 function previous_button_click()
@@ -264,19 +222,44 @@ if(selection_index < 0)
 }
 document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
 update_pilot_image();//Updates the image to see if the pilot is available or not.
-set_ship_prices()
+if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+   sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+{
+  set_ship_prices();
+}
 }
 
 function back_button_click()
 {
-sessionStorage.removeItem("new_team_name");
 sessionStorage.removeItem("chosenShip");
-remove_newly_created_team_name(team_name,whos_turn.faction=="Rebels"? 0:1);
-window.location.href = "../Ship-Selection/ship-selection.html";
+
+if(sessionStorage.getItem("new_team_name"))
+{
+  sessionStorage.removeItem("new_team_name");
+}
+if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+  sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+{
+  remove_newly_created_team_name(team_name,whos_turn.faction=="Rebels"? 0:1);
+  window.location.href = "../Selection-Screen/GC-Selection-Screen/Ship-selection-GC.html";
+}
+else if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team" ||
+sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team" ||
+sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+{
+  window.location.href = "../Selection-Screen/Selection-Screen.html";
+}
+else
+{
+  alert("ERROR: Could not determine which path to take to go back to the ship selection screen.");
+}
 }
 
 function select_button_click()
 {
+    alert("Going to upgrades page.");
+    return;
+
     //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
     {
@@ -401,3 +384,99 @@ function set_ship_prices()
     }
   }
 }
+
+
+
+/**
+ This section will be for each instance that uses the upgrade screen and configure it according to which page is using it.
+ */
+
+ if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team")
+ {
+  //display maneuvers and pilot card
+  document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+  document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
+  update_pilot_image();//Updates the image to see if the pilot is available or not.
+  
+  //create functionality for the flip button
+  if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
+  {
+      document.getElementById("flip-button").style.visibility = "visible";
+  }
+ }
+ else if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team")
+ {
+
+ }
+ else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+ {
+ 
+ }
+ else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
+ {
+  if(sessionStorage.getItem("new_team_name")== null)
+  {
+    team_name = create_GC_team_name(display_pilots[selection_index].ship_name,whos_turn=="Rebels"? 0:1);//Create a team named based on what ship was chosen.
+    sessionStorage.setItem("new_team_name",team_name);
+  }
+  else
+  {
+    team_name = sessionStorage.getItem("new_team_name");
+  }
+  var all_factions = JSON.parse(sessionStorage.getItem("gc_factions"));//[0] is rebels, [1] is empire..
+  
+  if(whos_turn == "Rebels")
+  {
+    whos_turn = all_factions[0];
+  }
+  else if(whos_turn == "Imperial")
+  {
+    whos_turn = all_factions[1];
+  }
+  else
+  {
+    alert("Unkown who's turn it is.")
+  }
+  set_ship_prices();
+  //display maneuvers and pilot card
+  document.getElementById("pilot-image").style.backgroundImage = "url('"+display_pilots[selection_index].image_path+"')";
+  document.getElementById("maneuver-image").style.backgroundImage = "url('"+display_pilots[selection_index].ship_name.card+"')";
+  update_pilot_image();//Updates the image to see if the pilot is available or not.
+  
+  //create functionality for the flip button
+  if(display_pilots[selection_index].ship_name.ship_type.toLowerCase() == "largetwocard")
+  {
+    document.getElementById("flip-button").style.visibility = "visible";
+  }
+ }
+ else if(sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+ {
+
+ }
+ else //An error in case we cannot identify which path is being used.
+ {
+ 
+ }
+
+
+  /**
+  This section is for key bindings for this page.
+  */
+  document.onkeyup = function(e) {
+    if(e.keyCode == 13)
+    {
+      select_button_click();
+    }
+    else if(e.keyCode == 39)
+    {
+      next_button_click();
+    }
+    else if(e.keyCode == 37)
+    {
+      previous_button_click();
+    }
+    else if(e.keyCode == 27)
+    {
+      back_button_click();
+    }
+    }

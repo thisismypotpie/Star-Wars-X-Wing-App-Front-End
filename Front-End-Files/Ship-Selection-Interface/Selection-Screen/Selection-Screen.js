@@ -30,7 +30,22 @@
 function determine_page_exit_after_ship_selection(chosenShip)
 {
     sessionStorage.setItem("chosenShip",chosenShip);//Sending a ship id and faction
-    window.location.href = "../Pilot-Screen/Pilot-Screen.html";
+
+    if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team" ||
+       sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team" ||
+       sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+    {
+      window.location.href = "../Pilot-Screen/pilot-Screen.html";
+    }
+    else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+            sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+    {
+      window.location.href = "../Pilot-Screen/GC-Pilot-Screen/Pilot-Screen.html";
+    }
+    else 
+    {
+       alert("ERROR: Could not determine which pilot page to go to next.");
+    }
 }
 
 function determine_page_exit_after_back_button_press()
@@ -298,7 +313,8 @@ function display_ships(ship_ids)
           new_item.tabIndex = new_current_index_tab;
           new_current_index_tab++;
           new_item.textContent = ship.ship_name;
-          new_item.onclick = ()=>determine_page_exit_after_ship_selection();
+          let ship_id_to_send = ship.id;//This was needed in order to have each unique id be sent along.
+          new_item.onclick = ()=>determine_page_exit_after_ship_selection(ship_id_to_send);
           document.getElementById("ship-box").appendChild(new_item);
         }
     })
@@ -426,10 +442,6 @@ else
 
 //Set resource quantities.
 set_resource_quantities(whos_turn.faction);
-
- }
- else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
- {
 
  }
  else //An error in case we cannot identify which path is being used.
