@@ -304,19 +304,26 @@ function display_ships(ship_ids)
 {
     var new_current_index_tab = 3;
     let new_item = undefined;
+    let chosen_ships = [];
+    //This loop will get each ship that needs to be added to a list.
     game_data.ship_list.forEach(ship=>{
         if(ship_ids.includes(ship.id))
         {
-          new_item = document.createElement('li');
-          new_item.id = ship.id;
-          new_item.className = "list_options ship-option";
-          new_item.tabIndex = new_current_index_tab;
-          new_current_index_tab++;
-          new_item.textContent = ship.ship_name;
-          let ship_id_to_send = ship.id;//This was needed in order to have each unique id be sent along.
-          new_item.onclick = ()=>determine_page_exit_after_ship_selection(ship_id_to_send);
-          document.getElementById("ship-box").appendChild(new_item);
+          chosen_ships.push(ship);
         }
+    })    
+    
+    //This will will create elements and display ships based on the final array lineup.
+    chosen_ships.forEach(ship=>{
+      new_item = document.createElement('li');
+      new_item.id = ship.id;
+      new_item.className = "list_options ship-option";
+      new_item.tabIndex = new_current_index_tab;
+      new_current_index_tab++;
+      new_item.textContent = ship.ship_name;
+      let ship_id_to_send = ship.id;//This was needed in order to have each unique id be sent along.
+      new_item.onclick = ()=>determine_page_exit_after_ship_selection(ship_id_to_send);
+      document.getElementById("ship-box").appendChild(new_item);
     })
 }
 

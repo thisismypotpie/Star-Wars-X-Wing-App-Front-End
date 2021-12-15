@@ -43,7 +43,7 @@ if(sessionStorage.getItem("gc_phase") == "placement")
                {
                         sessionStorage.setItem("placement_id",e.target.id);
                         sessionStorage.setItem("Ship-Page-Path","GC- New Team");
-                        window.location.href="../../Ship-Selection-Interface/GC-Selection-Screen/ship-selection-GC.html";
+                        window.location.href="../../Ship-Selection-Interface/Selection-Screen/GC-Selection-Screen/ship-selection-GC.html";
                } 
        }
    }
