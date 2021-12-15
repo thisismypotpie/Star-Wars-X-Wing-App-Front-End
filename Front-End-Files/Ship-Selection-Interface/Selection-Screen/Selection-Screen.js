@@ -59,6 +59,8 @@ function determine_page_exit_after_back_button_press()
   }
   else if(sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
   {
+    sessionStorage.removeItem("chosen_team_name");
+    sessionStorage.removeItem("Upgrade-Page-Path");
     window.location.href = "../../Freeplay-Screens/Gameplay-Screens/Maneuver-Selection-Screen/Maneuver-Selection-Screen.html";
   } 
   else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team")
@@ -66,7 +68,7 @@ function determine_page_exit_after_back_button_press()
       sessionStorage.removeItem("placement_id");
       sessionStorage.removeItem("new_team_name");
       sessionStorage.removeItem("Upgrade-Page-Path");
-      window.location.href = "../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
+      window.location.href = "../../../Galactic-Conquest-Screens/Gameplay-Screens/gameplay-screen.html";
   }
   else if(sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
   {
@@ -79,81 +81,29 @@ function determine_page_exit_after_back_button_press()
     alert("Unable to determine which ship selection path was chosen.");
   }
 }
-//When the user clicks on the ship size, this function will determine which ships will be displayed.
-function getShipsToDisplay()
-{
-  var faction = selection_options.chosenFactionElement.id;
-  var ship_size = selection_options.chosenShipElement.id;
-  var pilots = game_data.all_pilots;
-  var display_list = [];
-  var added_ship = [];
 
-  var count = 0;
-  pilots.forEach(pilot => {
-        console.log("count: "+count);
-        //These are the criteria for small and medium ship to add to the list of ships to display.
-        if(pilot.faction.toLowerCase() == faction.toLowerCase() && 
-           pilot.ship_name.ship_type.toLowerCase().includes(ship_size.toLowerCase()) &&
-           !added_ship.includes(pilot.ship_name.ship_name))
-           {
-              display_list.push([pilot.ship_name.ship_name, pilot.ship_name.id]);
-              added_ship.push(pilot.ship_name.ship_name);
-           }
-           count++;
-  });
-  return display_list;
-}
  /**
   This section is reserved for function that mulitple paths use.
   */
  function ship_click(selection_options, ShipElementSet)
  {
-//Remove old list items from ship box if there are any.
-clear_ship_options();
-selection_options.current_index_tab = 6;//reset tab index.
-let display_names = getShipsToDisplay();
-//get the name of each ship to display and then add them to the list of ships to choose from.
-display_names.forEach(name =>{
-var new_item = document.createElement('li');
-new_item.id = name[1];
-new_item.className = "list_options ship-option";
-new_item.tabIndex = selection_options.current_index_tab;
-selection_options.current_index_tab++;
-new_item.textContent = name[0];
-//When a ship item is clicked, move to the next form.
-new_item.addEventListener("click",function(){
-var chosenShip = [new_item.id,selection_options.chosenFactionElement.id]
-determine_page_exit_after_ship_selection(chosenShip);
-});
-new_item.addEventListener("focus",function(){
-if(selection_options.chosenFactionElement.id == "imperial")
-{
-  ShipElementSet.style.backgroundColor = "darkgray";
-  selection_options.chosenFactionElement.style.backgroundColor = "darkgray";
-  new_item.style.backgroundColor = "darkgray";
-}
-else if(selection_options.chosenFactionElement.id == "rebels")
-{
-  ShipElementSet.style.backgroundColor = "maroon";
-  selection_options.chosenFactionElement.style.backgroundColor ="maroon";
-  new_item.style.backgroundColor = "maroon";
-}
-else if(selection_options.chosenFactionElement.id == "scum")
-{
-  ShipElementSet.style.backgroundColor = "saddlebrown";
-  selection_options.chosenFactionElement.style.backgroundColor ="saddlebrown";
-  new_item.style.backgroundColor = "saddlebrown";
-}
-else
-{
-  console.log("none");
-}  
-});
-new_item.addEventListener("blur", function(){
-new_item.style.backgroundColor="";
-});
-selection_options.ship_box.appendChild(new_item);
-});
+  var faction = selection_options.chosenFactionElement.id;
+  var ship_size = selection_options.chosenShipElement.id;
+  selection_options.current_index_tab = 6;//reset tab index.
+
+  clear_ship_options();
+
+  var ship_ids = [];
+  game_data.all_pilots.forEach(pilot=>{
+    if(pilot.faction.toLowerCase() == faction.toLowerCase() &&
+       pilot.ship_name.ship_type.includes(ship_size) &&
+       ship_ids.includes(pilot.ship_name.id)== false)
+    {
+      ship_ids.push(pilot.ship_name.id);
+    }
+  })
+  display_ships(ship_ids);
+
  }
   function ship_size_click(selection_options, ShipElementSet)
   {
@@ -302,17 +252,34 @@ function clear_ship_options()
 
 function display_ships(ship_ids)
 {
-    var new_current_index_tab = 3;
+    var new_current_index_tab = 0;
     let new_item = undefined;
     let chosen_ships = [];
+    if(sessionStorage.getItem("Ship-Page-Path") == "Freeplay-New Team" ||
+    sessionStorage.getItem("Ship-Page-Path") == "Freeplay-Existing Team" ||
+    sessionStorage.getItem("Ship-Page-Path") =="Freeplay-In Game")
+    {
+      new_current_index_tab = 6;
+      selection_options.current_index_tab = 6;
+    }
+    else if(sessionStorage.getItem("Ship-Page-Path") =="GC- New Team" ||
+    sessionStorage.getItem("Ship-Page-Path") =="GC- Existing Team")
+    {
+      new_current_index_tab = 3;
+    }
+    else
+    {
+      alert("ERROR: Cannot determine interface path.");
+    }
     //This loop will get each ship that needs to be added to a list.
     game_data.ship_list.forEach(ship=>{
         if(ship_ids.includes(ship.id))
         {
           chosen_ships.push(ship);
         }
-    })    
-    
+    }) 
+    chosen_ships = chosen_ships.sort((a,b)=> a.ship_name.toLowerCase().replace(/\s+/g, '').localeCompare(b.ship_name.toLowerCase().replace(/\s+/g, '')));
+
     //This will will create elements and display ships based on the final array lineup.
     chosen_ships.forEach(ship=>{
       new_item = document.createElement('li');
