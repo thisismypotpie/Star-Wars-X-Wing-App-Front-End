@@ -140,6 +140,8 @@ function determine_page_exit_after_back_button_press()
 }
 function faction_click(selection_options)
 {
+        //Remove old list items from ship box if there are any.
+        clear_ship_options();
     for(var j =0; j < selection_options.ship_size_options.length;j++)
     {
       //I needed to add this here because when in an event, the element itself come out as undefined so I needed to tie the element to a variable.
@@ -289,7 +291,7 @@ function display_ships(ship_ids)
       new_current_index_tab++;
       new_item.textContent = ship.ship_name;
       let ship_id_to_send = ship.id;//This was needed in order to have each unique id be sent along.
-      new_item.onclick = ()=>determine_page_exit_after_ship_selection(ship_id_to_send);
+      new_item.onclick = ()=>determine_page_exit_after_ship_selection([ship_id_to_send,selection_options.chosenFactionElement.id]);
       document.getElementById("ship-box").appendChild(new_item);
     })
 }
