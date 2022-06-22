@@ -259,8 +259,6 @@ else
 
 function select_button_click()
 {
-    alert("Going to upgrades page.");
-    return;
 
     //Create a new ship in game dependent on the size of the ship to determine what kind of in-game-ship needs to be delcared.
     if(!display_pilots[selection_index].ship_name.ship_type.toLowerCase().includes("large"))
